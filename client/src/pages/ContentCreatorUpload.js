@@ -67,13 +67,15 @@ const ContentCreatorUpload = () => {
       <div className="row">
         <div className="col-sm-8 offset-sm-2">
           <h1>Kit form blahblah</h1>
-          <form className="form-group">
+          <form>
+              <div className="form-group">
             <input
               type="text"
               name="kitName"
               placeholder="Kit name"
               onChange={handleInputChange}
             />
+            </div>
             <input
               type="text"
               name="kitDescription"
