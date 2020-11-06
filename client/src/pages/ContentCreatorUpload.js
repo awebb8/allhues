@@ -57,38 +57,59 @@ const ContentCreatorUpload = () => {
     }
   };
 
-  const onSubmitReal = (event) => {
-    event.preventDefault();
-    axios.post("/api/kits", kit).then((res) => console.log(res));
-  };
-
   return (
     <div className="container">
       <div className="row">
-        <div className="col-sm-8 offset-sm-2">
-          <h1>Kit form blahblah</h1>
+        <div className="col-sm-6 offset-sm-3">
+          <h1>Create a Kit</h1>
           <form>
-              <div className="form-group">
-            <input
-              type="text"
-              name="kitName"
-              placeholder="Kit name"
-              onChange={handleInputChange}
-            />
+            <div className="form-group">
+              <label htmlFor="kitNameInput">Kit Name</label>
+              <input
+                type="text"
+                id="kitNameInput"
+                className="form-control"
+                name="kitName"
+                placeholder="Give your kit a name!"
+                onChange={handleInputChange}
+              />
             </div>
-            <input
-              type="text"
-              name="kitDescription"
-              placeholder="Kit Description"
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              name="kitItems"
-              placeholder="Affiliate Link"
-              //   onChange={handleInputChange}
-            />
-            <input type="file" name="image" onChange={onChange} />
+            <div className="form-group">
+              <label htmlFor="kitDescriptionInput">Kit Description</label>
+              <textarea
+                id="kitDescriptionInput"
+                className="form-control"
+                name="kitDescription"
+                placeholder="Provide a brief description of your kit.."
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="kitItemsInput">Kit Items</label>
+              <input
+                type="text"
+                id="kitItemsInput"
+                className="form-control"
+                name="kitItems"
+                placeholder="Affiliate Link"
+                //   onChange={handleInputChange}
+              />
+            </div>
+            <div className="input-group mb-3">
+              <div class="custom-file">
+                <input
+                  type="file"
+                  id="kitImageInput"
+                  className="custom-file-input"
+                  name="image"
+                  onChange={onChange}
+                  accept="image/*"
+                />
+                <label class="custom-file-label" htmlFor="kitImageInput">
+                  {image.name === undefined || image.name === "" ? "Choose file" : image.name}
+                </label>
+              </div>
+            </div>
             <button
               className="btn btn-primary"
               type="submit"
