@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const contentCreator = new Schema({
+const contentCreatorSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -23,6 +23,6 @@ const contentCreator = new Schema({
   },
 );
 
-const contentCreator = mongoose.model("contentCreator", contentCreator);
+const contentCreator = mongoose.model("contentCreator", contentCreatorSchema);
 
-module.exports = contentCreator
+module.exports = contentCreator;
