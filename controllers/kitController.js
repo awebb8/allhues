@@ -56,4 +56,10 @@ router.delete("/api/kits/:id", (req, res) => {
   });
 });
 
+router.put("/api/kits/:id", (req, res) => {
+  db.Kit.findByIdAndUpdate(req.params.id).then((kit) => {
+    res.json(kit);
+  });
+});
+
 module.exports = router;
