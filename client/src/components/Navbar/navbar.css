@@ -1,0 +1,10 @@
+/* Navbar */
+nav {
+    background-color: #bf9d9c;
+}
+
+nav li {
+    display: inline;
+    padding-right: 30px;
+    color: white!important;
+}
