@@ -14,6 +14,9 @@ const KitSchema = new Schema({
   creatorId: {
     type: Number,
   },
+  imageUrl: {
+    type: String
+  },
   kitItems: [
     // {
     //   type: Schema.Types.ObjectId,
