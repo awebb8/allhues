@@ -2,7 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
-
+const kitsItemsController = require("./controllers/kitItemsController");
+const kitsController = require("./controllers/kitController");
 const PORT = process.env.PORT || 3001;
 
 const app = express();
@@ -32,6 +33,8 @@ app.get("/api/config", (req, res) => {
     success: true,
   });
 });
+app.use(kitsItemsController);
+app.use(kitsController);
 
 app.use(express.static("client/build"));
 app.get("*", (req, res) => {
