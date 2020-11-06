@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
-const kitsItemsController = require("./controllers/kitItemsController");
+// const kitsItemsController = require("./controllers/kitItemsController");
 const kitsController = require("./controllers/kitController");
 const PORT = process.env.PORT || 3001;
 
@@ -11,7 +11,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use('/api/contentCreators', require('./routes/api/contentCreators'));
+app.use("/api/contentCreators", require("./routes/api/contentCreators"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/allHuesDb", {
   useNewUrlParser: true,
@@ -35,7 +35,7 @@ app.get("/api/config", (req, res) => {
     success: true,
   });
 });
-app.use(kitsItemsController);
+// app.use(kitsItemsController);
 app.use(kitsController);
 
 app.use(express.static("client/build"));

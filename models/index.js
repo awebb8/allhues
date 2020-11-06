@@ -1,4 +1,4 @@
 module.exports = {
   Kit: require("./Kit"),
-  // KitItems: require("./KitItems"),
+  ContentCreator: require("./contentCreator"),
 };
