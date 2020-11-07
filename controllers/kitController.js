@@ -37,7 +37,7 @@ router.post("/api/kits", ({ body }, res) => {
   db.Kit.create(body)
     .then((item) =>
       db.ContentCreator.findOneAndUpdate(
-        { _id: "5fa59e42442e847c7ae34ae2" },
+        { _id: "5fa6394a9d98d4002ae89fd2" },
         { $push: { kits: item._id } },
         { new: true }
       )
@@ -56,6 +56,7 @@ router.delete("/api/kits/:id", (req, res) => {
   });
 });
 
+//TODO: haven't tested this yet and i dont think it works
 router.put("/api/kits/:id", (req, res) => {
   db.Kit.findByIdAndUpdate(req.params.id).then((kit) => {
     res.json(kit);

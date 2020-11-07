@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import API from "../utils/API";
 
 const ContentCreatorUpload = () => {
   const [image, setImage] = useState("");
@@ -14,7 +15,8 @@ const ContentCreatorUpload = () => {
 
   useEffect(() => {
     if (kit.imageUrl) {
-      axios.post("/api/kits", kit);
+      // axios.post("/api/kits", kit);
+      API.postKit(kit);
     }
   }, [kit]);
 
@@ -106,7 +108,9 @@ const ContentCreatorUpload = () => {
                   accept="image/*"
                 />
                 <label class="custom-file-label" htmlFor="kitImageInput">
-                  {image.name === undefined || image.name === "" ? "Choose file" : image.name}
+                  {image.name === undefined || image.name === ""
+                    ? "Choose file"
+                    : image.name}
                 </label>
               </div>
             </div>
