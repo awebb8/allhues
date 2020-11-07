@@ -35,6 +35,7 @@ router.post("/register", async (req, res) => {
     const savedUser = await newUser.save();
     if (!savedUser) throw Error("Something went wrong saving the user");
 
+    //TODO: FIXME: need to hide the secret key in a dotenv or config file
     const token = jwt.sign({ id: savedUser._id }, "sneakysecret", {
       expiresIn: 3600,
     });
