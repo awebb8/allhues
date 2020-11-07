@@ -49,40 +49,17 @@ router.post("/api/kits", ({ body }, res) => {
       res.status(400).json(err);
     });
 });
-// app.post("/submit", ({ body }, res) => {
-//     db.Note.create(body)
-//       .then(({ _id }) => db.User.findOneAndUpdate({}, { $push: { notes: _id } }, { new: true }))
-//       .then(dbUser => {
-//         res.json(dbUser);
-//       })
-//       .catch(err => {
-//         res.json(err);
-//       });
-//   });
 
-// router.put("/api/kititems", (req, res) => {
-//   db.KitItems.findByIdAndUpdate();
-// });
+router.delete("/api/kits/:id", (req, res) => {
+  db.Kit.findByIdAndDelete(req.params.id).then((kit) => {
+    res.json(kit);
+  });
+});
 
-// router.post("/api/transaction/bulk", ({ body }, res) => {
-//   Transaction.insertMany(body)
-//     .then((dbTransaction) => {
-//       res.json(dbTransaction);
-//     })
-//     .catch((err) => {
-//       res.status(400).json(err);
-//     });
-// });
-
-// router.get("/api/transaction", (req, res) => {
-//   Transaction.find({})
-//     .sort({ date: -1 })
-//     .then((dbTransaction) => {
-//       res.json(dbTransaction);
-//     })
-//     .catch((err) => {
-//       res.status(400).json(err);
-//     });
-// });
+router.put("/api/kits/:id", (req, res) => {
+  db.Kit.findByIdAndUpdate(req.params.id).then((kit) => {
+    res.json(kit);
+  });
+});
 
 module.exports = router;
