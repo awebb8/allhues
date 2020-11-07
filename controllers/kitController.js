@@ -37,7 +37,7 @@ router.post("/api/kits", ({ body }, res) => {
   db.Kit.create(body)
     .then((item) =>
       db.ContentCreator.findOneAndUpdate(
-        { _id: "5fa584684db33448e8333809" },
+        { _id: "5fa59e42442e847c7ae34ae2" },
         { $push: { kits: item._id } },
         { new: true }
       )
