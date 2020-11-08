@@ -8,6 +8,7 @@ import ConsumerViewAll from "./pages/ConsumerViewAll";
 import ConsumerViewOne from "./pages/ConsumerViewOne";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import Signup from "./components/Authentication/Signup";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route exact path="/portal" component={ContentCreatorPortal}></Route>
           <Route exact path="/viewall" component={ConsumerViewAll}></Route>
           <Route exact path="/viewone" component={ConsumerViewOne}></Route>
+          <Route exact path="/signup" component={Signup}></Route>
         </Switch>
         <Footer />
       </Router> 
