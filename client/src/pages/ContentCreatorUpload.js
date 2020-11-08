@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import API from "../utils/API";
+import AuthContext from "../utils/AuthContext";
 
 const ContentCreatorUpload = () => {
   const [image, setImage] = useState("");
+  const { jwt } = useContext(AuthContext);
   const [kit, setKit] = useState({
     kitName: "",
     kitDescription: "",
@@ -58,6 +60,16 @@ const ContentCreatorUpload = () => {
       console.error(err);
     }
   };
+
+  {
+    if (jwt === "") {
+      return (
+        <h1 style={{ textAlign: "center", margin: "auto" }}>
+          Sorry, you've got to log in to see this page!
+        </h1>
+      );
+    }
+  }
 
   return (
     <div className="container">

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import MultiKit from "../components/MultiKit/MultiKit";
 // import axios from "axios";
 import API from "../utils/API";
+import AuthContext from "../utils/AuthContext";
 
 const ConsumerViewAll = () => {
   const [kits, setKits] = useState([]);
+  const { jwt } = useContext(AuthContext);
   //Makes an api call to get all saved image urls so we can show em all
   useEffect(() => {
     API.getKits().then((res) => {
@@ -14,6 +16,15 @@ const ConsumerViewAll = () => {
       }
     });
   }, []);
+  {
+    if (jwt === "") {
+      return (
+        <h1 style={{ textAlign: "center", margin: "auto" }}>
+          Sorry, you've got log in to see this page!
+        </h1>
+      );
+    }
+  }
   return (
     <div>
       <h1>Consumer Views All images here</h1>

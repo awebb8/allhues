@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const db = require("../models");
+const auth = require("../middleware/auth");
 
 router.get("/api/kits", (req, res) => {
   db.Kit.find({})
@@ -12,6 +13,7 @@ router.get("/api/kits", (req, res) => {
     });
 });
 
+//FIXME: beware until frontend is tied you cant go here unless you delete 'auth'
 router.get("/api/users", (req, res) => {
   db.ContentCreator.find({})
     .populate("kits")
