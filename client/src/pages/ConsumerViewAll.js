@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MultiKit from "../components/MultiKit/MultiKit";
-import axios from "axios";
+// import axios from "axios";
 import API from "../utils/API";
 
 const ConsumerViewAll = () => {
