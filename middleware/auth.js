@@ -1,9 +1,11 @@
-import jwt from "jsonwebtoken";
-import config from "../config";
+// import jwt from "jsonwebtoken";
+const jwt = require("jsonwebtoken");
+// import config from "../config";
 
-const { JWT_SECRET } = config;
+// const { JWT_SECRET } = config;
+const JWT_SECRET = "sneakysecret";
 
-export default (req, res, next) => {
+module.exports = (req, res, next) => {
   const token = req.header("x-auth-token");
 
   // Check for token

@@ -86,4 +86,7 @@ router.post("/login", async (req, res) => {
     res.status(400).json({ msg: e.message });
   }
 });
+
+// router.get("/logout",)
+
 module.exports = router;
