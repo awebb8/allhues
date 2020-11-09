@@ -36,7 +36,7 @@ router.post("/register", async (req, res) => {
     if (!savedUser) throw Error("Something went wrong saving the user");
 
     //TODO: FIXME: need to hide the secret key in a dotenv or config file
-    const token = jwt.sign({ id: savedUser._id }, "sneakysecret", {
+    const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET, {
       expiresIn: 3600,
     });
 
@@ -69,7 +69,7 @@ router.post("/login", async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) throw Error("Invalid credentials");
 
-    const token = jwt.sign({ id: user._id }, "sneakysecret", {
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: 3600,
     });
     if (!token) throw Error("Couldnt sign the token");

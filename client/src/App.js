@@ -26,7 +26,7 @@ function App() {
     if (localJwt) {
       setJwt(localJwt);
       try {
-        const decoded = JsonWebToken.decode(localJwt, "sneakysecret");
+        const decoded = JsonWebToken.decode(localJwt, process.env.JWT_SECRET);
         // console.log(decoded);
         setId(decoded.id);
       } catch (e) {
