@@ -13,9 +13,21 @@ import Footer from "./components/Footer/Footer";
 import Signup from "./components/Authentication/Signup";
 import Login from "./components/Authentication/Login";
 import Axios from "axios";
+import { setAxiosDefault } from "./utils/axiosDefaults";
 
 function App() {
   const [jwt, setJwt] = useState("");
+
+  useEffect(() => {
+    const localJwt = localStorage.getItem("token");
+  }, []);
+
+  useEffect(() => {
+    if (jwt) {
+      setAxiosDefault(jwt);
+      localStorage.setItem("token", jwt);
+    }
+  }, [jwt]);
 
   // useEffect(() => {
   //   Axios.get("/api/users").then((res) => {
