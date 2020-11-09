@@ -38,7 +38,7 @@ const ContentCreatorUpload = () => {
       API.postKit(id, kit);
       alert("Your kit has been posted!");
     }
-  }, [kit]);
+  }, [kit, id]);
 
   // Event listener functions
   const onChange = (e) => {
@@ -149,6 +149,7 @@ const ContentCreatorUpload = () => {
                 name="kitName"
                 placeholder="Give your kit a name!"
                 onChange={handleInputChange}
+                required
               />
             </div>
             <div className="form-group">
@@ -186,7 +187,7 @@ const ContentCreatorUpload = () => {
                 <div className="input-group-append">
                   <button
                     className="btn btn-outline-secondary"
-                    type="button"
+                    type="submit"
                     onClick={handleAddKitItem}
                     disabled={!kitItemLink}
                   >
@@ -198,8 +199,10 @@ const ContentCreatorUpload = () => {
 
             <button
               className="btn btn-secondary"
-              type="submit"
+              type="button"
               onClick={onSubmit}
+              disabled={!image}
+              style={{marginBottom:'100px'}}
             >
               Post your look!
             </button>
