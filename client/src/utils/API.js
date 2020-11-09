@@ -4,11 +4,7 @@ import axios from "axios";
 // const preset = "askckkso";
 export default {
   getKits: function () {
-    return axios.get("/api/kits", {
-      headers: {
-        "x-auth-token": localStorage.getItem("token"),
-      },
-    });
+    return axios.get("/api/kits");
   },
   postKit: function (id, kit) {
     return axios.post(`/api/kits/${id}`, kit);
