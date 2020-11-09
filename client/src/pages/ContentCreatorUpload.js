@@ -3,6 +3,7 @@ import axios from "axios";
 import AddedAffiliateLink from "../components/AddedAffiliateLink/AddedAffiliateLink";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
+import UserContext from "../utils/UserContext";
 
 const styles = {
   imageUploadContainer: {
@@ -21,6 +22,7 @@ const ContentCreatorUpload = () => {
   // States
   const [image, setImage] = useState("");
   const { jwt } = useContext(AuthContext);
+  const { id } = useContext(UserContext);
   const [kit, setKit] = useState({
     kitName: "",
     kitDescription: "",
@@ -70,6 +72,8 @@ const ContentCreatorUpload = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+
+    API.getUser().then(res => console.log(res.data));
 
     const formData = new FormData();
     formData.append("file", image);

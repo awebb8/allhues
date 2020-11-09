@@ -2,7 +2,7 @@ const router = require("express").Router();
 const db = require("../models");
 const auth = require("../middleware/auth");
 
-router.get("/api/kits", (req, res) => {
+router.get("/api/kits", auth, (req, res) => {
   db.Kit.find({})
     .populate("kits")
     .then((found) => {

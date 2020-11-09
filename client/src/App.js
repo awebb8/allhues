@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import AuthContext from "./utils/AuthContext";
+import UserContext from "./utils/UserContext";
 import Home from "./pages/Home";
 import ContentCreatorUpload from "./pages/ContentCreatorUpload";
 import ContentCreatorPortal from "./pages/ContentCreatorPortal";
@@ -17,9 +18,13 @@ import { setAxiosDefault } from "./utils/axiosDefaults";
 
 function App() {
   const [jwt, setJwt] = useState("");
+  const [id, setId] = useState("");
 
   useEffect(() => {
     const localJwt = localStorage.getItem("token");
+    if (localJwt) {
+      setJwt(localJwt);
+    }
   }, []);
 
   useEffect(() => {
@@ -37,27 +42,29 @@ function App() {
   return (
     <div>
       <AuthContext.Provider value={{ jwt, setJwt }}>
-        <Router>
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={Home}></Route>
-            <Route
-              exact
-              path="/upload"
-              component={ContentCreatorUpload}
-            ></Route>
-            <Route
-              exact
-              path="/portal"
-              component={ContentCreatorPortal}
-            ></Route>
-            <Route exact path="/viewall" component={ConsumerViewAll}></Route>
-            <Route exact path="/viewone" component={ConsumerViewOne}></Route>
-            <Route exact path="/signup" component={Signup}></Route>
-            <Route exact path="/login" component={Login}></Route>
-          </Switch>
-          <Footer />
-        </Router>
+        <UserContext.Provider value={{ id, setId }}>
+          <Router>
+            <Navbar />
+            <Switch>
+              <Route exact path="/" component={Home}></Route>
+              <Route
+                exact
+                path="/upload"
+                component={ContentCreatorUpload}
+              ></Route>
+              <Route
+                exact
+                path="/portal"
+                component={ContentCreatorPortal}
+              ></Route>
+              <Route exact path="/viewall" component={ConsumerViewAll}></Route>
+              <Route exact path="/viewone" component={ConsumerViewOne}></Route>
+              <Route exact path="/signup" component={Signup}></Route>
+              <Route exact path="/login" component={Login}></Route>
+            </Switch>
+            <Footer />
+          </Router>
+        </UserContext.Provider>
       </AuthContext.Provider>
     </div>
   );
