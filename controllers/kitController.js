@@ -35,6 +35,13 @@ router.get("/api/users", (req, res) => {
     });
 });
 
+router.delete("/api/kits/:id", (req, res) => {
+  let id = req.params.id;
+  db.Kit.findByIdAndDelete(id).then((deletedUser) => {
+    res.json(deletedUser);
+  });
+});
+
 router.post("/api/users", ({ body }, res) => {
   db.ContentCreator.create(body)
     .then((person) => {
