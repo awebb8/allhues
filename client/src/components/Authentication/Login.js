@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from "react";
 import Modal from "react-modal";
 import AuthContext from "../../utils/AuthContext";
 import { useHistory } from "react-router-dom";
+import "./auth.css";
 Modal.setAppElement("#root");
 
 const Login = () => {
@@ -52,6 +53,17 @@ const Login = () => {
           },
           content: {
             color: "#46483b",
+            top: '40px',
+            left: '40px',
+            right: '40px',
+            bottom: '40px',
+            border: '1px solid #46483b',
+            background: '#fff',
+            overflow: 'auto',
+            WebkitOverflowScrolling: 'touch',
+            borderRadius: '10px',
+            outline: 'none',
+            padding: '50px'
           },
         }}
       >
@@ -79,14 +91,14 @@ const Login = () => {
             />
           </div>
           <button
-            type="submit"
+             className="buttons" type="submit"
             onClick={(e) => {
               handleLoginSubmit(e, email, password);
             }}
           >
             Submit
           </button>
-          <button onClick={handleCloseBtnClick}>Close</button>
+          <button className="buttons" onClick={handleCloseBtnClick}>Close</button>
         </form>
       </Modal>
     </div>

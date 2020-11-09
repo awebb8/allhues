@@ -75,7 +75,7 @@ const ContentCreatorUpload = () => {
     <div className="container">
       <div className="row">
         <div className="col-sm-6 offset-sm-3">
-          <h1>Create a Kit</h1>
+          <h2>Create a Kit</h2>
           <form>
             <div className="form-group">
               <label htmlFor="kitNameInput">Kit Name</label>
@@ -127,7 +127,7 @@ const ContentCreatorUpload = () => {
               </div>
             </div>
             <button
-              className="btn btn-primary"
+              className="buttons"
               type="submit"
               onClick={onSubmit}
             >
