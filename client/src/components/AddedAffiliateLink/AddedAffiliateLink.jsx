@@ -1,4 +1,7 @@
-export default function AddedAffiliateLink({ affiliateLink }) {
+import React from 'react';
+
+const AddedAffiliateLink = ({ affiliateLink, removeKitItem, id }) => {
+
   return (
     <div className="input-group mb-3">
       <input
@@ -9,10 +12,12 @@ export default function AddedAffiliateLink({ affiliateLink }) {
         disabled
       />
       <div className="input-group-append">
-        <button className="btn btn-outline-secondary" type="button">
+        <button className="btn btn-outline-secondary" type="button" onClick={removeKitItem} id={id}>
           Remove
         </button>
       </div>
     </div>
   );
-}
+};
+
+export default AddedAffiliateLink;

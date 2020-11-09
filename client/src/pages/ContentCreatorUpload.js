@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import AddedAffiliateLink from '../components/AddedAffiliateLink/AddedAffiliateLink';
+import AddedAffiliateLink from "../components/AddedAffiliateLink/AddedAffiliateLink";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
 
@@ -29,7 +29,6 @@ const ContentCreatorUpload = () => {
   });
   const [kitItemLink, setKitItemLink] = useState("");
 
-
   // useEffect
   useEffect(() => {
     if (kit.imageUrl) {
@@ -37,7 +36,6 @@ const ContentCreatorUpload = () => {
       API.postKit(kit);
     }
   }, [kit]);
-
 
   // Event listener functions
   const onChange = (e) => {
@@ -52,16 +50,20 @@ const ContentCreatorUpload = () => {
   const handleInputLinkChange = (event) => {
     const { value } = event.target;
     setKitItemLink(value);
-  }
+  };
 
   const handleAddKitItem = () => {
-    setKit({...kit, kitItems: [...kit.kitItems, {affiliateLink: kitItemLink}] });
-    setKitItemLink('');
-  }
+    setKit({
+      ...kit,
+      kitItems: [...kit.kitItems, { affiliateLink: kitItemLink }],
+    });
+    setKitItemLink("");
+  };
 
-  const removeKitItem = () => {
+  const removeKitItem = (event) => {
+    setKit({...kit, kitItems: kit.kitItems.filter(kitItem => kitItem.affiliateLink !== event.target.id.substring(2)) });
+  };
 
-  }
 
   const url = "https://api.cloudinary.com/v1_1/dsi7lpcmx/image/upload";
   const preset = "askckkso";
@@ -151,7 +153,14 @@ const ContentCreatorUpload = () => {
             <div className="form-group">
               <label htmlFor="kitItemsInput">Kit Items</label>
 
-                {kit.kitItems.map((kitItem, index) => (<AddedAffiliateLink key={index} affiliateLink={kitItem.affiliateLink} />))}
+              {kit.kitItems.map((kitItem, index) => (
+                <AddedAffiliateLink
+                  key={index}
+                  affiliateLink={kitItem.affiliateLink}
+                  removeKitItem={removeKitItem}
+                  id={`${index}-${kitItem.affiliateLink}`}
+                />
+              ))}
 
               <div className="input-group mb-3">
                 <input
@@ -177,7 +186,6 @@ const ContentCreatorUpload = () => {
                     : image.name}
                 </label> */}
               </div>
-
             </div>
 
             <button
