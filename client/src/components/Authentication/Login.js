@@ -27,16 +27,13 @@ const Login = () => {
 
   const handleLoginSubmit = (e, email, password) => {
     e.preventDefault();
-    // let data = {
-    //   email
-    //   password
-    // };
+
     Axios.post("/login", { email, password }).then((res) => {
       console.log(res.data);
       setJwt(res.data.token);
-      // setJwt(res.data.user.id);
       setId(res.data.user.id);
       localStorage.setItem("token", res.data.token);
+      history.push("/");
     });
   };
 
