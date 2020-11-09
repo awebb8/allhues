@@ -2,10 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
+import UserContext from "../utils/UserContext";
 
 const ContentCreatorUpload = () => {
   const [image, setImage] = useState("");
   const { jwt } = useContext(AuthContext);
+  const { id } = useContext(UserContext);
   const [kit, setKit] = useState({
     kitName: "",
     kitDescription: "",
@@ -126,11 +128,7 @@ const ContentCreatorUpload = () => {
                 </label>
               </div>
             </div>
-            <button
-              className="buttons"
-              type="submit"
-              onClick={onSubmit}
-            >
+            <button className="buttons" type="submit" onClick={onSubmit}>
               Post your kit!
             </button>
           </form>
