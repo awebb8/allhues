@@ -1,6 +1,15 @@
 /* Navbar */
 nav {
-    background-color: #bf9d9c;
+    background-color: #dbcbbe;
+}
+
+a {
+    color: #46483b;
+}
+
+a:hover {
+    color: #4181ad;
+    text-decoration: none;
 }
 
 nav li {

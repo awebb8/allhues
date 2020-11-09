@@ -1,0 +1,20 @@
+.main-image {
+    background:  linear-gradient(rgba(249, 247, 247, 0.589), rgba(255, 255, 255, 0.536)), url(https://images.pexels.com/photos/2132227/pexels-photo-2132227.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    padding: 30px;
+    position: relative;
+    background-attachment: fixed;
+}
+
+.jumbotron {
+    color: black;
+    text-align: center;
+}
+
+.title {
+    font-family: 'Clicker Script', cursive;
+    font-size: 120px;
+}
