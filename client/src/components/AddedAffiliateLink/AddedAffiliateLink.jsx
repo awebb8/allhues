@@ -1,11 +1,11 @@
-export default function AddedAffiliateLink(props) {
+export default function AddedAffiliateLink({ affiliateLink }) {
   return (
     <div className="input-group mb-3">
       <input
         type="text"
         className="form-control"
         id="kitItemsInput"
-        value="https://example.com"
+        value={affiliateLink}
         disabled
       />
       <div className="input-group-append">

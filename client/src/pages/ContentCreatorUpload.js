@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import AddedAffiliateLink from '../components/AddedAffiliateLink/AddedAffiliateLink';
+import API from "../utils/API";
+import AuthContext from "../utils/AuthContext";
 
 const styles = {
   imageUploadContainer: {
@@ -18,6 +20,7 @@ const styles = {
 const ContentCreatorUpload = () => {
   // States
   const [image, setImage] = useState("");
+  const { jwt } = useContext(AuthContext);
   const [kit, setKit] = useState({
     kitName: "",
     kitDescription: "",
@@ -30,7 +33,8 @@ const ContentCreatorUpload = () => {
   // useEffect
   useEffect(() => {
     if (kit.imageUrl) {
-      axios.post("/api/kits", kit);
+      // axios.post("/api/kits", kit);
+      API.postKit(kit);
     }
   }, [kit]);
 
@@ -51,7 +55,12 @@ const ContentCreatorUpload = () => {
   }
 
   const handleAddKitItem = () => {
-    setKit({...kit, kitItems: [...kit.kitItems, kitItemLink] });
+    setKit({...kit, kitItems: [...kit.kitItems, {affiliateLink: kitItemLink}] });
+    setKitItemLink('');
+  }
+
+  const removeKitItem = () => {
+
   }
 
   const url = "https://api.cloudinary.com/v1_1/dsi7lpcmx/image/upload";
@@ -74,7 +83,16 @@ const ContentCreatorUpload = () => {
     }
   };
 
-  // Render
+  {
+    if (localStorage.getItem("token") == null) {
+      return (
+        <h1 style={{ textAlign: "center", margin: "auto" }}>
+          Sorry, you've got to log in to see this page!
+        </h1>
+      );
+    }
+  }
+
   return (
     <div className="container">
       <div className="row">
@@ -133,7 +151,7 @@ const ContentCreatorUpload = () => {
             <div className="form-group">
               <label htmlFor="kitItemsInput">Kit Items</label>
 
-                <AddedAffiliateLink />
+                {kit.kitItems.map((kitItem, index) => (<AddedAffiliateLink key={index} affiliateLink={kitItem.affiliateLink} />))}
 
               <div className="input-group mb-3">
                 <input
@@ -141,6 +159,7 @@ const ContentCreatorUpload = () => {
                   className="form-control"
                   placeholder="Url to product"
                   id="kitItemsInput"
+                  value={kitItemLink}
                   onChange={handleInputLinkChange}
                 />
                 <div className="input-group-append">
@@ -152,6 +171,11 @@ const ContentCreatorUpload = () => {
                     Add link
                   </button>
                 </div>
+                {/* <label class="custom-file-label" htmlFor="kitImageInput">
+                  {image.name === undefined || image.name === ""
+                    ? "Choose file"
+                    : image.name}
+                </label> */}
               </div>
 
             </div>

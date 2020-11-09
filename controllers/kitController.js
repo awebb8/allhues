@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const db = require("../models");
+const auth = require("../middleware/auth");
 
 router.get("/api/kits", (req, res) => {
   db.Kit.find({})
@@ -12,6 +13,7 @@ router.get("/api/kits", (req, res) => {
     });
 });
 
+//FIXME: beware until frontend is tied you cant go here unless you delete 'auth'
 router.get("/api/users", (req, res) => {
   db.ContentCreator.find({})
     .populate("kits")
@@ -37,7 +39,7 @@ router.post("/api/kits", ({ body }, res) => {
   db.Kit.create(body)
     .then((item) =>
       db.ContentCreator.findOneAndUpdate(
-        { _id: "5fa59e42442e847c7ae34ae2" },
+        { _id: "5fa873d24decc11a5c1c6a32" },
         { $push: { kits: item._id } },
         { new: true }
       )
@@ -56,6 +58,7 @@ router.delete("/api/kits/:id", (req, res) => {
   });
 });
 
+//TODO: haven't tested this yet and i dont think it works
 router.put("/api/kits/:id", (req, res) => {
   db.Kit.findByIdAndUpdate(req.params.id).then((kit) => {
     res.json(kit);
