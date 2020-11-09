@@ -2,11 +2,13 @@ import Axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
 import SingleKit from "../components/SingleKit/SingleKit";
 import AuthContext from "../utils/AuthContext";
+import UserContext from "../utils/UserContext";
 
 const ContentCreatorPortal = () => {
   const [yourKits, setYourKits] = useState([]);
   const [kits, setKits] = useState([]);
   const { setJwt, jwt } = useContext(AuthContext);
+  const { id, setId } = useContext(UserContext);
   //   const [user,setUser]=useState({})
   // const
   useEffect(() => {

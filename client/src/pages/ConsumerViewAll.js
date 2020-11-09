@@ -16,15 +16,16 @@ const ConsumerViewAll = () => {
       }
     });
   }, []);
-  {
-    if (localStorage.getItem("token") == null) {
-      return (
-        <h1 style={{ textAlign: "center", margin: "auto" }}>
-          Sorry, you've got log in to see this page!
-        </h1>
-      );
-    }
-  }
+
+  // {
+  //   if (localStorage.getItem("token") == null) {
+  //     return (
+  //       <h1 style={{ textAlign: "center", margin: "auto" }}>
+  //         Sorry, you've got log in to see this page!
+  //       </h1>
+  //     );
+  //   }
+  // }
   return (
     <div>
       <h1>Consumer Views All images here</h1>

@@ -2,6 +2,7 @@ import Axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import Modal from "react-modal";
 import AuthContext from "../../utils/AuthContext";
+import UserContext from "../../utils/UserContext";
 import { useHistory } from "react-router-dom";
 import "./auth.css";
 Modal.setAppElement("#root");
@@ -11,6 +12,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { jwt, setJwt } = useContext(AuthContext);
+  const { id, setId } = useContext(UserContext);
   const history = useHistory();
 
   //   const [user, setUserState] = useState({});
@@ -30,8 +32,10 @@ const Login = () => {
     //   password
     // };
     Axios.post("/login", { email, password }).then((res) => {
-      console.log(res.data.token);
-      //   setJwt(res.data.token);
+      console.log(res.data);
+      setJwt(res.data.token);
+      // setJwt(res.data.user.id);
+      setId(res.data.user.id);
       localStorage.setItem("token", res.data.token);
     });
   };
@@ -53,17 +57,17 @@ const Login = () => {
           },
           content: {
             color: "#46483b",
-            top: '40px',
-            left: '40px',
-            right: '40px',
-            bottom: '40px',
-            border: '1px solid #46483b',
-            background: '#fff',
-            overflow: 'auto',
-            WebkitOverflowScrolling: 'touch',
-            borderRadius: '10px',
-            outline: 'none',
-            padding: '50px'
+            top: "40px",
+            left: "40px",
+            right: "40px",
+            bottom: "40px",
+            border: "1px solid #46483b",
+            background: "#fff",
+            overflow: "auto",
+            WebkitOverflowScrolling: "touch",
+            borderRadius: "10px",
+            outline: "none",
+            padding: "50px",
           },
         }}
       >
@@ -91,14 +95,17 @@ const Login = () => {
             />
           </div>
           <button
-             className="buttons" type="submit"
+            className="buttons"
+            type="submit"
             onClick={(e) => {
               handleLoginSubmit(e, email, password);
             }}
           >
             Submit
           </button>
-          <button className="buttons" onClick={handleCloseBtnClick}>Close</button>
+          <button className="buttons" onClick={handleCloseBtnClick}>
+            Close
+          </button>
         </form>
       </Modal>
     </div>
