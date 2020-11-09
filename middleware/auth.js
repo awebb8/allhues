@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 // import config from "../config";
 
 // const { JWT_SECRET } = config;
-const JWT_SECRET = "sneakysecret";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 module.exports = (req, res, next) => {
   const token = req.header("x-auth-token");

@@ -114,7 +114,7 @@ const Navbar = () => {
           </li>
           <li className="nav-item">
             <div className="nav-link">
-                <Logout />
+              <Logout />
             </div>
           </li>
           {/* <li className="nav-item">
