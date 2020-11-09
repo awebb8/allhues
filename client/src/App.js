@@ -14,7 +14,8 @@ import Footer from "./components/Footer/Footer";
 import Signup from "./components/Authentication/Signup";
 import Login from "./components/Authentication/Login";
 import Axios from "axios";
-// import { setAxiosDefault } from "./utils/axiosDefaults";
+import JsonWebToken from "jsonwebtoken";
+import { setAxiosDefault } from "./utils/axiosDefaults";
 
 function App() {
   const [jwt, setJwt] = useState("");
@@ -24,12 +25,19 @@ function App() {
     const localJwt = localStorage.getItem("token");
     if (localJwt) {
       setJwt(localJwt);
+      try {
+        const decoded = JsonWebToken.decode(localJwt, "sneakysecret");
+        // console.log(decoded);
+        setId(decoded.id);
+      } catch (e) {
+        console.log(e);
+      }
     }
   }, []);
 
   useEffect(() => {
     if (jwt) {
-      // setAxiosDefault(jwt);
+      setAxiosDefault(jwt);
       localStorage.setItem("token", jwt);
     }
   }, [jwt]);

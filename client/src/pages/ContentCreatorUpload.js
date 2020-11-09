@@ -53,6 +53,8 @@ const ContentCreatorUpload = () => {
     formData.append("upload_preset", preset);
     try {
       // setLoading(true);
+      // TODO: Note that we deleted the custom header cuz 3rd party api
+      delete axios.defaults.headers["x-auth-token"];
       const res = await axios.post(url, formData);
       const imageUrl = res.data.secure_url;
       console.log(imageUrl);
