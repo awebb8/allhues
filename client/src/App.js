@@ -15,7 +15,7 @@ import Signup from "./components/Authentication/Signup";
 import Login from "./components/Authentication/Login";
 import Axios from "axios";
 import JsonWebToken from "jsonwebtoken";
-import { setAxiosDefault } from "./utils/axiosDefaults";
+// import { setAxiosDefault } from "./utils/axiosDefaults";
 
 function App() {
   const [jwt, setJwt] = useState("");
@@ -37,7 +37,7 @@ function App() {
 
   useEffect(() => {
     if (jwt) {
-      setAxiosDefault(jwt);
+      // setAxiosDefault(jwt);
       localStorage.setItem("token", jwt);
     }
   }, [jwt]);
