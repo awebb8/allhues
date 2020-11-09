@@ -11,9 +11,17 @@ import ConsumerViewOne from "./pages/ConsumerViewOne";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Signup from "./components/Authentication/Signup";
+import Login from "./components/Authentication/Login";
+import Axios from "axios";
 
 function App() {
   const [jwt, setJwt] = useState("");
+
+  // useEffect(() => {
+  //   Axios.get("/api/users").then((res) => {
+  //     console.log(res.data);
+  //   });
+  // });
   return (
     <div>
       <AuthContext.Provider value={{ jwt, setJwt }}>
@@ -34,6 +42,7 @@ function App() {
             <Route exact path="/viewall" component={ConsumerViewAll}></Route>
             <Route exact path="/viewone" component={ConsumerViewOne}></Route>
             <Route exact path="/signup" component={Signup}></Route>
+            <Route exact path="/login" component={Login}></Route>
           </Switch>
           <Footer />
         </Router>

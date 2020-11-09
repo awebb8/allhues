@@ -1,21 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 import AuthContext from "../../utils/AuthContext";
 import Logout from "../Authentication/Logout";
 
 const Navbar = () => {
+  const [state, setState] = useState({
+    token: "",
+  });
   const { jwt, setJwt } = useContext(AuthContext);
 
-  const determineIfTokenInStorage = () => {
-    if (localStorage.getItem("token")) {
-      setJwt(localStorage.getItem("token"));
-    }
-  };
-  determineIfTokenInStorage();
+  //   const determineIfTokenInStorage = () => {
+  //     if (localStorage.getItem("token")) {
+  //       setState({ token: localStorage.getItem("token") });
+  //     }
+  //   };
+  //   determineIfTokenInStorage();
 
   {
-    if (jwt === "") {
+    if (localStorage.getItem("token") == null) {
       return (
         <nav className="navbar navbar-expand-lg navbar-light">
           <Link to="/" className="navbar-brand">
@@ -57,6 +60,11 @@ const Navbar = () => {
               <li className="nav-item">
                 <Link to="/signup" className="nav-link">
                   Signup
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/login" className="nav-link">
+                  Login
                 </Link>
               </li>
             </ul>

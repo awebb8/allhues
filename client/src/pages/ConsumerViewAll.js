@@ -17,7 +17,7 @@ const ConsumerViewAll = () => {
     });
   }, []);
   {
-    if (jwt === "") {
+    if (localStorage.getItem("token") == null) {
       return (
         <h1 style={{ textAlign: "center", margin: "auto" }}>
           Sorry, you've got log in to see this page!
