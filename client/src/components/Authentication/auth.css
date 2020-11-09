@@ -1,0 +1,18 @@
+h2 {
+    font-family: 'Clicker Script', cursive;
+    font-size: 50px;
+}
+
+.buttons {
+    background-color: #616553;
+    border: none;
+    color: white;
+    box-shadow: 1px 1px #46483b;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}

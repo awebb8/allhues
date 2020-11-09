@@ -1,4 +1,5 @@
 import Axios from "axios";
+import "./auth.css";
 
 import React, { useState, useContext } from "react";
 import Modal from "react-modal";
@@ -42,7 +43,7 @@ const Signup = () => {
 
   return (
     <div>
-      <button onClick={() => setModalIsOpen(true)}>Open modal</button>
+      <button className="buttons" onClick={() => setModalIsOpen(true)}>Open modal</button>
       <Modal
         isOpen={modalIsOpen}
         style={{
@@ -51,6 +52,17 @@ const Signup = () => {
           },
           content: {
             color: "#46483b",
+            top: '40px',
+            left: '40px',
+            right: '40px',
+            bottom: '40px',
+            border: '1px solid #46483b',
+            background: '#fff',
+            overflow: 'auto',
+            WebkitOverflowScrolling: 'touch',
+            borderRadius: '10px',
+            outline: 'none',
+            padding: '50px'
           },
         }}
       >
@@ -84,7 +96,7 @@ const Signup = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button
+          <button className="buttons" 
             type="submit"
             onClick={(e) => {
               handleToken(e, name, email, password);
@@ -92,7 +104,7 @@ const Signup = () => {
           >
             Submit
           </button>
-          <button onClick={handleCloseBtnClick}>Close</button>
+          <button className="buttons" onClick={handleCloseBtnClick}>Close</button>
         </form>
       </Modal>
     </div>
