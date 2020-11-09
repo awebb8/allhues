@@ -98,7 +98,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="viewone" className="nav-link">
+            <Link to="/viewone" className="nav-link">
               ViewOne
             </Link>
           </li>
