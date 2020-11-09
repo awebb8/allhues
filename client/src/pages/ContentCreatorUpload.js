@@ -34,8 +34,8 @@ const ContentCreatorUpload = () => {
   // useEffect
   useEffect(() => {
     if (kit.imageUrl) {
-      // axios.post("/api/kits", kit);
-      API.postKit(kit);
+      API.postKit(id, kit);
+      alert("Your kit has been posted!")
     }
   }, [kit]);
 
@@ -73,12 +73,13 @@ const ContentCreatorUpload = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    API.getUser().then(res => console.log(res.data));
-
     const formData = new FormData();
     formData.append("file", image);
     formData.append("upload_preset", preset);
     try {
+      // setLoading(true);
+      // TODO: Note that we deleted the custom header cuz 3rd party api
+      delete axios.defaults.headers["x-auth-token"];
       const res = await axios.post(url, formData);
       const imageUrl = res.data.secure_url;
       console.log(imageUrl);
