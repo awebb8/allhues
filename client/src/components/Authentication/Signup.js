@@ -30,6 +30,7 @@ const Signup = () => {
         console.log(response.data);
         setJwt(response.data.token);
         localStorage.setItem("token", response.data.token);
+        history.push("/");
       })
       .catch((err) => {
         console.log(err);
@@ -43,7 +44,9 @@ const Signup = () => {
 
   return (
     <div>
-      <button className="buttons" onClick={() => setModalIsOpen(true)}>Open modal</button>
+      <button className="buttons" onClick={() => setModalIsOpen(true)}>
+        Open modal
+      </button>
       <Modal
         isOpen={modalIsOpen}
         style={{
@@ -52,17 +55,17 @@ const Signup = () => {
           },
           content: {
             color: "#46483b",
-            top: '40px',
-            left: '40px',
-            right: '40px',
-            bottom: '40px',
-            border: '1px solid #46483b',
-            background: '#fff',
-            overflow: 'auto',
-            WebkitOverflowScrolling: 'touch',
-            borderRadius: '10px',
-            outline: 'none',
-            padding: '50px'
+            top: "40px",
+            left: "40px",
+            right: "40px",
+            bottom: "40px",
+            border: "1px solid #46483b",
+            background: "#fff",
+            overflow: "auto",
+            WebkitOverflowScrolling: "touch",
+            borderRadius: "10px",
+            outline: "none",
+            padding: "50px",
           },
         }}
       >
@@ -96,7 +99,8 @@ const Signup = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button className="buttons" 
+          <button
+            className="buttons"
             type="submit"
             onClick={(e) => {
               handleToken(e, name, email, password);
@@ -104,7 +108,9 @@ const Signup = () => {
           >
             Submit
           </button>
-          <button className="buttons" onClick={handleCloseBtnClick}>Close</button>
+          <button className="buttons" onClick={handleCloseBtnClick}>
+            Close
+          </button>
         </form>
       </Modal>
     </div>
