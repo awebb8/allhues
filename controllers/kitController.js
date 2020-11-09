@@ -13,6 +13,16 @@ router.get("/api/kits", (req, res) => {
     });
 });
 
+// router.get("/api/kits/user", auth, (req, res) => {
+//   res.json(req.user);
+// });
+
+router.get("/user", auth, (req, res) => {
+  db.ContentCreator.findById(req.user.id)
+    .select("-password")
+    .then((user) => res.json(user));
+});
+
 //FIXME: beware until frontend is tied you cant go here unless you delete 'auth'
 router.get("/api/users", (req, res) => {
   db.ContentCreator.find({})
