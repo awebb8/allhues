@@ -99,7 +99,8 @@ const ContentCreatorUpload = () => {
     <div className="container">
       <div className="row">
         <div className="col-sm-6 offset-sm-3">
-          <h1 className="mb-4 text-center">Create a Kit</h1>
+          {/* <h1 className="mb-4 text-center">Create a Kit</h1> */}
+          <h2 className="text-center mb-3 mt-3">Create a Kit</h2>
           <form>
             <div
               className="input-group mb-3"
@@ -189,7 +190,7 @@ const ContentCreatorUpload = () => {
             </div>
 
             <button
-              className="btn btn-primary"
+              className="buttons"
               type="submit"
               onClick={onSubmit}
             >

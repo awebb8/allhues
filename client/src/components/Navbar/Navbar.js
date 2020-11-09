@@ -75,7 +75,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light">
+    <nav className="navbar navbar-expand-lg">
       <Link to="/" className="navbar-brand">
         AllHues
       </Link>
@@ -113,7 +113,9 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Logout />
+            <div className="nav-link">
+                <Logout />
+            </div>
           </li>
           {/* <li className="nav-item">
             <Link to="/signup" className="nav-link">

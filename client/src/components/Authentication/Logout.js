@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../../utils/AuthContext";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Logout = () => {
   const [jwtContext, setJwtContext] = useState({
@@ -22,7 +22,7 @@ const Logout = () => {
 
   return (
     <>
-      <button onClick={handleClick}>Logout</button>
+      <Link onClick={handleClick}>Logout</Link>
     </>
   );
 };
