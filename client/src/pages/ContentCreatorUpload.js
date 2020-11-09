@@ -1,10 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import AddedAffiliateLink from "../components/AddedAffiliateLink/AddedAffiliateLink";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
 import UserContext from "../utils/UserContext";
 
+const styles = {
+  imageUploadContainer: {
+    border: "8px dashed #e6f5e9",
+    borderRadius: "5px",
+    padding: "100px",
+    height: "200px",
+  },
+  // uploadButton: {
+  //   backgroundColor: '#e6f5e9',
+  //   borderColor: '#e6f5e9',
+  //   color: 'black',
+  // },
+};
+
 const ContentCreatorUpload = () => {
+  // States
   const [image, setImage] = useState("");
   const { jwt } = useContext(AuthContext);
   const { id } = useContext(UserContext);
@@ -14,33 +30,46 @@ const ContentCreatorUpload = () => {
     imageUrl: "",
     kitItems: [],
   });
+  const [kitItemLink, setKitItemLink] = useState("");
 
-  // const [loading, setLoading] = useState(false);
-
+  // useEffect
   useEffect(() => {
     if (kit.imageUrl) {
-      // axios.post("/api/kits", kit);
-      API.postKit(kit);
+      API.postKit(id, kit);
+      alert("Your kit has been posted!");
     }
   }, [kit]);
 
+  // Event listener functions
   const onChange = (e) => {
     setImage(e.target.files[0]);
   };
 
-  // useEffect(() => {
-  //   async function fetchImage() {
-  //     const image = await axios.get('/getLatest');
-  //     setImage(image.data);
-  //   }
-  //   fetchImage();
-  //   // eslint-disable-next-line
-  // }, []);
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-
     setKit({ ...kit, [name]: value });
+  };
+
+  const handleInputLinkChange = (event) => {
+    const { value } = event.target;
+    setKitItemLink(value);
+  };
+
+  const handleAddKitItem = () => {
+    setKit({
+      ...kit,
+      kitItems: [...kit.kitItems, { affiliateLink: kitItemLink }],
+    });
+    setKitItemLink("");
+  };
+
+  const removeKitItem = (event) => {
+    setKit({
+      ...kit,
+      kitItems: kit.kitItems.filter(
+        (kitItem) => kitItem.affiliateLink !== event.target.id.substring(2)
+      ),
+    });
   };
 
   const url = "https://api.cloudinary.com/v1_1/dsi7lpcmx/image/upload";
@@ -48,6 +77,7 @@ const ContentCreatorUpload = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+
     const formData = new FormData();
     formData.append("file", image);
     formData.append("upload_preset", preset);
@@ -79,8 +109,37 @@ const ContentCreatorUpload = () => {
     <div className="container">
       <div className="row">
         <div className="col-sm-6 offset-sm-3">
-          <h2>Create a Kit</h2>
+          {/* <h1 className="mb-3 mt-3 text-center">Create a Kit</h1> */}
+          <h2 className="text-center mb-3 mt-3">Create a Kit</h2>
           <form>
+            <div
+              className="input-group mb-3"
+              style={styles.imageUploadContainer}
+            >
+              <div className="custom-file d-flex justify-content-center flex-column">
+                <label
+                  className="btn btn-secondary"
+                  style={styles.uploadButton}
+                >
+                  Upload
+                  <input
+                    type="file"
+                    id="kitImageInput"
+                    className="custom-file-input"
+                    name="image"
+                    onChange={onChange}
+                    accept="image/*"
+                    hidden
+                  />
+                  {/* <label className="custom-file-label" htmlFor="kitImageInput">
+                  {image.name === undefined || image.name === ""
+                    ? "Choose file"
+                    : image.name}
+                </label> */}
+                </label>
+                <p>{image.name ? image.name : "Select a file"}</p>
+              </div>
+            </div>
             <div className="form-group">
               <label htmlFor="kitNameInput">Kit Name</label>
               <input
@@ -102,36 +161,47 @@ const ContentCreatorUpload = () => {
                 onChange={handleInputChange}
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="kitItemsInput">Kit Items</label>
-              <input
-                type="text"
-                id="kitItemsInput"
-                className="form-control"
-                name="kitItems"
-                placeholder="Affiliate Link"
-                //   onChange={handleInputChange}
-              />
-            </div>
-            <div className="input-group mb-3">
-              <div class="custom-file">
-                <input
-                  type="file"
-                  id="kitImageInput"
-                  className="custom-file-input"
-                  name="image"
-                  onChange={onChange}
-                  accept="image/*"
+
+              {kit.kitItems.map((kitItem, index) => (
+                <AddedAffiliateLink
+                  key={index}
+                  affiliateLink={kitItem.affiliateLink}
+                  removeKitItem={removeKitItem}
+                  id={`${index}-${kitItem.affiliateLink}`}
                 />
-                <label class="custom-file-label" htmlFor="kitImageInput">
-                  {image.name === undefined || image.name === ""
-                    ? "Choose file"
-                    : image.name}
-                </label>
+              ))}
+
+              <div className="input-group mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Url to product"
+                  id="kitItemsInput"
+                  value={kitItemLink}
+                  onChange={handleInputLinkChange}
+                />
+                <div className="input-group-append">
+                  <button
+                    className="btn btn-outline-secondary"
+                    type="button"
+                    onClick={handleAddKitItem}
+                    disabled={!kitItemLink}
+                  >
+                    Add link
+                  </button>
+                </div>
               </div>
             </div>
-            <button className="buttons" type="submit" onClick={onSubmit}>
-              Post your kit!
+
+            <button
+              className="btn btn-secondary"
+              type="submit"
+              onClick={onSubmit}
+            >
+              Post your look!
             </button>
           </form>
         </div>

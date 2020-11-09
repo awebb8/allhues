@@ -10,9 +10,15 @@ export default {
       },
     });
   },
-  postKit: function (kit) {
-    return axios.post(`/api/kits`, kit);
+  postKit: function (id, kit) {
+    return axios.post(`/api/kits/${id}`, kit);
   },
+  getUser: function () {
+    return axios.get('/user');
+  }
+
+
+
   //   postImageToCloudinary: async function(){
   //       return await axios.post(url,)
   //   }
