@@ -9,7 +9,8 @@ const styles = {
   imageUploadContainer: {
     border: "8px dashed #e6f5e9",
     borderRadius: "5px",
-    padding: "50px",
+    padding: "100px",
+    height: "200px",
   },
   // uploadButton: {
   //   backgroundColor: '#e6f5e9',
@@ -35,7 +36,7 @@ const ContentCreatorUpload = () => {
   useEffect(() => {
     if (kit.imageUrl) {
       API.postKit(id, kit);
-      alert("Your kit has been posted!")
+      alert("Your kit has been posted!");
     }
   }, [kit]);
 
@@ -63,9 +64,13 @@ const ContentCreatorUpload = () => {
   };
 
   const removeKitItem = (event) => {
-    setKit({...kit, kitItems: kit.kitItems.filter(kitItem => kitItem.affiliateLink !== event.target.id.substring(2)) });
+    setKit({
+      ...kit,
+      kitItems: kit.kitItems.filter(
+        (kitItem) => kitItem.affiliateLink !== event.target.id.substring(2)
+      ),
+    });
   };
-
 
   const url = "https://api.cloudinary.com/v1_1/dsi7lpcmx/image/upload";
   const preset = "askckkso";
@@ -104,14 +109,14 @@ const ContentCreatorUpload = () => {
     <div className="container">
       <div className="row">
         <div className="col-sm-6 offset-sm-3">
-          {/* <h1 className="mb-4 text-center">Create a Kit</h1> */}
+          {/* <h1 className="mb-3 mt-3 text-center">Create a Kit</h1> */}
           <h2 className="text-center mb-3 mt-3">Create a Kit</h2>
           <form>
             <div
               className="input-group mb-3"
               style={styles.imageUploadContainer}
             >
-              <div className="custom-file d-flex justify-content-center">
+              <div className="custom-file d-flex justify-content-center flex-column">
                 <label
                   className="btn btn-secondary"
                   style={styles.uploadButton}
@@ -132,6 +137,7 @@ const ContentCreatorUpload = () => {
                     : image.name}
                 </label> */}
                 </label>
+                <p>{image.name ? image.name : "Select a file"}</p>
               </div>
             </div>
             <div className="form-group">
@@ -182,20 +188,16 @@ const ContentCreatorUpload = () => {
                     className="btn btn-outline-secondary"
                     type="button"
                     onClick={handleAddKitItem}
+                    disabled={!kitItemLink}
                   >
                     Add link
                   </button>
                 </div>
-                {/* <label class="custom-file-label" htmlFor="kitImageInput">
-                  {image.name === undefined || image.name === ""
-                    ? "Choose file"
-                    : image.name}
-                </label> */}
               </div>
             </div>
 
             <button
-              className="buttons"
+              className="btn btn-secondary"
               type="submit"
               onClick={onSubmit}
             >
