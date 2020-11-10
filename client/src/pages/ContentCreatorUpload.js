@@ -6,135 +6,140 @@ import AuthContext from "../utils/AuthContext";
 import UserContext from "../utils/UserContext";
 
 const styles = {
-  imageUploadContainer: {
-    border: "8px dashed #e6f5e9",
-    borderRadius: "5px",
-    padding: "100px",
-    height: "200px",
-  },
-  // uploadButton: {
-  //   backgroundColor: '#e6f5e9',
-  //   borderColor: '#e6f5e9',
-  //   color: 'black',
-  // },
+	imageUploadContainer: {
+		border: "8px dashed #e6f5e9",
+		borderRadius: "5px",
+		padding: "100px",
+		height: "200px",
+	},
+	// uploadButton: {
+	//   backgroundColor: '#e6f5e9',
+	//   borderColor: '#e6f5e9',
+	//   color: 'black',
+	// },
 };
 
 const ContentCreatorUpload = () => {
-  // States
-  const [image, setImage] = useState("");
-  const { jwt } = useContext(AuthContext);
-  const { id } = useContext(UserContext);
-  const [kit, setKit] = useState({
-    kitName: "",
-    kitDescription: "",
-    imageUrl: "",
-    kitItems: [],
-  });
+	// States
+	const [image, setImage] = useState("");
+	const { jwt } = useContext(AuthContext);
+	const { id } = useContext(UserContext);
+	const [kit, setKit] = useState({
+		kitName: "",
+		kitDescription: "",
+		imageUrl: "",
+		kitItems: [],
+		creatorId: "",
+	});
   const [kitItemLink, setKitItemLink] = useState("");
-  const [loading, SetLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  // useEffect
-  useEffect(() => {
-    if (kit.imageUrl) {
-      API.postKit(id, kit);
-      window.location.reload();
-    }
-  }, [kit, id]);
+	// useEffect
+	useEffect(() => {
+		setKit({ ...kit, creatorId: id });
+	}, []);
 
-  // Event listener functions
-  const onChange = (e) => {
-    setImage(e.target.files[0]);
-  };
+	useEffect(() => {
+		if (kit.imageUrl) {
+			API.postKit(id, kit);
+			alert("Your kit has been posted!");
+		}
+	}, [kit, id]);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setKit({ ...kit, [name]: value });
-  };
+	// Event listener functions
+	const onChange = (e) => {
+		setImage(e.target.files[0]);
+	};
 
-  const handleInputLinkChange = (event) => {
-    const { value } = event.target;
-    setKitItemLink(value);
-  };
+	const handleInputChange = (event) => {
+		const { name, value } = event.target;
+		setKit({ ...kit, [name]: value });
+	};
 
-  const handleAddKitItem = () => {
-    setKit({
-      ...kit,
-      kitItems: [...kit.kitItems, { affiliateLink: kitItemLink }],
-    });
-    setKitItemLink("");
-  };
+	const handleInputLinkChange = (event) => {
+		const { value } = event.target;
+		setKitItemLink(value);
+	};
 
-  const removeKitItem = (event) => {
-    setKit({
-      ...kit,
-      kitItems: kit.kitItems.filter(
-        (kitItem) => kitItem.affiliateLink !== event.target.id.substring(2)
-      ),
-    });
-  };
+	const handleAddKitItem = () => {
+		setKit({
+			...kit,
+			kitItems: [...kit.kitItems, { affiliateLink: kitItemLink }],
+		});
+		setKitItemLink("");
+	};
 
-  const url = "https://api.cloudinary.com/v1_1/dsi7lpcmx/image/upload";
-  const preset = "askckkso";
+	const removeKitItem = (event) => {
+		setKit({
+			...kit,
+			kitItems: kit.kitItems.filter(
+				(kitItem) => kitItem.affiliateLink !== event.target.id.substring(2)
+			),
+		});
+	};
 
-  const onSubmit = async (event) => {
+	const url = "https://api.cloudinary.com/v1_1/dsi7lpcmx/image/upload";
+	const preset = "askckkso";
+
+	const onSubmit = async (event) => {
     event.preventDefault();
+    
+    setLoading(true);
 
-    SetLoading(true);
+		const formData = new FormData();
+		formData.append("file", image);
+		formData.append("upload_preset", preset);
+		try {
+			// setLoading(true);
+			// TODO: Note that we deleted the custom header cuz 3rd party api
+			// delete axios.defaults.headers["x-auth-token"];
+			const res = await axios.post(url, formData);
+			const imageUrl = res.data.secure_url;
+			console.log(imageUrl);
 
-    const formData = new FormData();
-    formData.append("file", image);
-    formData.append("upload_preset", preset);
-    try {
-      // setLoading(true);
-      // TODO: Note that we deleted the custom header cuz 3rd party api
-      delete axios.defaults.headers["x-auth-token"];
-      const res = await axios.post(url, formData);
-      const imageUrl = res.data.secure_url;
-      console.log(imageUrl);
+			setKit({ ...kit, imageUrl: imageUrl });
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
-      setKit({ ...kit, imageUrl: imageUrl });
-    } catch (err) {
-      console.error(err);
-    }
-  };
+	{
+		if (localStorage.getItem("token") == null) {
+			return (
+				<h1 style={{ textAlign: "center", margin: "auto" }}>
+					Sorry, you've got to log in to see this page!
+				</h1>
+			);
+		}
+	}
 
-  {
-    if (localStorage.getItem("token") == null) {
-      return (
-        <h1 style={{ textAlign: "center", margin: "auto" }}>
-          Sorry, you've got to log in to see this page!
-        </h1>
-      );
-    }
-  }
-
-  return (
-    <div className="container">
-      <div className="row">
-        <div className="col-sm-6 offset-sm-3">
-          {/* <h1 className="mb-3 mt-3 text-center">Create a Kit</h1> */}
-          <h2 className="text-center mb-3 mt-3">Create a Kit</h2>
-          <form>
-            <div
-              className="input-group mb-3"
-              style={styles.imageUploadContainer}
-            >
-              <div className="custom-file d-flex justify-content-center flex-column">
-                <label
-                  className="btn btn-secondary"
-                  style={styles.uploadButton}
-                >
-                  Upload
-                  <input
-                    type="file"
-                    id="kitImageInput"
-                    className="custom-file-input"
-                    name="image"
-                    onChange={onChange}
-                    accept="image/*"
-                    hidden
-                  />
-                  {/* <label className="custom-file-label" htmlFor="kitImageInput">
+	return (
+		<div className="container">
+			<div className="row">
+				<div className="col-sm-6 offset-sm-3">
+					{/* <h1 className="mb-3 mt-3 text-center">Create a Kit</h1> */}
+					<h2 className="text-center mb-3 mt-3">Create a Kit</h2>
+					<form>
+						<div
+							className="input-group mb-3"
+							style={styles.imageUploadContainer}
+						>
+							<div className="custom-file d-flex justify-content-center flex-column">
+								<label
+									className="btn btn-secondary"
+									style={styles.uploadButton}
+								>
+									Upload
+									<input
+										type="file"
+										id="kitImageInput"
+										className="custom-file-input"
+										name="image"
+										onChange={onChange}
+										accept="image/*"
+										hidden
+									/>
+									{/* <label className="custom-file-label" htmlFor="kitImageInput">
                   {image.name === undefined || image.name === ""
                     ? "Choose file"
                     : image.name}
