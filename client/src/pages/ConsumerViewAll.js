@@ -15,7 +15,7 @@ const ConsumerViewAll = () => {
         setKits((kits) => [...kits, res.data[i]]);
       }
     });
-  }, [jwt]);
+  }, []);
 
   // {
   //   if (localStorage.getItem("token") == null) {

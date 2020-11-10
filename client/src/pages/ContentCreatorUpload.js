@@ -201,9 +201,9 @@ const ContentCreatorUpload = () => {
             </div>
 
             {loading ? (
-              <button class="btn btn-secondary" type="button" disabled>
+              <button className="btn btn-secondary" type="button" disabled style={{ marginBottom: "100px" }}>
                 <span
-                  class="spinner-border spinner-border-sm"
+                  className="spinner-border spinner-border-sm mr-2"
                   role="status"
                   aria-hidden="true"
                 ></span>
