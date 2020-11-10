@@ -15,7 +15,7 @@ const Kit = (props) => {
 								? "http://via.placeholder.com/200"
 								: props.src
 						}
-						className="card-img-top"
+						className="card-img-top crop"
 						alt="..."
 					/>
 					<div className="card-body">
