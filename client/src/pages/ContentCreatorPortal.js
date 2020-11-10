@@ -28,7 +28,7 @@ const ContentCreatorPortal = () => {
         {/* <div className="row"></div> */}
         <div className="row row-cols-1 row-cols-md-2">
           {yourKits.map((kit) => (
-            <MultiKit src={kit.imageUrl} info={kit} />
+            <MultiKit src={kit.imageUrl} info={kit} class={kit._id} />
           ))}
         </div>
       </div>

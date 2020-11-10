@@ -9,7 +9,7 @@ const Kit = (props) => {
           props.src === undefined ? "http://via.placeholder.com/200" : props.src
         }
         className="card-img-top"
-        alt="..."
+        alt="makeup kit"
       />
       <div className="card-body">
         <h5 className="card-title" style={{ textAlign: "center" }}>
