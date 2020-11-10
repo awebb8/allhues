@@ -33,7 +33,7 @@ const ConsumerViewAll = () => {
         {/* <div className="row"></div> */}
         <div className="row row-cols-1 row-cols-md-2">
           {kits.map((i) => (
-            <MultiKit key={i._id} src={i.imageUrl} class={i._id} />
+            <MultiKit key={i._id} src={i.imageUrl} class={i._id} info={i} />
           ))}
         </div>
       </div>

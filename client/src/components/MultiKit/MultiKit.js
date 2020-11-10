@@ -35,14 +35,13 @@ const MultiKit = (props) => {
             className="card-title"
             className={props.class === undefined ? "" : props.class}
           >
-            Card title
+            {props.info.kitName ? props.info.kitName : ""}
           </h5>
           <p
             className="card-text"
             className={props.class === undefined ? "" : props.class}
           >
-            This is a longer card with supporting text below as a natural
-            lead-in to additional content. This content is a little bit longer.
+            {props.info.kitDescription ? props.info.kitDescription : ""}
           </p>
         </div>
       </div>

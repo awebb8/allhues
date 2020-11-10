@@ -17,7 +17,7 @@ const ConsumerViewOne = () => {
   return (
     <div>
       <h1>Consumer Views One image here with the products listed</h1>
-      <Kit src={kit.imageUrl} />
+      <Kit src={kit.imageUrl} info={kit} />
     </div>
   );
 };
