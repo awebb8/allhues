@@ -20,6 +20,9 @@ export default {
   getUser: function () {
     return axios.get("/user");
   },
+  putUpdate: function (id, save) {
+    return axios.put(`/api/kits/${id}`, save)
+  }
 
   //   postImageToCloudinary: async function(){
   //       return await axios.post(url,)
