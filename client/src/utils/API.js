@@ -22,6 +22,9 @@ export default {
   },
   putUpdate: function (id, save) {
     return axios.put(`/api/kits/${id}`, save)
+  },
+  deleteKit: function (id) {
+    return axios.delete(`/api/kits/${id}`)
   }
 
   //   postImageToCloudinary: async function(){
