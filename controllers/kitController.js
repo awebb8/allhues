@@ -15,9 +15,13 @@ router.get("/api/kits", auth, (req, res) => {
 
 router.get("/api/kits/:id", (req, res) => {
   let id = req.params.id;
-  db.Kit.findById(id).then((response) => {
-    res.json(response);
-  });
+  db.Kit.findById(id)
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 });
 
 // router.get("/api/kits/user", auth, (req, res) => {
@@ -27,7 +31,10 @@ router.get("/api/kits/:id", (req, res) => {
 router.get("/user", auth, (req, res) => {
   db.ContentCreator.findById(req.user.id)
     .select("-password")
-    .then((user) => res.json(user));
+    .then((user) => res.json(user))
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 });
 
 //FIXME: beware until frontend is tied you cant go here unless you delete 'auth'
@@ -44,9 +51,13 @@ router.get("/api/users/:id", (req, res) => {
 
 router.delete("/api/kits/:id", (req, res) => {
   let id = req.params.id;
-  db.Kit.findByIdAndDelete(id).then((deletedUser) => {
-    res.json(deletedUser);
-  });
+  db.Kit.findByIdAndDelete(id)
+    .then((deletedUser) => {
+      res.json(deletedUser);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 });
 
 router.post("/api/users", ({ body }, res) => {
@@ -77,16 +88,24 @@ router.post("/api/kits/:id", (req, res) => {
 });
 
 router.delete("/api/kits/:id", (req, res) => {
-  db.Kit.findByIdAndDelete(req.params.id).then((kit) => {
-    res.json(kit);
-  });
+  db.Kit.findByIdAndDelete(req.params.id)
+    .then((kit) => {
+      res.json(kit);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 });
 
-//TODO: haven't tested this yet and i dont think it works
+//Update a kit
 router.put("/api/kits/:id", (req, res) => {
-  db.Kit.findByIdAndUpdate(req.params.id).then((kit) => {
-    res.json(kit);
-  });
+  db.Kit.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then((kit) => {
+      res.json(kit);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 });
 
 module.exports = router;

@@ -5,6 +5,7 @@ img {
 
 .grow {
   transition: all 0.2s ease-in-out;
+
   /* background: #dbcbbe; */
   /* border: 0.1px solid black; */
 }

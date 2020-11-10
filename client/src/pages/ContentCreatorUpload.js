@@ -6,17 +6,17 @@ import AuthContext from "../utils/AuthContext";
 import UserContext from "../utils/UserContext";
 
 const styles = {
-	imageUploadContainer: {
-		border: "8px dashed #e6f5e9",
-		borderRadius: "5px",
-		padding: "100px",
-		height: "200px",
-	},
-	// uploadButton: {
-	//   backgroundColor: '#e6f5e9',
-	//   borderColor: '#e6f5e9',
-	//   color: 'black',
-	// },
+  imageUploadContainer: {
+    border: "8px dashed #e6f5e9",
+    borderRadius: "5px",
+    padding: "100px",
+    height: "200px",
+  },
+  // uploadButton: {
+  //   backgroundColor: '#e6f5e9',
+  //   borderColor: '#e6f5e9',
+  //   color: 'black',
+  // },
 };
 
 const ContentCreatorUpload = () => {
