@@ -23,14 +23,11 @@ const KitSchema = new Schema({
 		//   ref: "KitItems",
 		// },
 		{
-			kitItemId: {
-				type: Number,
-			},
 			affiliateLink: {
 				type: String,
 			},
-			kitId: {
-				type: Number,
+			makeupCategory: {
+				type: String,
 			},
 		},
 	],
