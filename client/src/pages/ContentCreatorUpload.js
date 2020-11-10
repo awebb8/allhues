@@ -31,6 +31,7 @@ const ContentCreatorUpload = () => {
     kitItems: [],
   });
   const [kitItemLink, setKitItemLink] = useState("");
+  const [loading, SetLoading] = useState(false);
 
   // useEffect
   useEffect(() => {
@@ -77,6 +78,8 @@ const ContentCreatorUpload = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+
+    SetLoading(true);
 
     const formData = new FormData();
     formData.append("file", image);
@@ -158,7 +161,7 @@ const ContentCreatorUpload = () => {
                 id="kitDescriptionInput"
                 className="form-control"
                 name="kitDescription"
-                placeholder="Provide a brief description of your kit.."
+                placeholder="Provide a brief description for your kit.."
                 onChange={handleInputChange}
               />
             </div>
@@ -197,15 +200,26 @@ const ContentCreatorUpload = () => {
               </div>
             </div>
 
-            <button
-              className="btn btn-secondary"
-              type="button"
-              onClick={onSubmit}
-              disabled={!image}
-              style={{marginBottom:'100px'}}
-            >
-              Post your look!
-            </button>
+            {loading ? (
+              <button class="btn btn-secondary" type="button" disabled>
+                <span
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                Posting your look...
+              </button>
+            ) : (
+              <button
+                className="btn btn-secondary"
+                type="button"
+                onClick={onSubmit}
+                disabled={!image}
+                style={{ marginBottom: "100px" }}
+              >
+                Post your look!
+              </button>
+            )}
           </form>
         </div>
       </div>

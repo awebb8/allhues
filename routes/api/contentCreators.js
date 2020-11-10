@@ -39,7 +39,6 @@ router.post("/register", async (req, res) => {
     const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET, {
       expiresIn: 3600,
     });
-
     res.status(200).json({
       token,
       user: {
