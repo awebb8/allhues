@@ -20,8 +20,7 @@ const MultiKit = (props) => {
       style={{ cursor: "pointer" }}
     >
       <div
-        className="card"
-        className={props.class === undefined ? "" : props.class}
+        className={props.class === undefined ? "card" : props.class + " card"}
       >
         <img
           src={
@@ -33,18 +32,28 @@ const MultiKit = (props) => {
           alt="..."
         />
         <div
-          className="card-body"
-          className={props.class === undefined ? "" : props.class}
+          style={{ textAlign: "center" }}
+          className={
+            props.class === undefined ? "card-body" : props.class + " card-body"
+          }
         >
           <h5
-            className="card-title"
-            className={props.class === undefined ? "" : props.class}
+            style={{ textAlign: "center" }}
+            className={
+              props.class === undefined
+                ? "card-title"
+                : props.class + " card-title"
+            }
           >
             {props.info.kitName ? props.info.kitName : ""}
           </h5>
           <p
-            className="card-text"
-            className={props.class === undefined ? "" : props.class}
+            style={{ textAlign: "center" }}
+            className={
+              props.class === undefined
+                ? "card-text"
+                : props.class + " card-text"
+            }
           >
             {props.info.kitDescription ? props.info.kitDescription : ""}
           </p>

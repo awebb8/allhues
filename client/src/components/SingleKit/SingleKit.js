@@ -12,15 +12,15 @@ const Kit = (props) => {
         alt="..."
       />
       <div className="card-body">
-        <h5 className="card-title">
+        <h5 className="card-title" style={{ textAlign: "center" }}>
           {props.info.kitName ? props.info.kitName : ""}
         </h5>
-        <p className="card-text">
+        <p className="card-text" style={{ textAlign: "center" }}>
           {props.info.kitDescription ? props.info.kitDescription : ""}
         </p>
-        <p className="card-text">
+        {/* <p className="card-text">
           <small className="text-muted">Last updated 3 mins ago</small>
-        </p>
+        </p> */}
       </div>
     </div>
   );
