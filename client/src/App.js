@@ -13,7 +13,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Signup from "./components/Authentication/Signup";
 import Login from "./components/Authentication/Login";
-import Axios from "axios";
+// import Axios from "axios";
 import JsonWebToken from "jsonwebtoken";
 // import { setAxiosDefault } from "./utils/axiosDefaults";
 
