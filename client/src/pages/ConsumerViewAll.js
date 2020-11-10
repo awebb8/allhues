@@ -12,7 +12,7 @@ const ConsumerViewAll = () => {
     API.getKits().then((res) => {
       //   console.log(res.data[0].imageUrl);
       for (let i = 0; i < res.data.length; i++) {
-        setKits((kits) => [...kits, res.data[i].imageUrl]);
+        setKits((kits) => [...kits, res.data[i]]);
       }
     });
   }, [jwt]);
@@ -33,7 +33,7 @@ const ConsumerViewAll = () => {
         {/* <div className="row"></div> */}
         <div className="row row-cols-1 row-cols-md-2">
           {kits.map((i) => (
-            <MultiKit src={i} />
+            <MultiKit key={i._id} src={i.imageUrl} class={i._id} info={i} />
           ))}
         </div>
       </div>

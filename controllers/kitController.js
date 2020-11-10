@@ -13,6 +13,13 @@ router.get("/api/kits", auth, (req, res) => {
     });
 });
 
+router.get("/api/kits/:id", (req, res) => {
+  let id = req.params.id;
+  db.Kit.findById(id).then((response) => {
+    res.json(response);
+  });
+});
+
 // router.get("/api/kits/user", auth, (req, res) => {
 //   res.json(req.user);
 // });
@@ -25,7 +32,7 @@ router.get("/user", auth, (req, res) => {
 
 //FIXME: beware until frontend is tied you cant go here unless you delete 'auth'
 router.get("/api/users/:id", (req, res) => {
-  db.ContentCreator.find({_id: req.params.id})
+  db.ContentCreator.find({ _id: req.params.id })
     .populate("kits")
     .then((found) => {
       res.json(found);

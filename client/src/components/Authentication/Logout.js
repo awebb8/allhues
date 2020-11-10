@@ -22,7 +22,9 @@ const Logout = () => {
 
   return (
     <>
-      <Link to='/' onClick={handleClick}>Logout</Link>
+      <Link to="/" onClick={handleClick}>
+        Logout
+      </Link>
     </>
   );
 };
