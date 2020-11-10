@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import  { useHistory } from 'react-router-dom'
 import axios from "axios";
 import AddedAffiliateLink from "../components/AddedAffiliateLink/AddedAffiliateLink";
 import API from "../utils/API";
@@ -20,6 +21,7 @@ const styles = {
 };
 
 const ContentCreatorUpload = () => {
+	const history = useHistory();
 	// States
 	const [image, setImage] = useState("");
 	const { jwt } = useContext(AuthContext);
@@ -101,6 +103,11 @@ const ContentCreatorUpload = () => {
 		} catch (err) {
 			console.error(err);
 		}
+
+		// Redirect to contentCreator portal
+		setTimeout(function () {
+			history.push("/portal");
+		}, 1000)
 	};
 
 	{
