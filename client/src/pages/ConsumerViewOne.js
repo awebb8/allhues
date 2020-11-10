@@ -3,6 +3,7 @@ import Kit from "../components/SingleKit/SingleKit";
 import { useParams } from "react-router-dom";
 import API from "../utils/API";
 import UpdateKit from "../components/UpdateKit/UpdateKit";
+import { useHistory } from "react-router-dom";
 
 const ConsumerViewOne = () => {
   let { id } = useParams();
@@ -40,6 +41,15 @@ const ConsumerViewOne = () => {
     setSave({...save, [name]:value});
   }
 
+  const history = useHistory();
+
+  const onClickDelete = () => {
+    API.deleteKit(id).then((res) => {
+      console.log('kit deleted');
+      history.push("/portal");
+    })
+  }
+
   return (
     <div>
       {update ? <UpdateKit src={kit.imageUrl} info={kit} onClickUpdate={onClickUpdate} handleInputChange={handleInputChange}/> : 
@@ -47,6 +57,7 @@ const ConsumerViewOne = () => {
         <Kit src={kit.imageUrl} info={kit} />
         <div style={{textAlign:"center"}}>
           <button className="buttons" onClick={onClickUpdate}>Update</button>
+          <button className="buttons" onClick={onClickDelete}>Delete</button>
         </div>
       </div> 
       }
