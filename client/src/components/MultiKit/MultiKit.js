@@ -28,7 +28,7 @@ const MultiKit = (props) => {
               ? "http://via.placeholder.com/200"
               : props.src
           }
-          className={`${props.class} card-img-top`}
+          className={`${props.class} card-img-top crop`}
           alt="..."
         />
         <div

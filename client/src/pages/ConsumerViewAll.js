@@ -29,9 +29,9 @@ const ConsumerViewAll = () => {
   return (
     <div>
       <h1>Consumer Views All images here</h1>
-      <div className="container">
+      <div className="container-fluid">
         {/* <div className="row"></div> */}
-        <div className="row row-cols-1 row-cols-md-2">
+        <div className="row row-cols-1 row-cols-md-3">
           {kits.map((i) => (
             <MultiKit key={i._id} src={i.imageUrl} class={i._id} info={i} />
           ))}
