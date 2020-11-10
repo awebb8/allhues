@@ -97,9 +97,9 @@ router.delete("/api/kits/:id", (req, res) => {
     });
 });
 
-//TODO: haven't tested this yet and i dont think it works
+//Update a kit
 router.put("/api/kits/:id", (req, res) => {
-  db.Kit.findByIdAndUpdate(req.params.id)
+  db.Kit.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then((kit) => {
       res.json(kit);
     })
