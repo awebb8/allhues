@@ -10,9 +10,14 @@ const MultiKit = (props) => {
   };
   return (
     <div
-      className="col mb-4"
-      className={props.class === undefined ? "" : props.class}
+      className="grow col mb-4"
+      className={
+        props.class === undefined
+          ? "grow col mb-4"
+          : props.class + " grow col mb-4"
+      }
       onClick={(e) => handleSingleKitClick(e)}
+      style={{ cursor: "pointer" }}
     >
       <div
         className="card"

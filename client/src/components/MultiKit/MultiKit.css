@@ -2,3 +2,13 @@ img {
   height: 250px;
   width: 250px;
 }
+
+.grow {
+  transition: all 0.2s ease-in-out;
+  /* background: #dbcbbe; */
+  /* border: 0.1px solid black; */
+}
+
+.grow:hover {
+  transform: scale(1.04);
+}
