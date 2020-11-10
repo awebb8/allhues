@@ -66,7 +66,8 @@ function App() {
                 component={ContentCreatorPortal}
               ></Route>
               <Route exact path="/viewall" component={ConsumerViewAll}></Route>
-              <Route exact path="/viewone" component={ConsumerViewOne}></Route>
+              {/* <Route exact path="/viewone" component={ConsumerViewOne}></Route> */}
+              <Route path="/viewall/:id" component={ConsumerViewOne}></Route>
               <Route exact path="/signup" component={Signup}></Route>
               <Route exact path="/login" component={Login}></Route>
             </Switch>
