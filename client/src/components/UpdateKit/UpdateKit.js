@@ -12,10 +12,14 @@ const UpdateKit = (props) => {
           />
           <div className="card-body">
             <h5 className="card-title" style={{ textAlign: "center" }}>
+              <label htmlFor="kitName">Title: </label>
+              <br />
               <input type="text" name="kitName" onChange={props.handleInputChange} defaultValue={props.info.kitName ? props.info.kitName : ""}></input>
             </h5>
             <p className="card-text" style={{ textAlign: "center" }}>
-            <input type="text" name="kitDescription" onChange={props.handleInputChange} defaultValue={props.info.kitDescription ? props.info.kitDescription : ""}></input>
+            <label htmlFor="kitDescription">Description: </label>
+            <br/>
+            <textarea type="text" name="kitDescription" onChange={props.handleInputChange} defaultValue={props.info.kitDescription ? props.info.kitDescription : ""} />
             <br/>
             <button className="buttons" onClick={props.onClickUpdate}>Save</button>
             </p>

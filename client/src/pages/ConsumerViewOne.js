@@ -12,8 +12,8 @@ const ConsumerViewOne = () => {
   const [update, setUpdate] = useState(false);
 
   const [save, setSave] = useState({
-    kitName: "",
-    kitDescription: ""
+    kitName: kit.kitName,
+    kitDescription: kit.kitDescription,
   });
 
 
