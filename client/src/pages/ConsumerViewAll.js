@@ -70,7 +70,10 @@ const ConsumerViewAll = () => {
   // }
   return (
     <div>
-      <div className="container" style={{ marginBottom: "1%" }}>
+      <div
+        className="container"
+        style={{ marginBottom: "1%", fontSize: "0.82rem" }}
+      >
         <form className="row">
           <div className="form-check form-check-inline">
             <input
@@ -113,10 +116,10 @@ const ConsumerViewAll = () => {
               onChange={handleInputChange}
               className="form-check-input"
               type="checkbox"
-              id="inlineCheckbox3"
+              id="inlineCheckbox4"
               value="Eyeshadow"
             />
-            <label className="form-check-label" htmlFor="inlineCheckbox3">
+            <label className="form-check-label" htmlFor="inlineCheckbox4">
               Eyeshadow
             </label>
           </div>
@@ -125,11 +128,95 @@ const ConsumerViewAll = () => {
               onChange={handleInputChange}
               className="form-check-input"
               type="checkbox"
-              id="inlineCheckbox3"
+              id="inlineCheckbox5"
               value="Mascara"
             />
-            <label className="form-check-label" htmlFor="inlineCheckbox3">
+            <label className="form-check-label" htmlFor="inlineCheckbox5">
               Mascara
+            </label>
+          </div>
+          <div className="form-check form-check-inline">
+            <input
+              onChange={handleInputChange}
+              className="form-check-input"
+              type="checkbox"
+              id="inlineCheckbox6"
+              value="Eyeliner"
+            />
+            <label className="form-check-label" htmlFor="inlineCheckbox6">
+              Eyeliner
+            </label>
+          </div>
+          <div className="form-check form-check-inline">
+            <input
+              onChange={handleInputChange}
+              className="form-check-input"
+              type="checkbox"
+              id="inlineCheckbox7"
+              value="Mascara"
+            />
+            <label className="form-check-label" htmlFor="inlineCheckbox7">
+              Mascara
+            </label>
+          </div>
+          <div className="form-check form-check-inline">
+            <input
+              onChange={handleInputChange}
+              className="form-check-input"
+              type="checkbox"
+              id="inlineCheckbox8"
+              value="Lip Colors"
+            />
+            <label className="form-check-label" htmlFor="inlineCheckbox8">
+              Lip Colors
+            </label>
+          </div>
+          <div className="form-check form-check-inline">
+            <input
+              onChange={handleInputChange}
+              className="form-check-input"
+              type="checkbox"
+              id="inlineCheckbox9"
+              value="Highlighter"
+            />
+            <label className="form-check-label" htmlFor="inlineCheckbox9">
+              Highlighter
+            </label>
+          </div>
+          <div className="form-check form-check-inline">
+            <input
+              onChange={handleInputChange}
+              className="form-check-input"
+              type="checkbox"
+              id="inlineCheckbox10"
+              value="Bronzer"
+            />
+            <label className="form-check-label" htmlFor="inlineCheckbox10">
+              Bronzer
+            </label>
+          </div>
+          <div className="form-check form-check-inline">
+            <input
+              onChange={handleInputChange}
+              className="form-check-input"
+              type="checkbox"
+              id="inlineCheckbox11"
+              value="Blush"
+            />
+            <label className="form-check-label" htmlFor="inlineCheckbox11">
+              Blush
+            </label>
+          </div>
+          <div className="form-check form-check-inline">
+            <input
+              onChange={handleInputChange}
+              className="form-check-input"
+              type="checkbox"
+              id="inlineCheckbox12"
+              value="Eyebrow Pencil/Powder"
+            />
+            <label className="form-check-label" htmlFor="inlineCheckbox12">
+              Eyebrow Pencil/Powder
             </label>
           </div>
           <div className="form-check form-check-inline">

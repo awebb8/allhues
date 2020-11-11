@@ -97,11 +97,7 @@ const Navbar = () => {
               ViewAll<span className="sr-only">(current)</span>
             </Link>
           </li>
-          <li className="nav-item">
-            <Link to="/viewone" className="nav-link">
-              ViewOne
-            </Link>
-          </li>
+
           <li className="nav-item">
             <Link to="/upload" className="nav-link">
               Upload
