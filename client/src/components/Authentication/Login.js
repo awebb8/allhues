@@ -28,12 +28,14 @@ const Login = () => {
   const handleLoginSubmit = (e, email, password) => {
     e.preventDefault();
 
-    Axios.post("/login", { email, password }).then((res) => {
-      console.log(res.data);
+    Axios.post("/login", { email, password }).then((res) => {  
       setJwt(res.data.token);
       setId(res.data.user.id);
       localStorage.setItem("token", res.data.token);
       history.push("/");
+    }).catch((err) => {
+      console.log(err.message);
+
     });
   };
 
