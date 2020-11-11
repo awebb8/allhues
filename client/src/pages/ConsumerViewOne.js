@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import API from "../utils/API";
 import UpdateKit from "../components/UpdateKit/UpdateKit";
 import { useHistory } from "react-router-dom";
+import Axios from "axios";
 
 const ConsumerViewOne = () => {
   let { id } = useParams();
@@ -16,11 +17,13 @@ const ConsumerViewOne = () => {
     kitDescription: kit.kitDescription,
   });
 
-
   useEffect(() => {
     API.getKit(id).then((res) => {
       console.log(res);
       setKit(res.data);
+      Axios.put(`/api/kits/uniquevisits/${id}`).then((res) => {
+        console.log(res.data);
+      });
     });
   }, []);
 
@@ -28,40 +31,50 @@ const ConsumerViewOne = () => {
     if (update === true) {
       API.putUpdate(id, save).then((res) => {
         setKit(res.data);
-      })
+      });
       setUpdate(false);
-    }
-    else {
+    } else {
       setUpdate(true);
     }
-  }
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setSave({...save, [name]:value});
-  }
+    setSave({ ...save, [name]: value });
+  };
 
   const history = useHistory();
 
   const onClickDelete = () => {
     API.deleteKit(id).then((res) => {
-      console.log('kit deleted');
+      console.log("kit deleted");
       history.push("/portal");
-    })
-  }
+    });
+  };
 
   return (
     <div>
-      {update ? <UpdateKit src={kit.imageUrl} info={kit} onClickUpdate={onClickUpdate} handleInputChange={handleInputChange}/> : 
-      <div> 
-        <Kit src={kit.imageUrl} info={kit} />
-        <div style={{textAlign:"center"}}>
-          <button className="buttons" onClick={onClickUpdate}>Update</button>
-          <button className="buttons" onClick={onClickDelete}>Delete</button>
+      {update ? (
+        <UpdateKit
+          src={kit.imageUrl}
+          info={kit}
+          onClickUpdate={onClickUpdate}
+          handleInputChange={handleInputChange}
+        />
+      ) : (
+        <div>
+          <Kit src={kit.imageUrl} info={kit} />
+          <div style={{ textAlign: "center" }}>
+            <button className="buttons" onClick={onClickUpdate}>
+              Update
+            </button>
+            <button className="buttons" onClick={onClickDelete}>
+              Delete
+            </button>
+          </div>
         </div>
-      </div> 
-      }
-      <br/>
+      )}
+      <br />
     </div>
   );
 };

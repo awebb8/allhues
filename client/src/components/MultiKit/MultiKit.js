@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 const MultiKit = (props) => {
   const history = useHistory();
   const handleSingleKitClick = (e) => {
-    // console.log(e.target.getAttribute("class"));
+    console.log(e.target);
     history.push(`/viewall/${e.target.getAttribute("class").substr(0, 25)}`);
   };
   return (
@@ -29,7 +29,7 @@ const MultiKit = (props) => {
               : props.src
           }
           className={`${props.class} card-img-top crop`}
-          alt="..."
+          alt="Makeup Kit"
         />
         <div
           style={{ textAlign: "center" }}
