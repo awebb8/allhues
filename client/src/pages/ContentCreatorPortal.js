@@ -24,7 +24,7 @@ const ContentCreatorPortal = () => {
 	return (
 		<div>
 			<h1>This is the contentCreator Portal Page.</h1>
-			<div className="container" style={{ marginBottom: "150px" }}>
+			<div className="container-fluid" style={{ marginBottom: "150px" }}>
 				{/* <div className="row"></div> */}
 				<div className="row row-cols-1 row-cols-md-3">
 					{yourKits.map((kit) => (
