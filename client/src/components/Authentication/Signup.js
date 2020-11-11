@@ -1,11 +1,10 @@
 import Axios from "axios";
 import "./auth.css";
-
 import React, { useState, useContext } from "react";
 import Modal from "react-modal";
 import AuthContext from "../../utils/AuthContext";
+import UserContext from "../../utils/UserContext";
 import { useHistory } from "react-router-dom";
-import Home from "../../pages/Home";
 
 Modal.setAppElement("#root");
 
@@ -16,26 +15,45 @@ const Signup = () => {
   const [name, setName] = useState("");
   const history = useHistory();
 
-  const { jwt, setJwt } = useContext(AuthContext);
+  const { setJwt } = useContext(AuthContext);
+  const { setId } = useContext(UserContext);
 
-  //   const handleChange = ()=>{
+  // Errors
+  const [incompleteError, setIncompleteError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [accountExists, setAccountExists] = useState(false);
+  let re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-  //   }
-
+  // handle submit button
   const handleToken = (e, name, email, password) => {
     e.preventDefault();
+    setIncompleteError(false);
+    setEmailError(false);
+    setPasswordError(false);
+    setAccountExists(false);
+    if (!name || !email || !password) {
+      setIncompleteError(true);
+    } else if (!re.test(email)) {
+      setEmailError(true);
+    } else if (password.length < 6) {
+      setPasswordError(true);
+    } else {
     Axios.post("/register", { name, email, password })
       .then((response) => {
         // console.log(name, email, password);
         console.log(response.data);
         setJwt(response.data.token);
+        setId(response.data.user.id);
         localStorage.setItem("token", response.data.token);
         history.push("/");
-      })
-      .catch((err) => {
+      }).catch((err) => {
         console.log(err);
+        setAccountExists(true);
       });
+    }
   };
+
   const handleCloseBtnClick = () => {
     setModalIsOpen(false);
     let path = "/";
@@ -76,6 +94,7 @@ const Signup = () => {
             <label>Name</label>
             <input
               type="name"
+              placeholder="First and last name"
               className="form-control"
               onChange={(e) => setName(e.target.value)}
             />
@@ -84,6 +103,7 @@ const Signup = () => {
             <label>Email address</label>
             <input
               type="email"
+              placeholder="example@email.com"
               className="form-control"
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -95,6 +115,7 @@ const Signup = () => {
             <label>Password</label>
             <input
               type="password"
+              placeholder="password"
               className="form-control"
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -111,6 +132,14 @@ const Signup = () => {
           <button className="buttons" onClick={handleCloseBtnClick}>
             Close
           </button>
+          {incompleteError && <div className="alert alert-danger" role="alert">
+            Please fill out all fields</div>}
+          {emailError && <div className="alert alert-danger" role="alert">
+            Please enter a valid email address.</div>}
+          {passwordError && <div className="alert alert-danger" role="alert">
+            Please enter a password that is at least six characters.</div>}
+          {accountExists && <div className="alert alert-danger" role="alert">
+            An account already exists for the email address you have entered.</div>}
         </form>
       </Modal>
     </div>
