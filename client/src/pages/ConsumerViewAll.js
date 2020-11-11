@@ -6,27 +6,48 @@ import AuthContext from "../utils/AuthContext";
 
 const ConsumerViewAll = () => {
   const [kits, setKits] = useState([]);
+  const [filterKits, setFilterKits] = useState([]);
   const { jwt } = useContext(AuthContext);
   const [checkbox, setCheckbox] = useState([]);
   //Makes an api call to get all saved image urls so we can show em all
-  useEffect(() => {
+
+  const findAll = () => {
     API.getKits().then((res) => {
-      //   console.log(res.data[0].imageUrl);
-      for (let i = 0; i < res.data.length; i++) {
-        setKits((kits) => [...kits, res.data[i]]);
-      }
+      console.log(res.data);
+      // for (let i = 0; i < res.data.length; i++) {
+      //   setKits((kits) => [...kits, res.data[i]]);
+      //   setFilterKits((kits) => [...kits, res.data[i]]);
+      // }
+      setKits(res.data);
+      setFilterKits(res.data);
     });
+  };
+
+  useEffect(() => {
+    findAll();
   }, []);
 
   const handleChoiceSubmit = (e) => {
     e.preventDefault();
-    console.log(checkbox);
-    // const blah = ["www.google.com"];
-    //FIXME: figure out how to get this info or state for more than just index
-    // postion 1 of kitItems
-    setKits(
-      kits.filter((kit) => checkbox.includes(kit.kitItems[0].makeupCategory))
-    );
+    // console.log(checkbox);
+
+    if (checkbox.length === 0) {
+      findAll();
+    }
+    var results = [];
+    for (let i = 0; i < kits.length; i++) {
+      for (let j = 0; j < kits[i].kitItems.length; j++) {
+        if (checkbox.includes(kits[i].kitItems[j].makeupCategory)) {
+          if (!results.includes(kits[i])) {
+            results.push(kits[i]);
+          }
+        }
+      }
+    }
+    setFilterKits(results);
+    // setKits(
+    //   kits.filter((kit) => checkbox.includes(kit.kitItems[0].makeupCategory))
+    // );
   };
 
   const handleInputChange = (e) => {
@@ -125,7 +146,7 @@ const ConsumerViewAll = () => {
       <div className="container-fluid">
         {/* <div className="row"></div> */}
         <div className="row row-cols-1 row-cols-md-3">
-          {kits.map((i) => (
+          {filterKits.map((i) => (
             <MultiKit key={i._id} src={i.imageUrl} class={i._id} info={i} />
           ))}
         </div>

@@ -11,6 +11,10 @@ const KitSchema = new Schema({
   hueTypeId: {
     type: Number,
   },
+  uniqueVisits: {
+    type: Number,
+    default: 0,
+  },
   creatorId: {
     type: String,
   },

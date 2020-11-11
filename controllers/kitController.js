@@ -97,4 +97,14 @@ router.put("/api/kits/:id", (req, res) => {
     });
 });
 
+router.put("/api/kits/uniquevisits/:id", (req, res) => {
+  db.Kit.findByIdAndUpdate(req.params.id, { $inc: { uniqueVisits: 1 } })
+    .then((kit) => {
+      res.json(kit);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
 module.exports = router;
