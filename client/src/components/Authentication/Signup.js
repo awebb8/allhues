@@ -136,7 +136,7 @@ const Signup = () => {
 						className="buttons"
 						type="submit"
 						onClick={(e) => {
-							handleToken(e, name, email, password);
+							handleToken(e, name, userName, email, password);
 						}}
 					>
 						Submit
