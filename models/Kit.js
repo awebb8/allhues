@@ -18,10 +18,6 @@ const KitSchema = new Schema({
 		type: String,
 	},
 	kitItems: [
-		// {
-		//   type: Schema.Types.ObjectId,
-		//   ref: "KitItems",
-		// },
 		{
 			affiliateLink: {
 				type: String,
