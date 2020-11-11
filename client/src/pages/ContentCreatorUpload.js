@@ -85,13 +85,18 @@ const ContentCreatorUpload = () => {
     setMakeupCategory("");
   };
 
-  const removeKitItem = (event) => {
-    console.log("YOU CLICKED DELETE");
+  const removeKitItem = (id) => {
+    console.log(id);
+    // console.log(event.target.value);
+    // const filteredKit = kit.kitItems.filter((kitItem) => kitItem.affiliateLink !== event.target.id.substring(2));
+
+    // const filteredKitItems 
+
     setKit({
       ...kit,
       kitItems: kit.kitItems.filter(
-        (kitItem) => kitItem.affiliateLink !== event.target.id.substring(2)
-      ),
+        (kitItem) => kitItem.affiliateLink !== id
+      )
     });
   };
 
@@ -212,7 +217,7 @@ const ContentCreatorUpload = () => {
                   key={index}
                   affiliateLink={kitItem.affiliateLink}
                   removeKitItem={removeKitItem}
-                  id={`${index}-${kitItem.affiliateLink}`}
+                  id={kitItem.affiliateLink}
                   makeupCategory={kitItem.makeupCategory}
                 />
               ))}

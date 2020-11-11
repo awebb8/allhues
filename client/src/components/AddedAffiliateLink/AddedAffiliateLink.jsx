@@ -36,7 +36,7 @@ const AddedAffiliateLink = ({ affiliateLink, removeKitItem, id, makeupCategory }
       <button
           className="btn btn-outline-secondary"
           type="button"
-          onClick={removeKitItem}
+          onClick={() => removeKitItem(id)}
           id={id}
         >
           <i className="fas fa-trash-alt"></i>
