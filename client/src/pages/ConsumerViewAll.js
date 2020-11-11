@@ -37,12 +37,6 @@ const ConsumerViewAll = () => {
     } else {
       setCheckbox((checkbox) => [...checkbox, value]);
     }
-    // setCheckbox((checkbox) => [...checkbox, e.target.value]);
-    // for (let i = 0; i < checkbox.length; i++) {
-    //   if (checkbox[i] == e.target.value) {
-    //     console.log(checkbox[i]);
-    //   }
-    // }
   };
   // {
   //   if (localStorage.getItem("token") == null) {
@@ -55,8 +49,6 @@ const ConsumerViewAll = () => {
   // }
   return (
     <div>
-<<<<<<< HEAD
-      {/* <h1>Consumer Views All images here</h1> */}
       <div className="container" style={{ marginBottom: "1%" }}>
         <form className="row">
           <div className="form-check form-check-inline">
@@ -130,11 +122,7 @@ const ConsumerViewAll = () => {
           </div>
         </form>
       </div>
-      <div className="container">
-=======
-      <h1>Consumer Views All images here</h1>
       <div className="container-fluid">
->>>>>>> 6eef8e889344e0d5c52c2b7738fddd869e05869c
         {/* <div className="row"></div> */}
         <div className="row row-cols-1 row-cols-md-3">
           {kits.map((i) => (
