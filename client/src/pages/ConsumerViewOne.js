@@ -63,15 +63,20 @@ const ConsumerViewOne = () => {
         />
       ) : (
         <div>
-          <Kit src={kit.imageUrl} info={kit} />
-          <div style={{ textAlign: "center" }}>
+          <Kit
+            src={kit.imageUrl}
+            info={kit}
+            onClickDelete={onClickDelete}
+            onClickUpdate={onClickUpdate}
+          />
+          {/* <div style={{ textAlign: "center" }}>
             <button className="buttons" onClick={onClickUpdate}>
               Update
             </button>
             <button className="buttons" onClick={onClickDelete}>
               Delete
             </button>
-          </div>
+          </div> */}
         </div>
       )}
       <br />

@@ -6,6 +6,7 @@ const Kit = (props) => {
   const { id } = useContext(UserContext);
 
   {
+    //FIXME:
     if (id == props.info.creatorId) {
       return (
         <div className="card">
@@ -38,11 +39,20 @@ const Kit = (props) => {
                 {item.affiliateLink}
               </a>
             ))}
+
             <p class="card-text">
               <small class="text-muted">
                 Unique Visits: {props.info.uniqueVisits + 1}
               </small>
             </p>
+          </div>
+          <div style={{ textAlign: "center" }}>
+            <button className="buttons" onClick={props.onClickUpdate}>
+              Update
+            </button>
+            <button className="buttons" onClick={props.onClickDelete}>
+              Delete
+            </button>
           </div>
         </div>
       );
