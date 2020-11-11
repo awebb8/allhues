@@ -21,7 +21,6 @@ const Navbar = () => {
     if (localStorage.getItem("token") == null) {
       return (
         <nav className="navbar navbar-expand-lg navbar-light">
-          <div className="container">
           <Link to="/" className="navbar-brand">
             AllHues
           </Link>
@@ -69,7 +68,6 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
-          </div>
           </div>
         </nav>
       );
