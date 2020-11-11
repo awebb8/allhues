@@ -32,11 +32,17 @@ const Kit = (props) => {
                 href={item.affiliateLink}
                 className="card-text"
                 target="_blank"
+                rel="noreferrer"
                 style={{ textAlign: "center", display: "block" }}
               >
                 {item.affiliateLink}
               </a>
             ))}
+            <p class="card-text">
+              <small class="text-muted">
+                Unique Visits: {props.info.uniqueVisits + 1}
+              </small>
+            </p>
           </div>
         </div>
       );
@@ -59,9 +65,11 @@ const Kit = (props) => {
         <p className="card-text" style={{ textAlign: "center" }}>
           {props.info.kitDescription ? props.info.kitDescription : ""}
         </p>
-        {/* <p className="card-text">
-          <small className="text-muted">Last updated 3 mins ago</small>
-        </p> */}
+        <p class="card-text">
+          <small class="text-muted">
+            Unique Visits: {props.info.uniqueVisits + 1}
+          </small>
+        </p>
       </div>
     </div>
   );
