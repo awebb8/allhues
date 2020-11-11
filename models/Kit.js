@@ -8,8 +8,8 @@ const KitSchema = new Schema({
   kitDescription: {
     type: String,
   },
-  hueTypeId: {
-    type: Number,
+  hueType: {
+    type: String,
   },
   uniqueVisits: {
     type: Number,
