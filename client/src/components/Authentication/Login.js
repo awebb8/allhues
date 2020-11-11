@@ -1,5 +1,5 @@
 import Axios from "axios";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import Modal from "react-modal";
 import AuthContext from "../../utils/AuthContext";
 import UserContext from "../../utils/UserContext";
@@ -11,30 +11,39 @@ const Login = () => {
   const [modalIsOpen, setModalIsOpen] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { jwt, setJwt } = useContext(AuthContext);
-  const { id, setId } = useContext(UserContext);
+  const { setJwt } = useContext(AuthContext);
+  const { setId } = useContext(UserContext);
   const history = useHistory();
+  const [incompleteError, setIncompleteError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
 
-  //   const [user, setUserState] = useState({});
   const handleEmailInput = (e) => {
     const { value } = e.target;
     setEmail(value);
   };
+
   const handlePasswordInput = (e) => {
     const { value } = e.target;
     setPassword(value);
   };
 
   const handleLoginSubmit = (e, email, password) => {
+    setIncompleteError(false);
+    setEmailError(false);
     e.preventDefault();
-
-    Axios.post("/login", { email, password }).then((res) => {
-      console.log(res.data);
-      setJwt(res.data.token);
-      setId(res.data.user.id);
-      localStorage.setItem("token", res.data.token);
-      history.push("/");
-    });
+      Axios.post("/login", { email, password }).then((res) => {
+        setJwt(res.data.token);
+        setId(res.data.user.id);
+        localStorage.setItem("token", res.data.token);
+        history.push("/");
+      }).catch((err) => {
+        if (email && password) {
+          setEmailError(true);
+        } else {
+          setIncompleteError(true);
+        }
+        console.log(err.message)
+      })
   };
 
   const handleCloseBtnClick = () => {
@@ -76,6 +85,7 @@ const Login = () => {
             <input
               type="email"
               name="email"
+              placeholder="example@email.com"
               onChange={handleEmailInput}
               //   value={authState.email}
               className="form-control"
@@ -86,6 +96,7 @@ const Login = () => {
             <input
               type="password"
               name="password"
+              placeholder="password"
               onChange={handlePasswordInput}
               //   value={authState.password}
               className="form-control"
@@ -103,6 +114,10 @@ const Login = () => {
           <button className="buttons" onClick={handleCloseBtnClick}>
             Close
           </button>
+          {incompleteError && <div className="alert alert-danger" role="alert">
+            Please fill out all fields</div>}
+          {emailError && <div className="alert alert-danger" role="alert">
+            The email address you entered is not associated with an account or the password you have entered is incorrect.</div>}
         </form>
       </Modal>
     </div>
