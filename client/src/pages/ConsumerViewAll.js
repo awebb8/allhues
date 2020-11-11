@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import MultiKit from "../components/MultiKit/MultiKit";
-// import axios from "axios";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
+import Select from 'react-select';
 
 const ConsumerViewAll = () => {
   const [kits, setKits] = useState([]);
@@ -14,10 +14,6 @@ const ConsumerViewAll = () => {
   const findAll = () => {
     API.getKits().then((res) => {
       console.log(res.data);
-      // for (let i = 0; i < res.data.length; i++) {
-      //   setKits((kits) => [...kits, res.data[i]]);
-      //   setFilterKits((kits) => [...kits, res.data[i]]);
-      // }
       setKits(res.data);
       setFilterKits(res.data);
     });
