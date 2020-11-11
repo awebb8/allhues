@@ -1,4 +1,21 @@
 body {
     background-color: white;
     height: 100%;
+    text-align: center;
 }
+
+/* Kit cards */
+.card {
+    padding: 20px;
+    margin-top: 20px!important;
+    margin-bottom: auto!important;
+    border: 2px solid #9e7361!important;
+    display: inline-block!important;
+}
+
+.crop {
+    object-fit: cover;
+    overflow: hidden;
+    align-items: center;
+    width: 100%
+  }
