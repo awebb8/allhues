@@ -6,6 +6,12 @@ import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
 import UserContext from "../utils/UserContext";
 import Select from "react-select";
+import fitz1 from "../assets/images/fitz1.png";
+import fitz2 from "../assets/images/fitz2.png";
+import fitz3 from "../assets/images/fitz3.png";
+import fitz4 from "../assets/images/fitz4.png";
+import fitz5 from "../assets/images/fitz5.png";
+import fitz6 from "../assets/images/fitz6.png";
 
 const styles = {
   imageUploadContainer: {
@@ -31,6 +37,33 @@ const options = [
   { value: "Eyebrow Gel", label: "Eyebrow Gel" },
 ];
 
+const hueOptions = [
+  {
+    value: "Fitz1",
+    label: <img src={fitz1} style={{ width: 200, height: 30 }} />,
+  },
+  {
+    value: "Fitz2",
+    label: <img src={fitz2} style={{ width: 200, height: 30 }} />,
+  },
+  {
+    value: "Fitz3",
+    label: <img src={fitz3} style={{ width: 200, height: 30 }} />,
+  },
+  {
+    value: "Fitz4",
+    label: <img src={fitz4} style={{ width: 200, height: 30 }} />,
+  },
+  {
+    value: "Fitz5",
+    label: <img src={fitz5} style={{ width: 200, height: 30 }} />,
+  },
+  {
+    value: "Fitz6",
+    label: <img src={fitz6} style={{ width: 200, height: 30 }} />,
+  },
+];
+
 const ContentCreatorUpload = () => {
   const history = useHistory();
   // States
@@ -43,6 +76,7 @@ const ContentCreatorUpload = () => {
     imageUrl: "",
     kitItems: [],
     creatorId: "",
+    hueType: ""
   });
   const [kitItemLink, setKitItemLink] = useState("");
   const [makeupCategory, setMakeupCategory] = useState("");
@@ -79,32 +113,35 @@ const ContentCreatorUpload = () => {
   const handleAddKitItem = () => {
     setKit({
       ...kit,
-      kitItems: [...kit.kitItems, { affiliateLink: kitItemLink, makeupCategory: makeupCategory }],
+      kitItems: [
+        ...kit.kitItems,
+        { affiliateLink: kitItemLink, makeupCategory: makeupCategory },
+      ],
     });
     setKitItemLink("");
     setMakeupCategory("");
   };
 
   const removeKitItem = (id) => {
-    console.log(id);
-    // console.log(event.target.value);
-    // const filteredKit = kit.kitItems.filter((kitItem) => kitItem.affiliateLink !== event.target.id.substring(2));
-
-    // const filteredKitItems 
-
     setKit({
       ...kit,
-      kitItems: kit.kitItems.filter(
-        (kitItem) => kitItem.affiliateLink !== id
-      )
+      kitItems: kit.kitItems.filter((kitItem) => kitItem.affiliateLink !== id),
     });
   };
 
   const handleMakeupCategoryChange = (event) => {
-    if(event === null) {
+    if (event === null) {
       setMakeupCategory("");
     } else {
       setMakeupCategory(event.value);
+    }
+  };
+
+  const handleHueChange = (event) => {
+    if (event === null) {
+      setKit({...kit, hueType: ""});
+    } else {
+      setKit({...kit, hueType: event.value});
     }
   }
 
@@ -178,6 +215,11 @@ const ContentCreatorUpload = () => {
                 <p>{image.name ? image.name : "Select a file"}</p>
               </div>
             </div>
+
+            <div className="mb-3" style={{width:230}}>
+              <Select options={hueOptions} placeholder='Select Hue' isClearable onChange={handleHueChange}/>
+            </div>
+
             <div className="form-group">
               <label htmlFor="kitNameInput">Kit Name</label>
               <input
@@ -235,7 +277,12 @@ const ContentCreatorUpload = () => {
                   />
                 </div>
                 <div className="col-sm-4">
-                  <Select options={options} onChange={handleMakeupCategoryChange} placeholder="Category" isClearable />
+                  <Select
+                    options={options}
+                    onChange={handleMakeupCategoryChange}
+                    placeholder="Category"
+                    isClearable
+                  />
                 </div>
               </div>
 

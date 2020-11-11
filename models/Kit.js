@@ -10,6 +10,7 @@ const KitSchema = new Schema({
   },
   hueType: {
     type: String,
+    enum: ["Fitz1", "Fitz2", "Fitz3", "Fitz4", "Fitz5", "Fitz6"]
   },
   uniqueVisits: {
     type: Number,
