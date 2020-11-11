@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
-import Select from 'react-select';
+import Select from "react-select";
+import { options, hueOptions } from '../utils/selectOptions';
 
 const ConsumerViewAll = () => {
   const [kits, setKits] = useState([]);
@@ -64,13 +65,56 @@ const ConsumerViewAll = () => {
   //     );
   //   }
   // }
+
+
+  const handleFilterChange = (event) => {
+    if(!event || event.length === 0) {
+      setFilterKits(kits);
+    } else {
+      const selectedFilters = event.map(category => category.value);
+
+      let results = [];
+      for (let i = 0; i < kits.length; i++) {
+        for (let j = 0; j < kits[i].kitItems.length; j++) {
+          if (selectedFilters.includes(kits[i].kitItems[j].makeupCategory)) {
+            if (!results.includes(kits[i])) {
+              results.push(kits[i]);
+            }
+          }
+        }
+      }
+      setFilterKits(results);
+    }
+    
+    
+  }
+
+
+
+
+
+
+
+
+
   return (
     <div>
       <div
         className="container"
         style={{ marginBottom: "1%", fontSize: "0.82rem" }}
       >
-        <form className="row">
+        <div className="row mt-3">
+          <div className="col-sm-6">
+          <Select
+            options={options}
+            onChange={handleFilterChange}
+            placeholder="Filter by Product"
+            isClearable
+            isMulti
+          />
+          </div>
+        </div>
+        {/* <form className="row">
           <div className="form-check form-check-inline">
             <input
               onChange={handleInputChange}
@@ -224,7 +268,7 @@ const ConsumerViewAll = () => {
               submit
             </button>
           </div>
-        </form>
+        </form> */}
       </div>
       <div className="container-fluid">
         {/* <div className="row"></div> */}
