@@ -29,29 +29,21 @@ const Login = () => {
 
   const handleLoginSubmit = (e, email, password) => {
     setIncompleteError(false);
+    setEmailError(false);
     e.preventDefault();
-
-    // if (!email || !password) {
-    //   setIncompleteError(true);
-    // } 
       Axios.post("/login", { email, password }).then((res) => {
         setJwt(res.data.token);
         setId(res.data.user.id);
         localStorage.setItem("token", res.data.token);
         history.push("/");
       }).catch((err) => {
-        // if (err.message == "Request failed with status code 400") {
-        //   setIncompleteError(true);
-        // }
         if (email && password) {
           setEmailError(true);
         } else {
           setIncompleteError(true);
         }
         console.log(err.message)
-
       })
-    
   };
 
   const handleCloseBtnClick = () => {
