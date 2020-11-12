@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
@@ -26,9 +26,20 @@ const ConsumerViewAll = () => {
   const { role } = useContext(RoleContext);
   const history = useHistory();
 
+  const id = useParams();
+  console.log(id);
+
   //Makes an api call to get all saved image urls so we can show em all
   const findAll = () => {
-    API.getKits()
+    if (id.id === "Fitz1") {
+      API.getKits().then((res) => {
+        setKits(res.data);
+        setFilterKits(res.data);
+        filterByHue(id.id, undefined);
+      })
+      
+    } else {
+      API.getKits()
       .then((res) => {
         console.log(res.data);
         setKits(res.data);
@@ -38,11 +49,16 @@ const ConsumerViewAll = () => {
         localStorage.clear();
         history.push("/login");
       });
+    }
   };
 
   // Component on mount, retrieve all kits from DB
   useEffect(() => {
     findAll();
+    // if (id.id === "Fitz1") {
+    //   console.log("match");
+    //   filterByHue(id.id, undefined);
+    // }
   }, []);
 
 
