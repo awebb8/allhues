@@ -7,7 +7,7 @@ import Select from "react-select";
 import { options, hueOptions, sortOptions } from "../utils/selectOptions";
 import RoleContext from "../utils/roleContext";
 
-const ConsumerViewAll = () => {
+const ConsumerViewAll = (props) => {
   // Array of all kits, this is used to true up the filterKits array when filter is cleared
   const [kits, setKits] = useState([]);
 
@@ -17,9 +17,6 @@ const ConsumerViewAll = () => {
   const [selectedFilterProducts, setSelectedFilterProducts] = useState([]);
   const [selectedFilterHue, setSelectedFilterHue] = useState("");
   const [selectedSort, setSelectedSort] = useState("");
-
-
-
 
   //TODO: We can probably get rid of JWT here since it's not being used anywhere on the page, and the page is not going to be protected
   const { jwt } = useContext(AuthContext);
@@ -36,19 +33,18 @@ const ConsumerViewAll = () => {
         setKits(res.data);
         setFilterKits(res.data);
         filterByHue(id.id, undefined);
-      })
-      
+      });
     } else {
       API.getKits()
-      .then((res) => {
-        console.log(res.data);
-        setKits(res.data);
-        setFilterKits(res.data);
-      })
-      .catch((err) => {
-        localStorage.clear();
-        history.push("/login");
-      });
+        .then((res) => {
+          console.log(res.data);
+          setKits(res.data);
+          setFilterKits(res.data);
+        })
+        .catch((err) => {
+          localStorage.clear();
+          history.push("/login");
+        });
     }
   };
 
@@ -61,30 +57,34 @@ const ConsumerViewAll = () => {
     // }
   }, []);
 
-
   useEffect(() => {
     if (selectedFilterProducts.length) {
-
     } else if (selectedFilterProducts.length) {
-
     } else if (selectedFilterHue.length) {
-
     } else {
-
     }
   }, [filterKits]);
 
-
-
-
-
-
+  useEffect(() => {
+    if (
+      props &&
+      props.location &&
+      props.location.state &&
+      props.location.state.selectedFilterHue
+    ) {
+      console.log("Props Location STate");
+      console.log(props.location.state);
+      setSelectedFilterHue(props.location.state.selectedFilterHue);
+    } else {
+      console.log("No state found in props");
+    }
+  }, [props.location.state.selectedFilterHue]);
 
   // Filters kits based on products selected
   const handleCategoryFilterChange = (event) => {
     // Check to see if event is null or event array is empty, if so (this means that user cleared filters) setFilterKits back to original kits array that was retrieved on component mount
     if (!event || event.length === 0) {
-      if(selectedFilterHue.length) {
+      if (selectedFilterHue.length) {
         filterByHue(undefined, kits);
       } else {
         setFilterKits(kits);
@@ -96,21 +96,25 @@ const ConsumerViewAll = () => {
       setSelectedFilterProducts(selectedFilters);
       // Filter logic
       filterByProduct(selectedFilters);
-      
     }
   };
 
   // Function that filters by product and sets filterKit to a filtered array
   // If no argument is passed in, the function will use the state array of selectedFilterProducts
-  const filterByProduct = (selectedFilters = selectedFilterProducts, kitsArray = filterKits) => {
+  const filterByProduct = (
+    selectedFilters = selectedFilterProducts,
+    kitsArray = filterKits
+  ) => {
     // Don't even try asking me how I got this to work....
     return new Promise((resolve, reject) => {
       const results = [];
       for (let i = 0; i < kitsArray.length; i++) {
         let match = 0;
-        for (let j = 0; j < kitsArray[i].kitItems.length; j++) { 
+        for (let j = 0; j < kitsArray[i].kitItems.length; j++) {
           for (let k = 0; k < selectedFilters.length; k++) {
-            if (kitsArray[i].kitItems[j].makeupCategory === selectedFilters[k]) {
+            if (
+              kitsArray[i].kitItems[j].makeupCategory === selectedFilters[k]
+            ) {
               match++;
             }
           }
@@ -120,17 +124,12 @@ const ConsumerViewAll = () => {
         }
       }
       setFilterKits(results);
-    })
+    });
   };
-
-
-
-
-
 
   // Filters kits based on hue type selected
   const handleHueFilterChange = (event) => {
-    // Check to see if event is null, if so (this means that the user cleared filters) 
+    // Check to see if event is null, if so (this means that the user cleared filters)
     if (!event) {
       // Now check to see if selectedFilterProducts is empty or not - if not empty, call filterByProduct(), otherwise setFilterKits back to OG kits
       if (selectedFilterProducts.length) {
@@ -145,36 +144,31 @@ const ConsumerViewAll = () => {
       setSelectedFilterHue(selectedHue);
 
       filterByHue(selectedHue);
-      
     }
   };
 
-
-  const filterByHue = (selectedHue = selectedFilterHue, kitArray = filterKits) => {
+  const filterByHue = (
+    selectedHue = selectedFilterHue,
+    kitArray = filterKits
+  ) => {
     return new Promise((resolve, reject) => {
-      setFilterKits(kitArray.filter(kit => kit.hueType === selectedHue));
-    })
-  }
-
-
+      setFilterKits(kitArray.filter((kit) => kit.hueType === selectedHue));
+    });
+  };
 
   const handleSortChange = (e) => {
     console.log(e);
     if (!e) {
       if (selectedFilterProducts.length && selectedFilterHue.length) {
-
         const go = async () => {
           await filterByProduct(undefined, kits);
-          console.log("Done filtering by product")
+          console.log("Done filtering by product");
           await filterByHue();
-          console.log("Done filtering by hue")
-        }
-      
-        go();
+          console.log("Done filtering by hue");
+        };
 
-      } 
-        
-       else if (selectedFilterProducts.length) {
+        go();
+      } else if (selectedFilterProducts.length) {
         filterByProduct(undefined, kits);
       } else if (selectedFilterHue.length) {
         filterByHue(undefined, kits);
@@ -257,9 +251,20 @@ const ConsumerViewAll = () => {
 
         {/* <div className="row"></div> */}
         <div className="row row-cols-1 row-cols-md-3">
-          {filterKits.map((i) => (
+          {/* {filterKits.map((i) => (
             <MultiKit key={i._id} src={i.imageUrl} class={i._id} info={i} />
-          ))}
+          ))} */}
+          {filterKits
+            .filter((kit) => {
+              if (selectedFilterHue) {
+                return kit.hueType === selectedFilterHue;
+              } else {
+                return true;
+              }
+            })
+            .map((i) => (
+              <MultiKit key={i._id} src={i.imageUrl} class={i._id} info={i} />
+            ))}
         </div>
       </div>
     </div>
