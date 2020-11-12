@@ -1,14 +1,24 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useReducer } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 import AuthContext from "../../utils/AuthContext";
+import RoleContext from "../../utils/roleContext";
 import Logout from "../Authentication/Logout";
+// import API from "../../utils/API";
 
 const Navbar = () => {
   const [state, setState] = useState({
     token: "",
   });
+  // const { id, setId } = useContext(UserContext);
+  const { roleContext, setRoleContext } = useContext(RoleContext);
   const { jwt, setJwt } = useContext(AuthContext);
+  // useEffect(() => {
+  //   API.allUsers().then((res) => {
+  //     console.log(res.data.role);
+  //     setRoleContext(res.data.role);
+  //   });
+  // }, []);
 
   //   const determineIfTokenInStorage = () => {
   //     if (localStorage.getItem("token")) {

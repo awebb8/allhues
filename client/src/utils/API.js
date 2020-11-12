@@ -21,11 +21,18 @@ export default {
     return axios.get("/user");
   },
   putUpdate: function (id, save) {
-    return axios.put(`/api/kits/${id}`, save)
+    return axios.put(`/api/kits/${id}`, save);
   },
   deleteKit: function (id) {
-    return axios.delete(`/api/kits/${id}`)
-  }
+    return axios.delete(`/api/kits/${id}`);
+  },
+  getUser: function () {
+    return axios.get("/user", {
+      headers: {
+        "x-auth-token": localStorage.getItem("token"),
+      },
+    });
+  },
 
   //   postImageToCloudinary: async function(){
   //       return await axios.post(url,)
