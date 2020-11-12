@@ -20,35 +20,35 @@ const ContentCreatorPortal = () => {
     });
   };
 
-  useEffect(() => {
-    getKits();
-  }, []);
+  // useEffect(() => {
+  //   getKits();
+  // }, []);
 
   useEffect(() => {
     getKits();
   }, [id]);
 
   // console.log(yourKits);
-  if (!yourKits) {
-    getKits();
+  // if (!yourKits) {
+  //   getKits();
 
-    // if (yourKits.length < 3 || (yourKits.length > 3 && yourKits.length < 6)) {
-    //   return (
-    //     <div className="container">
-    //       <div className="row">
-    //         {yourKits.map((kit) => (
-    //           <MultiKit
-    //             key={kit._id}
-    //             class={kit._id}
-    //             src={kit.imageUrl}
-    //             info={kit}
-    //           />
-    //         ))}
-    //       </div>
-    //     </div>
-    //   );
-    // }
-  }
+  //   // if (yourKits.length < 3 || (yourKits.length > 3 && yourKits.length < 6)) {
+  //   //   return (
+  //   //     <div className="container">
+  //   //       <div className="row">
+  //   //         {yourKits.map((kit) => (
+  //   //           <MultiKit
+  //   //             key={kit._id}
+  //   //             class={kit._id}
+  //   //             src={kit.imageUrl}
+  //   //             info={kit}
+  //   //           />
+  //   //         ))}
+  //   //       </div>
+  //   //     </div>
+  //   //   );
+  //   // }
+  // }
   if (yourKits) {
     return (
       <div>
