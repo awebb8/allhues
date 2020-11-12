@@ -21,7 +21,7 @@ const Signup = () => {
 
   const { setJwt } = useContext(AuthContext);
   const { setId } = useContext(UserContext);
-  const { setRoleContext } = useContext(RoleContext);
+  // const { setRoleContext } = useContext(RoleContext);
 
   // Errors
   const [incompleteError, setIncompleteError] = useState(false);
@@ -70,7 +70,7 @@ const Signup = () => {
 
   const handleRoleCheckBox = () => {
     setRoleCheckBox(!roleCheckBox);
-    if (roleCheckBox == true) {
+    if (roleCheckBox === true) {
       setRole("Consumer");
     } else {
       setRole("Content Creator");

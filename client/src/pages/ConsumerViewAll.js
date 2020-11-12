@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
-import AuthContext from "../utils/AuthContext";
+// import AuthContext from "../utils/AuthContext";
 import Select from "react-select";
 import { options, hueOptions, sortOptions } from "../utils/selectOptions";
-import RoleContext from "../utils/roleContext";
+// import RoleContext from "../utils/roleContext";
 
 const ConsumerViewAll = () => {
   // Array of all kits, this is used to true up the filterKits array when filter is cleared
@@ -22,8 +22,8 @@ const ConsumerViewAll = () => {
 
 
   //TODO: We can probably get rid of JWT here since it's not being used anywhere on the page, and the page is not going to be protected
-  const { jwt } = useContext(AuthContext);
-  const { role } = useContext(RoleContext);
+  // const { jwt } = useContext(AuthContext);
+  // const { role } = useContext(RoleContext);
   const history = useHistory();
 
   //Makes an api call to get all saved image urls so we can show em all
@@ -126,6 +126,7 @@ const ConsumerViewAll = () => {
   const handleSortChange = (e) => {
     console.log(e);
     if (!e) {
+<<<<<<< HEAD
       if (selectedFilterProducts.length && selectedFilterHue.length) {
 
         const go = async () => {
@@ -146,6 +147,9 @@ const ConsumerViewAll = () => {
       } else {
         setFilterKits(kits);
       }
+=======
+      setFilterKits(kits);
+>>>>>>> a2d2fd19520061d50895ec164ad2b9c59f49d7ed
     } else if (e.value === "Popularity") {
       const newSortedArray = [...filterKits].sort(
         (a, b) => b.uniqueVisits - a.uniqueVisits
@@ -175,6 +179,60 @@ const ConsumerViewAll = () => {
     // }
   };
 
+  // FIXME: might wanna change this, not ideal solution
+  if (filterKits) {
+    if (filterKits.length % 3 !== 0) {
+      return (
+        <div>
+          <div
+            className="container"
+            style={{ marginBottom: "1%", fontSize: "0.82rem" }}
+          >
+            <div className="row mt-3">
+              <div className="col-sm-4">
+                <Select
+                  options={sortOptions}
+                  onChange={handleSortChange}
+                  placeholder="Sort by..."
+                  isClearable
+                />
+              </div>
+              <div className="col-sm-4">
+                <Select
+                  options={options}
+                  onChange={handleCategoryFilterChange}
+                  placeholder="Filter by Product"
+                  isClearable
+                  isMulti
+                />
+              </div>
+              <div className="col-sm-4">
+                <Select
+                  options={hueOptions}
+                  onChange={handleHueFilterChange}
+                  placeholder="Filter by Hue"
+                  isClearable
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="container">
+            <div className="row">
+              {filterKits.map((kit) => (
+                <MultiKit
+                  key={kit._id}
+                  class={kit._id}
+                  src={kit.imageUrl}
+                  info={kit}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+  }
   return (
     <div>
       <div
