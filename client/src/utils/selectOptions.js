@@ -23,26 +23,26 @@ export const options = [
   export const hueOptions = [
     {
       value: "Fitz1",
-      label: <img src={fitz1} style={{ width: 200, height: 30 }} />,
+      label: <img src={fitz1} style={{ width: 200, height: 30 }} alt="fitzpatrick 1 skin type" />,
     },
     {
       value: "Fitz2",
-      label: <img src={fitz2} style={{ width: 200, height: 30 }} />,
+      label: <img src={fitz2} style={{ width: 200, height: 30 }} alt="fitzpatrick 2 skin type" />,
     },
     {
       value: "Fitz3",
-      label: <img src={fitz3} style={{ width: 200, height: 30 }} />,
+      label: <img src={fitz3} style={{ width: 200, height: 30 }} alt="fitzpatrick 3 skin type" />,
     },
     {
       value: "Fitz4",
-      label: <img src={fitz4} style={{ width: 200, height: 30 }} />,
+      label: <img src={fitz4} style={{ width: 200, height: 30 }} alt="fitzpatrick 4 skin type" />,
     },
     {
       value: "Fitz5",
-      label: <img src={fitz5} style={{ width: 200, height: 30 }} />,
+      label: <img src={fitz5} style={{ width: 200, height: 30 }} alt="fitzpatrick 5 skin type" />,
     },
     {
       value: "Fitz6",
-      label: <img src={fitz6} style={{ width: 200, height: 30 }} />,
+      label: <img src={fitz6} style={{ width: 200, height: 30 }} alt="fitzpatrick 6 skin type" />,
     },
   ];
