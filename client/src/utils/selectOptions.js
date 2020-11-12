@@ -46,3 +46,10 @@ export const options = [
       label: <img src={fitz6} style={{ width: 200, height: 30 }} alt="fitzpatrick 6 skin type" />,
     },
   ];
+
+export const sortOptions = [
+  { value: "Popularity", label: "Popularity" },
+  { value: "Trending", label: "Trending" },
+  { value: "New", label: "New" },
+  // { value: "Yours", label: "Yours" },
+];
