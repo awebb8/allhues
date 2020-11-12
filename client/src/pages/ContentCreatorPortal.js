@@ -18,34 +18,28 @@ const ContentCreatorPortal = () => {
 
       setYourKits(res.data[0].kits);
     });
-  }, []);
-
-  useEffect(() => {
-    Axios.get(`/api/users/${id}`).then((res) => {
-      console.log("component did mount2");
-      console.log(res.data.kits);
-
-      setYourKits(res.data[0].kits);
-    });
   }, [id]);
 
   // console.log(yourKits);
-  if (yourKits.length < 3 || (yourKits.length > 3 && yourKits.length < 6)) {
-    return (
-      <div className="container">
-        <div className="row">
-          {yourKits.map((kit) => (
-            <MultiKit
-              key={kit._id}
-              class={kit._id}
-              src={kit.imageUrl}
-              info={kit}
-            />
-          ))}
+  if (yourKits) {
+    if (yourKits.length < 3 || (yourKits.length > 3 && yourKits.length < 6)) {
+      return (
+        <div className="container">
+          <div className="row">
+            {yourKits.map((kit) => (
+              <MultiKit
+                key={kit._id}
+                class={kit._id}
+                src={kit.imageUrl}
+                info={kit}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
+
   return (
     <div>
       {/* <h1>This is the contentCreator Portal Page.</h1> */}
