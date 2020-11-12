@@ -4,7 +4,8 @@ import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
 import Select from "react-select";
-import { options, hueOptions } from "../utils/selectOptions";
+import { options, hueOptions, sortOptions } from "../utils/selectOptions";
+import RoleContext from "../utils/roleContext";
 
 const ConsumerViewAll = () => {
   // Array of all kits, this is used to true up the filterKits array when filter is cleared
@@ -13,20 +14,21 @@ const ConsumerViewAll = () => {
   const [filterKits, setFilterKits] = useState([]);
   //TODO: We can probably get rid of JWT here since it's not being used anywhere on the page, and the page is not going to be protected
   const { jwt } = useContext(AuthContext);
+  const { role } = useContext(RoleContext);
   const history = useHistory();
-
 
   //Makes an api call to get all saved image urls so we can show em all
   const findAll = () => {
-    API.getKits().then((res) => {
-      console.log(res.data);
-      setKits(res.data);
-      setFilterKits(res.data);
-    }).catch((err) => {
-      localStorage.clear();
-
-      history.push("/login");
-    });
+    API.getKits()
+      .then((res) => {
+        console.log(res.data);
+        setKits(res.data);
+        setFilterKits(res.data);
+      })
+      .catch((err) => {
+        localStorage.clear();
+        history.push("/login");
+      });
   };
 
   // Component on mount, retrieve all kits from DB
@@ -54,7 +56,7 @@ const ConsumerViewAll = () => {
           }
         }
       }
-      
+
       // Finally, setFilterKits to the new results array (aka filtered kits)
       setFilterKits(results);
     }
@@ -70,7 +72,40 @@ const ConsumerViewAll = () => {
       const selectedHue = event.value;
 
       // setFilterKits to a filtered down array of kits that include the selectedHue
-      setFilterKits(filterKits.filter(kit => kit.hueType === selectedHue));
+      setFilterKits(filterKits.filter((kit) => kit.hueType === selectedHue));
+    }
+  };
+
+  const handleSortChange = (e) => {
+    console.log(e);
+    if (!e) {
+      setFilterKits(kits);
+    } else if (e.value == "Popularity") {
+      const newSortedArray = [...filterKits].sort(
+        (a, b) => b.uniqueVisits - a.uniqueVisits
+      );
+      setFilterKits(newSortedArray);
+    } else if (e.value == "Trending") {
+      // TODO: figure out what to do here instead of same as popularity
+      const newSortedArray = [...filterKits].sort(
+        (a, b) => b.uniqueVisits - a.uniqueVisits
+      );
+      setFilterKits(newSortedArray);
+    } else if (e.value == "New") {
+      // const arr = [...fil];
+
+      const newSortedArray = [...filterKits]
+        .sort((a, b) => {
+          return (
+            new Date(a.createdDate).getTime() -
+            new Date(b.createdDate).getTime()
+          );
+        })
+        .reverse();
+
+      setFilterKits(newSortedArray);
+    } else if ((e.target = "Yours")) {
+      console.log(e.target);
     }
   };
 
@@ -91,7 +126,7 @@ const ConsumerViewAll = () => {
             />
           </div>
           <div className="col-sm-6">
-          <Select
+            <Select
               options={hueOptions}
               onChange={handleHueFilterChange}
               placeholder="Filter by Hue"
@@ -102,6 +137,15 @@ const ConsumerViewAll = () => {
       </div>
 
       <div className="container-fluid">
+        <div className="row row-cols-4">
+          <Select
+            options={sortOptions}
+            onChange={handleSortChange}
+            placeholder="Sort by..."
+            isClearable
+          />
+        </div>
+
         {/* <div className="row"></div> */}
         <div className="row row-cols-1 row-cols-md-3">
           {filterKits.map((i) => (

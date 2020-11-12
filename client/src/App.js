@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -13,15 +13,23 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Signup from "./components/Authentication/Signup";
 import Login from "./components/Authentication/Login";
+import API from "./utils/API";
 // import Axios from "axios";
 import JsonWebToken from "jsonwebtoken";
+import RoleContext from "./utils/roleContext";
 // import { setAxiosDefault } from "./utils/axiosDefaults";
 
 function App() {
   const [jwt, setJwt] = useState("");
   const [id, setId] = useState("");
+  const [role, setRole] = useState("");
+  const { setRoleContext } = useContext(RoleContext);
 
   useEffect(() => {
+    API.getUser().then((res) => {
+      console.log(res.data.role);
+      setRole(res.data.role);
+    });
     const localJwt = localStorage.getItem("token");
     if (localJwt) {
       setJwt(localJwt);
@@ -51,28 +59,34 @@ function App() {
     <div>
       <AuthContext.Provider value={{ jwt, setJwt }}>
         <UserContext.Provider value={{ id, setId }}>
-          <Router>
-            <Navbar />
-            <Switch>
-              <Route exact path="/" component={Home}></Route>
-              <Route
-                exact
-                path="/upload"
-                component={ContentCreatorUpload}
-              ></Route>
-              <Route
-                exact
-                path="/portal"
-                component={ContentCreatorPortal}
-              ></Route>
-              <Route exact path="/viewall" component={ConsumerViewAll}></Route>
-              {/* <Route exact path="/viewone" component={ConsumerViewOne}></Route> */}
-              <Route path="/viewall/:id" component={ConsumerViewOne}></Route>
-              <Route exact path="/signup" component={Signup}></Route>
-              <Route exact path="/login" component={Login}></Route>
-            </Switch>
-            <Footer />
-          </Router>
+          <RoleContext.Provider value={{ role, setRole }}>
+            <Router>
+              <Navbar />
+              <Switch>
+                <Route exact path="/" component={Home}></Route>
+                <Route
+                  exact
+                  path="/upload"
+                  component={ContentCreatorUpload}
+                ></Route>
+                <Route
+                  exact
+                  path="/portal"
+                  component={ContentCreatorPortal}
+                ></Route>
+                <Route
+                  exact
+                  path="/viewall"
+                  component={ConsumerViewAll}
+                ></Route>
+                {/* <Route exact path="/viewone" component={ConsumerViewOne}></Route> */}
+                <Route path="/viewall/:id" component={ConsumerViewOne}></Route>
+                <Route exact path="/signup" component={Signup}></Route>
+                <Route exact path="/login" component={Login}></Route>
+              </Switch>
+              <Footer />
+            </Router>
+          </RoleContext.Provider>
         </UserContext.Provider>
       </AuthContext.Provider>
     </div>

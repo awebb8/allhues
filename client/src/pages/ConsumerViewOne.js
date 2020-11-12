@@ -21,9 +21,13 @@ const ConsumerViewOne = () => {
     API.getKit(id).then((res) => {
       console.log(res);
       setKit(res.data);
-      Axios.put(`/api/kits/uniquevisits/${id}`).then((res) => {
-        console.log(res.data);
-      });
+      Axios.put(`/api/kits/uniquevisits/${id}`)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     });
   }, []);
 
