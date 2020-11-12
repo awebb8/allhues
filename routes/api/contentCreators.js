@@ -37,7 +37,7 @@ router.post("/register", async (req, res) => {
     if (!savedUser) throw Error("Something went wrong saving the user");
 
     const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET, {
-      expiresIn: 30,
+      expiresIn: 3600,
       //WAS 3600 shortened for testing
     });
     res.status(200).json({
@@ -71,7 +71,7 @@ router.post("/login", async (req, res) => {
     if (!isMatch) throw Error("Invalid credentials");
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: 30,
+      expiresIn: 3600,
       //WAS 3600 shortened for testing
     });
     if (!token) throw Error("Couldn't sign the token");
