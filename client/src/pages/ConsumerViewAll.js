@@ -9,6 +9,7 @@ import { options, hueOptions } from "../utils/selectOptions";
 const ConsumerViewAll = () => {
   // Array of all kits, this is used to true up the filterKits array when filter is cleared
   const [kits, setKits] = useState([]);
+
   // Array of filtered kits, this is used to render the kits on the page
   const [filterKits, setFilterKits] = useState([]);
 
@@ -46,7 +47,7 @@ const ConsumerViewAll = () => {
     // Check to see if event is null or event array is empty, if so (this means that user cleared filters) setFilterKits back to original kits array that was retrieved on component mount
     if (!event || event.length === 0) {
       if(selectedFilterHue.length) {
-        filterByHue();
+        filterByHue(undefined, kits);
       } else {
         setFilterKits(kits);
       }
@@ -63,7 +64,24 @@ const ConsumerViewAll = () => {
 
   // Function that filters by product and sets filterKit to a filtered array
   // If no argument is passed in, the function will use the state array of selectedFilterProducts
-  const filterByProduct = (selectedFilters = selectedFilterProducts) => {
+  const filterByProduct = (selectedFilters = selectedFilterProducts, kitsArray = filterKits) => {
+    // Don't even try asking me how I got this to work....
+    const results = [];
+    for (let i = 0; i < kitsArray.length; i++) {
+      let match = 0;
+      for (let j = 0; j < kitsArray[i].kitItems.length; j++) { 
+        for (let k = 0; k < selectedFilters.length; k++) {
+          if (kitsArray[i].kitItems[j].makeupCategory === selectedFilters[k]) {
+            match++;
+          }
+        }
+      }
+      if (match >= selectedFilters.length) {
+        results.push(kitsArray[i]);
+      }
+    }
+    setFilterKits(results);
+
     // let results = [];
     // for (let i = 0; i < kits.length; i++) {
     //   for (let j = 0; j < kits[i].kitItems.length; j++) {
@@ -75,33 +93,6 @@ const ConsumerViewAll = () => {
     //   }
     // }
     // setFilterKits(results);
-
-
-    const results = [];
-    for (let i = 0; i < kits.length; i++) {
-      let match = 0;
-      for (let j = 0; j < kits[i].kitItems.length; j++) {
-        
-        for (let k = 0; k < selectedFilters.length; k++) {
-
-          if (kits[i].kitItems[j].makeupCategory === selectedFilters[k]) {
-            match++;
-          }
-
-        }
-
-      }
-      if (match >= selectedFilters.length) {
-        results.push(kits[i]);
-      }
-    }
-    setFilterKits(results);
-    
-   
-
-
-    
-
   };
 
 
@@ -115,7 +106,7 @@ const ConsumerViewAll = () => {
     if (!event) {
       // Now check to see if selectedFilterProducts is empty or not - if not empty, call filterByProduct(), otherwise setFilterKits back to OG kits
       if (selectedFilterProducts.length) {
-        filterByProduct();
+        filterByProduct(undefined, kits);
       } else {
         setFilterKits(kits);
       }
@@ -131,8 +122,8 @@ const ConsumerViewAll = () => {
   };
 
 
-  const filterByHue = (selectedHue = selectedFilterHue) => {
-    setFilterKits(filterKits.filter(kit => kit.hueType === selectedHue));
+  const filterByHue = (selectedHue = selectedFilterHue, kitArray = filterKits) => {
+    setFilterKits(kitArray.filter(kit => kit.hueType === selectedHue));
   }
 
 
