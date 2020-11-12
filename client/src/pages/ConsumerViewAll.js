@@ -81,18 +81,6 @@ const ConsumerViewAll = () => {
       }
     }
     setFilterKits(results);
-
-    // let results = [];
-    // for (let i = 0; i < kits.length; i++) {
-    //   for (let j = 0; j < kits[i].kitItems.length; j++) {
-    //     if (selectedFilters.includes(kits[i].kitItems[j].makeupCategory)) {
-    //       if (!results.includes(kits[i])) {
-    //         results.push(kits[i]);
-    //       }
-    //     }
-    //   }
-    // }
-    // setFilterKits(results);
   };
 
 
