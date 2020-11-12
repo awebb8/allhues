@@ -11,6 +11,13 @@ const ConsumerViewAll = () => {
   const [kits, setKits] = useState([]);
   // Array of filtered kits, this is used to render the kits on the page
   const [filterKits, setFilterKits] = useState([]);
+
+  const [selectedFilterProducts, setSelectedFilterProducts] = useState([]);
+  const [selectedFilterHue, setSelectedFilterHue] = useState("");
+
+
+
+
   //TODO: We can probably get rid of JWT here since it's not being used anywhere on the page, and the page is not going to be protected
   const { jwt } = useContext(AuthContext);
   const history = useHistory();
@@ -38,41 +45,104 @@ const ConsumerViewAll = () => {
   const handleCategoryFilterChange = (event) => {
     // Check to see if event is null or event array is empty, if so (this means that user cleared filters) setFilterKits back to original kits array that was retrieved on component mount
     if (!event || event.length === 0) {
-      setFilterKits(kits);
+      if(selectedFilterHue.length) {
+        filterByHue();
+      } else {
+        setFilterKits(kits);
+      }
+      setSelectedFilterProducts([]);
     } else {
       // Returns an array of products that user selected
       const selectedFilters = event.map((category) => category.value);
-
+      setSelectedFilterProducts(selectedFilters);
       // Filter logic
-      let results = [];
-      for (let i = 0; i < kits.length; i++) {
-        for (let j = 0; j < kits[i].kitItems.length; j++) {
-          if (selectedFilters.includes(kits[i].kitItems[j].makeupCategory)) {
-            if (!results.includes(kits[i])) {
-              results.push(kits[i]);
-            }
-          }
-        }
-      }
+      filterByProduct(selectedFilters);
       
-      // Finally, setFilterKits to the new results array (aka filtered kits)
-      setFilterKits(results);
     }
   };
+
+  // Function that filters by product and sets filterKit to a filtered array
+  // If no argument is passed in, the function will use the state array of selectedFilterProducts
+  const filterByProduct = (selectedFilters = selectedFilterProducts) => {
+    // let results = [];
+    // for (let i = 0; i < kits.length; i++) {
+    //   for (let j = 0; j < kits[i].kitItems.length; j++) {
+    //     if (selectedFilters.includes(kits[i].kitItems[j].makeupCategory)) {
+    //       if (!results.includes(kits[i])) {
+    //         results.push(kits[i]);
+    //       }
+    //     }
+    //   }
+    // }
+    // setFilterKits(results);
+
+
+    const results = [];
+    for (let i = 0; i < kits.length; i++) {
+      let match = 0;
+      for (let j = 0; j < kits[i].kitItems.length; j++) {
+        
+        for (let k = 0; k < selectedFilters.length; k++) {
+
+          if (kits[i].kitItems[j].makeupCategory === selectedFilters[k]) {
+            match++;
+          }
+
+        }
+
+      }
+      if (match >= selectedFilters.length) {
+        results.push(kits[i]);
+      }
+    }
+    setFilterKits(results);
+    
+   
+
+
+    
+
+  };
+
+
+
+
+
 
   // Filters kits based on hue type selected
   const handleHueFilterChange = (event) => {
-    // Check to see if event is null, if so (this means that the user cleared filters) setFilterKits back to original kits array that was retrieved on component mount
+    // Check to see if event is null, if so (this means that the user cleared filters) 
     if (!event) {
-      setFilterKits(kits);
+      // Now check to see if selectedFilterProducts is empty or not - if not empty, call filterByProduct(), otherwise setFilterKits back to OG kits
+      if (selectedFilterProducts.length) {
+        filterByProduct();
+      } else {
+        setFilterKits(kits);
+      }
+      setSelectedFilterHue("");
     } else {
       // Returns value of selected hue
       const selectedHue = event.value;
+      setSelectedFilterHue(selectedHue);
 
-      // setFilterKits to a filtered down array of kits that include the selectedHue
-      setFilterKits(filterKits.filter(kit => kit.hueType === selectedHue));
+      filterByHue(selectedHue);
+      
     }
   };
+
+
+  const filterByHue = (selectedHue = selectedFilterHue) => {
+    setFilterKits(filterKits.filter(kit => kit.hueType === selectedHue));
+  }
+
+
+
+
+
+
+
+
+
 
   return (
     <div>
