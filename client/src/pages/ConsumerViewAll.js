@@ -7,7 +7,7 @@ import Select from "react-select";
 import { options, hueOptions, sortOptions } from "../utils/selectOptions";
 import RoleContext from "../utils/RoleContext";
 
-const ConsumerViewAll = () => {
+const ConsumerViewAll = (props) => {
   // Array of all kits, this is used to true up the filterKits array when filter is cleared
   const [kits, setKits] = useState([]);
 
@@ -64,6 +64,21 @@ const ConsumerViewAll = () => {
     } else {
     }
   }, [filterKits]);
+
+  useEffect(() => {
+    if (
+      props &&
+      props.location &&
+      props.location.state &&
+      props.location.state.selectedFilterHue
+    ) {
+      console.log("Props Location STate");
+      console.log(props.location.state);
+      setSelectedFilterHue(props.location.state.selectedFilterHue);
+    } else {
+      console.log("No state found in props");
+    }
+  }, [props.location.state.selectedFilterHue]);
 
   // Filters kits based on products selected
   const handleCategoryFilterChange = (event) => {
@@ -236,9 +251,20 @@ const ConsumerViewAll = () => {
 
         {/* <div className="row"></div> */}
         <div className="row row-cols-1 row-cols-md-3">
-          {filterKits.map((i) => (
+          {/* {filterKits.map((i) => (
             <MultiKit key={i._id} src={i.imageUrl} class={i._id} info={i} />
-          ))}
+          ))} */}
+          {filterKits
+            .filter((kit) => {
+              if (selectedFilterHue) {
+                return kit.hueType === selectedFilterHue;
+              } else {
+                return true;
+              }
+            })
+            .map((i) => (
+              <MultiKit key={i._id} src={i.imageUrl} class={i._id} info={i} />
+            ))}
         </div>
       </div>
     </div>
