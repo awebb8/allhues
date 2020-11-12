@@ -17,9 +17,9 @@ export default {
   postKit: function (id, kit) {
     return axios.post(`/api/kits/${id}`, kit);
   },
-  getUser: function () {
-    return axios.get("/user");
-  },
+  // getUser: function () {
+  //   return axios.get("/user");
+  // },
   putUpdate: function (id, save) {
     return axios.put(`/api/kits/${id}`, save);
   },
