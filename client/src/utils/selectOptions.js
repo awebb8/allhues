@@ -51,5 +51,5 @@ export const sortOptions = [
   { value: "Popularity", label: "Popularity" },
   { value: "Trending", label: "Trending" },
   { value: "New", label: "New" },
-  { value: "Yours", label: "Yours" },
+  // { value: "Yours", label: "Yours" },
 ];

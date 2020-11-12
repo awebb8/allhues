@@ -104,9 +104,9 @@ const ConsumerViewAll = () => {
         .reverse();
 
       setFilterKits(newSortedArray);
-    } else if ((e.target = "Yours")) {
-      console.log(e.target);
-    }
+    } //else if ((e.target = "Yours")) {
+    //   console.log(e.target);
+    // }
   };
 
   return (
