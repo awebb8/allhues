@@ -13,7 +13,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Signup from "./components/Authentication/Signup";
 import Login from "./components/Authentication/Login";
-import API from "./utils/API";
+// import API from "./utils/API";
 // import Axios from "axios";
 import JsonWebToken from "jsonwebtoken";
 import RoleContext from "./utils/roleContext";
@@ -23,7 +23,7 @@ function App() {
   const [jwt, setJwt] = useState("");
   const [id, setId] = useState("");
   const [role, setRole] = useState("");
-  const { setRoleContext } = useContext(RoleContext);
+  // const { setRoleContext } = useContext(RoleContext);
 
   useEffect(() => {
     // API.getUser().then((res) => {

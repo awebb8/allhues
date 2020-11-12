@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import AddedAffiliateLink from "../components/AddedAffiliateLink/AddedAffiliateLink";
 import API from "../utils/API";
-import AuthContext from "../utils/AuthContext";
+// import AuthContext from "../utils/AuthContext";
 import UserContext from "../utils/UserContext";
 import Select from "react-select";
 import { options, hueOptions } from "../utils/selectOptions";
@@ -17,13 +17,11 @@ const styles = {
   },
 };
 
-
-
 const ContentCreatorUpload = () => {
   const history = useHistory();
   // States
   const [image, setImage] = useState("");
-  const { jwt } = useContext(AuthContext);
+  // const { jwt } = useContext(AuthContext);
   const { id } = useContext(UserContext);
   const [kit, setKit] = useState({
     kitName: "",
@@ -31,7 +29,7 @@ const ContentCreatorUpload = () => {
     imageUrl: "",
     kitItems: [],
     creatorId: "",
-    hueType: ""
+    hueType: "",
   });
   const [kitItemLink, setKitItemLink] = useState("");
   const [makeupCategory, setMakeupCategory] = useState("");
@@ -94,11 +92,11 @@ const ContentCreatorUpload = () => {
 
   const handleHueChange = (event) => {
     if (event === null) {
-      setKit({...kit, hueType: ""});
+      setKit({ ...kit, hueType: "" });
     } else {
-      setKit({...kit, hueType: event.value});
+      setKit({ ...kit, hueType: event.value });
     }
-  }
+  };
 
   const url = "https://api.cloudinary.com/v1_1/dsi7lpcmx/image/upload";
   const preset = "askckkso";
@@ -130,14 +128,12 @@ const ContentCreatorUpload = () => {
     }, 1000);
   };
 
-  {
-    if (localStorage.getItem("token") == null) {
-      return (
-        <h1 style={{ textAlign: "center", margin: "auto" }}>
-          Sorry, you've got to log in to see this page!
-        </h1>
-      );
-    }
+  if (localStorage.getItem("token") == null) {
+    return (
+      <h1 style={{ textAlign: "center", margin: "auto" }}>
+        Sorry, you've got to log in to see this page!
+      </h1>
+    );
   }
 
   return (
@@ -171,8 +167,13 @@ const ContentCreatorUpload = () => {
               </div>
             </div>
 
-            <div className="mb-3" style={{width:230}}>
-              <Select options={hueOptions} placeholder='Select Hue' isClearable onChange={handleHueChange}/>
+            <div className="mb-3" style={{ width: 230 }}>
+              <Select
+                options={hueOptions}
+                placeholder="Select Hue"
+                isClearable
+                onChange={handleHueChange}
+              />
             </div>
 
             <div className="form-group">

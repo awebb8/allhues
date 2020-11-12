@@ -1,15 +1,24 @@
 import Axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
-import AuthContext from "../utils/AuthContext";
+// import AuthContext from "../utils/AuthContext";
 import UserContext from "../utils/UserContext";
 import MultiKit from "../components/MultiKit/MultiKit";
-import Kit from "../components/SingleKit/SingleKit";
+// import Kit from "../components/SingleKit/SingleKit";
 
 const ContentCreatorPortal = () => {
   const [yourKits, setYourKits] = useState([]);
-  const [kits, setKits] = useState([]);
-  const { setJwt, jwt } = useContext(AuthContext);
-  const { id, setId } = useContext(UserContext);
+  // const [kits, setKits] = useState([]);
+  // const { setJwt, jwt } = useContext(AuthContext);
+  const { id } = useContext(UserContext);
+
+  useEffect(() => {
+    Axios.get(`/api/users/${id}`).then((res) => {
+      console.log("component did mount2");
+      console.log(res.data.kits);
+
+      setYourKits(res.data[0].kits);
+    });
+  }, []);
 
   useEffect(() => {
     Axios.get(`/api/users/${id}`).then((res) => {
@@ -20,7 +29,7 @@ const ContentCreatorPortal = () => {
     });
   }, [id]);
 
-  console.log(yourKits);
+  // console.log(yourKits);
   if (yourKits.length < 3 || (yourKits.length > 3 && yourKits.length < 6)) {
     return (
       <div className="container">

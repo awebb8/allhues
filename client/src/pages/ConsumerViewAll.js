@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
-import AuthContext from "../utils/AuthContext";
+// import AuthContext from "../utils/AuthContext";
 import Select from "react-select";
 import { options, hueOptions, sortOptions } from "../utils/selectOptions";
-import RoleContext from "../utils/roleContext";
+// import RoleContext from "../utils/roleContext";
 
 const ConsumerViewAll = () => {
   // Array of all kits, this is used to true up the filterKits array when filter is cleared
@@ -13,8 +13,8 @@ const ConsumerViewAll = () => {
   // Array of filtered kits, this is used to render the kits on the page
   const [filterKits, setFilterKits] = useState([]);
   //TODO: We can probably get rid of JWT here since it's not being used anywhere on the page, and the page is not going to be protected
-  const { jwt } = useContext(AuthContext);
-  const { role } = useContext(RoleContext);
+  // const { jwt } = useContext(AuthContext);
+  // const { role } = useContext(RoleContext);
   const history = useHistory();
 
   //Makes an api call to get all saved image urls so we can show em all
@@ -80,18 +80,18 @@ const ConsumerViewAll = () => {
     console.log(e);
     if (!e) {
       setFilterKits(kits);
-    } else if (e.value == "Popularity") {
+    } else if (e.value === "Popularity") {
       const newSortedArray = [...filterKits].sort(
         (a, b) => b.uniqueVisits - a.uniqueVisits
       );
       setFilterKits(newSortedArray);
-    } else if (e.value == "Trending") {
+    } else if (e.value === "Trending") {
       // TODO: figure out what to do here instead of same as popularity
       const newSortedArray = [...filterKits].sort(
         (a, b) => b.uniqueVisits - a.uniqueVisits
       );
       setFilterKits(newSortedArray);
-    } else if (e.value == "New") {
+    } else if (e.value === "New") {
       // const arr = [...fil];
 
       const newSortedArray = [...filterKits]
