@@ -9,7 +9,7 @@ const contentCreator = require("../../models/contentCreator");
 // POST api/contentCreators
 // Register new contentCreator
 router.post("/register", async (req, res) => {
-	const { name, userName, email, password } = req.body;
+	const { name, userName, email, password, role } = req.body;
 
 	// Simple validation
 	if (!name || !userName || !email || !password) {
@@ -31,6 +31,7 @@ router.post("/register", async (req, res) => {
 			userName,
 			email,
 			password: hash,
+			role,
 		});
 
 		const savedUser = await newUser.save();
@@ -46,6 +47,7 @@ router.post("/register", async (req, res) => {
 				name: savedUser.name,
 				userName: savedUser.userName,
 				email: savedUser.email,
+				role: savedUser.role,
 			},
 		});
 	} catch (e) {
@@ -81,6 +83,7 @@ router.post("/login", async (req, res) => {
 				name: user.name,
 				userName: user.userName,
 				email: user.email,
+				role: user.role,
 			},
 		});
 	} catch (e) {
