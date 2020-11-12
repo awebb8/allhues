@@ -15,6 +15,7 @@ const Logout = () => {
   //   }, []);
   const handleClick = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("role");
     // setJwtContext({ jwt: "", setJwt: () => {} });
     window.location.reload();
     // history.push("/");
