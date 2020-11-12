@@ -22,6 +22,10 @@ const ContentCreatorPortal = () => {
 
   useEffect(() => {
     getKits();
+  }, []);
+
+  useEffect(() => {
+    getKits();
   }, [id]);
 
   // console.log(yourKits);
