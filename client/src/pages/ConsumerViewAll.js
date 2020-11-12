@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
@@ -12,6 +13,8 @@ const ConsumerViewAll = () => {
   const [filterKits, setFilterKits] = useState([]);
   //TODO: We can probably get rid of JWT here since it's not being used anywhere on the page, and the page is not going to be protected
   const { jwt } = useContext(AuthContext);
+  const history = useHistory();
+
 
   //Makes an api call to get all saved image urls so we can show em all
   const findAll = () => {
@@ -19,6 +22,10 @@ const ConsumerViewAll = () => {
       console.log(res.data);
       setKits(res.data);
       setFilterKits(res.data);
+    }).catch((err) => {
+      localStorage.clear();
+
+      history.push("/login");
     });
   };
 

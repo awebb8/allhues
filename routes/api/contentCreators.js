@@ -9,10 +9,10 @@ const contentCreator = require("../../models/contentCreator");
 // POST api/contentCreators
 // Register new contentCreator
 router.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, userName, email, password } = req.body;
 
   // Simple validation
-  if (!name || !email || !password) {
+  if (!name || !userName || !email || !password) {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
@@ -28,6 +28,7 @@ router.post("/register", async (req, res) => {
 
     const newUser = new contentCreator({
       name,
+      userName,
       email,
       password: hash,
     });
@@ -35,15 +36,16 @@ router.post("/register", async (req, res) => {
     const savedUser = await newUser.save();
     if (!savedUser) throw Error("Something went wrong saving the user");
 
-    //TODO: FIXME: need to hide the secret key in a dotenv or config file
     const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET, {
       expiresIn: 3600,
+      //WAS 3600 shortened for testing
     });
     res.status(200).json({
       token,
       user: {
         id: savedUser.id,
         name: savedUser.name,
+        userName: savedUser.userName,
         email: savedUser.email,
       },
     });
@@ -70,6 +72,7 @@ router.post("/login", async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: 3600,
+      //WAS 3600 shortened for testing
     });
     if (!token) throw Error("Couldn't sign the token");
 
@@ -78,6 +81,7 @@ router.post("/login", async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
+        userName: user.userName,
         email: user.email,
       },
     });
