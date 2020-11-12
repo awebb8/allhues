@@ -14,7 +14,7 @@ const Signup = () => {
 	const [password, setPassword] = useState("");
 	const [name, setName] = useState("");
 	const [userName, setUserName] = useState("");
-	const [role, setRole] = useState("");
+	const [role, setRole] = useState("Consumer");
 	const [roleCheckBox, setRoleCheckBox] = useState(false);
 	const history = useHistory();
 
