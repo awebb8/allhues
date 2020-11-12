@@ -23,13 +23,13 @@ const Home = () => {
     return (
         <div>
             <Header />
-            <Link to="/viewall/fitz1">
+            <Link to="/viewall/Fitz1">
                 <div className="card rounded-circle fitz" style={{height:"10rem",width:"10rem",backgroundColor:"#f4d0b1"}}></div>
             </Link>
-            <Link to="/viewall/fitz2">
+            <Link to="/viewall/Fitz2">
                 <div className="card rounded-circle fitz" style={{height:"10rem",width:"10rem",backgroundColor:"#fcdbb2"}}></div>
             </Link>
-            <Link to="/viewall/fitz3">
+            <Link to="/viewall/Fitz3">
                 <div className="card rounded-circle fitz" style={{height:"10rem",width:"10rem",backgroundColor:"#dea77d"}}></div>
             </Link>
             <div className="card rounded-circle fitz" style={{height:"10rem",width:"10rem",backgroundColor:"#d3925c"}}></div>

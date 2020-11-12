@@ -31,7 +31,15 @@ const ConsumerViewAll = () => {
 
   //Makes an api call to get all saved image urls so we can show em all
   const findAll = () => {
-    API.getKits()
+    if (id.id === "Fitz1") {
+      API.getKits().then((res) => {
+        setKits(res.data);
+        setFilterKits(res.data);
+        filterByHue(id.id, undefined);
+      })
+      
+    } else {
+      API.getKits()
       .then((res) => {
         console.log(res.data);
         setKits(res.data);
@@ -41,14 +49,16 @@ const ConsumerViewAll = () => {
         localStorage.clear();
         history.push("/login");
       });
+    }
   };
 
   // Component on mount, retrieve all kits from DB
   useEffect(() => {
     findAll();
-    if (id.id === "fitz1") {
-      console.log("match");
-    }
+    // if (id.id === "Fitz1") {
+    //   console.log("match");
+    //   filterByHue(id.id, undefined);
+    // }
   }, []);
 
 
@@ -120,12 +130,7 @@ const ConsumerViewAll = () => {
 
   // Filters kits based on hue type selected
   const handleHueFilterChange = (event) => {
-<<<<<<< HEAD
-   
-    // Check to see if event is null, if so (this means that the user cleared filters) setFilterKits back to original kits array that was retrieved on component mount
-=======
     // Check to see if event is null, if so (this means that the user cleared filters) 
->>>>>>> d19cceb2ab8a338603add351ddad51378c7f2fa2
     if (!event) {
       // Now check to see if selectedFilterProducts is empty or not - if not empty, call filterByProduct(), otherwise setFilterKits back to OG kits
       if (selectedFilterProducts.length) {
@@ -139,13 +144,7 @@ const ConsumerViewAll = () => {
       const selectedHue = event.value;
       setSelectedFilterHue(selectedHue);
 
-<<<<<<< HEAD
-      // setFilterKits to a filtered down array of kits that include the selectedHue
-      setFilterKits(filterKits.filter((kit) => kit.hueType === selectedHue));
-
-=======
       filterByHue(selectedHue);
->>>>>>> d19cceb2ab8a338603add351ddad51378c7f2fa2
       
     }
   };
