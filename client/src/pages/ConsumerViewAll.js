@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 // import AuthContext from "../utils/AuthContext";
@@ -16,6 +16,9 @@ const ConsumerViewAll = () => {
   // const { jwt } = useContext(AuthContext);
   // const { role } = useContext(RoleContext);
   const history = useHistory();
+
+  const id = useParams();
+  console.log(id);
 
   //Makes an api call to get all saved image urls so we can show em all
   const findAll = () => {
@@ -34,6 +37,9 @@ const ConsumerViewAll = () => {
   // Component on mount, retrieve all kits from DB
   useEffect(() => {
     findAll();
+    if (id.id === "fitz1") {
+      console.log("match");
+    }
   }, []);
 
   // Filters kits based on products selected
@@ -64,6 +70,7 @@ const ConsumerViewAll = () => {
 
   // Filters kits based on hue type selected
   const handleHueFilterChange = (event) => {
+   
     // Check to see if event is null, if so (this means that the user cleared filters) setFilterKits back to original kits array that was retrieved on component mount
     if (!event) {
       setFilterKits(kits);
@@ -73,6 +80,8 @@ const ConsumerViewAll = () => {
 
       // setFilterKits to a filtered down array of kits that include the selectedHue
       setFilterKits(filterKits.filter((kit) => kit.hueType === selectedHue));
+
+      
     }
   };
 

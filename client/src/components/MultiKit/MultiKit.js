@@ -6,7 +6,7 @@ const MultiKit = (props) => {
   const history = useHistory();
   const handleSingleKitClick = (e) => {
     console.log(e.target);
-    history.push(`/viewall/${e.target.getAttribute("class").substr(0, 25)}`);
+    history.push(`/viewone/${e.target.getAttribute("class").substr(0, 25)}`);
   };
   return (
     <div

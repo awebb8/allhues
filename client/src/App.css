@@ -18,9 +18,27 @@ body {
     overflow: hidden;
     align-items: center;
     width: 100%
-  }
+}
 
-  .fitz {
-      margin: 10px!important;
-      border: none!important;
-  }
+.fitz {
+    margin: 10px!important;
+    border: none!important;
+}
+
+.fitz:hover {
+    box-shadow: 5px 5px 5px 5px grey;
+    z-index: 100;
+}
+
+.homeCard {
+    border: 2px solid #b29fb5;
+    margin: 20px;
+    display: inline-block!important;
+}
+
+.shrink {
+    -webkit-transform:scale(0.5);
+    -moz-transform:scale(0.5);
+    -ms-transform:scale(0.5);
+    transform:scale(0.5);
+}
