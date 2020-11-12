@@ -9,9 +9,10 @@
     background-attachment: fixed;
 }
 
-.jumbotron {
+.jumbotron-fluid {
     color: black;
     text-align: center;
+    margin-bottom: 30px;
 }
 
 .title {
