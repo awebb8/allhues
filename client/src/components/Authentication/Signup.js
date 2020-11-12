@@ -14,6 +14,8 @@ const Signup = () => {
 	const [password, setPassword] = useState("");
 	const [name, setName] = useState("");
 	const [userName, setUserName] = useState("");
+	const [role, setRole] = useState("Consumer");
+	const [roleCheckBox, setRoleCheckBox] = useState(false);
 	const history = useHistory();
 
 	const { setJwt } = useContext(AuthContext);
@@ -27,7 +29,7 @@ const Signup = () => {
 	let re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 	// handle submit button
-	const handleToken = (e, name, userName, email, password) => {
+	const handleToken = (e, name, userName, email, password, role) => {
 		e.preventDefault();
 		setIncompleteError(false);
 		setEmailError(false);
@@ -40,7 +42,7 @@ const Signup = () => {
 		} else if (password.length < 6) {
 			setPasswordError(true);
 		} else {
-			Axios.post("/register", { name, userName, email, password })
+			Axios.post("/register", { name, userName, email, password, role })
 				.then((response) => {
 					// console.log(name, email, password);
 					console.log(response.data);
@@ -60,6 +62,15 @@ const Signup = () => {
 		setModalIsOpen(false);
 		let path = "/";
 		history.push(path);
+	};
+
+	const handleRoleCheckBox = () => {
+		setRoleCheckBox(!roleCheckBox);
+		if (roleCheckBox == true) {
+			setRole("Consumer");
+		} else {
+			setRole("Content Creator");
+		}
 	};
 
 	return (
@@ -132,11 +143,15 @@ const Signup = () => {
 							onChange={(e) => setPassword(e.target.value)}
 						/>
 					</div>
+					<div>
+						<input type="checkbox" onChange={handleRoleCheckBox} />
+						<label>Content Creator?</label>
+					</div>
 					<button
 						className="buttons"
 						type="submit"
 						onClick={(e) => {
-							handleToken(e, name, userName, email, password);
+							handleToken(e, name, userName, email, password, role);
 						}}
 					>
 						Submit
