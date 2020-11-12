@@ -19,3 +19,8 @@ body {
     align-items: center;
     width: 100%
   }
+
+  .fitz {
+      margin: 10px!important;
+      border: none!important;
+  }
