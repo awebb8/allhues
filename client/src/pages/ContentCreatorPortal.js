@@ -11,33 +11,39 @@ const ContentCreatorPortal = () => {
   // const { setJwt, jwt } = useContext(AuthContext);
   const { id } = useContext(UserContext);
 
-  useEffect(() => {
+  const getKits = () => {
     Axios.get(`/api/users/${id}`).then((res) => {
       console.log("component did mount2");
       console.log(res.data.kits);
 
       setYourKits(res.data[0].kits);
     });
+  };
+
+  useEffect(() => {
+    getKits();
   }, [id]);
 
   // console.log(yourKits);
-  if (yourKits) {
-    if (yourKits.length < 3 || (yourKits.length > 3 && yourKits.length < 6)) {
-      return (
-        <div className="container">
-          <div className="row">
-            {yourKits.map((kit) => (
-              <MultiKit
-                key={kit._id}
-                class={kit._id}
-                src={kit.imageUrl}
-                info={kit}
-              />
-            ))}
-          </div>
-        </div>
-      );
-    }
+  if (!yourKits) {
+    getKits();
+
+    // if (yourKits.length < 3 || (yourKits.length > 3 && yourKits.length < 6)) {
+    //   return (
+    //     <div className="container">
+    //       <div className="row">
+    //         {yourKits.map((kit) => (
+    //           <MultiKit
+    //             key={kit._id}
+    //             class={kit._id}
+    //             src={kit.imageUrl}
+    //             info={kit}
+    //           />
+    //         ))}
+    //       </div>
+    //     </div>
+    //   );
+    // }
   }
 
   return (
