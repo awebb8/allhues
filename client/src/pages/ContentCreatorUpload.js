@@ -6,6 +6,7 @@ import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
 import UserContext from "../utils/UserContext";
 import Select from "react-select";
+import { options, hueOptions } from "../utils/selectOptions";
 
 const styles = {
   imageUploadContainer: {
@@ -16,20 +17,7 @@ const styles = {
   },
 };
 
-const options = [
-  { value: "Primer", label: "Primer" },
-  { value: "Foundation", label: "Foundation" },
-  { value: "Concealer", label: "Concealer" },
-  { value: "Eyeshadow", label: "Eyeshadow" },
-  { value: "Mascara", label: "Mascara" },
-  { value: "Eyeliner", label: "Eyeliner" },
-  { value: "Lip Colors", label: "Lip Colors" },
-  { value: "Highlighter", label: "Highlighter" },
-  { value: "Bronzer", label: "Bronzer" },
-  { value: "Blush", label: "Blush" },
-  { value: "Eyebrow Pencil/Powder", label: "Eyebrow Pencil" },
-  { value: "Eyebrow Gel", label: "Eyebrow Gel" },
-];
+
 
 const ContentCreatorUpload = () => {
   const history = useHistory();
@@ -43,6 +31,7 @@ const ContentCreatorUpload = () => {
     imageUrl: "",
     kitItems: [],
     creatorId: "",
+    hueType: ""
   });
   const [kitItemLink, setKitItemLink] = useState("");
   const [makeupCategory, setMakeupCategory] = useState("");
@@ -79,32 +68,35 @@ const ContentCreatorUpload = () => {
   const handleAddKitItem = () => {
     setKit({
       ...kit,
-      kitItems: [...kit.kitItems, { affiliateLink: kitItemLink, makeupCategory: makeupCategory }],
+      kitItems: [
+        ...kit.kitItems,
+        { affiliateLink: kitItemLink, makeupCategory: makeupCategory },
+      ],
     });
     setKitItemLink("");
     setMakeupCategory("");
   };
 
   const removeKitItem = (id) => {
-    console.log(id);
-    // console.log(event.target.value);
-    // const filteredKit = kit.kitItems.filter((kitItem) => kitItem.affiliateLink !== event.target.id.substring(2));
-
-    // const filteredKitItems 
-
     setKit({
       ...kit,
-      kitItems: kit.kitItems.filter(
-        (kitItem) => kitItem.affiliateLink !== id
-      )
+      kitItems: kit.kitItems.filter((kitItem) => kitItem.affiliateLink !== id),
     });
   };
 
   const handleMakeupCategoryChange = (event) => {
-    if(event === null) {
+    if (event === null) {
       setMakeupCategory("");
     } else {
       setMakeupCategory(event.value);
+    }
+  };
+
+  const handleHueChange = (event) => {
+    if (event === null) {
+      setKit({...kit, hueType: ""});
+    } else {
+      setKit({...kit, hueType: event.value});
     }
   }
 
@@ -178,6 +170,11 @@ const ContentCreatorUpload = () => {
                 <p>{image.name ? image.name : "Select a file"}</p>
               </div>
             </div>
+
+            <div className="mb-3" style={{width:230}}>
+              <Select options={hueOptions} placeholder='Select Hue' isClearable onChange={handleHueChange}/>
+            </div>
+
             <div className="form-group">
               <label htmlFor="kitNameInput">Kit Name</label>
               <input
@@ -235,7 +232,12 @@ const ContentCreatorUpload = () => {
                   />
                 </div>
                 <div className="col-sm-4">
-                  <Select options={options} onChange={handleMakeupCategoryChange} placeholder="Category" isClearable />
+                  <Select
+                    options={options}
+                    onChange={handleMakeupCategoryChange}
+                    placeholder="Category"
+                    isClearable
+                  />
                 </div>
               </div>
 
