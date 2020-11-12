@@ -26,10 +26,10 @@ function App() {
   const { setRoleContext } = useContext(RoleContext);
 
   useEffect(() => {
-    API.getUser().then((res) => {
-      console.log(res.data.role);
-      setRole(res.data.role);
-    });
+    // API.getUser().then((res) => {
+    //   console.log(res.data.role);
+    //   setRoleContext(res.data.role);
+    // });
     const localJwt = localStorage.getItem("token");
     if (localJwt) {
       setJwt(localJwt);

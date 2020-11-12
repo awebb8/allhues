@@ -116,7 +116,15 @@ const ConsumerViewAll = () => {
         style={{ marginBottom: "1%", fontSize: "0.82rem" }}
       >
         <div className="row mt-3">
-          <div className="col-sm-6">
+          <div className="col-sm-4">
+            <Select
+              options={sortOptions}
+              onChange={handleSortChange}
+              placeholder="Sort by..."
+              isClearable
+            />
+          </div>
+          <div className="col-sm-4">
             <Select
               options={options}
               onChange={handleCategoryFilterChange}
@@ -125,7 +133,7 @@ const ConsumerViewAll = () => {
               isMulti
             />
           </div>
-          <div className="col-sm-6">
+          <div className="col-sm-4">
             <Select
               options={hueOptions}
               onChange={handleHueFilterChange}
@@ -137,14 +145,14 @@ const ConsumerViewAll = () => {
       </div>
 
       <div className="container-fluid">
-        <div className="row row-cols-4">
+        {/* <div className="row row-cols-6">
           <Select
             options={sortOptions}
             onChange={handleSortChange}
             placeholder="Sort by..."
             isClearable
           />
-        </div>
+        </div> */}
 
         {/* <div className="row"></div> */}
         <div className="row row-cols-1 row-cols-md-3">

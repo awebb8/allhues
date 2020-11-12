@@ -50,7 +50,7 @@ const Signup = () => {
           console.log(response.data);
           setJwt(response.data.token);
           setId(response.data.user.id);
-          setRoleContext(response.data.user.role);
+          // setRoleContext(response.data.user.role);
 
           localStorage.setItem("token", response.data.token);
           history.push("/");
