@@ -1,5 +1,6 @@
 import Axios from "axios";
 import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import AuthContext from "../../utils/AuthContext";
 import UserContext from "../../utils/UserContext";
@@ -31,19 +32,21 @@ const Login = () => {
     setIncompleteError(false);
     setEmailError(false);
     e.preventDefault();
-      Axios.post("/login", { email, password }).then((res) => {
+    Axios.post("/login", { email, password })
+      .then((res) => {
         setJwt(res.data.token);
         setId(res.data.user.id);
         localStorage.setItem("token", res.data.token);
         history.push("/");
-      }).catch((err) => {
+      })
+      .catch((err) => {
         if (email && password) {
           setEmailError(true);
         } else {
           setIncompleteError(true);
         }
-        console.log(err.message)
-      })
+        console.log(err.message);
+      });
   };
 
   const handleCloseBtnClick = () => {
@@ -114,10 +117,19 @@ const Login = () => {
           <button className="buttons" onClick={handleCloseBtnClick}>
             Close
           </button>
-          {incompleteError && <div className="alert alert-danger" role="alert">
-            Please fill out all fields</div>}
-          {emailError && <div className="alert alert-danger" role="alert">
-            The email address you entered is not associated with an account or the password you have entered is incorrect.</div>}
+          <br />
+          <Link to="/signup">Don't have an account? Click here.</Link>
+          {incompleteError && (
+            <div className="alert alert-danger" role="alert">
+              Please fill out all fields
+            </div>
+          )}
+          {emailError && (
+            <div className="alert alert-danger" role="alert">
+              The email address you entered is not associated with an account or
+              the password you have entered is incorrect.
+            </div>
+          )}
         </form>
       </Modal>
     </div>

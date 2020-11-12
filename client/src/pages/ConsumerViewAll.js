@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import MultiKit from "../components/MultiKit/MultiKit";
-// import axios from "axios";
+
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
 
@@ -9,18 +10,25 @@ const ConsumerViewAll = () => {
   const [filterKits, setFilterKits] = useState([]);
   const { jwt } = useContext(AuthContext);
   const [checkbox, setCheckbox] = useState([]);
+  const history = useHistory();
   //Makes an api call to get all saved image urls so we can show em all
 
   const findAll = () => {
-    API.getKits().then((res) => {
-      console.log(res.data);
-      // for (let i = 0; i < res.data.length; i++) {
-      //   setKits((kits) => [...kits, res.data[i]]);
-      //   setFilterKits((kits) => [...kits, res.data[i]]);
-      // }
-      setKits(res.data);
-      setFilterKits(res.data);
-    });
+    API.getKits()
+      .then((res) => {
+        console.log(res.data);
+        // for (let i = 0; i < res.data.length; i++) {
+        //   setKits((kits) => [...kits, res.data[i]]);
+        //   setFilterKits((kits) => [...kits, res.data[i]]);
+        // }
+        setKits(res.data);
+        setFilterKits(res.data);
+      })
+      .catch((err) => {
+        localStorage.clear();
+
+        history.push("/login");
+      });
   };
 
   useEffect(() => {
