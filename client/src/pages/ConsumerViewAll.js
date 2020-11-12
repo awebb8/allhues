@@ -3,15 +3,17 @@ import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
 import Select from "react-select";
-import { options, hueOptions } from '../utils/selectOptions';
+import { options, hueOptions } from "../utils/selectOptions";
 
 const ConsumerViewAll = () => {
+  // Array of all kits, this is used to true up the filterKits array when filter is cleared
   const [kits, setKits] = useState([]);
+  // Array of filtered kits, this is used to render the kits on the page
   const [filterKits, setFilterKits] = useState([]);
+  //TODO: We can probably get rid of JWT here since it's not being used anywhere on the page, and the page is not going to be protected
   const { jwt } = useContext(AuthContext);
-  const [checkbox, setCheckbox] = useState([]);
-  //Makes an api call to get all saved image urls so we can show em all
 
+  //Makes an api call to get all saved image urls so we can show em all
   const findAll = () => {
     API.getKits().then((res) => {
       console.log(res.data);
@@ -20,59 +22,21 @@ const ConsumerViewAll = () => {
     });
   };
 
+  // Component on mount, retrieve all kits from DB
   useEffect(() => {
     findAll();
   }, []);
 
-  const handleChoiceSubmit = (e) => {
-    e.preventDefault();
-    // console.log(checkbox);
-
-    if (checkbox.length === 0) {
-      findAll();
-    }
-    var results = [];
-    for (let i = 0; i < kits.length; i++) {
-      for (let j = 0; j < kits[i].kitItems.length; j++) {
-        if (checkbox.includes(kits[i].kitItems[j].makeupCategory)) {
-          if (!results.includes(kits[i])) {
-            results.push(kits[i]);
-          }
-        }
-      }
-    }
-    setFilterKits(results);
-    // setKits(
-    //   kits.filter((kit) => checkbox.includes(kit.kitItems[0].makeupCategory))
-    // );
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    if (checkbox.includes(value)) {
-      // const name = e.target.getAttribute("name")
-      setCheckbox(checkbox.filter((item) => item !== value));
-    } else {
-      setCheckbox((checkbox) => [...checkbox, value]);
-    }
-  };
-  // {
-  //   if (localStorage.getItem("token") == null) {
-  //     return (
-  //       <h1 style={{ textAlign: "center", margin: "auto" }}>
-  //         Sorry, you've got log in to see this page!
-  //       </h1>
-  //     );
-  //   }
-  // }
-
-
-  const handleFilterChange = (event) => {
-    if(!event || event.length === 0) {
+  // Filters kits based on products selected
+  const handleCategoryFilterChange = (event) => {
+    // Check to see if event is null or event array is empty, if so (this means that user cleared filters) setFilterKits back to original kits array that was retrieved on component mount
+    if (!event || event.length === 0) {
       setFilterKits(kits);
     } else {
-      const selectedFilters = event.map(category => category.value);
+      // Returns an array of products that user selected
+      const selectedFilters = event.map((category) => category.value);
 
+      // Filter logic
       let results = [];
       for (let i = 0; i < kits.length; i++) {
         for (let j = 0; j < kits[i].kitItems.length; j++) {
@@ -83,19 +47,25 @@ const ConsumerViewAll = () => {
           }
         }
       }
+      
+      // Finally, setFilterKits to the new results array (aka filtered kits)
       setFilterKits(results);
     }
-    
-    
-  }
+  };
 
+  // Filters kits based on hue type selected
+  const handleHueFilterChange = (event) => {
+    // Check to see if event is null, if so (this means that the user cleared filters) setFilterKits back to original kits array that was retrieved on component mount
+    if (!event) {
+      setFilterKits(kits);
+    } else {
+      // Returns value of selected hue
+      const selectedHue = event.value;
 
-
-
-
-
-
-
+      // setFilterKits to a filtered down array of kits that include the selectedHue
+      setFilterKits(filterKits.filter(kit => kit.hueType === selectedHue));
+    }
+  };
 
   return (
     <div>
@@ -105,171 +75,25 @@ const ConsumerViewAll = () => {
       >
         <div className="row mt-3">
           <div className="col-sm-6">
+            <Select
+              options={options}
+              onChange={handleCategoryFilterChange}
+              placeholder="Filter by Product"
+              isClearable
+              isMulti
+            />
+          </div>
+          <div className="col-sm-6">
           <Select
-            options={options}
-            onChange={handleFilterChange}
-            placeholder="Filter by Product"
-            isClearable
-            isMulti
-          />
+              options={hueOptions}
+              onChange={handleHueFilterChange}
+              placeholder="Filter by Hue"
+              isClearable
+            />
           </div>
         </div>
-        {/* <form className="row">
-          <div className="form-check form-check-inline">
-            <input
-              onChange={handleInputChange}
-              className="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox1"
-              value="Primer"
-            />
-            <label className="form-check-label" htmlFor="inlineCheckbox1">
-              Primer
-            </label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input
-              onChange={handleInputChange}
-              className="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox2"
-              value="Foundation"
-            />
-            <label className="form-check-label" htmlFor="inlineCheckbox2">
-              Foundation
-            </label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input
-              onChange={handleInputChange}
-              className="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox3"
-              value="Concealer"
-            />
-            <label className="form-check-label" htmlFor="inlineCheckbox3">
-              Concealer
-            </label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input
-              onChange={handleInputChange}
-              className="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox4"
-              value="Eyeshadow"
-            />
-            <label className="form-check-label" htmlFor="inlineCheckbox4">
-              Eyeshadow
-            </label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input
-              onChange={handleInputChange}
-              className="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox5"
-              value="Mascara"
-            />
-            <label className="form-check-label" htmlFor="inlineCheckbox5">
-              Mascara
-            </label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input
-              onChange={handleInputChange}
-              className="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox6"
-              value="Eyeliner"
-            />
-            <label className="form-check-label" htmlFor="inlineCheckbox6">
-              Eyeliner
-            </label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input
-              onChange={handleInputChange}
-              className="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox7"
-              value="Mascara"
-            />
-            <label className="form-check-label" htmlFor="inlineCheckbox7">
-              Mascara
-            </label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input
-              onChange={handleInputChange}
-              className="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox8"
-              value="Lip Colors"
-            />
-            <label className="form-check-label" htmlFor="inlineCheckbox8">
-              Lip Colors
-            </label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input
-              onChange={handleInputChange}
-              className="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox9"
-              value="Highlighter"
-            />
-            <label className="form-check-label" htmlFor="inlineCheckbox9">
-              Highlighter
-            </label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input
-              onChange={handleInputChange}
-              className="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox10"
-              value="Bronzer"
-            />
-            <label className="form-check-label" htmlFor="inlineCheckbox10">
-              Bronzer
-            </label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input
-              onChange={handleInputChange}
-              className="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox11"
-              value="Blush"
-            />
-            <label className="form-check-label" htmlFor="inlineCheckbox11">
-              Blush
-            </label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input
-              onChange={handleInputChange}
-              className="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox12"
-              value="Eyebrow Pencil/Powder"
-            />
-            <label className="form-check-label" htmlFor="inlineCheckbox12">
-              Eyebrow Pencil/Powder
-            </label>
-          </div>
-          <div className="form-check form-check-inline">
-            <button
-              type="submit"
-              onClick={handleChoiceSubmit}
-              className="btn btn-primary btn-sm"
-            >
-              submit
-            </button>
-          </div>
-        </form> */}
       </div>
+
       <div className="container-fluid">
         {/* <div className="row"></div> */}
         <div className="row row-cols-1 row-cols-md-3">
