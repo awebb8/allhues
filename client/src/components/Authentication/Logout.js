@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import AuthContext from "../../utils/AuthContext";
-import { Link, useHistory } from "react-router-dom";
+import React from "react";
+// import AuthContext from "../../utils/AuthContext";
+import { Link } from "react-router-dom";
 
 const Logout = () => {
-  const [jwtContext, setJwtContext] = useState({
-    jwt: "",
-  });
-  const history = useHistory();
-  const { jwt, setJwt } = useContext(AuthContext);
+  // const [jwtContext, setJwtContext] = useState({
+  // jwt: "",
+  // });
+  // const history = useHistory();
+  // const { jwt, setJwt } = useContext(AuthContext);
 
   //   useEffect(() => {
   //     localStorage.clear();
