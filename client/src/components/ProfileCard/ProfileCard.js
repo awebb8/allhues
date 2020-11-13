@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+
 import NameContext from "../../utils/NameContext";
 import RoleContext from "../../utils/RoleContext";
 import UserContext from "../../utils/UserContext";
@@ -10,17 +11,20 @@ const ProfileCard = () => {
   const { name } = useContext(NameContext);
   const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
+
   const onChange = (e) => {
     setImage(e.target.files[0]);
   };
   const url = "https://api.cloudinary.com/v1_1/dsi7lpcmx/image/upload";
   const preset = "askckkso";
+
   useEffect(() => {
-    axios.get(`/api/users/${id}`).then((res) => {
-      console.log(res.data);
-      setImage(res.data[0].image);
+    API.getUser().then((res) => {
+      setImage(res.data.image);
+      console.log(res.data.image);
     });
   }, []);
+
   const onSubmit = async (event) => {
     event.preventDefault();
 
