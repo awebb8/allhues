@@ -112,7 +112,7 @@ const Home = (props) => {
           }}
         ></div>
       </Link>
-      <p>
+      <p className="mt-3">
         There are a million shades of beautiful, but select the one that most
         closely matches yours.
       </p>
@@ -145,7 +145,7 @@ const Home = (props) => {
             Look at all the beauty our talented creators have enhanced.
           </p>
           <Link to="/viewall" className="buttons">
-            VIEW ALL
+            View All
           </Link>
         </div>
       </div>

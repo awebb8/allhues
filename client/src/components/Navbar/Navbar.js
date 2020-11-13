@@ -30,7 +30,7 @@ const Navbar = () => {
   console.log(role);
   if (role === "Consumer") {
     return (
-      <nav className="navbar navbar-expand-lg navbar-light">
+      <nav className="navbar navbar-expand-lg navbar-light sticky-top">
         <Link to="/" className="navbar-brand">
           AllHues
         </Link>
@@ -75,7 +75,7 @@ const Navbar = () => {
 
   if (localStorage.getItem("token") == null) {
     return (
-      <nav className="navbar navbar-expand-lg navbar-light">
+      <nav className="navbar navbar-expand-lg navbar-light sticky-top">
         <Link to="/" className="navbar-brand">
           AllHues
         </Link>

@@ -24,11 +24,13 @@ body {
 .fitz {
     margin: 10px!important;
     border: none!important;
+    transition: transform .7s;
 }
 
 .fitz:hover {
-    box-shadow: 5px 5px 5px 5px grey;
+    box-shadow: 2px 2px 2px 2px grey;
     z-index: 100;
+    transform: scale(1.07);
 }
 
 .homeCard {
