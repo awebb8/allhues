@@ -8,7 +8,8 @@ import API from "../../utils/API";
 
 const ProfileCard = () => {
   const [image, setImage] = useState("");
-  const { name } = useContext(NameContext);
+  const [usersName, setUsersName] = useState("");
+  // const { name } = useContext(NameContext);
   const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
 
@@ -21,6 +22,7 @@ const ProfileCard = () => {
   useEffect(() => {
     API.getUser().then((res) => {
       setImage(res.data.image);
+      setUsersName(res.data.name);
       console.log(res.data.image);
     });
   }, []);
@@ -84,7 +86,7 @@ const ProfileCard = () => {
           alt="placeholder image"
         />
 
-        <h4>{name}'s profile</h4>
+        <h4>{usersName}'s profile</h4>
 
         <p className="lead">{determineRoleToShowConsumer()}</p>
         <hr className="my-1" />
