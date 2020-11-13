@@ -16,7 +16,7 @@ const MultiKit = (props) => {
     >
       <div
         className={
-          props.class === undefined ? "grow card" : props.class + " grow card"
+          props.class === undefined ? "grow card card-viewall" : props.class + " grow card card-viewall"
         }
         onClick={(e) => handleSingleKitClick(e)}
         style={{ cursor: "pointer" }}
@@ -33,7 +33,7 @@ const MultiKit = (props) => {
         <div
           style={{ textAlign: "center" }}
           className={
-            props.class === undefined ? "card-body" : props.class + " card-body"
+            props.class === undefined ? "card-body-viewall" : props.class + " card-body-viewall"
           }
         >
           <h5

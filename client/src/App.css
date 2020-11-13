@@ -12,11 +12,15 @@ body {
     border: 2px solid #d8b4a4!important;
     display: inline-block!important;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Card on ViewAll page */
+.card-viewall {
     height: 400px;
 }
 
-.card-body {
-    max-height: 100px;
+.card-body-viewall {
+    max-height: 110px;
     overflow: hidden;
 }
 
