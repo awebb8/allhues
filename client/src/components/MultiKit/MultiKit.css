@@ -13,3 +13,7 @@ img {
 .grow:hover {
   transform: scale(1.04);
 }
+
+.card-body {
+  padding-top: 5px;
+}
