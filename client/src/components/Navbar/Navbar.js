@@ -138,7 +138,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/portal" className="nav-link">
+            <Link to={`/portal/${id}`} className="nav-link">
               Portal
             </Link>
           </li>
