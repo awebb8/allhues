@@ -19,20 +19,6 @@ const Home = (props) => {
     findAll();
   }, []);
 
-  useEffect(() => {
-    if (
-      props &&
-      props.location &&
-      props.location.state &&
-      props.location.state.selectedFilterHue
-    ) {
-      console.log("Props Location STate");
-      console.log(props.location.state);
-    } else {
-      console.log("No state found in props");
-    }
-  }, [props]);
-
   return (
     <div>
       <Header />
@@ -51,7 +37,12 @@ const Home = (props) => {
           }}
         ></div>
       </Link>
-      <Link to="/viewall/Fitz2">
+      <Link
+        to={{
+          pathname: "/viewall",
+          state: { selectedFilterHue: "Fitz2" },
+        }}
+      >
         <div
           className="card rounded-circle fitz"
           style={{
@@ -61,7 +52,12 @@ const Home = (props) => {
           }}
         ></div>
       </Link>
-      <Link to="/viewall/Fitz3">
+      <Link
+        to={{
+          pathname: "/viewall",
+          state: { selectedFilterHue: "Fitz3" },
+        }}
+      >
         <div
           className="card rounded-circle fitz"
           style={{
