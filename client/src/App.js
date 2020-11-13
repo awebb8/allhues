@@ -97,6 +97,7 @@ function App() {
                 <Route path="/viewall/:id" component={ConsumerViewAll}></Route>
                 <Route exact path="/signup" component={Signup}></Route>
                 <Route exact path="/login" component={Login}></Route>
+                <Route exact path="/favorites" component={FavoritesPage}></Route>
               </Switch>
               <Footer />
             </Router>
