@@ -1,0 +1,120 @@
+/* Profile_page */
+.profile-cover {
+	margin-top: 20px;
+	position: relative;
+	z-index: 0;
+}
+
+.panel {
+	margin-bottom: 150px;
+	color: #696969;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+}
+
+.profile-cover__action {
+	display: -ms-flexbox;
+	display: -webkit-box;
+	display: flex;
+	padding: 120px 30px 10px 153px;
+	border-radius: 5px 5px 0 0;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-ms-flex-pack: end;
+	-webkit-box-pack: end;
+	justify-content: flex-end;
+	overflow: hidden;
+	background-color: #b29fb5;
+	/*background: url(https://bootdey.com/img/Content/bg1.jpg) no-repeat;*/
+	background-size: cover;
+}
+
+.profile-cover__action > .btn {
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.profile-cover__img {
+	position: absolute;
+	top: 120px;
+	left: 30px;
+	text-align: center;
+	z-index: 1;
+}
+
+.profile-cover__img > label > img {
+	max-width: 250px;
+	border: 5px solid #fff;
+	border-radius: 50%;
+}
+
+.profile-cover__img > .h3 {
+	color: #393939;
+	font-size: 20px;
+	line-height: 30px;
+}
+
+.profile-cover__img > img + .h3 {
+	margin-top: 6px;
+}
+
+.profile-cover__info .nav {
+	margin-right: 28px;
+	padding: 15px 0 10px 170px;
+	color: #999;
+	font-size: 16px;
+	line-height: 26px;
+	font-weight: 300;
+	text-align: center;
+	text-transform: uppercase;
+	-ms-flex-pack: end;
+	-webkit-box-pack: end;
+	justify-content: flex-end;
+}
+
+.profile-cover__info .nav li {
+	margin-top: 13px;
+	margin-bottom: 13px;
+}
+
+.profile-cover__info .nav li:not(:first-child) {
+	margin-left: 30px;
+	padding-left: 30px;
+	border-left: 1px solid #eee;
+}
+
+.profile-cover__info .nav strong {
+	display: block;
+	margin-bottom: 10px;
+	color: #b29fb5;
+	font-size: 34px;
+}
+
+@media (min-width: 481px) {
+	.profile-cover__action > .btn {
+		min-width: 125px;
+	}
+
+	.profile-cover__action > .btn > span {
+		display: inline-block;
+	}
+}
+
+@media (max-width: 600px) {
+	.profile-cover__info .nav {
+		display: block;
+		margin: 90px auto 0;
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+
+	.profile-cover__info .nav li:not(:first-child) {
+		margin-top: 8px;
+		margin-left: 0;
+		padding-top: 18px;
+		padding-left: 0;
+		border-top: 1px solid #eee;
+		border-left-width: 0;
+	}
+}

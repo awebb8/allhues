@@ -1,15 +1,15 @@
 /* footer style */
 #footer {
-  padding-top: 10px;
-  clear: both;
-  text-align: center;
-  color: #616553;
-  background-color: #dbcbbe;
-  border-top: solid;
-  border-top-width: thick;
-  border-top-color: #616553;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  z-index: 10;
+	padding-top: 10px;
+	clear: both;
+	text-align: center;
+	color: #616553;
+	background-color: #dbcbbe;
+	border-top: solid;
+	border-top-width: thick;
+	border-top-color: #616553;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	z-index: 10;
 }
