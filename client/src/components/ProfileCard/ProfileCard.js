@@ -7,10 +7,14 @@ import axios from "axios";
 import API from "../../utils/API";
 
 const ProfileCard = (props) => {
-	let totalKitViews = 0;
-  props.yourKits.forEach(kit => (
-    totalKitViews += kit.uniqueVisits
-  ))
+  let totalKitViews = 0;
+  
+  if (props.yourKits) {
+    props.yourKits.forEach(kit => (
+      totalKitViews += kit.uniqueVisits
+    ));
+  }
+
 	const [uploadedImage, setUploadedImage] = useState("");
 	const [image, setImage] = useState("");
 	const [usersName, setUsersName] = useState("");
@@ -114,7 +118,7 @@ const ProfileCard = (props) => {
 						<div className="profile-cover__info">
 							<ul className="nav">
 								<li>
-									<strong>{props.yourKits.length}</strong>Created Kits
+									<strong>{props.yourKits ? props.yourKits.length: 0}</strong>Created Kits
 								</li>
 								<li>
 									<strong>33</strong>Favorite Kits
