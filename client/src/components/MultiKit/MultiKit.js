@@ -10,10 +10,10 @@ const MultiKit = (props) => {
   const [addFavorite, setAddFavorite] = useState("");
   const { favorites, setFavorites, filledHeart } = props;
   // const [favorite, setFavorite] = useState(false);
-  const [favorite, setFavorite] = useState(favorites.includes(filledHeart));
-  // const [favorite, setFavorite] = useState(
-  //   favorites ? favorites.includes(filledHeart) : false
-  // );
+  // const [favorite, setFavorite] = useState(favorites.includes(filledHeart));
+  const [favorite, setFavorite] = useState(
+    favorites ? favorites.includes(filledHeart) : false
+  );
   const { id } = useContext(UserContext);
 
   const handleSingleKitClick = (e) => {
