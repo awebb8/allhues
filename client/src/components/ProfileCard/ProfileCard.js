@@ -31,6 +31,11 @@ const ProfileCard = () => {
       console.log(imageUrl);
 
       setImage(res.data.secure_url);
+      axios
+        .put(`/api/users/${id}`, { image: res.data.secure_url })
+        .then((res) => {
+          console.log(res.data);
+        });
     } catch (err) {
       console.error(err);
     }
@@ -69,27 +74,7 @@ const ProfileCard = () => {
           src={image}
           alt="placeholder image"
         />
-        {/* <label className="btn btn-secondary">
-          Upload
-          <input
-            type="file"
-            id="kitImageInput"
-            className="custom-file-input"
-            name="image"
-            onChange={onChange}
-            accept="image/*"
-            hidden
-          />
-        </label>
-        <button
-          className="btn btn-secondary btn-sm"
-          type="button"
-          onClick={onSubmit}
-          disabled={!image}
-          style={{ width: "fit-content" }}
-        >
-          Change
-        </button> */}
+
         <h4>{name}'s profile</h4>
 
         <p className="lead">{determineRoleToShowConsumer()}</p>
