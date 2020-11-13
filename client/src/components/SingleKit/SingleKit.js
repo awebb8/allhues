@@ -24,11 +24,18 @@ const Kit = (props) => {
           <p className="card-text" style={{ textAlign: "center" }}>
             {props.info.kitDescription ? props.info.kitDescription : ""}
           </p>
-          <p className="card-text">
-            <small className="text-muted">
-              Unique Visits: {props.info.uniqueVisits + 1}
-            </small>
-          </p>
+          <div
+            className="text-muted d-flex"
+            style={{
+              position: "absolute",
+              bottom: 0,
+              right: 5,
+              fontSize: "15px",
+            }}
+          >
+            <i className="ph-eye pr-1"></i>
+            {props.info.uniqueVisits}
+          </div>
         </div>
       </div>
     );
@@ -68,11 +75,18 @@ const Kit = (props) => {
               </a>
             ))}
 
-            <p class="card-text">
-              <small class="text-muted">
-                Unique Visits: {props.info.uniqueVisits + 1}
-              </small>
-            </p>
+            <div
+              className="text-muted d-flex"
+              style={{
+                position: "absolute",
+                bottom: 0,
+                right: 5,
+                fontSize: "15px",
+              }}
+            >
+              <i className="ph-eye pr-1"></i>
+              {props.info.uniqueVisits}
+            </div>
           </div>
         </div>
         <div className="pt-3" style={{ textAlign: "center" }}>
@@ -103,11 +117,18 @@ const Kit = (props) => {
         <p className="card-text" style={{ textAlign: "center" }}>
           {props.info.kitDescription ? props.info.kitDescription : ""}
         </p>
-        <p className="card-text">
-          <small className="text-muted">
-            Unique Visits: {props.info.uniqueVisits + 1}
-          </small>
-        </p>
+        <div
+          className="text-muted d-flex"
+          style={{
+            position: "absolute",
+            bottom: 0,
+            right: 5,
+            fontSize: "15px",
+          }}
+        >
+          <i className="ph-eye pr-1"></i>
+          {props.info.uniqueVisits}
+        </div>
       </div>
     </div>
   );
