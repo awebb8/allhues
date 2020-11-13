@@ -46,9 +46,10 @@ const MultiKit = (props) => {
             props.class === undefined ? "card-body" : props.class + " card-body"
           }
         >
-          <button type="button" className="btn btn-default" style={{backgroundColor: favorite ? "pink" : "white"}} 
+          <button type="button" className="btn btn-default" 
+          // style={{backgroundColor: favorite ? "pink" : "white"}} 
             onClick={(e) => handleFavoritesClick(e)}>
-            <i className="far fa-heart"></i></button>
+            {favorites ? <i className="far fa-heart"></i> : <i class="fas fa-heart"></i>} </button>
           <h5
             style={{ textAlign: "center" }}
             className={
