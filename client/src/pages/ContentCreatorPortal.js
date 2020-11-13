@@ -42,18 +42,21 @@ const ContentCreatorPortal = () => {
   if (yourKits) {
     if (yourKits.length < 3 || (yourKits.length > 3 && yourKits.length < 6)) {
       return (
-        <div className="container">
-          <div className="row">
-            {yourKits.map((kit) => (
-              <MultiKit
-                key={kit._id}
-                class={kit._id}
-                src={kit.imageUrl}
-                info={kit}
-              />
-            ))}
+        <>
+          <ProfileCard />
+          <div className="container">
+            <div className="row">
+              {yourKits.map((kit) => (
+                <MultiKit
+                  key={kit._id}
+                  class={kit._id}
+                  src={kit.imageUrl}
+                  info={kit}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        </>
       );
     }
     return (
