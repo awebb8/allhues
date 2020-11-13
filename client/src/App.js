@@ -11,7 +11,6 @@ import ContentCreatorUpload from "./pages/ContentCreatorUpload";
 import ContentCreatorPortal from "./pages/ContentCreatorPortal";
 import ConsumerViewAll from "./pages/ConsumerViewAll";
 import ConsumerViewOne from "./pages/ConsumerViewOne";
-
 import Navbar from "./components/Navbar/Navbar";
 import FavoritesPage from "./pages/FavoritesPage";
 import Footer from "./components/Footer/Footer";
