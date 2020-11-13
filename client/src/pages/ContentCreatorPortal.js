@@ -6,10 +6,12 @@ import RoleContext from "../utils/roleContext";
 import MultiKit from "../components/MultiKit/MultiKit";
 import ProfileCard from "../components/ProfileCard/ProfileCard";
 // import NameContext from "../utils/NameContext";
+import API from "../utils/API";
 // import Kit from "../components/SingleKit/SingleKit";
 
 const ContentCreatorPortal = () => {
   const [yourKits, setYourKits] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   // const [kits, setKits] = useState([]);
   // const { setJwt, jwt } = useContext(AuthContext);
   const { id } = useContext(UserContext);
@@ -22,6 +24,16 @@ const ContentCreatorPortal = () => {
       setYourKits(res.data[0].kits);
     });
   };
+  useEffect(() => {
+    API.getUser().then((res) => {
+      console.log("HERE " + res.data.favorites);
+      setFavorites(res.data.favorites);
+    });
+  }, []);
+
+  useEffect(() => {
+    API.putFavorite(id, favorites).then((res) => console.log(res.data));
+  }, [favorites]);
 
   useEffect(() => {
     getKits();
@@ -52,6 +64,9 @@ const ContentCreatorPortal = () => {
                   class={kit._id}
                   src={kit.imageUrl}
                   info={kit}
+                  filledHeart={kit._id}
+                  setFavorites={setFavorites}
+                  favorites={favorites}
                 />
               ))}
             </div>
@@ -69,10 +84,13 @@ const ContentCreatorPortal = () => {
           <div className="row row-cols-1 row-cols-md-3">
             {yourKits.map((kit) => (
               <MultiKit
+                filledHeart={kit._id}
                 key={kit._id}
                 class={kit._id}
                 src={kit.imageUrl}
                 info={kit}
+                setFavorites={setFavorites}
+                favorites={favorites}
               />
             ))}
           </div>
