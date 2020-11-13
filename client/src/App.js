@@ -111,7 +111,7 @@ function App() {
                   <Route exact path="/signup" component={Signup}></Route>
                   <Route exact path="/login" component={Login}></Route>
                 </Switch>
-                <Footer />
+                {/* <Footer /> */}
               </Router>
             </NameContext.Provider>
           </RoleContext.Provider>
