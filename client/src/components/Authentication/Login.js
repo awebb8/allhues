@@ -62,7 +62,7 @@ const Login = () => {
   };
 
   return (
-    <div style={{backgroundColor: 'black'}}>
+    <div>
       <button onClick={() => setModalIsOpen(true)}>Open modal</button>
       <Modal
         isOpen={modalIsOpen}
@@ -82,13 +82,12 @@ const Login = () => {
             backgroundColor: "#fff",
             overflow: "auto",
             WebkitOverflowScrolling: "touch",
-            // borderRadius: "10px",
-            // outline: "none",
             paddingLeft: "3%",
             paddingRight: "3%",
             paddingTop: "2%",
             paddingBottom: "2%",
             boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.3)",
+            // maxWidth:500
           },
         }}
       >
@@ -129,18 +128,15 @@ const Login = () => {
           <button className="buttons shadow-none py-0 px-2 text-muted" onClick={handleCloseBtnClick} style={{position: 'absolute', right: 0, top: 0, color: 'black', backgroundColor: 'white'}}>
             <h3>&times;</h3>
           </button>
-          <br />
-          <br />
-          <Link to="/signup">Don't have an account? Click here.</Link>
+          <p className="mt-3"><Link to="/signup">Don't have an account? Click here.</Link></p>
           {incompleteError && (
-            <div className="alert alert-danger" role="alert">
+            <div className="alert alert-danger mt-3" role="alert">
               Please fill out all fields
             </div>
           )}
           {emailError && (
-            <div className="alert alert-danger" role="alert">
-              The email address you entered is not associated with an account or
-              the password you have entered is incorrect.
+            <div className="alert alert-danger mt-3" role="alert">
+              The email or password you have entered is incorrect.
             </div>
           )}
         </form>

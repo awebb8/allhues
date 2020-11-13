@@ -170,22 +170,22 @@ const Signup = () => {
             <h3>&times;</h3>
           </button>
           {incompleteError && (
-            <div className="alert alert-danger" role="alert">
+            <div className="alert alert-danger mt-3" role="alert">
               Please fill out all fields
             </div>
           )}
           {emailError && (
-            <div className="alert alert-danger" role="alert">
+            <div className="alert alert-danger mt-3" role="alert">
               Please enter a valid email address.
             </div>
           )}
           {passwordError && (
-            <div className="alert alert-danger" role="alert">
+            <div className="alert alert-danger mt-3" role="alert">
               Please enter a password that is at least six characters.
             </div>
           )}
           {accountExists && (
-            <div className="alert alert-danger" role="alert">
+            <div className="alert alert-danger mt-3" role="alert">
               An account already exists for the email address you have entered.
             </div>
           )}
