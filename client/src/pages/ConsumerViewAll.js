@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
 import Select from "react-select";
 import { options, hueOptions, sortOptions } from "../utils/selectOptions";
 import RoleContext from "../utils/roleContext";
+
 
 const ConsumerViewAll = (props) => {
   // Array of all kits, this is used to true up the filterKits array when filter is cleared
@@ -23,21 +24,10 @@ const ConsumerViewAll = (props) => {
   const { role } = useContext(RoleContext);
   const history = useHistory();
 
-  const id = useParams();
-  console.log(id);
-
   //Makes an api call to get all saved image urls so we can show em all
   const findAll = () => {
-    if (id.id === "Fitz1") {
-      API.getKits().then((res) => {
-        setKits(res.data);
-        setFilterKits(res.data);
-        filterByHue(id.id, undefined);
-      });
-    } else {
       API.getKits()
         .then((res) => {
-          console.log(res.data);
           setKits(res.data);
           setFilterKits(res.data);
         })
@@ -45,25 +35,12 @@ const ConsumerViewAll = (props) => {
           localStorage.clear();
           history.push("/login");
         });
-    }
   };
 
   // Component on mount, retrieve all kits from DB
   useEffect(() => {
     findAll();
-    // if (id.id === "Fitz1") {
-    //   console.log("match");
-    //   filterByHue(id.id, undefined);
-    // }
   }, []);
-
-  useEffect(() => {
-    if (selectedFilterProducts.length) {
-    } else if (selectedFilterProducts.length) {
-    } else if (selectedFilterHue.length) {
-    } else {
-    }
-  }, [filterKits]);
 
   useEffect(() => {
     if (
@@ -77,6 +54,7 @@ const ConsumerViewAll = (props) => {
       setSelectedFilterHue(props.location.state.selectedFilterHue);
     } else {
       console.log("No state found in props");
+      setSelectedFilterHue("");
     }
   }, [props.location.state]);
 
@@ -106,7 +84,6 @@ const ConsumerViewAll = (props) => {
     kitsArray = filterKits
   ) => {
     // Don't even try asking me how I got this to work....
-    return new Promise((resolve, reject) => {
       const results = [];
       for (let i = 0; i < kitsArray.length; i++) {
         let match = 0;
@@ -124,7 +101,6 @@ const ConsumerViewAll = (props) => {
         }
       }
       setFilterKits(results);
-    });
   };
 
   // Filters kits based on hue type selected
@@ -151,14 +127,13 @@ const ConsumerViewAll = (props) => {
     selectedHue = selectedFilterHue,
     kitArray = filterKits
   ) => {
-    return new Promise((resolve, reject) => {
       setFilterKits(kitArray.filter((kit) => kit.hueType === selectedHue));
-    });
   };
 
   const handleSortChange = (e) => {
     console.log(e);
     if (!e) {
+      //FIXME: yeah this shit doesnt work....
       if (selectedFilterProducts.length && selectedFilterHue.length) {
         const go = async () => {
           await filterByProduct(undefined, kits);
@@ -204,6 +179,24 @@ const ConsumerViewAll = (props) => {
     // }
   };
 
+  const determineLabel = () => {
+    switch(selectedFilterHue) {
+      case "Fitz1":
+        return hueOptions[0].label;
+      case "Fitz2":
+        return hueOptions[1].label;
+      case "Fitz3":
+        return hueOptions[2].label;
+      case "Fitz4":
+        return hueOptions[3].label;
+      case "Fitz5":
+        return hueOptions[4].label;
+      case "Fitz6":
+        return hueOptions[5].label;
+    }
+    
+  }
+
   return (
     <div>
       <div
@@ -232,6 +225,7 @@ const ConsumerViewAll = (props) => {
             <Select
               options={hueOptions}
               onChange={handleHueFilterChange}
+              value={selectedFilterHue === "" ? false : {label: determineLabel(), value: selectedFilterHue}}
               placeholder="Filter by Hue"
               isClearable
             />
@@ -256,11 +250,14 @@ const ConsumerViewAll = (props) => {
           ))} */}
           {filterKits
             .filter((kit) => {
-              if (selectedFilterHue) {
+              if (selectedFilterProducts === undefined) {
+                console.log("elephant");
+              } else if (selectedFilterHue) {
                 return kit.hueType === selectedFilterHue;
               } else {
                 return true;
               }
+              return true;
             })
             .map((i) => (
               <MultiKit key={i._id} src={i.imageUrl} class={i._id} info={i} />

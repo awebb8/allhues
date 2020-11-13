@@ -44,7 +44,6 @@ const ContentCreatorUpload = () => {
   useEffect(() => {
     if (kit.imageUrl) {
       API.postKit(id, kit);
-      alert("Your kit has been posted!");
     }
   }, [kit, id]);
 

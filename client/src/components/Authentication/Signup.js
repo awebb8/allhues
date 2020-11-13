@@ -92,28 +92,35 @@ const Signup = () => {
           },
           content: {
             color: "#46483b",
-            top: "40px",
-            left: "40px",
-            right: "40px",
-            bottom: "40px",
-            border: "1px solid #46483b",
-            background: "#fff",
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            // border: "1px solid #46483b",
+            backgroundColor: "#fff",
             overflow: "auto",
             WebkitOverflowScrolling: "touch",
-            borderRadius: "10px",
-            outline: "none",
-            padding: "50px",
+            // borderRadius: "10px",
+            // outline: "none",
+            paddingLeft: "3%",
+            paddingRight: "3%",
+            paddingTop: "2%",
+            paddingBottom: "2%",
+            boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.3)",
           },
         }}
       >
-        <h2>Signup</h2>
+        <div className="" style={{width:500}} >
+        <h2>Sign up</h2>
         <hr />
         <form>
           <div className="form-group">
             <label>Name</label>
             <input
               type="name"
-              placeholder="First and last name"
+              placeholder="First and Last Name"
               className="form-control"
               onChange={(e) => setName(e.target.value)}
             />
@@ -121,7 +128,7 @@ const Signup = () => {
           <div className="form-group">
             <label>Username</label>
             <input
-              type="userName"
+              type="username"
               placeholder="Username"
               className="form-control"
               onChange={(e) => setUserName(e.target.value)}
@@ -132,25 +139,22 @@ const Signup = () => {
             <label>Email address</label>
             <input
               type="email"
-              placeholder="example@email.com"
+              placeholder="Example@email.com"
               className="form-control"
               onChange={(e) => setEmail(e.target.value)}
             />
-            <small id="emailHelp" className="form-text text-muted">
-              We'll never share your email with anyone else.
-            </small>
           </div>
           <div className="form-group">
             <label>Password</label>
             <input
               type="password"
-              placeholder="password"
+              placeholder="Password"
               className="form-control"
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div>
-            <input type="checkbox" onChange={handleRoleCheckBox} />
+            <input type="checkbox" onChange={handleRoleCheckBox} className="mr-2"/>
             <label>Content Creator?</label>
           </div>
           <button
@@ -160,32 +164,33 @@ const Signup = () => {
               handleToken(e, name, userName, email, password, onboardingRole);
             }}
           >
-            Submit
+            Sign up
           </button>
-          <button className="buttons" onClick={handleCloseBtnClick}>
-            Close
+          <button className="buttons shadow-none py-0 px-2 text-muted" onClick={handleCloseBtnClick} style={{position: 'absolute', right: 0, top: 0, color: 'black', backgroundColor: 'white'}}>
+            <h3>&times;</h3>
           </button>
           {incompleteError && (
-            <div className="alert alert-danger" role="alert">
+            <div className="alert alert-danger mt-3" role="alert">
               Please fill out all fields
             </div>
           )}
           {emailError && (
-            <div className="alert alert-danger" role="alert">
+            <div className="alert alert-danger mt-3" role="alert">
               Please enter a valid email address.
             </div>
           )}
           {passwordError && (
-            <div className="alert alert-danger" role="alert">
+            <div className="alert alert-danger mt-3" role="alert">
               Please enter a password that is at least six characters.
             </div>
           )}
           {accountExists && (
-            <div className="alert alert-danger" role="alert">
+            <div className="alert alert-danger mt-3" role="alert">
               An account already exists for the email address you have entered.
             </div>
           )}
         </form>
+        </div>
       </Modal>
     </div>
   );
