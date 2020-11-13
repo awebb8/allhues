@@ -8,10 +8,12 @@ const MultiKit = (props) => {
   const history = useHistory();
 
   const [addFavorite, setAddFavorite] = useState("");
-  const {favorites, setFavorites, filledHeart} = props;
+  const { favorites, setFavorites, filledHeart } = props;
   // const [favorite, setFavorite] = useState(false);
-  // const [favorite, setFavorite] = useState(favorites.includes(filledHeart));
-  const [favorite, setFavorite] = useState(favorites ? favorites.includes(filledHeart) : false);
+  const [favorite, setFavorite] = useState(favorites.includes(filledHeart));
+  // const [favorite, setFavorite] = useState(
+  //   favorites ? favorites.includes(filledHeart) : false
+  // );
   const { id } = useContext(UserContext);
 
   const handleSingleKitClick = (e) => {
@@ -24,12 +26,16 @@ const MultiKit = (props) => {
     //setAddFavorite({favorites: e.target.getAttribute("class").substr(0,25).trim()})
     //console.log(e.target.getAttribute("class").substr(0,25).trim());
     setFavorite(!favorite);
-    var targetId= e.target.getAttribute("class").substr(0,25).trim();
-    if(!favorites.includes(e.target.getAttribute("class").substr(0,25).trim())) {
-    setFavorites([...favorites, e.target.getAttribute("class").substr(0,25).trim()]);
+    var targetId = e.target.getAttribute("class").substr(0, 25).trim();
+    if (
+      !favorites.includes(e.target.getAttribute("class").substr(0, 25).trim())
+    ) {
+      setFavorites([
+        ...favorites,
+        e.target.getAttribute("class").substr(0, 25).trim(),
+      ]);
     } else {
-      const filteredFaves=favorites.filter(i=>i != targetId
-      );
+      const filteredFaves = favorites.filter((i) => i != targetId);
       setFavorites(filteredFaves);
     }
   };
@@ -40,8 +46,6 @@ const MultiKit = (props) => {
   //  }
   // },[favorites])
 
-  
-
   return (
     <div
       className={
@@ -50,7 +54,9 @@ const MultiKit = (props) => {
     >
       <div
         className={
-          props.class === undefined ? "grow card card-viewall" : props.class + " grow card card-viewall"
+          props.class === undefined
+            ? "grow card card-viewall"
+            : props.class + " grow card card-viewall"
         }
         onClick={(e) => handleSingleKitClick(e)}
         style={{ cursor: "pointer" }}
@@ -67,13 +73,23 @@ const MultiKit = (props) => {
         <div
           style={{ textAlign: "center" }}
           className={
-            props.class === undefined ? "card-body-viewall" : props.class + " card-body-viewall"
+            props.class === undefined
+              ? "card-body-viewall"
+              : props.class + " card-body-viewall"
           }
         >
-          <button type="button" className={`${props.class} btn btn-default`}
-          // style={{backgroundColor: favorite ? "pink" : "white"}} 
-            onClick={(e) => handleFavoritesClick(e)}>
-            {favorite ?  <i className={`${props.class} fas fa-heart`}></i> : <i className={`${props.class} far fa-heart`}></i>} </button>
+          <button
+            type="button"
+            className={`${props.class} btn btn-default`}
+            // style={{backgroundColor: favorite ? "pink" : "white"}}
+            onClick={(e) => handleFavoritesClick(e)}
+          >
+            {favorite ? (
+              <i className={`${props.class} fas fa-heart`}></i>
+            ) : (
+              <i className={`${props.class} far fa-heart`}></i>
+            )}{" "}
+          </button>
           <h5
             style={{ textAlign: "center" }}
             className={
@@ -97,7 +113,12 @@ const MultiKit = (props) => {
         </div>
         <div
           className="text-muted d-flex"
-          style={{ position: "absolute", bottom: 0, right: 5, fontSize: '15px' }}
+          style={{
+            position: "absolute",
+            bottom: 0,
+            right: 5,
+            fontSize: "15px",
+          }}
         >
           <i className="ph-eye pr-1"></i>
           {props.info.uniqueVisits}

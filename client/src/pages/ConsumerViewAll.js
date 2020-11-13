@@ -6,7 +6,7 @@ import AuthContext from "../utils/AuthContext";
 
 import Select from "react-select";
 import { options, hueOptions, sortOptions } from "../utils/selectOptions";
-import RoleContext from "../utils/RoleContext";
+import RoleContext from "../utils/roleContext";
 import UserContext from "../utils/UserContext";
 
 const ConsumerViewAll = (props) => {
@@ -41,6 +41,7 @@ const ConsumerViewAll = (props) => {
 
   useEffect(() => {
     API.getUser().then((res) => {
+      console.log("HERE " + res.data.favorites);
       setFavorites(res.data.favorites);
     });
   }, []);
