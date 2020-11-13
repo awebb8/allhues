@@ -26,6 +26,7 @@ const contentCreatorSchema = new Schema({
   },
   image: {
     type: String,
+    default: "https://avatars.dicebear.com/api/female/sdfsdf.svg",
   },
   role: {
     type: String,
