@@ -4,19 +4,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import AuthContext from "./utils/AuthContext";
 import UserContext from "./utils/UserContext";
+import RoleContext from "./utils/RoleContext";
 import Home from "./pages/Home";
 import ContentCreatorUpload from "./pages/ContentCreatorUpload";
 import ContentCreatorPortal from "./pages/ContentCreatorPortal";
 import ConsumerViewAll from "./pages/ConsumerViewAll";
 import ConsumerViewOne from "./pages/ConsumerViewOne";
+
 import Navbar from "./components/Navbar/Navbar";
+import FavoritesPage from "./pages/FavoritesPage";
 import Footer from "./components/Footer/Footer";
 import Signup from "./components/Authentication/Signup";
 import Login from "./components/Authentication/Login";
-// import API from "./utils/API";
-// import Axios from "axios";
 import JsonWebToken from "jsonwebtoken";
-import RoleContext from "./utils/roleContext";
+
 // import { setAxiosDefault } from "./utils/axiosDefaults";
 
 function App() {
@@ -26,17 +27,22 @@ function App() {
   // const { setRoleContext } = useContext(RoleContext);
 
   useEffect(() => {
-    // API.getUser().then((res) => {
-    //   console.log(res.data.role);
-    //   setRoleContext(res.data.role);
-    // });
     const localJwt = localStorage.getItem("token");
+    const roleForCurrentUser = localStorage.getItem("role");
+    if (roleForCurrentUser) {
+      setRole(roleForCurrentUser);
+    }
     if (localJwt) {
       setJwt(localJwt);
       try {
         const decoded = JsonWebToken.decode(localJwt, process.env.JWT_SECRET);
         // console.log(decoded);
         setId(decoded.id);
+
+        // API.getUser().then((res) => {
+        //   console.log(res.data.role);
+        //   setRole(res.data.role);
+        // });
       } catch (e) {
         console.log(e);
       }
@@ -49,6 +55,13 @@ function App() {
       localStorage.setItem("token", jwt);
     }
   }, [jwt]);
+
+  // useEffect(() => {
+  //   if (role) {
+  //     // setAxiosDefault(jwt);
+  //     localStorage.setItem("role", role);
+  //   }
+  // }, [role]);
 
   // useEffect(() => {
   //   Axios.get("/api/users").then((res) => {
@@ -75,7 +88,8 @@ function App() {
                   component={ContentCreatorPortal}
                 ></Route>
                 <Route
-                  exact path="/viewall"
+                  exact
+                  path="/viewall"
                   component={ConsumerViewAll}
                 ></Route>
                 {/* <Route exact path="/viewone" component={ConsumerViewOne}></Route> */}

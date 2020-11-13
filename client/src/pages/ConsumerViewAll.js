@@ -5,7 +5,7 @@ import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
 import Select from "react-select";
 import { options, hueOptions, sortOptions } from "../utils/selectOptions";
-import RoleContext from "../utils/roleContext";
+import RoleContext from "../utils/RoleContext";
 
 const ConsumerViewAll = (props) => {
   // Array of all kits, this is used to true up the filterKits array when filter is cleared
@@ -78,7 +78,7 @@ const ConsumerViewAll = (props) => {
     } else {
       console.log("No state found in props");
     }
-  }, [props.location.state.selectedFilterHue]);
+  }, [props.location.state]);
 
   // Filters kits based on products selected
   const handleCategoryFilterChange = (event) => {

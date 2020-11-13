@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 // import AuthContext from "../../utils/AuthContext";
-// import RoleContext from "../../utils/roleContext";
+import RoleContext from "../../utils/RoleContext";
 import Logout from "../Authentication/Logout";
 // import API from "../../utils/API";
 
@@ -11,13 +11,12 @@ const Navbar = () => {
   //   token: "",
   // });
   // const { id, setId } = useContext(UserContext);
-  // const { roleContext, setRoleContext } = useContext(RoleContext);
+  const { role } = useContext(RoleContext);
   // const { jwt, setJwt } = useContext(AuthContext);
   // useEffect(() => {
-  //   API.allUsers().then((res) => {
-  //     console.log(res.data.role);
-  //     setRoleContext(res.data.role);
-  //   });
+  //   var blah = localStorage.getItem("role");
+  //   console.log(blah);
+  //   setRoleContext(blah);
   // }, []);
 
   //   const determineIfTokenInStorage = () => {
@@ -25,7 +24,52 @@ const Navbar = () => {
   //       setState({ token: localStorage.getItem("token") });
   //     }
   //   };
-  //   determineIfTokenInStorage();
+  //   determineIfTokenInStorage();c
+  console.log(role);
+  if (role === "Consumer") {
+    return (
+      <nav className="navbar navbar-expand-lg navbar-light">
+        <Link to="/" className="navbar-brand">
+          AllHues
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item active">
+              <Link to="/viewall" className="nav-link">
+                ViewAll<span className="sr-only">(current)</span>
+              </Link>
+            </li>
+            <li className="nav-item active">
+              <Link to="/favorites" className="nav-link">
+                Favorites<span className="sr-only">(current)</span>
+              </Link>
+            </li>
+            <li className="nav-item active">
+              <Link to="/portal" className="nav-link">
+                Profile<span className="sr-only">(current)</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <div className="nav-link">
+                <Logout />
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    );
+  }
 
   if (localStorage.getItem("token") == null) {
     return (
@@ -96,6 +140,11 @@ const Navbar = () => {
               Portal
             </Link>
           </li>
+          {/* <li className="nav-item active">
+            <Link to="/profile" className="nav-link">
+              Profile<span className="sr-only">(current)</span>
+            </Link>
+          </li> */}
           <li className="nav-item">
             <div className="nav-link">
               <Logout />

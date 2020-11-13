@@ -4,7 +4,7 @@ import React, { useState, useContext } from "react";
 import Modal from "react-modal";
 import AuthContext from "../../utils/AuthContext";
 import UserContext from "../../utils/UserContext";
-import RoleContext from "../../utils/roleContext";
+import RoleContext from "../../utils/RoleContext";
 import { useHistory } from "react-router-dom";
 
 Modal.setAppElement("#root");
@@ -15,13 +15,13 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [userName, setUserName] = useState("");
-  const [role, setRole] = useState("Consumer");
+  const [onboardingRole, setOnboardingRole] = useState("Consumer");
   const [roleCheckBox, setRoleCheckBox] = useState(false);
   const history = useHistory();
 
   const { setJwt } = useContext(AuthContext);
   const { setId } = useContext(UserContext);
-  // const { setRoleContext } = useContext(RoleContext);
+  const { setRole } = useContext(RoleContext);
 
   // Errors
   const [incompleteError, setIncompleteError] = useState(false);
@@ -50,8 +50,9 @@ const Signup = () => {
           console.log(response.data);
           setJwt(response.data.token);
           setId(response.data.user.id);
-          // setRoleContext(response.data.user.role);
-
+          setRole(response.data.user.role);
+          // TODO: might be able to get rid of this
+          localStorage.setItem("role", response.data.user.role);
           localStorage.setItem("token", response.data.token);
           history.push("/");
         })
@@ -71,9 +72,9 @@ const Signup = () => {
   const handleRoleCheckBox = () => {
     setRoleCheckBox(!roleCheckBox);
     if (roleCheckBox === true) {
-      setRole("Consumer");
+      setOnboardingRole("Consumer");
     } else {
-      setRole("Content Creator");
+      setOnboardingRole("Content Creator");
     }
   };
 
@@ -155,7 +156,7 @@ const Signup = () => {
             className="buttons"
             type="submit"
             onClick={(e) => {
-              handleToken(e, name, userName, email, password, role);
+              handleToken(e, name, userName, email, password, onboardingRole);
             }}
           >
             Submit
