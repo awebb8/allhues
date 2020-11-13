@@ -78,7 +78,7 @@ const ConsumerViewAll = (props) => {
     } else {
       console.log("No state found in props");
     }
-  }, [props.location.state.selectedFilterHue]);
+  }, [props.location.state]);
 
   // Filters kits based on products selected
   const handleCategoryFilterChange = (event) => {

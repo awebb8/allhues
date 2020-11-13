@@ -51,7 +51,12 @@ const Home = (props) => {
           }}
         ></div>
       </Link>
-      <Link to="/viewall/Fitz2">
+      <Link
+        to={{
+          pathname: "/viewall",
+          state: { selectedFilterHue: "Fitz2" },
+        }}
+      >
         <div
           className="card rounded-circle fitz"
           style={{
@@ -61,7 +66,12 @@ const Home = (props) => {
           }}
         ></div>
       </Link>
-      <Link to="/viewall/Fitz3">
+      <Link
+        to={{
+          pathname: "/viewall",
+          state: { selectedFilterHue: "Fitz3" },
+        }}
+      >
         <div
           className="card rounded-circle fitz"
           style={{
@@ -71,18 +81,51 @@ const Home = (props) => {
           }}
         ></div>
       </Link>
-      <div
-        className="card rounded-circle fitz"
-        style={{ height: "10rem", width: "10rem", backgroundColor: "#d3925c" }}
-      ></div>
-      <div
-        className="card rounded-circle fitz"
-        style={{ height: "10rem", width: "10rem", backgroundColor: "#936541" }}
-      ></div>
-      <div
-        className="card rounded-circle fitz"
-        style={{ height: "10rem", width: "10rem", backgroundColor: "#694a2e" }}
-      ></div>
+      <Link
+        to={{
+          pathname: "/viewall",
+          state: { selectedFilterHue: "Fitz4" },
+        }}
+      >
+        <div
+          className="card rounded-circle fitz"
+          style={{
+            height: "10rem",
+            width: "10rem",
+            backgroundColor: "#d3925c",
+          }}
+        ></div>
+      </Link>
+      <Link
+        to={{
+          pathname: "/viewall",
+          state: { selectedFilterHue: "Fitz5" },
+        }}
+      >
+        <div
+          className="card rounded-circle fitz"
+          style={{
+            height: "10rem",
+            width: "10rem",
+            backgroundColor: "#936541",
+          }}
+        ></div>
+      </Link>
+      <Link
+        to={{
+          pathname: "/viewall",
+          state: { selectedFilterHue: "Fitz6" },
+        }}
+      >
+        <div
+          className="card rounded-circle fitz"
+          style={{
+            height: "10rem",
+            width: "10rem",
+            backgroundColor: "#694a2e",
+          }}
+        ></div>
+      </Link>
       <p>
         There are a million shades of beautiful, but select the one that most
         closely matches yours.
