@@ -224,7 +224,7 @@ const ConsumerViewAll = (props) => {
             <Select
               options={hueOptions}
               onChange={handleHueFilterChange}
-              value={{label: determineLabel(), value: selectedFilterHue}}
+              value={selectedFilterHue === "" ? false : {label: determineLabel(), value: selectedFilterHue}}
               placeholder="Filter by Hue"
               isClearable
             />
