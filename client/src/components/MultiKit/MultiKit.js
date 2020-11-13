@@ -1,11 +1,18 @@
 import "./MultiKit.css";
 import { useHistory } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import UserContext from "../../utils/UserContext";
+import API from "../../utils/API";
 
 const MultiKit = (props) => {
   const history = useHistory();
 
-  const [favorite, setFavorite] = useState(false);
+  const [addFavorite, setAddFavorite] = useState("");
+  const {favorites, setFavorites, filledHeart} = props;
+  // const [favorite, setFavorite] = useState(false);
+  // const [favorite, setFavorite] = useState(favorites.includes(filledHeart));
+  const [favorite, setFavorite] = useState(favorites ? favorites.includes(filledHeart) : false);
+  const { id } = useContext(UserContext);
 
   const handleSingleKitClick = (e) => {
     console.log(e.target);
@@ -14,10 +21,26 @@ const MultiKit = (props) => {
 
   const handleFavoritesClick = (e) => {
     e.stopPropagation();
-    console.log(e.target);
+    //setAddFavorite({favorites: e.target.getAttribute("class").substr(0,25).trim()})
+    //console.log(e.target.getAttribute("class").substr(0,25).trim());
     setFavorite(!favorite);
-    console.log(favorite);
+    var targetId= e.target.getAttribute("class").substr(0,25).trim();
+    if(!favorites.includes(e.target.getAttribute("class").substr(0,25).trim())) {
+    setFavorites([...favorites, e.target.getAttribute("class").substr(0,25).trim()]);
+    } else {
+      const filteredFaves=favorites.filter(i=>i != targetId
+      );
+      setFavorites(filteredFaves);
+    }
   };
+
+  // useEffect(()=>{
+  //  if (favorites) {
+  //    setFavorites(favorites.includes(filledHeart));
+  //  }
+  // },[favorites])
+
+  
 
   return (
     <div
@@ -47,10 +70,10 @@ const MultiKit = (props) => {
             props.class === undefined ? "card-body-viewall" : props.class + " card-body-viewall"
           }
         >
-          <button type="button" className="btn btn-default" 
+          <button type="button" className={`${props.class} btn btn-default`}
           // style={{backgroundColor: favorite ? "pink" : "white"}} 
             onClick={(e) => handleFavoritesClick(e)}>
-            {favorite ? <i className="far fa-heart"></i> : <i class="fas fa-heart"></i>} </button>
+            {favorite ?  <i className={`${props.class} fas fa-heart`}></i> : <i className={`${props.class} far fa-heart`}></i>} </button>
           <h5
             style={{ textAlign: "center" }}
             className={
