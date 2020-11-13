@@ -33,6 +33,7 @@ const contentCreatorSchema = new Schema({
     enum: ["Consumer", "Content Creator"],
     default: "Consumer",
   },
+  favorites: [{ type: Schema.Types.ObjectId, ref: "Kit" }],
   kits: [{ type: Schema.Types.ObjectId, ref: "Kit" }],
 });
 

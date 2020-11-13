@@ -40,7 +40,7 @@ router.get("/user", auth, (req, res) => {
 //FIXME: beware until frontend is tied you cant go here unless you delete 'auth'
 router.get("/api/users/:id", (req, res) => {
   db.ContentCreator.find({ _id: req.params.id })
-    .populate("kits")
+    .populate("kits").populate("favorites")
     .then((found) => {
       res.json(found);
     })
@@ -79,6 +79,21 @@ router.post("/api/kits/:id", (req, res) => {
         { new: true }
       )
     )
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+router.put("/api/user/:id", (req, res) => {
+  console.log(req.body)
+    db.ContentCreator.findByIdAndUpdate(
+        req.params.id,
+        { $set: {favorites:req.body }},
+        { new: true }
+      )
     .then((response) => {
       res.json(response);
     })

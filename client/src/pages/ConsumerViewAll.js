@@ -3,15 +3,17 @@ import { useHistory } from "react-router-dom";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
+
 import Select from "react-select";
 import { options, hueOptions, sortOptions } from "../utils/selectOptions";
 import RoleContext from "../utils/RoleContext";
+import UserContext from "../utils/UserContext";
 
 
 const ConsumerViewAll = (props) => {
   // Array of all kits, this is used to true up the filterKits array when filter is cleared
   const [kits, setKits] = useState([]);
-
+  const [favorites, setFavorites] = useState([]);
   // Array of filtered kits, this is used to render the kits on the page
   const [filterKits, setFilterKits] = useState([]);
 
@@ -22,6 +24,7 @@ const ConsumerViewAll = (props) => {
   //TODO: We can probably get rid of JWT here since it's not being used anywhere on the page, and the page is not going to be protected
   const { jwt } = useContext(AuthContext);
   const { role } = useContext(RoleContext);
+  const {id} = useContext(UserContext)
   const history = useHistory();
 
   //Makes an api call to get all saved image urls so we can show em all
@@ -36,6 +39,22 @@ const ConsumerViewAll = (props) => {
           history.push("/login");
         });
   };
+
+  useEffect(()=>{
+    API.getUser().then(res=>{
+      
+      setFavorites(res.data.favorites);
+    })
+  },[]);
+
+  useEffect(() => {
+
+ 
+    API.putFavorite(id, favorites)
+      .then(res => console.log(res.data))
+   
+  }, [favorites]);
+
 
   // Component on mount, retrieve all kits from DB
   useEffect(() => {
@@ -260,7 +279,7 @@ const ConsumerViewAll = (props) => {
               return true;
             })
             .map((i) => (
-              <MultiKit key={i._id} src={i.imageUrl} class={i._id} info={i} />
+              <MultiKit setFavorites={setFavorites} favorites={favorites} key={i._id} src={i.imageUrl} filledHeart={i._id} class={i._id} info={i} />
             ))}
         </div>
       </div>
