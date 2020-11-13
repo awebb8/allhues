@@ -10,17 +10,16 @@ const MultiKit = (props) => {
   };
   return (
     <div
-      className="grow col mb-4"
       className={
-        props.class === undefined
-          ? "grow col mb-4"
-          : props.class + " grow col mb-4"
+        props.class === undefined ? "col mb-4" : props.class + "col mb-4"
       }
-      onClick={(e) => handleSingleKitClick(e)}
-      style={{ cursor: "pointer" }}
     >
       <div
-        className={props.class === undefined ? "card" : props.class + " card"}
+        className={
+          props.class === undefined ? "grow card" : props.class + " grow card"
+        }
+        onClick={(e) => handleSingleKitClick(e)}
+        style={{ cursor: "pointer" }}
       >
         <img
           src={
@@ -57,6 +56,13 @@ const MultiKit = (props) => {
           >
             {props.info.kitDescription ? props.info.kitDescription : ""}
           </p>
+        </div>
+        <div
+          className="text-muted d-flex"
+          style={{ position: "absolute", bottom: 0, right: 5, fontSize: '15px' }}
+        >
+          <i className="ph-eye pr-1"></i>
+          {props.info.uniqueVisits}
         </div>
       </div>
     </div>
