@@ -5,7 +5,7 @@ import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
 import Select from "react-select";
 import { options, hueOptions, sortOptions } from "../utils/selectOptions";
-import RoleContext from "../utils/RoleContext";
+import RoleContext from "../utils/roleContext";
 
 const ConsumerViewAll = (props) => {
   // Array of all kits, this is used to true up the filterKits array when filter is cleared
