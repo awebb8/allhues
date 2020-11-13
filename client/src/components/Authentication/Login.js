@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import AuthContext from "../../utils/AuthContext";
 import UserContext from "../../utils/UserContext";
+import RoleContext from "../../utils/RoleContext";
 import { useHistory } from "react-router-dom";
 import "./auth.css";
 Modal.setAppElement("#root");
@@ -14,6 +15,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const { setJwt } = useContext(AuthContext);
   const { setId } = useContext(UserContext);
+  const { setRole } = useContext(RoleContext);
   const history = useHistory();
   const [incompleteError, setIncompleteError] = useState(false);
   const [emailError, setEmailError] = useState(false);
@@ -34,8 +36,11 @@ const Login = () => {
     e.preventDefault();
     Axios.post("/login", { email, password })
       .then((res) => {
+        console.log(res);
         setJwt(res.data.token);
         setId(res.data.user.id);
+        setRole(res.data.user.role);
+        localStorage.setItem("role", res.data.user.role);
         localStorage.setItem("token", res.data.token);
         history.push("/");
       })

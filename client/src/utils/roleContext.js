@@ -1,8 +1,8 @@
 import React from "react";
 const RoleContext = React.createContext({
-  roleContext: "",
+  role: "",
 
-  setRoleContext: () => {},
+  setRole: () => {},
 });
 
 export default RoleContext;
