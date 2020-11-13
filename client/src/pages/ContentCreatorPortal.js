@@ -1,9 +1,11 @@
-import Axios from "axios";
+import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
 // import AuthContext from "../utils/AuthContext";
 import UserContext from "../utils/UserContext";
 import RoleContext from "../utils/RoleContext";
 import MultiKit from "../components/MultiKit/MultiKit";
+import ProfileCard from "../components/ProfileCard/ProfileCard";
+// import NameContext from "../utils/NameContext";
 // import Kit from "../components/SingleKit/SingleKit";
 
 const ContentCreatorPortal = () => {
@@ -13,7 +15,7 @@ const ContentCreatorPortal = () => {
   const { id } = useContext(UserContext);
 
   const getKits = () => {
-    Axios.get(`/api/users/${id}`).then((res) => {
+    axios.get(`/api/users/${id}`).then((res) => {
       console.log("component did mount2");
       console.log(res.data.kits);
 
@@ -27,41 +29,34 @@ const ContentCreatorPortal = () => {
 
   // console.log(yourKits);
   const { role } = useContext(RoleContext);
+  // const { name } = useContext(NameContext);
 
   if (role === "Consumer") {
     return (
-      <div>
-        <div className="container">
-          <div className="row">
-            <div
-              className="col-6"
-              style={{ background: "lightblue", height: "40vh" }}
-            ></div>
-            <div
-              className="col-6"
-              style={{ background: "green", height: "40vh" }}
-            ></div>
-          </div>
-        </div>
-      </div>
+      <>
+        <ProfileCard />
+      </>
     );
   }
 
   if (yourKits) {
     if (yourKits.length < 3 || (yourKits.length > 3 && yourKits.length < 6)) {
       return (
-        <div className="container">
-          <div className="row">
-            {yourKits.map((kit) => (
-              <MultiKit
-                key={kit._id}
-                class={kit._id}
-                src={kit.imageUrl}
-                info={kit}
-              />
-            ))}
+        <>
+          <ProfileCard />
+          <div className="container">
+            <div className="row">
+              {yourKits.map((kit) => (
+                <MultiKit
+                  key={kit._id}
+                  class={kit._id}
+                  src={kit.imageUrl}
+                  info={kit}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        </>
       );
     }
     return (

@@ -5,6 +5,7 @@ import "./App.css";
 import AuthContext from "./utils/AuthContext";
 import UserContext from "./utils/UserContext";
 import RoleContext from "./utils/RoleContext";
+import NameContext from "./utils/NameContext";
 import Home from "./pages/Home";
 import ContentCreatorUpload from "./pages/ContentCreatorUpload";
 import ContentCreatorPortal from "./pages/ContentCreatorPortal";
@@ -24,11 +25,17 @@ function App() {
   const [jwt, setJwt] = useState("");
   const [id, setId] = useState("");
   const [role, setRole] = useState("");
+  const [name, setName] = useState("");
   // const { setRoleContext } = useContext(RoleContext);
 
   useEffect(() => {
     const localJwt = localStorage.getItem("token");
     const roleForCurrentUser = localStorage.getItem("role");
+    // setName(localStorage.getItem("name"));
+    const nameOfUser = localStorage.getItem("name");
+    if (nameOfUser) {
+      setName(nameOfUser);
+    }
     if (roleForCurrentUser) {
       setRole(roleForCurrentUser);
     }
@@ -84,7 +91,7 @@ function App() {
                 ></Route>
                 <Route
                   exact
-                  path="/portal"
+                  path="/portal/:id"
                   component={ContentCreatorPortal}
                 ></Route>
                 <Route

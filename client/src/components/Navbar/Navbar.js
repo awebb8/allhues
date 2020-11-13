@@ -4,6 +4,7 @@ import "./navbar.css";
 // import AuthContext from "../../utils/AuthContext";
 import RoleContext from "../../utils/RoleContext";
 import Logout from "../Authentication/Logout";
+import UserContext from "../../utils/UserContext";
 // import API from "../../utils/API";
 
 const Navbar = () => {
@@ -12,6 +13,7 @@ const Navbar = () => {
   // });
   // const { id, setId } = useContext(UserContext);
   const { role } = useContext(RoleContext);
+  const { id } = useContext(UserContext);
   // const { jwt, setJwt } = useContext(AuthContext);
   // useEffect(() => {
   //   var blah = localStorage.getItem("role");
@@ -56,7 +58,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item active">
-              <Link to="/portal" className="nav-link">
+              <Link to={`/portal/${id}`} className="nav-link">
                 Profile<span className="sr-only">(current)</span>
               </Link>
             </li>
@@ -136,7 +138,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/portal" className="nav-link">
+            <Link to={`/portal/${id}`} className="nav-link">
               Portal
             </Link>
           </li>
