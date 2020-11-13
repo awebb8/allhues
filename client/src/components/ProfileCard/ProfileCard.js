@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import NameContext from "../../utils/NameContext";
+// import NameContext from "../../utils/NameContext";
 import RoleContext from "../../utils/roleContext";
 import UserContext from "../../utils/UserContext";
 import axios from "axios";
@@ -65,6 +65,7 @@ const ProfileCard = () => {
     position: "absolute",
     marginLeft: "1%",
     marginTop: "1%",
+    // marginRight: "2%",
   };
   //   var shownRole;
   const determineRoleToShowConsumer = () => {
@@ -83,7 +84,7 @@ const ProfileCard = () => {
         <img
           style={{ borderRadius: "95%", marginTop: "-20%" }}
           src={image}
-          alt="placeholder image"
+          alt="profile pic"
         />
 
         <h4>{usersName}'s profile</h4>

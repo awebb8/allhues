@@ -61,6 +61,8 @@ const ContentCreatorPortal = () => {
     }
     return (
       <div>
+        <ProfileCard />
+
         {/* <h1>This is the contentCreator Portal Page.</h1> */}
         <div className="container-fluid" style={{ marginBottom: "150px" }}>
           {/* <div className="row"></div> */}

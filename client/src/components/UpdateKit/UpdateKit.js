@@ -1,34 +1,70 @@
-import React from 'react';
+import React, { useState } from "react";
 
 const UpdateKit = (props) => {
-    return (
-        <div className="card">
-          <img
-            src={
-              props.src === undefined ? "http://via.placeholder.com/200" : props.src
+  const [affiliateLink, setAffiliateLink] = useState("");
+  const handleAffiliateLinkChange = (e) => {
+    const { value } = e.target;
+    setAffiliateLink(value);
+  };
+  return (
+    <div className="card">
+      <img
+        src={
+          props.src === undefined ? "http://via.placeholder.com/200" : props.src
+        }
+        className="card-img-top crop"
+        alt="..."
+      />
+      <div className="card-body">
+        <h5 className="card-title" style={{ textAlign: "center" }}>
+          <label htmlFor="kitName">Title: </label>
+          <br />
+          <input
+            type="text"
+            name="kitName"
+            onChange={props.handleInputChange}
+            defaultValue={props.info.kitName ? props.info.kitName : ""}
+          ></input>
+        </h5>
+        <p className="card-text" style={{ textAlign: "center" }}>
+          <label htmlFor="kitDescription">Description: </label>
+          <br />
+          <textarea
+            type="text"
+            name="kitDescription"
+            onChange={props.handleInputChange}
+            defaultValue={
+              props.info.kitDescription ? props.info.kitDescription : ""
             }
-            className="card-img-top crop"
-            alt="..."
           />
-          <div className="card-body">
-            <h5 className="card-title" style={{ textAlign: "center" }}>
-              <label htmlFor="kitName">Title: </label>
+          <br />
+          {/* <input
+            type="text"
+            name="affiliateLink"
+            onChange={handleAffiliateLinkChange}
+          /> */}
+          {props.info.kitItems.map((item) => (
+            <label htmlFor="affiliateLink">
+              Link:
               <br />
-              <input type="text" name="kitName" onChange={props.handleInputChange} defaultValue={props.info.kitName ? props.info.kitName : ""}></input>
-            </h5>
-            <p className="card-text" style={{ textAlign: "center" }}>
-            <label htmlFor="kitDescription">Description: </label>
-            <br/>
-            <textarea type="text" name="kitDescription" onChange={props.handleInputChange} defaultValue={props.info.kitDescription ? props.info.kitDescription : ""} />
-            <br/>
-            <button className="buttons" onClick={props.onClickUpdate}>Save</button>
-            </p>
-            {/* <p className="card-text">
+              <input
+                type="text"
+                name="affiliateLink"
+                onChange={handleAffiliateLinkChange}
+              />
+            </label>
+          ))}
+          <br />
+          <button className="buttons" onClick={props.onClickUpdate}>
+            Save
+          </button>
+        </p>
+        {/* <p className="card-text">
               <small className="text-muted">Last updated 3 mins ago</small>
             </p> */}
-          </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default UpdateKit;

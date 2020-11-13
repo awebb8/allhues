@@ -124,8 +124,8 @@ const ContentCreatorUpload = () => {
 
     // Redirect to contentCreator portal
     setTimeout(function () {
-      history.push("/portal");
-    }, 1000);
+      history.push(`/portal/${id}`);
+    }, 1500);
   };
 
   if (localStorage.getItem("token") == null) {

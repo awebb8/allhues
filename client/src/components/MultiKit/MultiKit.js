@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 const MultiKit = (props) => {
   const history = useHistory();
   const handleSingleKitClick = (e) => {
-    console.log(e.target);
+    // console.log(e.target);
     history.push(`/viewone/${e.target.getAttribute("class").substr(0, 25)}`);
   };
   return (
