@@ -3,11 +3,10 @@ import NameContext from "../../utils/NameContext";
 import RoleContext from "../../utils/RoleContext";
 import UserContext from "../../utils/UserContext";
 import axios from "axios";
+import API from "../../utils/API";
 
 const ProfileCard = () => {
-  const [image, setImage] = useState(
-    "https://avatars.dicebear.com/api/female/sdfsdf.svg"
-  );
+  const [image, setImage] = useState("");
   const { name } = useContext(NameContext);
   const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
@@ -16,6 +15,12 @@ const ProfileCard = () => {
   };
   const url = "https://api.cloudinary.com/v1_1/dsi7lpcmx/image/upload";
   const preset = "askckkso";
+  useEffect(() => {
+    axios.get(`/api/users/${id}`).then((res) => {
+      console.log(res.data);
+      setImage(res.data[0].image);
+    });
+  }, []);
   const onSubmit = async (event) => {
     event.preventDefault();
 
