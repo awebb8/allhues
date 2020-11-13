@@ -62,7 +62,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div style={{backgroundColor: 'black'}}>
       <button onClick={() => setModalIsOpen(true)}>Open modal</button>
       <Modal
         isOpen={modalIsOpen}
@@ -72,24 +72,30 @@ const Login = () => {
           },
           content: {
             color: "#46483b",
-            top: "40px",
-            left: "40px",
-            right: "40px",
-            bottom: "40px",
-            border: "1px solid #46483b",
-            background: "#fff",
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            // border: "1px solid #46483b",
+            backgroundColor: "#fff",
             overflow: "auto",
             WebkitOverflowScrolling: "touch",
-            borderRadius: "10px",
-            outline: "none",
-            padding: "50px",
+            // borderRadius: "10px",
+            // outline: "none",
+            paddingLeft: "3%",
+            paddingRight: "3%",
+            paddingTop: "2%",
+            paddingBottom: "2%",
+            boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.3)",
           },
         }}
       >
         <h2>Login</h2>
         <hr />
         <form>
-          <div className="form-group">
+          <div className="form-group" style={{width:500}}>
             <label>Email address</label>
             <input
               type="email"
@@ -105,7 +111,7 @@ const Login = () => {
             <input
               type="password"
               name="password"
-              placeholder="password"
+              placeholder="Password"
               onChange={handlePasswordInput}
               //   value={authState.password}
               className="form-control"
@@ -118,11 +124,12 @@ const Login = () => {
               handleLoginSubmit(e, email, password);
             }}
           >
-            Submit
+            Log in
           </button>
-          <button className="buttons" onClick={handleCloseBtnClick}>
-            Close
+          <button className="buttons shadow-none py-0 px-2 text-muted" onClick={handleCloseBtnClick} style={{position: 'absolute', right: 0, top: 0, color: 'black', backgroundColor: 'white'}}>
+            <h3>&times;</h3>
           </button>
+          <br />
           <br />
           <Link to="/signup">Don't have an account? Click here.</Link>
           {incompleteError && (
