@@ -33,6 +33,9 @@ export default {
       },
     });
   },
+  putFavorite: function (id, kitId) {
+    return axios.put(`/api/user/${id}`, kitId);
+  },
 
   //   postImageToCloudinary: async function(){
   //       return await axios.post(url,)

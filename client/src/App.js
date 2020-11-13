@@ -79,41 +79,34 @@ function App() {
       <AuthContext.Provider value={{ jwt, setJwt }}>
         <UserContext.Provider value={{ id, setId }}>
           <RoleContext.Provider value={{ role, setRole }}>
-            <NameContext.Provider value={{ name, setName }}>
-              <Router>
-                <Navbar />
-                <Switch>
-                  <Route exact path="/" component={Home}></Route>
-                  <Route
-                    exact
-                    path="/upload"
-                    component={ContentCreatorUpload}
-                  ></Route>
-                  <Route
-                    exact
-                    path="/portal/:id"
-                    component={ContentCreatorPortal}
-                  ></Route>
-                  <Route
-                    exact
-                    path="/viewall"
-                    component={ConsumerViewAll}
-                  ></Route>
-                  {/* <Route exact path="/viewone" component={ConsumerViewOne}></Route> */}
-                  <Route
-                    path="/viewone/:id"
-                    component={ConsumerViewOne}
-                  ></Route>
-                  <Route
-                    path="/viewall/:id"
-                    component={ConsumerViewAll}
-                  ></Route>
-                  <Route exact path="/signup" component={Signup}></Route>
-                  <Route exact path="/login" component={Login}></Route>
-                </Switch>
-                {/* <Footer /> */}
-              </Router>
-            </NameContext.Provider>
+            <Router>
+              <Navbar />
+              <Switch>
+                <Route exact path="/" component={Home}></Route>
+                <Route
+                  exact
+                  path="/upload"
+                  component={ContentCreatorUpload}
+                ></Route>
+                <Route
+                  exact
+                  path="/portal/:id"
+                  component={ContentCreatorPortal}
+                ></Route>
+                <Route
+                  exact
+                  path="/viewall"
+                  component={ConsumerViewAll}
+                ></Route>
+                {/* <Route exact path="/viewone" component={ConsumerViewOne}></Route> */}
+                <Route path="/viewone/:id" component={ConsumerViewOne}></Route>
+                <Route path="/viewall/:id" component={ConsumerViewAll}></Route>
+                <Route exact path="/signup" component={Signup}></Route>
+                <Route exact path="/login" component={Login}></Route>
+                <Route exact path="/favorites" component={FavoritesPage}></Route>
+              </Switch>
+              <Footer />
+            </Router>
           </RoleContext.Provider>
         </UserContext.Provider>
       </AuthContext.Provider>
