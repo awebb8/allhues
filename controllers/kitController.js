@@ -59,6 +59,17 @@ router.post("/api/users", ({ body }, res) => {
     });
 });
 
+//CHanging pictures route
+router.put("/api/users/:id", (req, res) => {
+  db.ContentCreator.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
 router.post("/api/kits/:id", (req, res) => {
   db.Kit.create(req.body)
     .then((item) =>
