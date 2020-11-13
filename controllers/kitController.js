@@ -37,7 +37,6 @@ router.get("/user", auth, (req, res) => {
     });
 });
 
-//FIXME: beware until frontend is tied you cant go here unless you delete 'auth'
 router.get("/api/users/:id", (req, res) => {
   db.ContentCreator.find({ _id: req.params.id })
     .populate("kits")
