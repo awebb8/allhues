@@ -133,6 +133,7 @@ const ConsumerViewAll = (props) => {
   const handleSortChange = (e) => {
     console.log(e);
     if (!e) {
+      //FIXME: yeah this shit doesnt work....
       if (selectedFilterProducts.length && selectedFilterHue.length) {
         const go = async () => {
           await filterByProduct(undefined, kits);
