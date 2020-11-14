@@ -40,19 +40,21 @@ const ConsumerViewAll = (props) => {
         });
   };
 
-  useEffect(()=>{
-    API.getUser().then(res=>{
-      
-      setFavorites(res.data.favorites);
-    })
-  },[]);
+  // useEffect(()=>{
+  //   API.getUser().then(res=>{
+  //     setFavorites(res.data.favorites);
+  //   })
+  // },[]);
 
   useEffect(() => {
-
- 
-    API.putFavorite(id, favorites)
+    if (favorites.length === 0) {
+      API.getUser().then(res => {
+        setFavorites(res.data.favorites);
+      })
+    } else {
+      API.putFavorite(id, favorites)
       .then(res => console.log(res.data))
-   
+    }
   }, [favorites]);
 
 

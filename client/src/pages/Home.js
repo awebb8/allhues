@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../components/Header/Header";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
+import UserContext from '../utils/UserContext';
 
 const Home = (props) => {
   const [kits, setKits] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+
+  const { id } = useContext(UserContext);
 
   const findAll = () => {
     API.getKits().then((res) => {
@@ -18,6 +22,23 @@ const Home = (props) => {
   useEffect(() => {
     findAll();
   }, []);
+
+
+
+  useEffect(() => {
+    if (favorites.length === 0) {
+      API.getUser().then(res => {
+        setFavorites(res.data.favorites);
+      })
+    } else {
+      API.putFavorite(id, favorites)
+      .then(res => console.log(favorites));
+    }
+  }, [favorites]);
+
+
+
+
 
   return (
     <div>
@@ -169,11 +190,13 @@ const Home = (props) => {
         <div className="row row-cols-1 row-cols-md-4">
           {kits.slice(0, 4).map((i) => (
             <MultiKit
+              setFavorites={setFavorites} 
+              favorites={favorites} 
+              filledHeart={i._id}
               key={i._id}
               src={i.imageUrl}
               class={i._id}
               info={i}
-              style={{ width: "50%!important", height: "50%" }}
             />
           ))}
         </div>

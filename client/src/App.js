@@ -105,7 +105,7 @@ function App() {
                 <Route exact path="/login" component={Login}></Route>
                 <Route exact path="/favorites" component={FavoritesPage}></Route>
               </Switch>
-              <Footer />
+              {/* <Footer /> */}
             </Router>
           </RoleContext.Provider>
         </UserContext.Provider>

@@ -7,10 +7,9 @@ import API from "../../utils/API";
 const MultiKit = (props) => {
   const history = useHistory();
 
-  const [addFavorite, setAddFavorite] = useState("");
-  const {favorites, setFavorites, filledHeart} = props;
-  // const [favorite, setFavorite] = useState(false);
-  // const [favorite, setFavorite] = useState(favorites.includes(filledHeart));
+  // const [addFavorite, setAddFavorite] = useState("");
+  const { favorites, setFavorites, filledHeart } = props;
+
   const [favorite, setFavorite] = useState(favorites ? favorites.includes(filledHeart) : false);
   const { id } = useContext(UserContext);
 
@@ -24,21 +23,25 @@ const MultiKit = (props) => {
     //setAddFavorite({favorites: e.target.getAttribute("class").substr(0,25).trim()})
     //console.log(e.target.getAttribute("class").substr(0,25).trim());
     setFavorite(!favorite);
-    var targetId= e.target.getAttribute("class").substr(0,25).trim();
-    if(!favorites.includes(e.target.getAttribute("class").substr(0,25).trim())) {
-    setFavorites([...favorites, e.target.getAttribute("class").substr(0,25).trim()]);
+
+    const targetId= e.target.getAttribute("class").substr(0,25).trim();
+
+    if(!favorites.includes(targetId)) {
+    setFavorites([...favorites, targetId]);
     } else {
-      const filteredFaves=favorites.filter(i=>i != targetId
-      );
+
+      const filteredFaves = favorites.filter(i=>i !== targetId);
+
       setFavorites(filteredFaves);
     }
   };
 
-  // useEffect(()=>{
-  //  if (favorites) {
-  //    setFavorites(favorites.includes(filledHeart));
-  //  }
-  // },[favorites])
+
+  useEffect(() => {
+   if (favorite === false) {
+     setFavorite(favorites.includes(filledHeart));
+   }
+  },[favorite])
 
   
 
@@ -71,9 +74,8 @@ const MultiKit = (props) => {
           }
         >
           <button type="button" className={`${props.class} btn btn-default`}
-          // style={{backgroundColor: favorite ? "pink" : "white"}} 
             onClick={(e) => handleFavoritesClick(e)}>
-            {favorite ?  <i className={`${props.class} fas fa-heart`}></i> : <i className={`${props.class} far fa-heart`}></i>} </button>
+            {favorites.includes(filledHeart) ?  <i className={`${props.class} fas fa-heart`}></i> : <i className={`${props.class} far fa-heart`}></i>} </button>
           <h5
             style={{ textAlign: "center" }}
             className={
