@@ -10,10 +10,10 @@ const MultiKit = (props) => {
   const [addFavorite, setAddFavorite] = useState("");
   const { favorites, setFavorites, filledHeart } = props;
   // const [favorite, setFavorite] = useState(false);
-  const [favorite, setFavorite] = useState(favorites.includes(filledHeart));
-  // const [favorite, setFavorite] = useState(
-  //   favorites ? favorites.includes(filledHeart) : false
-  // );
+  // const [favorite, setFavorite] = useState(favorites.includes(filledHeart));
+  const [favorite, setFavorite] = useState(
+    favorites ? favorites.includes(filledHeart) : false
+  );
   const { id } = useContext(UserContext);
 
   const handleSingleKitClick = (e) => {
@@ -27,15 +27,10 @@ const MultiKit = (props) => {
     //console.log(e.target.getAttribute("class").substr(0,25).trim());
     setFavorite(!favorite);
     var targetId = e.target.getAttribute("class").substr(0, 25).trim();
-    if (
-      !favorites.includes(e.target.getAttribute("class").substr(0, 25).trim())
-    ) {
-      setFavorites([
-        ...favorites,
-        e.target.getAttribute("class").substr(0, 25).trim(),
-      ]);
+    if (!favorites.includes(targetId)) {
+      setFavorites([...favorites, targetId]);
     } else {
-      const filteredFaves = favorites.filter((i) => i != targetId);
+      let filteredFaves = favorites.filter((i) => i != targetId);
       setFavorites(filteredFaves);
     }
   };
@@ -82,7 +77,7 @@ const MultiKit = (props) => {
             type="button"
             className={`${props.class} btn btn-default`}
             // style={{backgroundColor: favorite ? "pink" : "white"}}
-            onClick={(e) => handleFavoritesClick(e)}
+            onClick={handleFavoritesClick}
           >
             {favorite ? (
               <i className={`${props.class} fas fa-heart`}></i>

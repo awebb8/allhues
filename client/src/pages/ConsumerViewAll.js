@@ -39,15 +39,20 @@ const ConsumerViewAll = (props) => {
       });
   };
 
-  useEffect(() => {
-    API.getUser().then((res) => {
+  useEffect(async () => {
+    await API.getUser().then((res) => {
       console.log("HERE " + res.data.favorites);
       setFavorites(res.data.favorites);
     });
   }, []);
 
   useEffect(() => {
-    API.putFavorite(id, favorites).then((res) => console.log(res.data));
+    if (favorites.length > 0) {
+      API.putFavorite(id, favorites).then((res) => {
+        console.log("my bad yo");
+        console.log(res.data);
+      });
+    }
   }, [favorites]);
 
   // Component on mount, retrieve all kits from DB
