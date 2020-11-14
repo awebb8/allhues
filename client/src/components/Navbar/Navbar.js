@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 // import AuthContext from "../../utils/AuthContext";
-import RoleContext from "../../utils/roleContext";
+import RoleContext from "../../utils/RoleContext";
 import Logout from "../Authentication/Logout";
 import UserContext from "../../utils/UserContext";
 // import API from "../../utils/API";

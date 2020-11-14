@@ -6,7 +6,7 @@ import AuthContext from "../utils/AuthContext";
 
 import Select from "react-select";
 import { options, hueOptions, sortOptions } from "../utils/selectOptions";
-import RoleContext from "../utils/roleContext";
+import RoleContext from "../utils/RoleContext";
 import UserContext from "../utils/UserContext";
 
 const ConsumerViewAll = (props) => {
