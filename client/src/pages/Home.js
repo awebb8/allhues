@@ -38,7 +38,7 @@ const Home = (props) => {
           console.log("BLAH");
         });
       }
-    }, 450);
+    }, 200);
   }, [favorites]);
 
   return (
@@ -134,9 +134,13 @@ const Home = (props) => {
           }}
         ></div>
       </Link>
-      <p className="mt-3">
+      {/* <p className="mt-3">
         There are a million shades of beautiful, but select the one that most
         closely matches yours.
+      </p> */}
+      <p className="mt-3">
+        Click a hue above to filter by products that look great on your unique
+        skin.
       </p>
       <br />
 

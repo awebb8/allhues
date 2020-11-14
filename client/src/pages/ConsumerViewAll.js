@@ -54,7 +54,7 @@ const ConsumerViewAll = (props) => {
           console.log("BLAH");
         });
       }
-    }, 450);
+    }, 200);
   }, [favorites]);
 
   // Component on mount, retrieve all kits from DB

@@ -97,7 +97,11 @@ const ProfileCard = (props) => {
                   accept="image/*"
                   hidden
                 />
-                <img src={image} alt="placeholder image" />
+                <img
+                  src={image}
+                  alt="placeholder image"
+                  style={{ cursor: "pointer" }}
+                />
               </label>
               <h3 className="h3">
                 {determineRoleToShowConsumer()}: {usersName}

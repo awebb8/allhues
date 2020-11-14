@@ -30,13 +30,21 @@ const ContentCreatorPortal = () => {
   }, [id]);
 
   useEffect(() => {
-    if (favorites.length === 0) {
+    if (favorites) {
       API.getUser().then((res) => {
         setFavorites(res.data.favorites);
       });
-    } else {
-      API.putFavorite(id, favorites).then((res) => console.log(favorites));
     }
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (favorites.length >= 0) {
+        API.putFavorite(id, favorites).then((res) => {
+          console.log("BLAH");
+        });
+      }
+    }, 200);
   }, [favorites]);
 
   // console.log(yourKits);
