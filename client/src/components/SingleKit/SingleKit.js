@@ -62,18 +62,19 @@ const Kit = (props) => {
               {props.info.kitDescription ? props.info.kitDescription : ""}
             </p>
 
-            {props.info.kitItems.map((item) => (
-              <a
-                key={item.affiliateLink}
-                href={item.affiliateLink}
-                className="card-text"
-                target="_blank"
-                rel="noreferrer"
-                style={{ textAlign: "center", display: "block" }}
-              >
-                {item.affiliateLink}
-              </a>
-            ))}
+            {props.info.kitItems &&
+              props.info.kitItems.map((item) => (
+                <a
+                  key={item.affiliateLink}
+                  href={item.affiliateLink}
+                  className="card-text"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ textAlign: "center", display: "block" }}
+                >
+                  {item.affiliateLink}
+                </a>
+              ))}
 
             <div
               className="text-muted d-flex"
@@ -117,6 +118,19 @@ const Kit = (props) => {
         <p className="card-text" style={{ textAlign: "center" }}>
           {props.info.kitDescription ? props.info.kitDescription : ""}
         </p>
+        {props.info.kitItems &&
+          props.info.kitItems.map((item) => (
+            <a
+              key={item.affiliateLink}
+              href={item.affiliateLink}
+              className="card-text"
+              target="_blank"
+              rel="noreferrer"
+              style={{ textAlign: "center", display: "block" }}
+            >
+              {item.affiliateLink}
+            </a>
+          ))}
         {/* <a
           href={
             props.info.kitItems[0].affiliateLink

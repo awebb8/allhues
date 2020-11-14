@@ -38,7 +38,7 @@ const Home = (props) => {
           console.log("BLAH");
         });
       }
-    }, 450);
+    }, 300);
   }, [favorites]);
 
   return (

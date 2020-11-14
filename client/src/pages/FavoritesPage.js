@@ -38,13 +38,13 @@ const FavoritesPage = () => {
           });
         });
       }
-    }, 450);
+    }, 300);
   }, [favorites]);
 
   return (
     <div>
       <div className="container-fluid">
-        <h1>hi </h1>
+        {/* <h1>hi </h1> */}
         {/* <div className="row row-cols-6">
           <Select
             options={sortOptions}
