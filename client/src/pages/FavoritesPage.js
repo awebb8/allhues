@@ -38,8 +38,19 @@ const FavoritesPage = () => {
           });
         });
       }
-    }, 300);
+    }, 200);
   }, [favorites]);
+
+  //TODO:
+  setTimeout(() => {
+    if (favorites.length === 0) {
+      return (
+        <>
+          <h1>No Favorites yet!</h1>
+        </>
+      );
+    }
+  }, 330);
 
   return (
     <div>

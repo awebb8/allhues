@@ -44,7 +44,7 @@ const ContentCreatorPortal = () => {
           console.log("BLAH");
         });
       }
-    }, 300);
+    }, 200);
   }, [favorites]);
 
   // console.log(yourKits);
