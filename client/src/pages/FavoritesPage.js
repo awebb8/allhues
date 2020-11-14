@@ -1,46 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
+import UserContext from "../utils/UserContext";
 
 const FavoritesPage = () => {
-  const [userInfo, setUserInfo] = useState([]);
   const [favoriteKits, setFavoriteKits] = useState([]);
-  const [allKits, setAllKits] = useState([]);
+
   const [kitsToMap, setKitsToMap] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+
+  const { id } = useContext(UserContext);
 
   useEffect(() => {
-    API.getUser().then((res) => {
-      for (let i = 0; i < res.data.favorites.length; i++) {
-        setFavoriteKits((favoriteKits) => [
-          ...favoriteKits,
-          res.data.favorites[i],
-        ]);
-      }
-
-      setUserInfo(res.data);
+    API.getPopulatedUsers(id).then((resp) => {
+      // console.log("Got data");
+      setFavoriteKits(resp.data[0].favorites);
     });
+  }, [id]);
+
+  useEffect(() => {
+    if (favorites) {
+      API.getUser().then((res) => {
+        setFavorites(res.data.favorites);
+      });
+    }
   }, []);
 
   useEffect(() => {
-    if (favoriteKits) {
-      API.getKits().then((res) => {
-        setAllKits(res.data);
-      });
-    }
-  }, [favoriteKits]);
-
-  useEffect(() => {
-    if (allKits) {
-      const intersection = allKits.filter((element) =>
-        favoriteKits.includes(element._id)
-      );
-      setKitsToMap(intersection);
-    }
-  }, [allKits]);
+    setTimeout(() => {
+      if (favorites.length >= 0) {
+        API.putFavorite(id, favorites).then((res) => {
+          console.log("BLAH");
+          API.getPopulatedUsers(id).then((resp) => {
+            console.log("mybadyo");
+            console.log(resp.data);
+            setFavoriteKits(resp.data[0].favorites);
+          });
+        });
+      }
+    }, 450);
+  }, [favorites]);
 
   return (
     <div>
       <div className="container-fluid">
+        <h1>hi </h1>
         {/* <div className="row row-cols-6">
           <Select
             options={sortOptions}
@@ -52,10 +56,10 @@ const FavoritesPage = () => {
 
         {/* <div className="row"></div> */}
         <div className="row row-cols-1 row-cols-md-3">
-          {kitsToMap.map((i) => (
+          {favoriteKits.map((i) => (
             <MultiKit
-              // setFavorites={setFavorites}
-              // favorites={favorites}
+              setFavorites={setFavorites}
+              favorites={favorites}
               key={i._id}
               src={i.imageUrl}
               filledHeart={i._id}

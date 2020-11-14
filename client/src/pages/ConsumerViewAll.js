@@ -6,7 +6,7 @@ import AuthContext from "../utils/AuthContext";
 
 import Select from "react-select";
 import { options, hueOptions, sortOptions } from "../utils/selectOptions";
-import RoleContext from "../utils/RoleContext";
+import RoleContext from "../utils/roleContext";
 import UserContext from "../utils/UserContext";
 
 const ConsumerViewAll = (props) => {
@@ -39,21 +39,22 @@ const ConsumerViewAll = (props) => {
       });
   };
 
-  // useEffect(()=>{
-  //   API.getUser().then(res=>{
-  //     setFavorites(res.data.favorites);
-  //   })
-  // },[]);
+  useEffect(() => {
+    if (favorites) {
+      API.getUser().then((res) => {
+        setFavorites(res.data.favorites);
+      });
+    }
+  }, []);
 
   useEffect(() => {
-    if (favorites.length === 0) {
-      API.getUser().then(res => {
-        setFavorites(res.data.favorites);
-      })
-    } else {
-      API.putFavorite(id, favorites)
-      .then(res => console.log(res.data))
-    }
+    setTimeout(() => {
+      if (favorites.length >= 0) {
+        API.putFavorite(id, favorites).then((res) => {
+          console.log("BLAH");
+        });
+      }
+    }, 450);
   }, [favorites]);
 
   // Component on mount, retrieve all kits from DB

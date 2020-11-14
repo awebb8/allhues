@@ -31,6 +31,9 @@ export default {
   putFavorite: function (id, kitId) {
     return axios.put(`/api/user/${id}`, kitId);
   },
+  getPopulatedUsers: function (id) {
+    return axios.get(`/api/users/${id}`);
+  },
 
   //   postImageToCloudinary: async function(){
   //       return await axios.post(url,)
