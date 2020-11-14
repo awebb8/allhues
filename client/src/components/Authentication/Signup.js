@@ -51,7 +51,7 @@ const Signup = () => {
           setJwt(response.data.token);
           setId(response.data.user.id);
           setRole(response.data.user.role);
-          localStorage.setItem("name", response.data.user.name);
+          // localStorage.setItem("name", response.data.user.name);
           // TODO: might be able to get rid of this
           localStorage.setItem("role", response.data.user.role);
           localStorage.setItem("token", response.data.token);

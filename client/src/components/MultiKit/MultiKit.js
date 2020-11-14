@@ -2,7 +2,7 @@ import "./MultiKit.css";
 import { useHistory } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
 import UserContext from "../../utils/UserContext";
-import API from "../../utils/API";
+// import API from "../../utils/API";
 
 const MultiKit = (props) => {
   const history = useHistory();
@@ -13,7 +13,7 @@ const MultiKit = (props) => {
   const [favorite, setFavorite] = useState(
     favorites ? favorites.includes(filledHeart) : false
   );
-  const { id } = useContext(UserContext);
+  // const { id } = useContext(UserContext);
 
   const handleSingleKitClick = (e) => {
     // console.log(e.target);
