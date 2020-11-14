@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import UserContext from "../utils/UserContext";
@@ -42,15 +43,23 @@ const FavoritesPage = () => {
   }, [favorites]);
 
   //TODO:
-  setTimeout(() => {
-    if (favorites.length === 0) {
-      return (
-        <>
-          <h1>No Favorites yet!</h1>
-        </>
-      );
-    }
-  }, 330);
+  // setTimeout(() => {
+  //   if (favorites.length === 0) {
+  //     return (
+  //       <>
+  //         <h1>No Favorites yet!</h1>
+  //       </>
+  //     );
+  //   }
+  // }, 330);
+  if (favorites.length === 0) {
+    return (
+      <>
+        <h4>You don't have any favorites yet..</h4>
+        <Link to="/viewall">View all kits?</Link>
+      </>
+    );
+  }
 
   return (
     <div>
