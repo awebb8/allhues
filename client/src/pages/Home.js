@@ -165,7 +165,7 @@ const Home = (props) => {
       </div>
 
       <br />
-      <div className="container-fluid shrink">
+      {/* <div className="container-fluid shrink">
         <div className="row row-cols-1 row-cols-md-4">
           {kits.slice(0, 4).map((i) => (
             <MultiKit
@@ -177,7 +177,7 @@ const Home = (props) => {
             />
           ))}
         </div>
-      </div>
+      </div> */}
       <br />
       <br />
     </div>

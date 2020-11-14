@@ -4,8 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import AuthContext from "./utils/AuthContext";
 import UserContext from "./utils/UserContext";
-import RoleContext from "./utils/RoleContext";
-import NameContext from "./utils/NameContext";
+import RoleContext from "./utils/roleContext";
+// import NameContext from "./utils/NameContext";
 import Home from "./pages/Home";
 import ContentCreatorUpload from "./pages/ContentCreatorUpload";
 import ContentCreatorPortal from "./pages/ContentCreatorPortal";
@@ -98,12 +98,18 @@ function App() {
                   path="/viewall"
                   component={ConsumerViewAll}
                 ></Route>
+
                 {/* <Route exact path="/viewone" component={ConsumerViewOne}></Route> */}
                 <Route path="/viewone/:id" component={ConsumerViewOne}></Route>
+                {/* <Route path="/viewone/:id" component={Favo/}></Route> */}
                 <Route path="/viewall/:id" component={ConsumerViewAll}></Route>
                 <Route exact path="/signup" component={Signup}></Route>
                 <Route exact path="/login" component={Login}></Route>
-                <Route exact path="/favorites" component={FavoritesPage}></Route>
+                <Route
+                  exact
+                  path="/favorites"
+                  component={FavoritesPage}
+                ></Route>
               </Switch>
               <Footer />
             </Router>

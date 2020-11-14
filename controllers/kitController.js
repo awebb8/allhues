@@ -2,7 +2,7 @@ const router = require("express").Router();
 const db = require("../models");
 const auth = require("../middleware/auth");
 
-router.get("/api/kits", auth, (req, res) => {
+router.get("/api/kits", (req, res) => {
   db.Kit.find({})
     .populate("kits")
     .then((found) => {
@@ -37,7 +37,6 @@ router.get("/user", auth, (req, res) => {
     });
 });
 
-//FIXME: beware until frontend is tied you cant go here unless you delete 'auth'
 router.get("/api/users/:id", (req, res) => {
   db.ContentCreator.find({ _id: req.params.id })
     .populate("kits").populate("favorites")
