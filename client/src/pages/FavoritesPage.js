@@ -12,16 +12,16 @@ const FavoritesPage = () => {
 
   const { id } = useContext(UserContext);
 
-  useEffect(() => {
-    API.getPopulatedUsers(id).then((resp) => {
+  useEffect(async () => {
+    await API.getPopulatedUsers(id).then((resp) => {
       // console.log("Got data");
       setFavoriteKits(resp.data[0].favorites);
     });
   }, [id]);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (favorites) {
-      API.getUser().then((res) => {
+      await API.getUser().then((res) => {
         setFavorites(res.data.favorites);
       });
     }
@@ -42,21 +42,13 @@ const FavoritesPage = () => {
     }, 200);
   }, [favorites]);
 
-  //TODO:
-  // setTimeout(() => {
-  //   if (favorites.length === 0) {
-  //     return (
-  //       <>
-  //         <h1>No Favorites yet!</h1>
-  //       </>
-  //     );
-  //   }
-  // }, 330);
   if (favorites.length === 0) {
     return (
       <>
         <h4>You don't have any favorites yet..</h4>
-        <Link to="/viewall">View all kits?</Link>
+        <Link to="/viewall">
+          <h4>View all kits?</h4>
+        </Link>
       </>
     );
   }
