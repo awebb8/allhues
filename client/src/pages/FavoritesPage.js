@@ -68,7 +68,7 @@ const FavoritesPage = () => {
 
         {/* <div className="row"></div> */}
         <div className="row row-cols-1 row-cols-md-3">
-          {favorites != undefined &&
+          {(favorites != undefined) &
             favoriteKits.map((i) => (
               <MultiKit
                 setFavorites={setFavorites}
