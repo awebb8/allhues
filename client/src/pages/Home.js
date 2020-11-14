@@ -23,8 +23,6 @@ const Home = (props) => {
     findAll();
   }, []);
 
-
-
   useEffect(() => {
     if (favorites.length === 0) {
       API.getUser().then(res => {
@@ -37,9 +35,6 @@ const Home = (props) => {
   }, [favorites]);
 
 
-
-
-
   return (
     <div>
       <Header />
@@ -50,10 +45,11 @@ const Home = (props) => {
         }}
       >
         <div
-          className="card rounded-circle fitz"
+          className="rounded-circle fitz"
           style={{
             height: "10rem",
             width: "10rem",
+            display: "inline-block",
             backgroundColor: "#f4d0b1",
           }}
         ></div>
@@ -65,10 +61,11 @@ const Home = (props) => {
         }}
       >
         <div
-          className="card rounded-circle fitz"
+          className="rounded-circle fitz"
           style={{
             height: "10rem",
             width: "10rem",
+            display: "inline-block",
             backgroundColor: "#fcdbb2",
           }}
         ></div>
@@ -80,10 +77,11 @@ const Home = (props) => {
         }}
       >
         <div
-          className="card rounded-circle fitz"
+          className="rounded-circle fitz"
           style={{
             height: "10rem",
             width: "10rem",
+            display: "inline-block",
             backgroundColor: "#dea77d",
           }}
         ></div>
@@ -95,10 +93,11 @@ const Home = (props) => {
         }}
       >
         <div
-          className="card rounded-circle fitz"
+          className="rounded-circle fitz"
           style={{
             height: "10rem",
             width: "10rem",
+            display: "inline-block",
             backgroundColor: "#d3925c",
           }}
         ></div>
@@ -110,10 +109,11 @@ const Home = (props) => {
         }}
       >
         <div
-          className="card rounded-circle fitz"
+          className="rounded-circle fitz"
           style={{
             height: "10rem",
             width: "10rem",
+            display: "inline-block",
             backgroundColor: "#936541",
           }}
         ></div>
@@ -125,10 +125,11 @@ const Home = (props) => {
         }}
       >
         <div
-          className="card rounded-circle fitz"
+          className="rounded-circle fitz"
           style={{
             height: "10rem",
             width: "10rem",
+            display: "inline-block",
             backgroundColor: "#694a2e",
           }}
         ></div>
@@ -138,7 +139,7 @@ const Home = (props) => {
         closely matches yours.
       </p>
       <br />
-
+      <hr/>
       {/* Card to view most popular */}
       <div className="homeCard" style={{ width: "14rem", padding: "5px" }}>
         <img
@@ -184,10 +185,12 @@ const Home = (props) => {
           </Link>
         </div>
       </div>
-
       <br />
-      <div className="container-fluid shrink">
-        <div className="row row-cols-1 row-cols-md-4">
+      <br />
+      <hr />
+      <div className="container-fluid">
+        <b>Featured Looks</b>
+        <div className="row row-cols-1 row-cols-md-4 shrink">
           {kits.slice(0, 4).map((i) => (
             <MultiKit
               setFavorites={setFavorites} 
@@ -200,6 +203,9 @@ const Home = (props) => {
             />
           ))}
         </div>
+        <Link to="/viewall" className="buttons">
+            View More Looks
+        </Link>
       </div>
       <br />
       <br />
