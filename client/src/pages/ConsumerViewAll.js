@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
@@ -18,26 +18,59 @@ const ConsumerViewAll = (props) => {
 
   const [selectedFilterProducts, setSelectedFilterProducts] = useState([]);
   const [selectedFilterHue, setSelectedFilterHue] = useState("");
-  const [selectedSort, setSelectedSort] = useState("");
+  const [fromPopularBtn, setFromPopularBtn] = useState(false);
+  const [fromNewBtn, setFromNewBtn] = useState(false);
 
   //TODO: We can probably get rid of JWT here since it's not being used anywhere on the page, and the page is not going to be protected
   const { jwt } = useContext(AuthContext);
   const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
-  const history = useHistory();
+  // const history = useHistory();
 
   //Makes an api call to get all saved image urls so we can show em all
+
   const findAll = () => {
-    API.getKits()
-      .then((res) => {
+    if (fromPopularBtn) {
+      API.getKits().then((res) => {
         setKits(res.data);
-        setFilterKits(res.data);
-      })
-      .catch((err) => {
-        localStorage.clear();
-        history.push("/login");
+
+        setFilterKits(res.data.sort((a, b) => b.uniqueVisits - a.uniqueVisits));
       });
+    } else if (fromNewBtn) {
+      API.getKits().then((res) => {
+        setKits(res.data);
+        setFilterKits(
+          res.data
+            .sort((a, b) => {
+              return (
+                new Date(a.createdDate).getTime() -
+                new Date(b.createdDate).getTime()
+              );
+            })
+            .reverse()
+        );
+      });
+    } else {
+      API.getKits()
+        .then((res) => {
+          setKits(res.data);
+          setFilterKits(res.data);
+        })
+        .catch((err) => {
+          // localStorage.clear();
+          // history.push("/login");
+          console.log(err);
+        });
+    }
   };
+
+  useEffect(() => {
+    findAll();
+  }, [fromPopularBtn]);
+
+  useEffect(() => {
+    findAll();
+  }, [fromNewBtn]);
 
   useEffect(() => {
     if (favorites) {
@@ -51,7 +84,7 @@ const ConsumerViewAll = (props) => {
     setTimeout(() => {
       if (favorites.length >= 0) {
         API.putFavorite(id, favorites).then((res) => {
-          console.log("BLAH");
+          console.log("made put call");
         });
       }
     }, 200);
@@ -72,6 +105,24 @@ const ConsumerViewAll = (props) => {
       console.log("Props Location STate");
       console.log(props.location.state);
       setSelectedFilterHue(props.location.state.selectedFilterHue);
+    } else if (
+      props &&
+      props.location &&
+      props.location.state &&
+      props.location.state.fromPopularBtn
+    ) {
+      console.log("Props Location STate");
+      console.log(props.location.state);
+      setFromPopularBtn(props.location.state.fromPopularBtn);
+    } else if (
+      props &&
+      props.location &&
+      props.location.state &&
+      props.location.state.fromNewBtn
+    ) {
+      console.log("Props Location STate");
+      console.log(props.location.state);
+      setFromNewBtn(props.location.state.fromNewBtn);
     } else {
       console.log("No state found in props");
       setSelectedFilterHue("");
@@ -255,20 +306,7 @@ const ConsumerViewAll = (props) => {
       </div>
 
       <div className="container-fluid">
-        {/* <div className="row row-cols-6">
-          <Select
-            options={sortOptions}
-            onChange={handleSortChange}
-            placeholder="Sort by..."
-            isClearable
-          />
-        </div> */}
-
-        {/* <div className="row"></div> */}
         <div className="row row-cols-1 row-cols-md-3">
-          {/* {filterKits.map((i) => (
-            <MultiKit key={i._id} src={i.imageUrl} class={i._id} info={i} />
-          ))} */}
           {filterKits
             .filter((kit) => {
               if (selectedFilterProducts === undefined) {

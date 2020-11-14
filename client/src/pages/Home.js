@@ -149,7 +149,7 @@ const Home = (props) => {
         skin.
       </p>
       <br />
-      <hr/>
+      <hr />
       {/* Card to view most popular */}
       <div className="homeCard" style={{ width: "14rem", padding: "5px" }}>
         <img
@@ -161,9 +161,15 @@ const Home = (props) => {
           <p className="card-text">
             Check out the looks people are loving the most.
           </p>
-          <a href="#" className="buttons">
+          <Link
+            className="buttons"
+            to={{
+              pathname: "/viewall",
+              state: { fromPopularBtn: true },
+            }}
+          >
             View Popular
-          </a>
+          </Link>
         </div>
       </div>
       <div className="homeCard" style={{ width: "14rem", padding: "5px" }}>
@@ -190,7 +196,13 @@ const Home = (props) => {
         <div className="card-body">
           <p className="card-text">Check out what's been recently posted.</p>
           <br />
-          <Link to="/viewall" className="buttons">
+          <Link
+            to={{
+              pathname: "/viewall",
+              state: { fromNewBtn: true },
+            }}
+            className="buttons"
+          >
             View Recent
           </Link>
         </div>
@@ -214,7 +226,7 @@ const Home = (props) => {
           ))}
         </div>
         <Link to="/viewall" className="buttons">
-            View More Looks
+          View More Looks
         </Link>
       </div>
       <br />
