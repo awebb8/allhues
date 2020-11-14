@@ -60,35 +60,12 @@ const ContentCreatorPortal = () => {
   }
 
   if (yourKits) {
-    if (yourKits.length < 3 || (yourKits.length > 3 && yourKits.length < 6)) {
-      return (
-        <>
-          <div className="container-fluid">
-            <div className="row">
-              <ProfileCard yourKits={yourKits} />
-            </div>
-            <div className="row row-cols-1 row-cols-md-3">
-              {yourKits.map((kit) => (
-                <MultiKit
-                  setFavorites={setFavorites}
-                  favorites={favorites}
-                  filledHeart={kit._id}
-                  key={kit._id}
-                  class={kit._id}
-                  src={kit.imageUrl}
-                  info={kit}
-                />
-              ))}
-            </div>
-          </div>
-        </>
-      );
-    }
     return (
-      <div>
-        {/* <h1>This is the contentCreator Portal Page.</h1> */}
-        <div className="container-fluid" style={{ marginBottom: "150px" }}>
-          {/* <div className="row"></div> */}
+      <>
+        <div className="container-fluid">
+          <div className="row">
+            <ProfileCard yourKits={yourKits} />
+          </div>
           <div className="row row-cols-1 row-cols-md-3">
             {yourKits.map((kit) => (
               <MultiKit
@@ -103,7 +80,7 @@ const ContentCreatorPortal = () => {
             ))}
           </div>
         </div>
-      </div>
+      </>
     );
   } else {
     return (
