@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import AuthContext from "../../utils/AuthContext";
 import UserContext from "../../utils/UserContext";
-import RoleContext from "../../utils/RoleContext";
+import RoleContext from "../../utils/roleContext";
 import { useHistory } from "react-router-dom";
 import "./auth.css";
 Modal.setAppElement("#root");
@@ -94,7 +94,7 @@ const Login = () => {
         <h2>Login</h2>
         <hr />
         <form>
-          <div className="form-group" style={{width:500}}>
+          <div className="form-group" style={{ width: 500 }}>
             <label>Email address</label>
             <input
               type="email"
@@ -125,10 +125,22 @@ const Login = () => {
           >
             Log in
           </button>
-          <button className="buttons shadow-none py-0 px-2 text-muted" onClick={handleCloseBtnClick} style={{position: 'absolute', right: 0, top: 0, color: 'black', backgroundColor: 'white'}}>
+          <button
+            className="buttons shadow-none py-0 px-2 text-muted"
+            onClick={handleCloseBtnClick}
+            style={{
+              position: "absolute",
+              right: 0,
+              top: 0,
+              color: "black",
+              backgroundColor: "white",
+            }}
+          >
             <h3>&times;</h3>
           </button>
-          <p className="mt-3"><Link to="/signup">Don't have an account? Click here.</Link></p>
+          <p className="mt-3">
+            <Link to="/signup">Don't have an account? Click here.</Link>
+          </p>
           {incompleteError && (
             <div className="alert alert-danger mt-3" role="alert">
               Please fill out all fields

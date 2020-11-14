@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 // import AuthContext from "../../utils/AuthContext";
-import RoleContext from "../../utils/RoleContext";
+import RoleContext from "../../utils/roleContext";
 import Logout from "../Authentication/Logout";
 import UserContext from "../../utils/UserContext";
 // import API from "../../utils/API";
@@ -134,6 +134,11 @@ const Navbar = () => {
           <li className="nav-item active">
             <Link to="/viewall" className="nav-link">
               ViewAll<span className="sr-only">(current)</span>
+            </Link>
+          </li>
+          <li className="nav-item active">
+            <Link to="/favorites" className="nav-link">
+              Favorites<span className="sr-only">(current)</span>
             </Link>
           </li>
 

@@ -3,7 +3,7 @@ import Header from "../components/Header/Header";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
-import UserContext from '../utils/UserContext';
+import UserContext from "../utils/UserContext";
 
 const Home = (props) => {
   const [kits, setKits] = useState([]);
@@ -24,16 +24,22 @@ const Home = (props) => {
   }, []);
 
   useEffect(() => {
-    if (favorites.length === 0) {
-      API.getUser().then(res => {
+    if (favorites) {
+      API.getUser().then((res) => {
         setFavorites(res.data.favorites);
-      })
-    } else {
-      API.putFavorite(id, favorites)
-      .then(res => console.log(favorites));
+      });
     }
-  }, [favorites]);
+  }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (favorites.length >= 0) {
+        API.putFavorite(id, favorites).then((res) => {
+          console.log("BLAH");
+        });
+      }
+    }, 200);
+  }, [favorites]);
 
   return (
     <div>
@@ -134,9 +140,13 @@ const Home = (props) => {
           }}
         ></div>
       </Link>
-      <p className="mt-3">
+      {/* <p className="mt-3">
         There are a million shades of beautiful, but select the one that most
         closely matches yours.
+      </p> */}
+      <p className="mt-3">
+        Click a hue above to filter by products that look great on your unique
+        skin.
       </p>
       <br />
       <hr/>
@@ -193,8 +203,8 @@ const Home = (props) => {
         <div className="row row-cols-1 row-cols-md-4 shrink">
           {kits.slice(0, 4).map((i) => (
             <MultiKit
-              setFavorites={setFavorites} 
-              favorites={favorites} 
+              setFavorites={setFavorites}
+              favorites={favorites}
               filledHeart={i._id}
               key={i._id}
               src={i.imageUrl}

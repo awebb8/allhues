@@ -4,7 +4,7 @@ import React, { useState, useContext } from "react";
 import Modal from "react-modal";
 import AuthContext from "../../utils/AuthContext";
 import UserContext from "../../utils/UserContext";
-import RoleContext from "../../utils/RoleContext";
+import RoleContext from "../../utils/roleContext";
 import { useHistory } from "react-router-dom";
 
 Modal.setAppElement("#root");
@@ -112,84 +112,99 @@ const Signup = () => {
           },
         }}
       >
-        <div className="" style={{width:500}} >
-        <h2>Sign up</h2>
-        <hr />
-        <form>
-          <div className="form-group">
-            <label>Name</label>
-            <input
-              type="name"
-              placeholder="First and Last Name"
-              className="form-control"
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label>Username</label>
-            <input
-              type="username"
-              placeholder="Username"
-              className="form-control"
-              onChange={(e) => setUserName(e.target.value)}
-            />
-          </div>
+        <div className="" style={{ width: 500 }}>
+          <h2>Sign up</h2>
+          <hr />
+          <form>
+            <div className="form-group">
+              <label>Name</label>
+              <input
+                type="name"
+                placeholder="First and Last Name"
+                className="form-control"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label>Username</label>
+              <input
+                type="username"
+                placeholder="Username"
+                className="form-control"
+                onChange={(e) => setUserName(e.target.value)}
+              />
+            </div>
 
-          <div className="form-group">
-            <label>Email address</label>
-            <input
-              type="email"
-              placeholder="Example@email.com"
-              className="form-control"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input
-              type="password"
-              placeholder="Password"
-              className="form-control"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div>
-            <input type="checkbox" onChange={handleRoleCheckBox} className="mr-2"/>
-            <label>Content Creator?</label>
-          </div>
-          <button
-            className="buttons"
-            type="submit"
-            onClick={(e) => {
-              handleToken(e, name, userName, email, password, onboardingRole);
-            }}
-          >
-            Sign up
-          </button>
-          <button className="buttons shadow-none py-0 px-2 text-muted" onClick={handleCloseBtnClick} style={{position: 'absolute', right: 0, top: 0, color: 'black', backgroundColor: 'white'}}>
-            <h3>&times;</h3>
-          </button>
-          {incompleteError && (
-            <div className="alert alert-danger mt-3" role="alert">
-              Please fill out all fields
+            <div className="form-group">
+              <label>Email address</label>
+              <input
+                type="email"
+                placeholder="Example@email.com"
+                className="form-control"
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
-          )}
-          {emailError && (
-            <div className="alert alert-danger mt-3" role="alert">
-              Please enter a valid email address.
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                placeholder="Password"
+                className="form-control"
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
-          )}
-          {passwordError && (
-            <div className="alert alert-danger mt-3" role="alert">
-              Please enter a password that is at least six characters.
+            <div>
+              <input
+                type="checkbox"
+                onChange={handleRoleCheckBox}
+                className="mr-2"
+              />
+              <label>Content Creator?</label>
             </div>
-          )}
-          {accountExists && (
-            <div className="alert alert-danger mt-3" role="alert">
-              An account already exists for the email address you have entered.
-            </div>
-          )}
-        </form>
+            <button
+              className="buttons"
+              type="submit"
+              onClick={(e) => {
+                handleToken(e, name, userName, email, password, onboardingRole);
+              }}
+            >
+              Sign up
+            </button>
+            <button
+              className="buttons shadow-none py-0 px-2 text-muted"
+              onClick={handleCloseBtnClick}
+              style={{
+                position: "absolute",
+                right: 0,
+                top: 0,
+                color: "black",
+                backgroundColor: "white",
+              }}
+            >
+              <h3>&times;</h3>
+            </button>
+            {incompleteError && (
+              <div className="alert alert-danger mt-3" role="alert">
+                Please fill out all fields
+              </div>
+            )}
+            {emailError && (
+              <div className="alert alert-danger mt-3" role="alert">
+                Please enter a valid email address.
+              </div>
+            )}
+            {passwordError && (
+              <div className="alert alert-danger mt-3" role="alert">
+                Please enter a password that is at least six characters.
+              </div>
+            )}
+            {accountExists && (
+              <div className="alert alert-danger mt-3" role="alert">
+                An account already exists for the email address you have
+                entered.
+              </div>
+            )}
+          </form>
         </div>
       </Modal>
     </div>

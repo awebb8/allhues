@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import profilecard from "./profilecard.css";
 import NameContext from "../../utils/NameContext";
-import RoleContext from "../../utils/RoleContext";
+import RoleContext from "../../utils/roleContext";
 import UserContext from "../../utils/UserContext";
 import axios from "axios";
 import API from "../../utils/API";
@@ -97,7 +97,11 @@ const ProfileCard = (props) => {
                   accept="image/*"
                   hidden
                 />
-                <img src={image} alt="placeholder image" />
+                <img
+                  src={image}
+                  alt="placeholder image"
+                  style={{ cursor: "pointer" }}
+                />
               </label>
               <h3 className="h3">
                 {determineRoleToShowConsumer()}: {usersName}

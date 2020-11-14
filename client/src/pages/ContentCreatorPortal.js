@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
 // import AuthContext from "../utils/AuthContext";
 import UserContext from "../utils/UserContext";
-import RoleContext from "../utils/RoleContext";
+import RoleContext from "../utils/roleContext";
 import MultiKit from "../components/MultiKit/MultiKit";
 import ProfileCard from "../components/ProfileCard/ProfileCard";
 // import NameContext from "../utils/NameContext";
@@ -30,13 +30,21 @@ const ContentCreatorPortal = () => {
   }, [id]);
 
   useEffect(() => {
-    if (favorites.length === 0) {
+    if (favorites) {
       API.getUser().then((res) => {
         setFavorites(res.data.favorites);
       });
-    } else {
-      API.putFavorite(id, favorites).then((res) => console.log(favorites));
     }
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (favorites.length >= 0) {
+        API.putFavorite(id, favorites).then((res) => {
+          console.log("BLAH");
+        });
+      }
+    }, 200);
   }, [favorites]);
 
   // console.log(yourKits);
