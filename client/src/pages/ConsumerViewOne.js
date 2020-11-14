@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Kit from "../components/SingleKit/SingleKit";
 import { useParams } from "react-router-dom";
 import API from "../utils/API";
+import UserContext from "../utils/UserContext";
 import UpdateKit from "../components/UpdateKit/UpdateKit";
 import { useHistory } from "react-router-dom";
 import Axios from "axios";
 
 const ConsumerViewOne = () => {
   let { id } = useParams();
+  const userId = useContext(UserContext);
+
   const [kit, setKit] = useState({});
 
   const [update, setUpdate] = useState(false);
@@ -52,7 +55,7 @@ const ConsumerViewOne = () => {
   const onClickDelete = () => {
     API.deleteKit(id).then((res) => {
       console.log("kit deleted");
-      history.push("/portal");
+      history.push(`/portal/${userId.id}`);
     });
   };
 

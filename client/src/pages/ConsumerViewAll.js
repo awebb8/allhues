@@ -9,7 +9,6 @@ import { options, hueOptions, sortOptions } from "../utils/selectOptions";
 import RoleContext from "../utils/RoleContext";
 import UserContext from "../utils/UserContext";
 
-
 const ConsumerViewAll = (props) => {
   // Array of all kits, this is used to true up the filterKits array when filter is cleared
   const [kits, setKits] = useState([]);
@@ -24,20 +23,20 @@ const ConsumerViewAll = (props) => {
   //TODO: We can probably get rid of JWT here since it's not being used anywhere on the page, and the page is not going to be protected
   const { jwt } = useContext(AuthContext);
   const { role } = useContext(RoleContext);
-  const {id} = useContext(UserContext)
+  const { id } = useContext(UserContext);
   const history = useHistory();
 
   //Makes an api call to get all saved image urls so we can show em all
   const findAll = () => {
-      API.getKits()
-        .then((res) => {
-          setKits(res.data);
-          setFilterKits(res.data);
-        })
-        .catch((err) => {
-          localStorage.clear();
-          history.push("/login");
-        });
+    API.getKits()
+      .then((res) => {
+        setKits(res.data);
+        setFilterKits(res.data);
+      })
+      .catch((err) => {
+        localStorage.clear();
+        history.push("/login");
+      });
   };
 
   // useEffect(()=>{
@@ -56,7 +55,6 @@ const ConsumerViewAll = (props) => {
       .then(res => console.log(res.data))
     }
   }, [favorites]);
-
 
   // Component on mount, retrieve all kits from DB
   useEffect(() => {
@@ -105,23 +103,21 @@ const ConsumerViewAll = (props) => {
     kitsArray = filterKits
   ) => {
     // Don't even try asking me how I got this to work....
-      const results = [];
-      for (let i = 0; i < kitsArray.length; i++) {
-        let match = 0;
-        for (let j = 0; j < kitsArray[i].kitItems.length; j++) {
-          for (let k = 0; k < selectedFilters.length; k++) {
-            if (
-              kitsArray[i].kitItems[j].makeupCategory === selectedFilters[k]
-            ) {
-              match++;
-            }
+    const results = [];
+    for (let i = 0; i < kitsArray.length; i++) {
+      let match = 0;
+      for (let j = 0; j < kitsArray[i].kitItems.length; j++) {
+        for (let k = 0; k < selectedFilters.length; k++) {
+          if (kitsArray[i].kitItems[j].makeupCategory === selectedFilters[k]) {
+            match++;
           }
         }
-        if (match >= selectedFilters.length) {
-          results.push(kitsArray[i]);
-        }
       }
-      setFilterKits(results);
+      if (match >= selectedFilters.length) {
+        results.push(kitsArray[i]);
+      }
+    }
+    setFilterKits(results);
   };
 
   // Filters kits based on hue type selected
@@ -148,7 +144,7 @@ const ConsumerViewAll = (props) => {
     selectedHue = selectedFilterHue,
     kitArray = filterKits
   ) => {
-      setFilterKits(kitArray.filter((kit) => kit.hueType === selectedHue));
+    setFilterKits(kitArray.filter((kit) => kit.hueType === selectedHue));
   };
 
   const handleSortChange = (e) => {
@@ -201,7 +197,7 @@ const ConsumerViewAll = (props) => {
   };
 
   const determineLabel = () => {
-    switch(selectedFilterHue) {
+    switch (selectedFilterHue) {
       case "Fitz1":
         return hueOptions[0].label;
       case "Fitz2":
@@ -215,8 +211,7 @@ const ConsumerViewAll = (props) => {
       case "Fitz6":
         return hueOptions[5].label;
     }
-    
-  }
+  };
 
   return (
     <div>
@@ -246,7 +241,11 @@ const ConsumerViewAll = (props) => {
             <Select
               options={hueOptions}
               onChange={handleHueFilterChange}
-              value={selectedFilterHue === "" ? false : {label: determineLabel(), value: selectedFilterHue}}
+              value={
+                selectedFilterHue === ""
+                  ? false
+                  : { label: determineLabel(), value: selectedFilterHue }
+              }
               placeholder="Filter by Hue"
               isClearable
             />
@@ -281,7 +280,15 @@ const ConsumerViewAll = (props) => {
               return true;
             })
             .map((i) => (
-              <MultiKit setFavorites={setFavorites} favorites={favorites} key={i._id} src={i.imageUrl} filledHeart={i._id} class={i._id} info={i} />
+              <MultiKit
+                setFavorites={setFavorites}
+                favorites={favorites}
+                key={i._id}
+                src={i.imageUrl}
+                filledHeart={i._id}
+                class={i._id}
+                info={i}
+              />
             ))}
         </div>
       </div>

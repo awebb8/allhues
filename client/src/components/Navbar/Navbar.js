@@ -26,7 +26,7 @@ const Navbar = () => {
   //       setState({ token: localStorage.getItem("token") });
   //     }
   //   };
-  //   determineIfTokenInStorage();c
+  //   determineIfTokenInStorage();
   console.log(role);
   if (role === "Consumer") {
     return (
@@ -92,6 +92,11 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
+            <li className="nav-item active">
+              <Link to="/viewall" className="nav-link">
+                ViewAll<span className="sr-only">(current)</span>
+              </Link>
+            </li>
             <li className="nav-item">
               <Link to="/signup" className="nav-link">
                 Signup
@@ -142,21 +147,11 @@ const Navbar = () => {
               Portal
             </Link>
           </li>
-          {/* <li className="nav-item active">
-            <Link to="/profile" className="nav-link">
-              Profile<span className="sr-only">(current)</span>
-            </Link>
-          </li> */}
           <li className="nav-item">
             <div className="nav-link">
               <Logout />
             </div>
           </li>
-          {/* <li className="nav-item">
-            <Link to="/signup" className="nav-link">
-              Signup
-            </Link>
-          </li> */}
         </ul>
       </div>
     </nav>

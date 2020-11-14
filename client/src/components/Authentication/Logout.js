@@ -1,12 +1,12 @@
 import React from "react";
 // import AuthContext from "../../utils/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Logout = () => {
   // const [jwtContext, setJwtContext] = useState({
   // jwt: "",
   // });
-  // const history = useHistory();
+  const history = useHistory();
   // const { jwt, setJwt } = useContext(AuthContext);
 
   //   useEffect(() => {
@@ -17,6 +17,7 @@ const Logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     // setJwtContext({ jwt: "", setJwt: () => {} });
+    history.push("/");
     window.location.reload();
     // history.push("/");
   };

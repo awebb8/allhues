@@ -14,7 +14,7 @@ const MultiKit = (props) => {
   const { id } = useContext(UserContext);
 
   const handleSingleKitClick = (e) => {
-    console.log(e.target);
+    // console.log(e.target);
     history.push(`/viewone/${e.target.getAttribute("class").substr(0, 25)}`);
   };
 
@@ -43,8 +43,6 @@ const MultiKit = (props) => {
    }
   },[favorite])
 
-  
-
   return (
     <div
       className={
@@ -53,7 +51,9 @@ const MultiKit = (props) => {
     >
       <div
         className={
-          props.class === undefined ? "grow card card-viewall" : props.class + " grow card card-viewall"
+          props.class === undefined
+            ? "grow card card-viewall"
+            : props.class + " grow card card-viewall"
         }
         onClick={(e) => handleSingleKitClick(e)}
         style={{ cursor: "pointer" }}
@@ -70,7 +70,9 @@ const MultiKit = (props) => {
         <div
           style={{ textAlign: "center" }}
           className={
-            props.class === undefined ? "card-body-viewall" : props.class + " card-body-viewall"
+            props.class === undefined
+              ? "card-body-viewall"
+              : props.class + " card-body-viewall"
           }
         >
           <button type="button" className={`${props.class} btn btn-default`}
@@ -99,7 +101,12 @@ const MultiKit = (props) => {
         </div>
         <div
           className="text-muted d-flex"
-          style={{ position: "absolute", bottom: 0, right: 5, fontSize: '15px' }}
+          style={{
+            position: "absolute",
+            bottom: 0,
+            right: 5,
+            fontSize: "15px",
+          }}
         >
           <i className="ph-eye pr-1"></i>
           {props.info.uniqueVisits}

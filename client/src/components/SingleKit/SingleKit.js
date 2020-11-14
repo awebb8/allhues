@@ -5,7 +5,42 @@ import UserContext from "../../utils/UserContext";
 const Kit = (props) => {
   const { id } = useContext(UserContext);
 
-  //FIXME:
+  if (id === "") {
+    return (
+      <div className="card">
+        <img
+          src={
+            props.src === undefined
+              ? "http://via.placeholder.com/200"
+              : props.src
+          }
+          className="card-img-top"
+          alt="..."
+        />
+        <div className="card-body">
+          <h5 className="card-title" style={{ textAlign: "center" }}>
+            {props.info.kitName ? props.info.kitName : ""}
+          </h5>
+          <p className="card-text" style={{ textAlign: "center" }}>
+            {props.info.kitDescription ? props.info.kitDescription : ""}
+          </p>
+          <div
+            className="text-muted d-flex"
+            style={{
+              position: "absolute",
+              bottom: 0,
+              right: 5,
+              fontSize: "15px",
+            }}
+          >
+            <i className="ph-eye pr-1"></i>
+            {props.info.uniqueVisits}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (id === props.info.creatorId) {
     return (
       <>
@@ -40,11 +75,18 @@ const Kit = (props) => {
               </a>
             ))}
 
-            <p class="card-text">
-              <small class="text-muted">
-                Unique Visits: {props.info.uniqueVisits + 1}
-              </small>
-            </p>
+            <div
+              className="text-muted d-flex"
+              style={{
+                position: "absolute",
+                bottom: 0,
+                right: 5,
+                fontSize: "15px",
+              }}
+            >
+              <i className="ph-eye pr-1"></i>
+              {props.info.uniqueVisits}
+            </div>
           </div>
         </div>
         <div className="pt-3" style={{ textAlign: "center" }}>
@@ -75,11 +117,18 @@ const Kit = (props) => {
         <p className="card-text" style={{ textAlign: "center" }}>
           {props.info.kitDescription ? props.info.kitDescription : ""}
         </p>
-        <p class="card-text">
-          <small class="text-muted">
-            Unique Visits: {props.info.uniqueVisits + 1}
-          </small>
-        </p>
+        <div
+          className="text-muted d-flex"
+          style={{
+            position: "absolute",
+            bottom: 0,
+            right: 5,
+            fontSize: "15px",
+          }}
+        >
+          <i className="ph-eye pr-1"></i>
+          {props.info.uniqueVisits}
+        </div>
       </div>
     </div>
   );
