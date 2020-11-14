@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import AuthContext from "./utils/AuthContext";
 import UserContext from "./utils/UserContext";
-import RoleContext from "./utils/roleContext";
+import RoleContext from "./utils/RoleContext";
 // import NameContext from "./utils/NameContext";
 import Home from "./pages/Home";
 import ContentCreatorUpload from "./pages/ContentCreatorUpload";
@@ -111,7 +111,7 @@ function App() {
                   component={FavoritesPage}
                 ></Route>
               </Switch>
-              <Footer />
+              {/* <Footer /> */}
             </Router>
           </RoleContext.Provider>
         </UserContext.Provider>

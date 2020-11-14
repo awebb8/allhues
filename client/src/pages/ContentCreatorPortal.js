@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
 // import AuthContext from "../utils/AuthContext";
 import UserContext from "../utils/UserContext";
-import RoleContext from "../utils/roleContext";
+import RoleContext from "../utils/RoleContext";
 import MultiKit from "../components/MultiKit/MultiKit";
 import ProfileCard from "../components/ProfileCard/ProfileCard";
 // import NameContext from "../utils/NameContext";
@@ -11,6 +11,7 @@ import API from "../utils/API";
 
 const ContentCreatorPortal = () => {
   const [yourKits, setYourKits] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   // const [kits, setKits] = useState([]);
   // const { setJwt, jwt } = useContext(AuthContext);
   const { id } = useContext(UserContext);
@@ -28,6 +29,16 @@ const ContentCreatorPortal = () => {
     getKits();
   }, [id]);
 
+  useEffect(() => {
+    if (favorites.length === 0) {
+      API.getUser().then((res) => {
+        setFavorites(res.data.favorites);
+      });
+    } else {
+      API.putFavorite(id, favorites).then((res) => console.log(favorites));
+    }
+  }, [favorites]);
+
   // console.log(yourKits);
   const { role } = useContext(RoleContext);
   // const { name } = useContext(NameContext);
@@ -41,15 +52,41 @@ const ContentCreatorPortal = () => {
   }
 
   if (yourKits) {
-    return (
-      <>
-        <div className="container-fluid">
-          <div className="row">
-            <ProfileCard yourKits={yourKits} />
+    if (yourKits.length < 3 || (yourKits.length > 3 && yourKits.length < 6)) {
+      return (
+        <>
+          <div className="container-fluid">
+            <div className="row">
+              <ProfileCard yourKits={yourKits} />
+            </div>
+            <div className="row row-cols-1 row-cols-md-3">
+              {yourKits.map((kit) => (
+                <MultiKit
+                  setFavorites={setFavorites}
+                  favorites={favorites}
+                  filledHeart={kit._id}
+                  key={kit._id}
+                  class={kit._id}
+                  src={kit.imageUrl}
+                  info={kit}
+                />
+              ))}
+            </div>
           </div>
+        </>
+      );
+    }
+    return (
+      <div>
+        {/* <h1>This is the contentCreator Portal Page.</h1> */}
+        <div className="container-fluid" style={{ marginBottom: "150px" }}>
+          {/* <div className="row"></div> */}
           <div className="row row-cols-1 row-cols-md-3">
             {yourKits.map((kit) => (
               <MultiKit
+                setFavorites={setFavorites}
+                favorites={favorites}
+                filledHeart={kit._id}
                 key={kit._id}
                 class={kit._id}
                 src={kit.imageUrl}
@@ -58,7 +95,7 @@ const ContentCreatorPortal = () => {
             ))}
           </div>
         </div>
-      </>
+      </div>
     );
   } else {
     return (
