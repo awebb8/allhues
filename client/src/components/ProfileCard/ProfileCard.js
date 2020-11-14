@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import profilecard from "./profilecard.css";
 import NameContext from "../../utils/NameContext";
-import RoleContext from "../../utils/RoleContext";
+import RoleContext from "../../utils/roleContext";
 import UserContext from "../../utils/UserContext";
 import axios from "axios";
 import API from "../../utils/API";

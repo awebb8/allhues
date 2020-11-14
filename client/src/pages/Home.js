@@ -3,7 +3,7 @@ import Header from "../components/Header/Header";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
-import UserContext from '../utils/UserContext';
+import UserContext from "../utils/UserContext";
 
 const Home = (props) => {
   const [kits, setKits] = useState([]);
@@ -23,22 +23,23 @@ const Home = (props) => {
     findAll();
   }, []);
 
-
+  useEffect(() => {
+    if (favorites) {
+      API.getUser().then((res) => {
+        setFavorites(res.data.favorites);
+      });
+    }
+  }, []);
 
   useEffect(() => {
-    if (favorites.length === 0) {
-      API.getUser().then(res => {
-        setFavorites(res.data.favorites);
-      })
-    } else {
-      API.putFavorite(id, favorites)
-      .then(res => console.log(favorites));
-    }
+    setTimeout(() => {
+      if (favorites.length >= 0) {
+        API.putFavorite(id, favorites).then((res) => {
+          console.log("BLAH");
+        });
+      }
+    }, 450);
   }, [favorites]);
-
-
-
-
 
   return (
     <div>
@@ -190,8 +191,8 @@ const Home = (props) => {
         <div className="row row-cols-1 row-cols-md-4">
           {kits.slice(0, 4).map((i) => (
             <MultiKit
-              setFavorites={setFavorites} 
-              favorites={favorites} 
+              setFavorites={setFavorites}
+              favorites={favorites}
               filledHeart={i._id}
               key={i._id}
               src={i.imageUrl}

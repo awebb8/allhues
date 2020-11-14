@@ -10,7 +10,9 @@ const MultiKit = (props) => {
   // const [addFavorite, setAddFavorite] = useState("");
   const { favorites, setFavorites, filledHeart } = props;
 
-  const [favorite, setFavorite] = useState(favorites ? favorites.includes(filledHeart) : false);
+  const [favorite, setFavorite] = useState(
+    favorites ? favorites.includes(filledHeart) : false
+  );
   const { id } = useContext(UserContext);
 
   const handleSingleKitClick = (e) => {
@@ -24,24 +26,22 @@ const MultiKit = (props) => {
     //console.log(e.target.getAttribute("class").substr(0,25).trim());
     setFavorite(!favorite);
 
-    const targetId= e.target.getAttribute("class").substr(0,25).trim();
+    const targetId = e.target.getAttribute("class").substr(0, 25).trim();
 
-    if(!favorites.includes(targetId)) {
-    setFavorites([...favorites, targetId]);
+    if (!favorites.includes(targetId)) {
+      setFavorites([...favorites, targetId]);
     } else {
-
-      const filteredFaves = favorites.filter(i=>i !== targetId);
+      const filteredFaves = favorites.filter((i) => i !== targetId);
 
       setFavorites(filteredFaves);
     }
   };
 
-
   useEffect(() => {
-   if (favorite === false) {
-     setFavorite(favorites.includes(filledHeart));
-   }
-  },[favorite])
+    if (favorite === false) {
+      setFavorite(favorites.includes(filledHeart));
+    }
+  }, [favorite]);
 
   return (
     <div
@@ -75,9 +75,17 @@ const MultiKit = (props) => {
               : props.class + " card-body-viewall"
           }
         >
-          <button type="button" className={`${props.class} btn btn-default`}
-            onClick={(e) => handleFavoritesClick(e)}>
-            {favorites.includes(filledHeart) ?  <i className={`${props.class} fas fa-heart`}></i> : <i className={`${props.class} far fa-heart`}></i>} </button>
+          <button
+            type="button"
+            className={`${props.class} btn btn-default`}
+            onClick={(e) => handleFavoritesClick(e)}
+          >
+            {favorites.includes(filledHeart) ? (
+              <i className={`${props.class} fas fa-heart`}></i>
+            ) : (
+              <i className={`${props.class} far fa-heart`}></i>
+            )}{" "}
+          </button>
           <h5
             style={{ textAlign: "center" }}
             className={
