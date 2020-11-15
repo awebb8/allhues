@@ -75,6 +75,9 @@ and (max-width : 1100px) {
 		-ms-transform: scale(0.9);
 		transform: scale(0.9);
 	}
+	.jumbotron {
+	height: 0!important;
+	}
 }
 
 /* Large screens ----------- */
@@ -101,5 +104,32 @@ and (max-device-width: 480px) {
 		-ms-transform: scale(0.9);
 		transform: scale(0.9);
 	}
+	.overlay {
+		top: 10%!important; right: 0; bottom: 0; left: 0;
+	}
+	.title {
+		font-size: 90px!important;
+	}
+	.lead {
+		font-size: 16px;
+	}
+	  .jumbotron {
+		height: 10vh!important;
+		min-height: 28vh!important;
+	  }
+	  .video-background {
+		  height: 100%;
+		  width: none;
+	  }
 }
-  
+
+@media only screen and (min-width : 479px) 
+and (max-width : 767px) {
+	.rounded-circle {
+		width: 6rem!important;
+		height: 6rem!important;
+	}
+	.homeCard {
+		margin: 10px!important;
+	}
+}

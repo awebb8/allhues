@@ -26,7 +26,7 @@
 	justify-content: flex-end;
 	overflow: hidden;
 	background-color: #b29fb5;
-	/*background: url(https://bootdey.com/img/Content/bg1.jpg) no-repeat;*/
+	background: url(./eyeshaddow.png) no-repeat fixed;
 	background-size: cover;
 }
 

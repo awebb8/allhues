@@ -81,38 +81,37 @@ const Signup = () => {
 
   return (
     <div>
-      <button className="buttons" onClick={() => setModalIsOpen(true)}>
+      {/* <button className="buttons" onClick={() => setModalIsOpen(true)}>
         Open modal
-      </button>
+      </button> */}
       <Modal
         isOpen={modalIsOpen}
-        style={{
-          overlay: {
-            backgroundColor: "#e8d3c4",
-          },
-          content: {
-            color: "#46483b",
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-            // border: "1px solid #46483b",
-            backgroundColor: "#fff",
-            overflow: "auto",
-            WebkitOverflowScrolling: "touch",
-            // borderRadius: "10px",
-            // outline: "none",
-            paddingLeft: "3%",
-            paddingRight: "3%",
-            paddingTop: "2%",
-            paddingBottom: "2%",
-            boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.3)",
-          },
-        }}
+        className="modal-content"
+        overlayClassName="modal-overlay"
+        // style={{
+        //   overlay: {
+        //     backgroundColor: "#e8d3c4",
+        //   },
+        //   content: {
+        //     color: "#46483b",
+        //     top: "50%",
+        //     left: "50%",
+        //     right: "auto",
+        //     bottom: "auto",
+        //     marginRight: "-50%",
+        //     transform: "translate(-50%, -50%)",
+        //     backgroundColor: "#fff",
+        //     overflow: "auto",
+        //     WebkitOverflowScrolling: "touch",
+        //     paddingLeft: "3%",
+        //     paddingRight: "3%",
+        //     paddingTop: "2%",
+        //     paddingBottom: "2%",
+        //     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.3)",
+        //   },
+        // }}
       >
-        <div className="" style={{ width: 500 }}>
+        <div>
           <h2>Sign up</h2>
           <hr />
           <form>

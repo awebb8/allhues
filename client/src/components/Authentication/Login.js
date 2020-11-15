@@ -63,38 +63,39 @@ const Login = () => {
 
   return (
     <div>
-      <button onClick={() => setModalIsOpen(true)}>Open modal</button>
+      {/* <button onClick={() => setModalIsOpen(true)}>Open modal</button> */}
       <Modal
         isOpen={modalIsOpen}
-        style={{
-          overlay: {
-            backgroundColor: "#e8d3c4",
-          },
-          content: {
-            color: "#46483b",
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-            // border: "1px solid #46483b",
-            backgroundColor: "#fff",
-            overflow: "auto",
-            WebkitOverflowScrolling: "touch",
-            paddingLeft: "3%",
-            paddingRight: "3%",
-            paddingTop: "2%",
-            paddingBottom: "2%",
-            boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.3)",
-            // maxWidth:500
-          },
-        }}
+        className="modal-content"
+        overlayClassName="modal-overlay"
+        // style={{
+        //   overlay: {
+        //     backgroundColor: "#e8d3c4",
+        //   },
+        // content: {
+        //     color: "#46483b",
+        //     top: "50%",
+        //     left: "50%",
+        //     right: "auto",
+        //     bottom: "auto",
+        //     marginRight: "-50%",
+        //     transform: "translate(-50%, -50%)",
+        //     backgroundColor: "#fff",
+        //     overflow: "auto",
+        //     WebkitOverflowScrolling: "touch",
+        //     paddingLeft: "3%",
+        //     paddingRight: "3%",
+        //     paddingTop: "2%",
+        //     paddingBottom: "2%",
+        //     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.3)",
+        //   },
+        // }}
       >
+        <div>
         <h2>Login</h2>
         <hr />
         <form>
-          <div className="form-group" style={{ width: 500 }}>
+          <div className="form-group">
             <label>Email address</label>
             <input
               type="email"
@@ -152,6 +153,7 @@ const Login = () => {
             </div>
           )}
         </form>
+        </div>
       </Modal>
     </div>
   );
