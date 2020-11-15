@@ -98,8 +98,6 @@ const ProfileCard = (props) => {
                 </h3>
               </div>
               <div className="profile-cover__action bg--img" data-overlay="0.3">
-
-
               <br />
               <br />
               </div>

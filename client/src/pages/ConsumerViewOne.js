@@ -34,7 +34,7 @@ const ConsumerViewOne = () => {
 
       API.getPopulatedUsers(res.data.creatorId).then(res => {
         console.log("This is the res", res.data);
-        setKitCreatorInfo({image: res.data[0].image, username: res.data[0].userName, id: res.data[0]._id});
+        setKitCreatorInfo({image: res.data[0].image, username: res.data[0].userName, id: res.data[0]._id, name: res.data[0].name });
       })
     });
   }, []);
