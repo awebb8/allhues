@@ -64,7 +64,9 @@ const ConsumerViewOne = () => {
 
   const onClickDelete = () => {
     API.deleteKit(id).then((res) => {
-      // console.log("kit deleted");
+      
+      
+
       history.push(`/portal/${userId.id}`);
     });
   };
