@@ -31,14 +31,6 @@ Go to https://allhues.herokuapp.com/ to start your path to cost efficient beauty
 
 CSS,JavaScript,node.JS,React
 
-## Contribution
-
-N/A
-
-## Tests
-
-N/A
-
 ## Questions
 
 siegelal@protonmail.com [Github page](https://www.github.com/siegelal7)
