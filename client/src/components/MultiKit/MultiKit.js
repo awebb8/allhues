@@ -2,18 +2,16 @@ import "./MultiKit.css";
 import { useHistory } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
 import UserContext from "../../utils/UserContext";
-// import API from "../../utils/API";
 
 const MultiKit = (props) => {
   const history = useHistory();
 
-  // const [addFavorite, setAddFavorite] = useState("");
   const { favorites, setFavorites, filledHeart } = props;
 
   const [favorite, setFavorite] = useState(
     favorites ? favorites.includes(filledHeart) : false
   );
-  
+
   const { id } = useContext(UserContext);
 
   const handleSingleKitClick = (e) => {
@@ -22,8 +20,7 @@ const MultiKit = (props) => {
 
   const handleFavoritesClick = (e) => {
     e.stopPropagation();
-    //setAddFavorite({favorites: e.target.getAttribute("class").substr(0,25).trim()})
-    //console.log(e.target.getAttribute("class").substr(0,25).trim());
+
     setFavorite(!favorite);
 
     const targetId = e.target.getAttribute("class").substr(0, 25).trim();
@@ -74,19 +71,23 @@ const MultiKit = (props) => {
               ? "card-body-viewall"
               : props.class + " card-body-viewall"
           }
-        > 
-        {id !== "" ? <button
-            type="button"
-            className={`${props.class} btn btn-default`}
-            onClick={(e) => handleFavoritesClick(e)}
-          >
-            {favorites.includes(filledHeart) ? (
-              <i className={`${props.class} fas fa-heart`}></i>
-            ) : (
-              <i className={`${props.class} far fa-heart`}></i>
-            )}{" "}
-          </button> : <div className="mt-4"></div> }
-          
+        >
+          {id !== "" ? (
+            <button
+              type="button"
+              className={`${props.class} btn btn-default`}
+              onClick={(e) => handleFavoritesClick(e)}
+            >
+              {favorites.includes(filledHeart) ? (
+                <i className={`${props.class} fas fa-heart`}></i>
+              ) : (
+                <i className={`${props.class} far fa-heart`}></i>
+              )}{" "}
+            </button>
+          ) : (
+            <div className="mt-4"></div>
+          )}
+
           <h5
             style={{ textAlign: "center" }}
             className={

@@ -1,28 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 
-import RoleContext from "../../utils/RoleContext";
+import RoleContext from "../../utils/roleContext";
 import Logout from "../Authentication/Logout";
 import UserContext from "../../utils/UserContext";
-
-import API from "../../utils/API";
 
 const Navbar = () => {
   const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
-
-  // const [usersName, setUsersName] = useState("");
-  // const [usersPicture, setUsersPicture] = useState("");
-
-  // useEffect(() => {
-  //   if(id !== "") {
-  //     API.getPopulatedUsers(id).then(res => {
-  //       setUsersName(res.data[0].name);
-  //       setUsersPicture(res.data[0].image);
-  //     });
-  //   }
-  // }, []);
 
   if (role === "Consumer") {
     return (
@@ -45,7 +31,7 @@ const Navbar = () => {
           <ul className="navbar-nav">
             <li className="nav-item active">
               <Link to="/viewall" className="nav-link">
-                ViewAll<span className="sr-only">(current)</span>
+                View Kits<span className="sr-only">(current)</span>
               </Link>
             </li>
             <li className="nav-item active">
@@ -93,7 +79,7 @@ const Navbar = () => {
           <ul className="navbar-nav">
             <li className="nav-item active">
               <Link to="/viewall" className="nav-link">
-                ViewAll<span className="sr-only">(current)</span>
+                View Kits<span className="sr-only">(current)</span>
               </Link>
             </li>
             <li className="nav-item">
@@ -132,7 +118,7 @@ const Navbar = () => {
         <ul className="navbar-nav">
           <li className="nav-item active">
             <Link to="/viewall" className="nav-link">
-              ViewAll<span className="sr-only">(current)</span>
+              View Kits<span className="sr-only">(current)</span>
             </Link>
           </li>
           <li className="nav-item active">

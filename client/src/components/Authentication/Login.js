@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import AuthContext from "../../utils/AuthContext";
 import UserContext from "../../utils/UserContext";
-import RoleContext from "../../utils/RoleContext";
+import RoleContext from "../../utils/roleContext";
 import { useHistory } from "react-router-dom";
 import "./auth.css";
 Modal.setAppElement("#root");
@@ -68,91 +68,69 @@ const Login = () => {
         isOpen={modalIsOpen}
         className="modal-content"
         overlayClassName="modal-overlay"
-        // style={{
-        //   overlay: {
-        //     backgroundColor: "#e8d3c4",
-        //   },
-        // content: {
-        //     color: "#46483b",
-        //     top: "50%",
-        //     left: "50%",
-        //     right: "auto",
-        //     bottom: "auto",
-        //     marginRight: "-50%",
-        //     transform: "translate(-50%, -50%)",
-        //     backgroundColor: "#fff",
-        //     overflow: "auto",
-        //     WebkitOverflowScrolling: "touch",
-        //     paddingLeft: "3%",
-        //     paddingRight: "3%",
-        //     paddingTop: "2%",
-        //     paddingBottom: "2%",
-        //     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.3)",
-        //   },
-        // }}
       >
         <div>
-        <h2>Login</h2>
-        <hr />
-        <form>
-          <div className="form-group">
-            <label>Email address</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="example@email.com"
-              onChange={handleEmailInput}
-              //   value={authState.email}
-              className="form-control"
-            />
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              onChange={handlePasswordInput}
-              //   value={authState.password}
-              className="form-control"
-            />
-          </div>
-          <button
-            className="buttons"
-            type="submit"
-            onClick={(e) => {
-              handleLoginSubmit(e, email, password);
-            }}
-          >
-            Log in
-          </button>
-          <button
-            className="buttons shadow-none py-0 px-2 text-muted"
-            onClick={handleCloseBtnClick}
-            style={{
-              position: "absolute",
-              right: 0,
-              top: 0,
-              color: "black",
-              backgroundColor: "white",
-            }}
-          >
-            <h3>&times;</h3>
-          </button>
-          <p className="mt-3">
-            <Link to="/signup">Don't have an account? Click here.</Link>
-          </p>
-          {incompleteError && (
-            <div className="alert alert-danger mt-3" role="alert">
-              Please fill out all fields
+          <h2>Login</h2>
+          <hr />
+          <form>
+            <div className="form-group">
+              <label>Email address</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="example@email.com"
+                onChange={handleEmailInput}
+                //   value={authState.email}
+                className="form-control"
+              />
             </div>
-          )}
-          {emailError && (
-            <div className="alert alert-danger mt-3" role="alert">
-              The email or password you have entered is incorrect.
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={handlePasswordInput}
+                //   value={authState.password}
+                className="form-control"
+              />
             </div>
-          )}
-        </form>
+            <button
+              className="buttons"
+              type="submit"
+              onClick={(e) => {
+                handleLoginSubmit(e, email, password);
+              }}
+            >
+              Log in
+            </button>
+            <button
+              className="buttons shadow-none py-0 px-2 text-muted"
+              onClick={handleCloseBtnClick}
+              style={{
+                position: "absolute",
+                right: 0,
+                top: 0,
+                color: "black",
+                backgroundColor: "white",
+              }}
+            >
+              <h3>&times;</h3>
+            </button>
+            <p className="mt-3">
+              <Link to="/signup">Don't have an account? Click here.</Link>
+            </p>
+            {incompleteError && (
+              <div className="alert alert-danger mt-3" role="alert">
+                Please fill out all fields
+              </div>
+            )}
+            {emailError && (
+              <div className="alert alert-danger mt-3" role="alert">
+                The email or password you have entered is incorrect.
+              </div>
+            )}
+          </form>
         </div>
       </Modal>
     </div>

@@ -6,7 +6,7 @@ import AuthContext from "../utils/AuthContext";
 import useDidMountEffect from "../utils/useDidMountEffect";
 import Select from "react-select";
 import { options, hueOptions, sortOptions } from "../utils/selectOptions";
-import RoleContext from "../utils/RoleContext";
+import RoleContext from "../utils/roleContext";
 import UserContext from "../utils/UserContext";
 import { useHistory } from "react-router-dom";
 
@@ -23,9 +23,6 @@ const ConsumerViewAll = (props) => {
   const [fromPopularBtn, setFromPopularBtn] = useState(false);
   const [fromNewBtn, setFromNewBtn] = useState(false);
 
-  //TODO: We can probably get rid of JWT here since it's not being used anywhere on the page, and the page is not going to be protected
-  const { jwt } = useContext(AuthContext);
-  const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
   // const history = useHistory();
 
@@ -82,16 +79,6 @@ const ConsumerViewAll = (props) => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (favorites.length >= 0) {
-  //       API.putFavorite(id, favorites).then((res) => {
-  //         console.log("made put call");
-  //       });
-  //     }
-  //   }, 200);
-  // }, [favorites]);
-
   useDidMountEffect(() => {
     if (id) {
       API.putFavorite(id, favorites).then((res) => {
@@ -101,6 +88,7 @@ const ConsumerViewAll = (props) => {
       history.push("/login");
     }
   }, [favorites]);
+
   // Component on mount, retrieve all kits from DB
   useEffect(() => {
     findAll();

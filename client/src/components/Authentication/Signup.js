@@ -4,7 +4,7 @@ import React, { useState, useContext } from "react";
 import Modal from "react-modal";
 import AuthContext from "../../utils/AuthContext";
 import UserContext from "../../utils/UserContext";
-import RoleContext from "../../utils/RoleContext";
+import RoleContext from "../../utils/roleContext";
 import { useHistory } from "react-router-dom";
 
 Modal.setAppElement("#root");
@@ -46,12 +46,10 @@ const Signup = () => {
     } else {
       Axios.post("/register", { name, userName, email, password, role })
         .then((response) => {
-          // console.log(name, email, password);
-          console.log(response.data);
           setJwt(response.data.token);
           setId(response.data.user.id);
           setRole(response.data.user.role);
-          // localStorage.setItem("name", response.data.user.name);
+
           // TODO: might be able to get rid of this
           localStorage.setItem("role", response.data.user.role);
           localStorage.setItem("token", response.data.token);
@@ -81,35 +79,10 @@ const Signup = () => {
 
   return (
     <div>
-      {/* <button className="buttons" onClick={() => setModalIsOpen(true)}>
-        Open modal
-      </button> */}
       <Modal
         isOpen={modalIsOpen}
         className="modal-content"
         overlayClassName="modal-overlay"
-        // style={{
-        //   overlay: {
-        //     backgroundColor: "#e8d3c4",
-        //   },
-        //   content: {
-        //     color: "#46483b",
-        //     top: "50%",
-        //     left: "50%",
-        //     right: "auto",
-        //     bottom: "auto",
-        //     marginRight: "-50%",
-        //     transform: "translate(-50%, -50%)",
-        //     backgroundColor: "#fff",
-        //     overflow: "auto",
-        //     WebkitOverflowScrolling: "touch",
-        //     paddingLeft: "3%",
-        //     paddingRight: "3%",
-        //     paddingTop: "2%",
-        //     paddingBottom: "2%",
-        //     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.3)",
-        //   },
-        // }}
       >
         <div>
           <h2>Sign up</h2>

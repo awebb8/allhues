@@ -1,11 +1,6 @@
 import React from "react";
 
 const UpdateKit = (props) => {
-  // const [affiliateLink, setAffiliateLink] = useState("");
-  // const handleAffiliateLinkChange = (e) => {
-  //   const { value } = e.target;
-  //   setAffiliateLink(value);
-  // };
   return (
     <div className="card">
       <img
@@ -38,22 +33,7 @@ const UpdateKit = (props) => {
             }
           />
           <br />
-          {/* <input
-            type="text"
-            name="affiliateLink"
-            onChange={handleAffiliateLinkChange}
-          /> */}
-          {/* {props.info.kitItems.map((item) => (
-            <label htmlFor="affiliateLink">
-              Link:
-              <br />
-              <input
-                type="text"
-                name="affiliateLink"
-                onChange={handleAffiliateLinkChange}
-              />
-            </label>
-          ))} */}
+
           <br />
           <button className="buttons" onClick={props.onClickUpdate}>
             Save
