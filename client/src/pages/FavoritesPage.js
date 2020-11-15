@@ -68,19 +68,17 @@ const FavoritesPage = () => {
 
         {/* <div className="row"></div> */}
         <div className="row row-cols-1 row-cols-md-3">
-          {favorites != undefined &&
-            favorites.length > 0 &&
-            favoriteKits.map((i) => (
-              <MultiKit
-                setFavorites={setFavorites}
-                favorites={favorites}
-                key={i._id}
-                src={i.imageUrl}
-                filledHeart={i._id}
-                class={i._id}
-                info={i}
-              />
-            ))}
+          {favoriteKits.map((i) => (
+            <MultiKit
+              setFavorites={setFavorites}
+              favorites={favorites}
+              key={i._id}
+              src={i.imageUrl}
+              filledHeart={i._id}
+              class={i._id}
+              info={i}
+            />
+          ))}
         </div>
       </div>
     </div>
