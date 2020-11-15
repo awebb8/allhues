@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./SingleKit.css";
 import UserContext from "../../utils/UserContext";
+import { useHistory } from "react-router-dom";
 
 const Kit = (props) => {
   const { id } = useContext(UserContext);
@@ -9,10 +10,41 @@ const Kit = (props) => {
     window.location.href = props.src;
   };
 
+  const history = useHistory();
+
+  const handleProfileClick = () => {
+    history.push(`/portal/${props.kitCreatorInfo.id}`);
+  };
+
   if (id === props.info.creatorId) {
     return (
       <>
-        <div className="card">
+        <div className="container mt-3 d-flex justify-content-center">
+          <div className="row">
+            <div className="col-sm-3">
+              <img
+                className="avatar"
+                src={props.kitCreatorInfo && props.kitCreatorInfo.image}
+                alt="content creator's profile picture"
+                onClick={handleProfileClick}
+                style={{ cursor: "pointer" }}
+              />
+            </div>
+            <div className="col-sm-9 mt-2">
+              <span
+                className="username-handle"
+                onClick={handleProfileClick}
+                style={{ cursor: "pointer" }}
+              >
+                {props.kitCreatorInfo && props.kitCreatorInfo.name}
+              </span>
+              <p onClick={handleProfileClick} style={{ cursor: "pointer" }}>
+                @{props.kitCreatorInfo && props.kitCreatorInfo.username}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="card card-viewone">
           <img
             style={{ cursor: "pointer" }}
             src={
@@ -20,7 +52,7 @@ const Kit = (props) => {
                 ? "http://via.placeholder.com/200"
                 : props.src
             }
-            className="card-img-top crop"
+            className="card-img-top crop-viewone"
             alt="Makeup Kit"
             onClick={handleImgClick}
           />
@@ -31,20 +63,6 @@ const Kit = (props) => {
             <p className="card-text" style={{ textAlign: "center" }}>
               {props.info.kitDescription ? props.info.kitDescription : ""}
             </p>
-
-            {props.info.kitItems &&
-              props.info.kitItems.map((item) => (
-                <a
-                  key={item.affiliateLink}
-                  href={item.affiliateLink}
-                  className="card-text"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ textAlign: "center", display: "block" }}
-                >
-                  {item.affiliateLink}
-                </a>
-              ))}
 
             <div
               className="text-muted d-flex"
@@ -60,6 +78,35 @@ const Kit = (props) => {
             </div>
           </div>
         </div>
+
+        <div className="container mt-4">
+          <div className="row">
+            <div className="col-sm-6 offset-sm-3">
+              <h3 style={{ fontWeight: 600 }}>Shop this look</h3>
+              <hr />
+              <div className="text-justify text-nowrap text-truncate">
+                {props.info.kitItems &&
+                  props.info.kitItems.map((item) => (
+                    <div>
+                      <span style={{ fontWeight: 600 }}>
+                        {item.makeupCategory}:{" "}
+                      </span>
+                      <a
+                        key={item.affiliateLink}
+                        href={item.affiliateLink}
+                        className="card-text"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {item.affiliateLink}
+                      </a>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="pt-3" style={{ textAlign: "center" }}>
           <button className="buttons" onClick={props.onClickUpdate}>
             Update
@@ -73,64 +120,94 @@ const Kit = (props) => {
   }
 
   return (
-    <div className="card">
-      <img
-        style={{ cursor: "pointer" }}
-        src={
-          props.src === undefined ? "http://via.placeholder.com/200" : props.src
-        }
-        className="card-img-top"
-        alt="Makeup Kit"
-        onClick={handleImgClick}
-      />
-      <div className="card-body">
-        <h5 className="card-title" style={{ textAlign: "center" }}>
-          {props.info.kitName ? props.info.kitName : ""}
-        </h5>
-        <p className="card-text" style={{ textAlign: "center" }}>
-          {props.info.kitDescription ? props.info.kitDescription : ""}
-        </p>
-        {props.info.kitItems &&
-          props.info.kitItems.map((item) => (
-            <a
-              key={item.affiliateLink}
-              href={item.affiliateLink}
-              className="card-text"
-              target="_blank"
-              rel="noreferrer"
-              style={{ textAlign: "center", display: "block" }}
+    <>
+      <div className="container mt-3 d-flex justify-content-center">
+        <div className="row">
+          <div className="col-sm-3">
+            <img
+              className="avatar"
+              src={props.kitCreatorInfo && props.kitCreatorInfo.image}
+              alt="content creator's profile picture"
+              onClick={handleProfileClick}
+              style={{ cursor: "pointer" }}
+            />
+          </div>
+          <div className="col-sm-9 mt-2">
+            <span
+              className="username-handle"
+              onClick={handleProfileClick}
+              style={{ cursor: "pointer" }}
             >
-              {item.affiliateLink}
-            </a>
-          ))}
-        {/* <a
-          href={
-            props.info.kitItems[0].affiliateLink
-              ? props.info.kitItems[0].affiliateLink
-              : ""
-          }
-          className="card-text"
-          style={{ textAlign: "center" }}
-        >
-          {props.info.kitItems[0].affiliateLink
-            ? props.info.kitItems[0].affiliateLink
-            : ""}
-        </a> */}
-
-        <div
-          className="text-muted d-flex"
-          style={{
-            position: "absolute",
-            bottom: 0,
-            right: 5,
-            fontSize: "15px",
-          }}
-        >
-          <i className="ph-eye pr-1"></i>
-          {props.info.uniqueVisits}
+              {props.kitCreatorInfo && props.kitCreatorInfo.name}
+            </span>
+            <p onClick={handleProfileClick} style={{ cursor: "pointer" }}>
+              @{props.kitCreatorInfo && props.kitCreatorInfo.username}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+      <div className="card">
+        <img
+          style={{ cursor: "pointer" }}
+          src={
+            props.src === undefined
+              ? "http://via.placeholder.com/200"
+              : props.src
+          }
+          className="card-img-top"
+          alt="Makeup Kit"
+          onClick={handleImgClick}
+        />
+        <div className="card-body">
+          <h5 className="card-title" style={{ textAlign: "center" }}>
+            {props.info.kitName ? props.info.kitName : ""}
+          </h5>
+          <p className="card-text" style={{ textAlign: "center" }}>
+            {props.info.kitDescription ? props.info.kitDescription : ""}
+          </p>
+
+          <div
+            className="text-muted d-flex"
+            style={{
+              position: "absolute",
+              bottom: 0,
+              right: 5,
+              fontSize: "15px",
+            }}
+          >
+            <i className="ph-eye pr-1"></i>
+            {props.info.uniqueVisits}
+          </div>
+        </div>
+      </div>
+      <div className="container mt-4">
+        <div className="row">
+          <div className="col-sm-6 offset-sm-3">
+            <h3 style={{ fontWeight: 600 }}>Shop this look</h3>
+            <hr />
+            <div className="text-justify text-nowrap text-truncate">
+              {props.info.kitItems &&
+                props.info.kitItems.map((item) => (
+                  <div>
+                    <span style={{ fontWeight: 600 }}>
+                      {item.makeupCategory}:{" "}
+                    </span>
+                    <a
+                      key={item.affiliateLink}
+                      href={item.affiliateLink}
+                      className="card-text"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {item.affiliateLink}
+                    </a>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
