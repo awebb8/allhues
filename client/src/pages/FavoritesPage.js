@@ -42,20 +42,6 @@ const FavoritesPage = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (favorites.length >= 0) {
-  //       API.putFavorite(id, favorites).then((res) => {
-  //         console.log("BLAH");
-  //         API.getPopulatedUsers(id).then((resp) => {
-  //           console.log("mybadyo");
-  //           console.log(resp.data);
-  //           setFavoriteKits(resp.data[0].favorites);
-  //         });
-  //       });
-  //     }
-  //   }, 200);
-  // }, [favorites]);
   useDidMountEffect(() => {
     if (id) {
       API.putFavorite(id, favorites).then((res) => {
@@ -80,17 +66,6 @@ const FavoritesPage = () => {
   return (
     <div>
       <div className="container-fluid">
-        {/* <h1>hi </h1> */}
-        {/* <div className="row row-cols-6">
-          <Select
-            options={sortOptions}
-            onChange={handleSortChange}
-            placeholder="Sort by..."
-            isClearable
-          />
-        </div> */}
-
-        {/* <div className="row"></div> */}
         <div className="row row-cols-1 row-cols-md-3">
           {favoriteKits.map((i) => (
             <MultiKit
