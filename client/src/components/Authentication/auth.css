@@ -4,8 +4,8 @@ h2 {
 }
 
 .buttons {
-    background-color: #616553;
-    border: none;
+	border: 2px solid black;
+	background-color:  #b29fb5;
     color: white;
     box-shadow: 1px 1px #46483b;
     border-radius: 5px;
