@@ -9,6 +9,7 @@ import ProfileCard from "../components/ProfileCard/ProfileCard";
 import API from "../utils/API";
 // import Kit from "../components/SingleKit/SingleKit";
 import useDidMountEffect from "../utils/useDidMountEffect";
+import { useHistory } from "react-router-dom";
 
 const ContentCreatorPortal = () => {
   const [yourKits, setYourKits] = useState([]);
@@ -16,6 +17,7 @@ const ContentCreatorPortal = () => {
   // const [kits, setKits] = useState([]);
   // const { setJwt, jwt } = useContext(AuthContext);
   const { id } = useContext(UserContext);
+  const history = useHistory;
 
   const getKits = () => {
     axios.get(`/api/users/${id}`).then((res) => {
@@ -48,9 +50,13 @@ const ContentCreatorPortal = () => {
   //   }, 200);
   // }, [favorites]);
   useDidMountEffect(() => {
-    API.putFavorite(id, favorites).then((res) => {
-      console.log("put");
-    });
+    if (id) {
+      API.putFavorite(id, favorites).then((res) => {
+        console.log("put");
+      });
+    } else {
+      history.push("/login");
+    }
   }, [favorites]);
 
   // console.log(yourKits);

@@ -8,6 +8,7 @@ import Select from "react-select";
 import { options, hueOptions, sortOptions } from "../utils/selectOptions";
 import RoleContext from "../utils/roleContext";
 import UserContext from "../utils/UserContext";
+import { useHistory } from "react-router-dom";
 
 const ConsumerViewAll = (props) => {
   // Array of all kits, this is used to true up the filterKits array when filter is cleared
@@ -15,6 +16,7 @@ const ConsumerViewAll = (props) => {
   const [favorites, setFavorites] = useState([]);
   // Array of filtered kits, this is used to render the kits on the page
   const [filterKits, setFilterKits] = useState([]);
+  const history = useHistory();
 
   const [selectedFilterProducts, setSelectedFilterProducts] = useState([]);
   const [selectedFilterHue, setSelectedFilterHue] = useState("");
@@ -91,9 +93,13 @@ const ConsumerViewAll = (props) => {
   // }, [favorites]);
 
   useDidMountEffect(() => {
-    API.putFavorite(id, favorites).then((res) => {
-      console.log("put");
-    });
+    if (id) {
+      API.putFavorite(id, favorites).then((res) => {
+        console.log("put");
+      });
+    } else {
+      history.push("/login");
+    }
   }, [favorites]);
   // Component on mount, retrieve all kits from DB
   useEffect(() => {
