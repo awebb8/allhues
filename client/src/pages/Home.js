@@ -212,9 +212,9 @@ const Home = (props) => {
       <br />
       <br />
       <hr />
-      <div className="container-fluid">
-        <b>Featured Looks</b>
-        <div className="row row-cols-1 row-cols-md-4 shrink">
+      <div className="container-fluid shrink">
+        <b className="featured-looks-text">Featured Looks</b>
+        <div className="row row-cols-1 row-cols-md-4">
           {kits.slice(0, 4).map((i) => (
             <MultiKit
               setFavorites={setFavorites}

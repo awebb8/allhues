@@ -67,9 +67,9 @@ const ProfileCard = (props) => {
   const determineRoleToShowConsumer = () => {
     var shownRole;
     if (role === "Consumer") {
-      shownRole = "Beautiful makeup artist";
+      shownRole = "Beauty Aficionado";
     } else {
-      shownRole = "Influencer";
+      shownRole = "Content Creator";
     }
     return shownRole;
   };
