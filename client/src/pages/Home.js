@@ -38,7 +38,7 @@ const Home = (props) => {
           console.log("BLAH");
         });
       }
-    }, 450);
+    }, 200);
   }, [favorites]);
 
   return (
@@ -51,10 +51,11 @@ const Home = (props) => {
         }}
       >
         <div
-          className="card rounded-circle fitz"
+          className="rounded-circle fitz"
           style={{
             height: "10rem",
             width: "10rem",
+            display: "inline-block",
             backgroundColor: "#f4d0b1",
           }}
         ></div>
@@ -66,10 +67,11 @@ const Home = (props) => {
         }}
       >
         <div
-          className="card rounded-circle fitz"
+          className="rounded-circle fitz"
           style={{
             height: "10rem",
             width: "10rem",
+            display: "inline-block",
             backgroundColor: "#fcdbb2",
           }}
         ></div>
@@ -81,10 +83,11 @@ const Home = (props) => {
         }}
       >
         <div
-          className="card rounded-circle fitz"
+          className="rounded-circle fitz"
           style={{
             height: "10rem",
             width: "10rem",
+            display: "inline-block",
             backgroundColor: "#dea77d",
           }}
         ></div>
@@ -96,10 +99,11 @@ const Home = (props) => {
         }}
       >
         <div
-          className="card rounded-circle fitz"
+          className="rounded-circle fitz"
           style={{
             height: "10rem",
             width: "10rem",
+            display: "inline-block",
             backgroundColor: "#d3925c",
           }}
         ></div>
@@ -111,10 +115,11 @@ const Home = (props) => {
         }}
       >
         <div
-          className="card rounded-circle fitz"
+          className="rounded-circle fitz"
           style={{
             height: "10rem",
             width: "10rem",
+            display: "inline-block",
             backgroundColor: "#936541",
           }}
         ></div>
@@ -126,20 +131,25 @@ const Home = (props) => {
         }}
       >
         <div
-          className="card rounded-circle fitz"
+          className="rounded-circle fitz"
           style={{
             height: "10rem",
             width: "10rem",
+            display: "inline-block",
             backgroundColor: "#694a2e",
           }}
         ></div>
       </Link>
-      <p className="mt-3">
+      {/* <p className="mt-3">
         There are a million shades of beautiful, but select the one that most
         closely matches yours.
+      </p> */}
+      <p className="mt-3">
+        Click a hue above to filter by products that look great on your unique
+        skin.
       </p>
       <br />
-
+      <hr />
       {/* Card to view most popular */}
       <div className="homeCard" style={{ width: "14rem", padding: "5px" }}>
         <img
@@ -151,9 +161,15 @@ const Home = (props) => {
           <p className="card-text">
             Check out the looks people are loving the most.
           </p>
-          <a href="#" className="buttons">
+          <Link
+            className="buttons"
+            to={{
+              pathname: "/viewall",
+              state: { fromPopularBtn: true },
+            }}
+          >
             View Popular
-          </a>
+          </Link>
         </div>
       </div>
       <div className="homeCard" style={{ width: "14rem", padding: "5px" }}>
@@ -180,15 +196,23 @@ const Home = (props) => {
         <div className="card-body">
           <p className="card-text">Check out what's been recently posted.</p>
           <br />
-          <Link to="/viewall" className="buttons">
+          <Link
+            to={{
+              pathname: "/viewall",
+              state: { fromNewBtn: true },
+            }}
+            className="buttons"
+          >
             View Recent
           </Link>
         </div>
       </div>
-
       <br />
-      <div className="container-fluid shrink">
-        <div className="row row-cols-1 row-cols-md-4">
+      <br />
+      <hr />
+      <div className="container-fluid">
+        <b>Featured Looks</b>
+        <div className="row row-cols-1 row-cols-md-4 shrink">
           {kits.slice(0, 4).map((i) => (
             <MultiKit
               setFavorites={setFavorites}
@@ -201,6 +225,9 @@ const Home = (props) => {
             />
           ))}
         </div>
+        <Link to="/viewall" className="buttons">
+          View More Looks
+        </Link>
       </div>
       <br />
       <br />

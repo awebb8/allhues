@@ -2,3 +2,15 @@
   width: 25vw;
   margin: auto;
 }
+
+.avatar {
+  border-radius: 50%;
+  height: auto;
+  width: 85px;
+}
+
+.username-handle {
+  margin-left: 1%;
+  font-size: larger;
+  font-family: 'Nanum Gothic', sans-serif;
+}

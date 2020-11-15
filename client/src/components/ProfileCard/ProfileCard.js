@@ -80,6 +80,48 @@ const ProfileCard = (props) => {
     return shownRole;
   };
 
+
+  if(id !== props.userProfileInfo._id) {
+    return (
+      <>
+        <div className="container-fluid">
+          <div className="col-lg-12">
+            <div className="panel profile-cover">
+              <div className="profile-cover__img">
+                <label htmlFor="AvatarImageInput">
+                  <img
+                    src={props.userProfileInfo.image}
+                    alt="placeholder image"
+                  />
+                </label>
+                <h3 className="h3">
+                  {determineRoleToShowConsumer()}: {props.userProfileInfo.name}
+                </h3>
+              </div>
+              <div className="profile-cover__action bg--img" data-overlay="0.3">
+
+
+              <br />
+              <br />
+              </div>
+              <div className="profile-cover__info">
+                <ul className="nav">
+                  <li>
+                    <strong>{props.yourKits ? props.yourKits.length : 0}</strong>
+                    Created Kits
+                  </li>
+                  <li>
+                    <strong>{totalKitViews}</strong>Total Kit Views
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <div className="container-fluid">
@@ -97,7 +139,11 @@ const ProfileCard = (props) => {
                   accept="image/*"
                   hidden
                 />
-                <img src={image} alt="placeholder image" style={{cursor:'pointer'}}/>
+                <img
+                  src={image}
+                  alt="placeholder image"
+                  style={{ cursor: "pointer" }}
+                />
               </label>
               <h3 className="h3">
                 {determineRoleToShowConsumer()}: {usersName}

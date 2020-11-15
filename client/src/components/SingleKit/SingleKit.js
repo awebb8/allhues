@@ -1,58 +1,39 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./SingleKit.css";
 import UserContext from "../../utils/UserContext";
+import API from "../../utils/API";
 
 const Kit = (props) => {
   const { id } = useContext(UserContext);
 
-  // if (id === "") {
-  //   return (
-  //     <div className="card">
-  //       <img
-  //         src={
-  //           props.src === undefined
-  //             ? "http://via.placeholder.com/200"
-  //             : props.src
-  //         }
-  //         className="card-img-top"
-  //         alt="..."
-  //       />
-  //       <div className="card-body">
-  //         <h5 className="card-title" style={{ textAlign: "center" }}>
-  //           {props.info.kitName ? props.info.kitName : ""}
-  //         </h5>
-  //         <p className="card-text" style={{ textAlign: "center" }}>
-  //           {props.info.kitDescription ? props.info.kitDescription : ""}
-  //         </p>
-  //         <div
-  //           className="text-muted d-flex"
-  //           style={{
-  //             position: "absolute",
-  //             bottom: 0,
-  //             right: 5,
-  //             fontSize: "15px",
-  //           }}
-  //         >
-  //           <i className="ph-eye pr-1"></i>
-  //           {props.info.uniqueVisits}
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  const handleImgClick = () => {
+    window.location.href = props.src;
+  };
 
   if (id === props.info.creatorId) {
     return (
       <>
+        <div className="mt-3">
+          <img
+            className="avatar"
+            src={props.kitCreatorInfo && props.kitCreatorInfo.image}
+            alt="content creator's profile picture"
+          />
+          <span className="username-handle">
+            {props.kitCreatorInfo && props.kitCreatorInfo.username}
+          </span>
+        </div>
         <div className="card">
           <img
+            style={{ cursor: "pointer" }}
             src={
               props.src === undefined
                 ? "http://via.placeholder.com/200"
                 : props.src
             }
             className="card-img-top crop"
-            alt="..."
+            alt="Makeup Kit"
+            onClick={handleImgClick}
           />
           <div className="card-body">
             <h5 className="card-title" style={{ textAlign: "center" }}>
@@ -62,18 +43,19 @@ const Kit = (props) => {
               {props.info.kitDescription ? props.info.kitDescription : ""}
             </p>
 
-            {props.info.kitItems.map((item) => (
-              <a
-                key={item.affiliateLink}
-                href={item.affiliateLink}
-                className="card-text"
-                target="_blank"
-                rel="noreferrer"
-                style={{ textAlign: "center", display: "block" }}
-              >
-                {item.affiliateLink}
-              </a>
-            ))}
+            {props.info.kitItems &&
+              props.info.kitItems.map((item) => (
+                <a
+                  key={item.affiliateLink}
+                  href={item.affiliateLink}
+                  className="card-text"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ textAlign: "center", display: "block" }}
+                >
+                  {item.affiliateLink}
+                </a>
+              ))}
 
             <div
               className="text-muted d-flex"
@@ -102,22 +84,50 @@ const Kit = (props) => {
   }
 
   return (
-    <div className="card">
-      <img
-        src={
-          props.src === undefined ? "http://via.placeholder.com/200" : props.src
-        }
-        className="card-img-top"
-        alt="..."
-      />
-      <div className="card-body">
-        <h5 className="card-title" style={{ textAlign: "center" }}>
-          {props.info.kitName ? props.info.kitName : ""}
-        </h5>
-        <p className="card-text" style={{ textAlign: "center" }}>
-          {props.info.kitDescription ? props.info.kitDescription : ""}
-        </p>
-        {/* <a
+    <>
+      <div className="mt-3">
+        <img
+          className="avatar"
+          src={props.kitCreatorInfo && props.kitCreatorInfo.image}
+          alt="content creator's profile picture"
+        />
+        <span className="username-handle">
+          {props.kitCreatorInfo && props.kitCreatorInfo.username}
+        </span>
+      </div>
+      <div className="card">
+        <img
+          style={{ cursor: "pointer" }}
+          src={
+            props.src === undefined
+              ? "http://via.placeholder.com/200"
+              : props.src
+          }
+          className="card-img-top"
+          alt="Makeup Kit"
+          onClick={handleImgClick}
+        />
+        <div className="card-body">
+          <h5 className="card-title" style={{ textAlign: "center" }}>
+            {props.info.kitName ? props.info.kitName : ""}
+          </h5>
+          <p className="card-text" style={{ textAlign: "center" }}>
+            {props.info.kitDescription ? props.info.kitDescription : ""}
+          </p>
+          {props.info.kitItems &&
+            props.info.kitItems.map((item) => (
+              <a
+                key={item.affiliateLink}
+                href={item.affiliateLink}
+                className="card-text"
+                target="_blank"
+                rel="noreferrer"
+                style={{ textAlign: "center", display: "block" }}
+              >
+                {item.affiliateLink}
+              </a>
+            ))}
+          {/* <a
           href={
             props.info.kitItems[0].affiliateLink
               ? props.info.kitItems[0].affiliateLink
@@ -131,20 +141,21 @@ const Kit = (props) => {
             : ""}
         </a> */}
 
-        <div
-          className="text-muted d-flex"
-          style={{
-            position: "absolute",
-            bottom: 0,
-            right: 5,
-            fontSize: "15px",
-          }}
-        >
-          <i className="ph-eye pr-1"></i>
-          {props.info.uniqueVisits}
+          <div
+            className="text-muted d-flex"
+            style={{
+              position: "absolute",
+              bottom: 0,
+              right: 5,
+              fontSize: "15px",
+            }}
+          >
+            <i className="ph-eye pr-1"></i>
+            {props.info.uniqueVisits}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
