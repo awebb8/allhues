@@ -16,3 +16,56 @@ h2 {
     display: inline-block;
     font-size: 16px;
 }
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #e8d3c4;
+}
+/* .modal-content {
+    position: fixed;
+    z-index: 500;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #46483b;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+}  */
+
+.modal-content {
+    position: fixed;
+    color: #46483b;
+    background-color: #fff;
+    width: 70%;
+    height: 80%;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px black;
+    padding: 16px;
+    left: 15%;
+    top: 15%;
+    box-sizing: border-box;
+    overflow: scroll;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transition: all 0.3s ease-out;
+}
+
+@media (max-width: 1024px) {
+    .modal-content {
+        top: 10%;
+    }
+}
