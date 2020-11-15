@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Header from "../components/Header/Header";
+import Footer from "../components/Footer/Footer";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import { Link, useHistory } from "react-router-dom";
@@ -233,6 +234,7 @@ const Home = (props) => {
       </div>
       <br />
       <br />
+      <Footer />
     </div>
   );
 };
