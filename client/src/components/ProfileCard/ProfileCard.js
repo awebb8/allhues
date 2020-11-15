@@ -138,7 +138,7 @@ const ProfileCard = (props) => {
             <div className="profile-cover__action bg--img" data-overlay="0.3">
               <button className="btn btn-rounded btn-info">
                 <i className="fa fa-plus"></i>
-                <span>Upload</span>
+                <span>Follow</span>
               </button>
               <button className="btn btn-rounded btn-info">
                 <i className="fa fa-comment"></i>

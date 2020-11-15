@@ -82,9 +82,9 @@ const ConsumerViewAll = (props) => {
   useEffect(() => {
     if (favorites) {
       API.getUser().then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data) {
-        setFavorites(res.data.favorites);
+          setFavorites(res.data.favorites);
         }
       });
     }
@@ -93,7 +93,7 @@ const ConsumerViewAll = (props) => {
   useDidMountEffect(() => {
     if (id) {
       API.putFavorite(id, favorites).then((res) => {
-        console.log("put");
+        // console.log("put");
       });
     } else {
       history.push("/login");
@@ -112,8 +112,8 @@ const ConsumerViewAll = (props) => {
       props.location.state &&
       props.location.state.selectedFilterHue
     ) {
-      console.log("Props Location STate");
-      console.log(props.location.state);
+      // console.log("Props Location STate");
+      // console.log(props.location.state);
       setSelectedFilterHue(props.location.state.selectedFilterHue);
     } else if (
       props &&
@@ -121,8 +121,8 @@ const ConsumerViewAll = (props) => {
       props.location.state &&
       props.location.state.fromPopularBtn
     ) {
-      console.log("Props Location STate");
-      console.log(props.location.state);
+      // console.log("Props Location STate");
+      // console.log(props.location.state);
       setFromPopularBtn(props.location.state.fromPopularBtn);
     } else if (
       props &&
@@ -130,11 +130,11 @@ const ConsumerViewAll = (props) => {
       props.location.state &&
       props.location.state.fromNewBtn
     ) {
-      console.log("Props Location STate");
-      console.log(props.location.state);
+      // console.log("Props Location STate");
+      // console.log(props.location.state);
       setFromNewBtn(props.location.state.fromNewBtn);
     } else {
-      console.log("No state found in props");
+      // console.log("No state found in props");
       setSelectedFilterHue("");
     }
   }, [props.location.state]);
@@ -210,15 +210,15 @@ const ConsumerViewAll = (props) => {
   };
 
   const handleSortChange = (e) => {
-    console.log(e);
+    // console.log(e);
     if (!e) {
       //FIXME: yeah this shit doesnt work....
       if (selectedFilterProducts.length && selectedFilterHue.length) {
         const go = async () => {
           await filterByProduct(undefined, kits);
-          console.log("Done filtering by product");
+          // console.log("Done filtering by product");
           await filterByHue();
-          console.log("Done filtering by hue");
+          // console.log("Done filtering by hue");
         };
 
         go();
@@ -320,7 +320,7 @@ const ConsumerViewAll = (props) => {
           {filterKits
             .filter((kit) => {
               if (selectedFilterProducts === undefined) {
-                console.log("elephant");
+                // console.log("elephant");
               } else if (selectedFilterHue) {
                 return kit.hueType === selectedFilterHue;
               } else {
