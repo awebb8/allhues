@@ -20,17 +20,22 @@ const ConsumerViewOne = () => {
     kitDescription: kit.kitDescription,
   });
 
+  const [kitCreatorInfo, setKitCreatorInfo] = useState({});
+
   useEffect(() => {
     API.getKit(id).then((res) => {
-      console.log(res);
       setKit(res.data);
       Axios.put(`/api/kits/uniquevisits/${id}`)
         .then((res) => {
-          console.log(res.data);
         })
         .catch((err) => {
           console.log(err);
         });
+
+      API.getPopulatedUsers(res.data.creatorId).then(res => {
+        console.log("This is the res", res.data);
+        setKitCreatorInfo({image: res.data[0].image, username: res.data[0].userName, id: res.data[0]._id, name: res.data[0].name });
+      })
     });
   }, []);
 
@@ -67,6 +72,7 @@ const ConsumerViewOne = () => {
           info={kit}
           onClickUpdate={onClickUpdate}
           handleInputChange={handleInputChange}
+          kitCreatorInfo={kitCreatorInfo}
         />
       ) : (
         <div>
@@ -75,15 +81,8 @@ const ConsumerViewOne = () => {
             info={kit}
             onClickDelete={onClickDelete}
             onClickUpdate={onClickUpdate}
+            kitCreatorInfo={kitCreatorInfo}
           />
-          {/* <div style={{ textAlign: "center" }}>
-            <button className="buttons" onClick={onClickUpdate}>
-              Update
-            </button>
-            <button className="buttons" onClick={onClickDelete}>
-              Delete
-            </button>
-          </div> */}
         </div>
       )}
       <br />

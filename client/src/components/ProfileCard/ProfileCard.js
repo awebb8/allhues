@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./profilecard.css";
-
-import RoleContext from "../../utils/roleContext";
+import RoleContext from "../../utils/RoleContext";
 import UserContext from "../../utils/UserContext";
 import axios from "axios";
 import API from "../../utils/API";
@@ -63,13 +62,8 @@ const ProfileCard = (props) => {
     } catch (err) {
       console.error(err);
     }
-
-    // Redirect to contentCreator portal
-    // setTimeout(function () {
-    //   history.push("/portal");
-    // }, 1000);
   };
-  //   var shownRole;
+
   const determineRoleToShowConsumer = () => {
     var shownRole;
     if (role === "Consumer") {
@@ -79,6 +73,46 @@ const ProfileCard = (props) => {
     }
     return shownRole;
   };
+
+
+  if(id !== props.userProfileInfo._id) {
+    return (
+      <>
+        <div className="container-fluid">
+          <div className="col-lg-12">
+            <div className="panel profile-cover">
+              <div className="profile-cover__img">
+                <label htmlFor="AvatarImageInput">
+                  <img
+                    src={props.userProfileInfo.image}
+                    alt="placeholder image"
+                  />
+                </label>
+                <h3 className="h3">
+                  {determineRoleToShowConsumer()}: {props.userProfileInfo.name}
+                </h3>
+              </div>
+              <div className="profile-cover__action bg--img" data-overlay="0.3">
+              <br />
+              <br />
+              </div>
+              <div className="profile-cover__info">
+                <ul className="nav">
+                  <li>
+                    <strong>{props.yourKits ? props.yourKits.length : 0}</strong>
+                    Created Kits
+                  </li>
+                  <li>
+                    <strong>{totalKitViews}</strong>Total Kit Views
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -122,9 +156,6 @@ const ProfileCard = (props) => {
                 <li>
                   <strong>{props.yourKits ? props.yourKits.length : 0}</strong>
                   Created Kits
-                </li>
-                <li>
-                  <strong>33</strong>Favorite Kits
                 </li>
                 <li>
                   <strong>{totalKitViews}</strong>Total Kit Views

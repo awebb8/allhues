@@ -13,10 +13,10 @@ const MultiKit = (props) => {
   const [favorite, setFavorite] = useState(
     favorites ? favorites.includes(filledHeart) : false
   );
-  // const { id } = useContext(UserContext);
+  
+  const { id } = useContext(UserContext);
 
   const handleSingleKitClick = (e) => {
-    // console.log(e.target);
     history.push(`/viewone/${e.target.getAttribute("class").substr(0, 25)}`);
   };
 
@@ -46,7 +46,7 @@ const MultiKit = (props) => {
   return (
     <div
       className={
-        props.class === undefined ? "col mb-4" : props.class + "col mb-4"
+        props.class === undefined ? "col mb-4" : props.class + " col mb-4"
       }
     >
       <div
@@ -74,8 +74,8 @@ const MultiKit = (props) => {
               ? "card-body-viewall"
               : props.class + " card-body-viewall"
           }
-        >
-          <button
+        > 
+        {id !== "" ? <button
             type="button"
             className={`${props.class} btn btn-default`}
             onClick={(e) => handleFavoritesClick(e)}
@@ -85,7 +85,8 @@ const MultiKit = (props) => {
             ) : (
               <i className={`${props.class} far fa-heart`}></i>
             )}{" "}
-          </button>
+          </button> : <div className="mt-4"></div> }
+          
           <h5
             style={{ textAlign: "center" }}
             className={

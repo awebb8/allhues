@@ -2,3 +2,27 @@
   width: 25vw;
   margin: auto;
 }
+
+.avatar {
+  border-radius: 50%;
+  height: 85px;
+  width: 85px;
+}
+
+.username-handle {
+  font-size: 1.5rem;
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+.card-viewone {
+  max-width: 50%;
+  height: auto;
+}
+
+.crop-viewone {
+  object-fit: cover;
+  overflow: hidden;
+  align-items: center;
+  height: auto;
+  max-height: 300px;
+}

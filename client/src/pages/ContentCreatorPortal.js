@@ -2,29 +2,35 @@ import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
 // import AuthContext from "../utils/AuthContext";
 import UserContext from "../utils/UserContext";
-import RoleContext from "../utils/roleContext";
+import RoleContext from "../utils/RoleContext";
 import MultiKit from "../components/MultiKit/MultiKit";
 import ProfileCard from "../components/ProfileCard/ProfileCard";
 // import NameContext from "../utils/NameContext";
 import API from "../utils/API";
 // import Kit from "../components/SingleKit/SingleKit";
+import { useParams } from 'react-router-dom';
 import useDidMountEffect from "../utils/useDidMountEffect";
 import { useHistory } from "react-router-dom";
 
 const ContentCreatorPortal = () => {
   const [yourKits, setYourKits] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  // const [kits, setKits] = useState([]);
-  // const { setJwt, jwt } = useContext(AuthContext);
+
+  const [userProfileInfo, setUserProfileInfo] = useState([]);
+
   const { id } = useContext(UserContext);
   const history = useHistory;
 
-  const getKits = () => {
-    axios.get(`/api/users/${id}`).then((res) => {
-      console.log("component did mount2");
-      console.log(res.data.kits);
+  const userId = useParams();
 
+  const getKits = () => {
+      axios.get(`/api/users/${id}`).then((res) => {
+        setYourKits(res.data[0].kits);
+    });
+
+    axios.get(`/api/users/${userId.id}`).then((res) => {
       setYourKits(res.data[0].kits);
+      setUserProfileInfo(res.data[0]);
     });
   };
 
@@ -61,22 +67,22 @@ const ContentCreatorPortal = () => {
 
   // console.log(yourKits);
   const { role } = useContext(RoleContext);
-  // const { name } = useContext(NameContext);
 
-  if (role === "Consumer") {
-    return (
-      <>
-        <ProfileCard />
-      </>
-    );
-  }
+  // if (role === "Consumer") {
+  //   return (
+  //     <>
+  //       <ProfileCard yourKits={yourKits} userProfileInfo={userProfileInfo} />
+  //     </>
+  //   );
+  // }
+
 
   if (yourKits) {
     return (
       <>
         <div className="container-fluid">
           <div className="row">
-            <ProfileCard yourKits={yourKits} />
+            <ProfileCard yourKits={yourKits} userProfileInfo={userProfileInfo} />
           </div>
           <div className="row row-cols-1 row-cols-md-3">
             {yourKits.map((kit) => (
