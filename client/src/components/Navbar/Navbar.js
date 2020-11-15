@@ -1,33 +1,33 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
-// import AuthContext from "../../utils/AuthContext";
+
 import RoleContext from "../../utils/RoleContext";
 import Logout from "../Authentication/Logout";
 import UserContext from "../../utils/UserContext";
-// import API from "../../utils/API";
+
+import API from '../../utils/API';
+
+
 
 const Navbar = () => {
-  // const [state, setState] = useState({
-  //   token: "",
-  // });
-  // const { id, setId } = useContext(UserContext);
+
+
   const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
-  // const { jwt, setJwt } = useContext(AuthContext);
+
+  // const [usersName, setUsersName] = useState("");
+  // const [usersPicture, setUsersPicture] = useState("");
+  
   // useEffect(() => {
-  //   var blah = localStorage.getItem("role");
-  //   console.log(blah);
-  //   setRoleContext(blah);
+  //   if(id !== "") {
+  //     API.getPopulatedUsers(id).then(res => {
+  //       setUsersName(res.data[0].name);
+  //       setUsersPicture(res.data[0].image);
+  //     });
+  //   }
   // }, []);
 
-  //   const determineIfTokenInStorage = () => {
-  //     if (localStorage.getItem("token")) {
-  //       setState({ token: localStorage.getItem("token") });
-  //     }
-  //   };
-  //   determineIfTokenInStorage();
-  console.log(role);
   if (role === "Consumer") {
     return (
       <nav className="navbar navbar-expand-lg navbar-light sticky-top">
@@ -69,6 +69,9 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
+        {/* <div className="navbar-right">
+          <img src={usersPicture} style={{width: 40, height: 40, borderRadius: 100}}/> {usersName}
+        </div> */}
       </nav>
     );
   }
@@ -159,6 +162,9 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
+      {/* <div className="navbar-right">
+          <img src={usersPicture} style={{width: 40, height: 'auto', borderRadius: 100}}/> {usersName}
+        </div> */}
     </nav>
   );
 };

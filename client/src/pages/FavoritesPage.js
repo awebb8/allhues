@@ -3,20 +3,23 @@ import { Link } from "react-router-dom";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import UserContext from "../utils/UserContext";
+import useDidMountEffect from "../utils/useDidMountEffect";
 
 const FavoritesPage = () => {
   const [favoriteKits, setFavoriteKits] = useState([]);
 
-  const [kitsToMap, setKitsToMap] = useState([]);
+  // const [kitsToMap, setKitsToMap] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
   const { id } = useContext(UserContext);
 
   useEffect(() => {
-    API.getPopulatedUsers(id).then((resp) => {
-      // console.log("Got data");
-      setFavoriteKits(resp.data[0].favorites);
-    });
+    if (id) {
+      API.getPopulatedUsers(id).then((resp) => {
+        // console.log("Got data");
+        setFavoriteKits(resp.data[0].favorites);
+      });
+    }
   }, [id]);
 
   useEffect(() => {
@@ -27,36 +30,33 @@ const FavoritesPage = () => {
     }
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (favorites.length >= 0) {
-        API.putFavorite(id, favorites).then((res) => {
-          console.log("BLAH");
-          API.getPopulatedUsers(id).then((resp) => {
-            console.log("mybadyo");
-            console.log(resp.data);
-            setFavoriteKits(resp.data[0].favorites);
-          });
-        });
-      }
-    }, 200);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (favorites.length >= 0) {
+  //       API.putFavorite(id, favorites).then((res) => {
+  //         console.log("BLAH");
+  //         API.getPopulatedUsers(id).then((resp) => {
+  //           console.log("mybadyo");
+  //           console.log(resp.data);
+  //           setFavoriteKits(resp.data[0].favorites);
+  //         });
+  //       });
+  //     }
+  //   }, 200);
+  // }, [favorites]);
+  useDidMountEffect(() => {
+    API.putFavorite(id, favorites).then((res) => {
+      console.log("put");
+    });
   }, [favorites]);
 
-  //TODO:
-  // setTimeout(() => {
-  //   if (favorites.length === 0) {
-  //     return (
-  //       <>
-  //         <h1>No Favorites yet!</h1>
-  //       </>
-  //     );
-  //   }
-  // }, 330);
   if (favorites.length === 0) {
     return (
       <>
         <h4>You don't have any favorites yet..</h4>
-        <Link to="/viewall">View all kits?</Link>
+        <Link to="/viewall">
+          <h4>View all kits?</h4>
+        </Link>
       </>
     );
   }

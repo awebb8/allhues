@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -13,7 +13,7 @@ import ConsumerViewAll from "./pages/ConsumerViewAll";
 import ConsumerViewOne from "./pages/ConsumerViewOne";
 import Navbar from "./components/Navbar/Navbar";
 import FavoritesPage from "./pages/FavoritesPage";
-import Footer from "./components/Footer/Footer";
+// import Footer from "./components/Footer/Footer";
 import Signup from "./components/Authentication/Signup";
 import Login from "./components/Authentication/Login";
 import JsonWebToken from "jsonwebtoken";
@@ -24,17 +24,14 @@ function App() {
   const [jwt, setJwt] = useState("");
   const [id, setId] = useState("");
   const [role, setRole] = useState("");
-  const [name, setName] = useState("");
+  // const [name, setName] = useState("");
   // const { setRoleContext } = useContext(RoleContext);
 
   useEffect(() => {
     const localJwt = localStorage.getItem("token");
     const roleForCurrentUser = localStorage.getItem("role");
     // setName(localStorage.getItem("name"));
-    const nameOfUser = localStorage.getItem("name");
-    if (nameOfUser) {
-      setName(nameOfUser);
-    }
+
     if (roleForCurrentUser) {
       setRole(roleForCurrentUser);
     }

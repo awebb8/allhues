@@ -40,7 +40,7 @@ const Login = () => {
         setJwt(res.data.token);
         setId(res.data.user.id);
         setRole(res.data.user.role);
-        localStorage.setItem("name", res.data.user.name);
+        // localStorage.setItem("name", res.data.user.name);
         localStorage.setItem("role", res.data.user.role);
         localStorage.setItem("token", res.data.token);
         history.push("/");
