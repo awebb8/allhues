@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./profilecard.css";
-import RoleContext from "../../utils/RoleContext";
+import RoleContext from "../../utils/roleContext";
 import UserContext from "../../utils/UserContext";
 import axios from "axios";
 import API from "../../utils/API";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 const ProfileCard = (props) => {
   const history = useHistory();
-  
+
   let totalKitViews = 0;
 
   if (props.yourKits) {
@@ -71,8 +71,8 @@ const ProfileCard = (props) => {
   };
 
   const handleUploadButtonClick = () => {
-    history.push('/upload');
-  }
+    history.push("/upload");
+  };
 
   if (id !== props.userProfileInfo._id) {
     return (
@@ -93,13 +93,13 @@ const ProfileCard = (props) => {
               </div>
               <div className="profile-cover__action bg--img" data-overlay="0.3">
                 <button className="btn btn-rounded btn-info">
-                <i className="fa fa-plus"></i>
-                <span>Follow</span>
-              </button>
-              <button className="btn btn-rounded btn-info">
-                <i className="fa fa-comment"></i>
-                <span>Message</span>
-              </button>
+                  <i className="fa fa-plus"></i>
+                  <span>Follow</span>
+                </button>
+                <button className="btn btn-rounded btn-info">
+                  <i className="fa fa-comment"></i>
+                  <span>Message</span>
+                </button>
               </div>
               <div className="profile-cover__info">
                 <ul className="nav">
@@ -149,7 +149,10 @@ const ProfileCard = (props) => {
               </h3>
             </div>
             <div className="profile-cover__action bg--img" data-overlay="0.3">
-                <button className="btn btn-rounded btn-info" onClick={handleUploadButtonClick}>
+              <button
+                className="btn btn-rounded btn-info"
+                onClick={handleUploadButtonClick}
+              >
                 <i className="fa fa-plus"></i>
                 <span>Upload</span>
               </button>

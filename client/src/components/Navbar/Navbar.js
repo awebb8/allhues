@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 
-import RoleContext from "../../utils/RoleContext";
+import RoleContext from "../../utils/roleContext";
 import Logout from "../Authentication/Logout";
 import UserContext from "../../utils/UserContext";
 

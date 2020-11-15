@@ -234,7 +234,7 @@ const Home = (props) => {
       </div>
       <br />
       <br />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
