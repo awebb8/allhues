@@ -10,13 +10,14 @@
 	color: #696969;
 	background-color: #fff;
 	border-radius: 5px;
-	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+	box-shadow: 0 1px 5px rgba(0, 0, 0.2, 0.2);
 }
 
 .profile-cover__action {
 	display: -ms-flexbox;
 	display: -webkit-box;
 	display: flex;
+	box-shadow: 0 1px 5px rgba(0, 0, 0.2, 0.2);
 	padding: 120px 30px 10px 153px;
 	border-radius: 5px 5px 0 0;
 	-ms-flex-wrap: wrap;
@@ -31,6 +32,8 @@
 }
 
 .profile-cover__action > .btn {
+	border: 2px solid black;
+	background-color:  #b29fb5;
 	margin-left: 10px;
 	margin-bottom: 10px;
 }
