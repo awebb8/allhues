@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import profilecard from "./profilecard.css";
-import NameContext from "../../utils/NameContext";
+import "./profilecard.css";
+
 import RoleContext from "../../utils/roleContext";
 import UserContext from "../../utils/UserContext";
 import axios from "axios";
@@ -16,7 +16,7 @@ const ProfileCard = (props) => {
   const [uploadedImage, setUploadedImage] = useState("");
   const [image, setImage] = useState("");
   const [usersName, setUsersName] = useState("");
-  // const { name } = useContext(NameContext);
+
   const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
 

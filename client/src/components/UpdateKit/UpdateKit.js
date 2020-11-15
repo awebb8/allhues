@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 
 const UpdateKit = (props) => {
-  const [affiliateLink, setAffiliateLink] = useState("");
-  const handleAffiliateLinkChange = (e) => {
-    const { value } = e.target;
-    setAffiliateLink(value);
-  };
+  // const [affiliateLink, setAffiliateLink] = useState("");
+  // const handleAffiliateLinkChange = (e) => {
+  //   const { value } = e.target;
+  //   setAffiliateLink(value);
+  // };
   return (
     <div className="card">
       <img
@@ -43,7 +43,7 @@ const UpdateKit = (props) => {
             name="affiliateLink"
             onChange={handleAffiliateLinkChange}
           /> */}
-          {props.info.kitItems.map((item) => (
+          {/* {props.info.kitItems.map((item) => (
             <label htmlFor="affiliateLink">
               Link:
               <br />
@@ -53,7 +53,7 @@ const UpdateKit = (props) => {
                 onChange={handleAffiliateLinkChange}
               />
             </label>
-          ))}
+          ))} */}
           <br />
           <button className="buttons" onClick={props.onClickUpdate}>
             Save

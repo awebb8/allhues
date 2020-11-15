@@ -8,6 +8,7 @@ import ProfileCard from "../components/ProfileCard/ProfileCard";
 // import NameContext from "../utils/NameContext";
 import API from "../utils/API";
 // import Kit from "../components/SingleKit/SingleKit";
+import useDidMountEffect from "../utils/useDidMountEffect";
 
 const ContentCreatorPortal = () => {
   const [yourKits, setYourKits] = useState([]);
@@ -37,14 +38,19 @@ const ContentCreatorPortal = () => {
     }
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (favorites.length >= 0) {
-        API.putFavorite(id, favorites).then((res) => {
-          console.log("BLAH");
-        });
-      }
-    }, 200);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (favorites.length >= 0) {
+  //       API.putFavorite(id, favorites).then((res) => {
+  //         console.log("BLAH");
+  //       });
+  //     }
+  //   }, 200);
+  // }, [favorites]);
+  useDidMountEffect(() => {
+    API.putFavorite(id, favorites).then((res) => {
+      console.log("put");
+    });
   }, [favorites]);
 
   // console.log(yourKits);
