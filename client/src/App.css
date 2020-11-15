@@ -5,6 +5,11 @@ body {
   font-family: 'Nanum Gothic', sans-serif;
 }
 
+a:hover {
+	color: rgb(75, 75, 75)!important;
+	font-weight: bold;
+}
+
 /* Kit cards */
 .card {
 	padding: 20px;
@@ -49,6 +54,10 @@ body {
 	margin: 20px;
 	display: inline-block !important;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+}
+
+.featured-looks-text {
+	font-size: 28px;
 }
 
 .shrink {
