@@ -38,10 +38,21 @@ const ContentCreatorPortal = () => {
     getKits();
   }, [id]);
 
+  // useEffect(() => {
+  //   if (favorites) {
+  //     API.getUser().then((res) => {
+  //       setFavorites(res.data.favorites);
+  //     });
+  //   }
+  // }, []);
+
   useEffect(() => {
     if (favorites) {
       API.getUser().then((res) => {
+        console.log(res.data);
+        if (res.data) {
         setFavorites(res.data.favorites);
+        }
       });
     }
   }, []);
