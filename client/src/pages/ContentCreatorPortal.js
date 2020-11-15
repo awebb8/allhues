@@ -10,6 +10,7 @@ import API from "../utils/API";
 // import Kit from "../components/SingleKit/SingleKit";
 import { useParams } from 'react-router-dom';
 import useDidMountEffect from "../utils/useDidMountEffect";
+import { useHistory } from "react-router-dom";
 
 const ContentCreatorPortal = () => {
   const [yourKits, setYourKits] = useState([]);
@@ -18,6 +19,7 @@ const ContentCreatorPortal = () => {
   const [userProfileInfo, setUserProfileInfo] = useState([]);
 
   const { id } = useContext(UserContext);
+  const history = useHistory;
 
   const userId = useParams();
 
@@ -54,9 +56,13 @@ const ContentCreatorPortal = () => {
   //   }, 200);
   // }, [favorites]);
   useDidMountEffect(() => {
-    API.putFavorite(id, favorites).then((res) => {
-      console.log("put");
-    });
+    if (id) {
+      API.putFavorite(id, favorites).then((res) => {
+        console.log("put");
+      });
+    } else {
+      history.push("/login");
+    }
   }, [favorites]);
 
   // console.log(yourKits);
