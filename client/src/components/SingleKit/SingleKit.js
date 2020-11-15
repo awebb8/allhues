@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import "./SingleKit.css";
 import UserContext from "../../utils/UserContext";
 import { useHistory } from "react-router-dom";

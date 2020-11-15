@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 
 import RoleContext from "../../utils/roleContext";
 import Logout from "../Authentication/Logout";
 import UserContext from "../../utils/UserContext";
-
-import API from "../../utils/API";
 
 const Navbar = () => {
   const { role } = useContext(RoleContext);

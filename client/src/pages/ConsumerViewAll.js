@@ -23,9 +23,6 @@ const ConsumerViewAll = (props) => {
   const [fromPopularBtn, setFromPopularBtn] = useState(false);
   const [fromNewBtn, setFromNewBtn] = useState(false);
 
-  //TODO: We can probably get rid of JWT here since it's not being used anywhere on the page, and the page is not going to be protected
-  const { jwt } = useContext(AuthContext);
-  const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
   // const history = useHistory();
 
