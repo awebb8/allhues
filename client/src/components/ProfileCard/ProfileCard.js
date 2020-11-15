@@ -62,13 +62,8 @@ const ProfileCard = (props) => {
     } catch (err) {
       console.error(err);
     }
-
-    // Redirect to contentCreator portal
-    // setTimeout(function () {
-    //   history.push("/portal");
-    // }, 1000);
   };
-  //   var shownRole;
+
   const determineRoleToShowConsumer = () => {
     var shownRole;
     if (role === "Consumer") {
@@ -161,9 +156,6 @@ const ProfileCard = (props) => {
                 <li>
                   <strong>{props.yourKits ? props.yourKits.length : 0}</strong>
                   Created Kits
-                </li>
-                <li>
-                  <strong>33</strong>Favorite Kits
                 </li>
                 <li>
                   <strong>{totalKitViews}</strong>Total Kit Views

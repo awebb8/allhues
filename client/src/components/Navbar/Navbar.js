@@ -6,19 +6,15 @@ import RoleContext from "../../utils/RoleContext";
 import Logout from "../Authentication/Logout";
 import UserContext from "../../utils/UserContext";
 
-import API from '../../utils/API';
-
-
+import API from "../../utils/API";
 
 const Navbar = () => {
-
-
   const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
 
   // const [usersName, setUsersName] = useState("");
   // const [usersPicture, setUsersPicture] = useState("");
-  
+
   // useEffect(() => {
   //   if(id !== "") {
   //     API.getPopulatedUsers(id).then(res => {
@@ -58,9 +54,9 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item active">
-              <Link to={`/portal/${id}`} className="nav-link">
+              <a href={`/portal/${id}`} className="nav-link">
                 Profile<span className="sr-only">(current)</span>
-              </Link>
+              </a>
             </li>
             <li className="nav-item">
               <div className="nav-link">
@@ -151,9 +147,9 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to={`/portal/${id}`} className="nav-link">
-              Portal
-            </Link>
+            <a href={`/portal/${id}`} className="nav-link">
+              Profile<span className="sr-only">(current)</span>
+            </a>
           </li>
           <li className="nav-item">
             <div className="nav-link">

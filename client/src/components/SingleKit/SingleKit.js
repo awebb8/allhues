@@ -1,13 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./SingleKit.css";
 import UserContext from "../../utils/UserContext";
-import API from "../../utils/API";
+import { useHistory } from "react-router-dom";
 
 const Kit = (props) => {
   const { id } = useContext(UserContext);
 
   const handleImgClick = () => {
     window.location.href = props.src;
+  };
+
+  const history = useHistory();
+
+  const handleProfileClick = () => {
+    history.push(`/portal/${props.kitCreatorInfo.id}`);
   };
 
   if (id === props.info.creatorId) {
@@ -20,13 +26,21 @@ const Kit = (props) => {
                 className="avatar"
                 src={props.kitCreatorInfo && props.kitCreatorInfo.image}
                 alt="content creator's profile picture"
+                onClick={handleProfileClick}
+                style={{ cursor: "pointer" }}
               />
             </div>
             <div className="col-sm-9 mt-2">
-              <span className="username-handle">
+              <span
+                className="username-handle"
+                onClick={handleProfileClick}
+                style={{ cursor: "pointer" }}
+              >
                 {props.kitCreatorInfo && props.kitCreatorInfo.name}
               </span>
-              <p>@{props.kitCreatorInfo && props.kitCreatorInfo.username}</p>
+              <p onClick={handleProfileClick} style={{ cursor: "pointer" }}>
+                @{props.kitCreatorInfo && props.kitCreatorInfo.username}
+              </p>
             </div>
           </div>
         </div>
@@ -66,38 +80,32 @@ const Kit = (props) => {
         </div>
 
         <div className="container mt-4">
-        <div className="row">
-          <div className="col-sm-6 offset-sm-3">
-            <h3 style={{fontWeight: 600}}>
-            Shop this look
-            </h3>
-            <hr />
-            <div className="text-justify text-nowrap text-truncate">
-              {props.info.kitItems &&
-                props.info.kitItems.map((item) => (
-                  <div>
-                    <span style={{fontWeight: 600}}>{item.makeupCategory}: </span>
-                    <a
-                      key={item.affiliateLink}
-                      href={item.affiliateLink}
-                      className="card-text"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {item.affiliateLink}
-                    </a>
-                  </div>
-                ))}
+          <div className="row">
+            <div className="col-sm-6 offset-sm-3">
+              <h3 style={{ fontWeight: 600 }}>Shop this look</h3>
+              <hr />
+              <div className="text-justify text-nowrap text-truncate">
+                {props.info.kitItems &&
+                  props.info.kitItems.map((item) => (
+                    <div>
+                      <span style={{ fontWeight: 600 }}>
+                        {item.makeupCategory}:{" "}
+                      </span>
+                      <a
+                        key={item.affiliateLink}
+                        href={item.affiliateLink}
+                        className="card-text"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {item.affiliateLink}
+                      </a>
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-
-
-
-
-
 
         <div className="pt-3" style={{ textAlign: "center" }}>
           <button className="buttons" onClick={props.onClickUpdate}>
@@ -120,13 +128,21 @@ const Kit = (props) => {
               className="avatar"
               src={props.kitCreatorInfo && props.kitCreatorInfo.image}
               alt="content creator's profile picture"
+              onClick={handleProfileClick}
+              style={{ cursor: "pointer" }}
             />
           </div>
           <div className="col-sm-9 mt-2">
-            <span className="username-handle">
+            <span
+              className="username-handle"
+              onClick={handleProfileClick}
+              style={{ cursor: "pointer" }}
+            >
               {props.kitCreatorInfo && props.kitCreatorInfo.name}
             </span>
-            <p>@{props.kitCreatorInfo && props.kitCreatorInfo.username}</p>
+            <p onClick={handleProfileClick} style={{ cursor: "pointer" }}>
+              @{props.kitCreatorInfo && props.kitCreatorInfo.username}
+            </p>
           </div>
         </div>
       </div>
@@ -167,15 +183,15 @@ const Kit = (props) => {
       <div className="container mt-4">
         <div className="row">
           <div className="col-sm-6 offset-sm-3">
-            <h3 style={{fontWeight: 600}}>
-            Shop this look
-            </h3>
+            <h3 style={{ fontWeight: 600 }}>Shop this look</h3>
             <hr />
             <div className="text-justify text-nowrap text-truncate">
               {props.info.kitItems &&
                 props.info.kitItems.map((item) => (
                   <div>
-                    <span style={{fontWeight: 600}}>{item.makeupCategory}: </span>
+                    <span style={{ fontWeight: 600 }}>
+                      {item.makeupCategory}:{" "}
+                    </span>
                     <a
                       key={item.affiliateLink}
                       href={item.affiliateLink}
