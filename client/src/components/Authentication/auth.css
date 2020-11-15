@@ -58,7 +58,7 @@ h2 {
     left: 15%;
     top: 15%;
     box-sizing: border-box;
-    overflow: scroll;
+    overflow: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     transition: all 0.3s ease-out;

@@ -17,7 +17,7 @@ const AddedAffiliateLink = ({
           disabled
         />
         <div className="input-group-append">
-          <button className="btn btn-outline-secondary" type="button" disabled>
+          <button className="btn btn-outline-secondary" type="button" disabled style={{width:200}}>
             {makeupCategory}
           </button>
         </div>

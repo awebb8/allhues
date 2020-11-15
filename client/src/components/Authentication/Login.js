@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import AuthContext from "../../utils/AuthContext";
 import UserContext from "../../utils/UserContext";
-import RoleContext from "../../utils/roleContext";
+import RoleContext from "../../utils/RoleContext";
 import { useHistory } from "react-router-dom";
 import "./auth.css";
 Modal.setAppElement("#root");
@@ -113,6 +113,7 @@ const Login = () => {
                 top: 0,
                 color: "black",
                 backgroundColor: "white",
+                border: 'none'
               }}
             >
               <h3>&times;</h3>

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 
-import RoleContext from "../../utils/roleContext";
+import RoleContext from "../../utils/RoleContext";
 import Logout from "../Authentication/Logout";
 import UserContext from "../../utils/UserContext";
 
@@ -29,17 +29,17 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
-            <li className="nav-item active">
+            <li className="nav-item">
               <Link to="/viewall" className="nav-link">
                 View Kits<span className="sr-only">(current)</span>
               </Link>
             </li>
-            <li className="nav-item active">
+            <li className="nav-item">
               <Link to="/favorites" className="nav-link">
                 Favorites<span className="sr-only">(current)</span>
               </Link>
             </li>
-            <li className="nav-item active">
+            <li className="nav-item">
               <a href={`/portal/${id}`} className="nav-link">
                 Profile<span className="sr-only">(current)</span>
               </a>
@@ -116,12 +116,12 @@ const Navbar = () => {
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
-          <li className="nav-item active">
+          <li className="nav-item">
             <Link to="/viewall" className="nav-link">
               View Kits<span className="sr-only">(current)</span>
             </Link>
           </li>
-          <li className="nav-item active">
+          <li className="nav-item">
             <Link to="/favorites" className="nav-link">
               Favorites<span className="sr-only">(current)</span>
             </Link>
