@@ -8,21 +8,23 @@ import useDidMountEffect from "../utils/useDidMountEffect";
 const FavoritesPage = () => {
   const [favoriteKits, setFavoriteKits] = useState([]);
 
-  const [kitsToMap, setKitsToMap] = useState([]);
+  // const [kitsToMap, setKitsToMap] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
   const { id } = useContext(UserContext);
 
-  useEffect(async () => {
-    await API.getPopulatedUsers(id).then((resp) => {
-      // console.log("Got data");
-      setFavoriteKits(resp.data[0].favorites);
-    });
+  useEffect(() => {
+    if (id) {
+      API.getPopulatedUsers(id).then((resp) => {
+        // console.log("Got data");
+        setFavoriteKits(resp.data[0].favorites);
+      });
+    }
   }, [id]);
 
-  useEffect(async () => {
+  useEffect(() => {
     if (favorites) {
-      await API.getUser().then((res) => {
+      API.getUser().then((res) => {
         setFavorites(res.data.favorites);
       });
     }
