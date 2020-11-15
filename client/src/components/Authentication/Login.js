@@ -36,7 +36,7 @@ const Login = () => {
     e.preventDefault();
     Axios.post("/login", { email, password })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setJwt(res.data.token);
         setId(res.data.user.id);
         setRole(res.data.user.role);

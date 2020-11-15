@@ -34,9 +34,9 @@ const FavoritesPage = () => {
   useEffect(() => {
     if (favorites) {
       API.getUser().then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data) {
-        setFavorites(res.data.favorites);
+          setFavorites(res.data.favorites);
         }
       });
     }
@@ -45,7 +45,7 @@ const FavoritesPage = () => {
   useDidMountEffect(() => {
     if (id) {
       API.putFavorite(id, favorites).then((res) => {
-        console.log("put");
+        // console.log("put");
       });
     } else {
       history.push("/login");

@@ -32,7 +32,7 @@ const ConsumerViewOne = () => {
         });
 
       API.getPopulatedUsers(res.data.creatorId).then((res) => {
-        console.log("This is the res", res.data);
+        // console.log("This is the res", res.data);
         setKitCreatorInfo({
           image: res.data[0].image,
           username: res.data[0].userName,
@@ -63,7 +63,7 @@ const ConsumerViewOne = () => {
 
   const onClickDelete = () => {
     API.deleteKit(id).then((res) => {
-      console.log("kit deleted");
+      // console.log("kit deleted");
       history.push(`/portal/${userId.id}`);
     });
   };

@@ -111,7 +111,6 @@ const ContentCreatorUpload = () => {
     try {
       const res = await axios.post(url, formData);
       const imageUrl = res.data.secure_url;
-      console.log(imageUrl);
 
       setKit({ ...kit, imageUrl: imageUrl });
     } catch (err) {
