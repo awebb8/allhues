@@ -1,4 +1,4 @@
-.main-image {
+/* .main-image {
     background:  linear-gradient(rgba(249, 247, 247, 0.589), rgba(255, 255, 255, 0.536)), url(https://images.pexels.com/photos/2132227/pexels-photo-2132227.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260);
     background-repeat: no-repeat;
     background-position: center;
@@ -7,15 +7,46 @@
     padding: 30px;
     position: relative;
     background-attachment: fixed;
-}
+} */
 
-.jumbotron-fluid {
+.jumbotron {
+    position: relative;
+    background: linear-gradient(rgba(249, 247, 247, 0.589), rgba(255, 255, 255, 0.536));
+    background-attachment: fixed;
+    background-position: center;
+    height: 62.5vh;
+    min-height: 40vh;
+    padding: 0px !important;
+    overflow-y: hidden;
+    border-radius: 0!important;
+  }
+  
+  .video-background {
+    position: relative;
+    overflow: hidden;
+    z-index: -1;
+    width: 100%;
+    height: auto;
+  }
+
+  .overlay {
+    background: rgba(0,0,0,0);
+    position: absolute;
+    top: 20%; right: 0; bottom: 0; left: 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+/* .jumbotron-fluid {
     color: black;
     text-align: center;
     margin-bottom: 30px;
-}
+} */
 
 .title {
     font-family: 'Clicker Script', cursive;
     font-size: 120px;
+    z-index: 1;
+    text-align: center;
+    color: #46483b;
 }
