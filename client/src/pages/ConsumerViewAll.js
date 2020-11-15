@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
-
+import useDidMountEffect from "../utils/useDidMountEffect";
 import Select from "react-select";
 import { options, hueOptions, sortOptions } from "../utils/selectOptions";
 import RoleContext from "../utils/roleContext";
@@ -80,16 +80,23 @@ const ConsumerViewAll = (props) => {
     }
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (favorites.length >= 0) {
-        API.putFavorite(id, favorites).then((res) => {
-          console.log("made put call");
-        });
-      }
-    }, 200);
-  }, [favorites]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (favorites.length >= 0) {
+  //       API.putFavorite(id, favorites).then((res) => {
+  //         console.log("made put call");
+  //       });
+  //     }
+  //   }, 200);
+  // }, [favorites]);
 
+  useDidMountEffect(() => {
+    if (favorites.length > 0) {
+      API.putFavorite(id, favorites).then((res) => {
+        console.log("put");
+      });
+    }
+  }, [favorites]);
   // Component on mount, retrieve all kits from DB
   useEffect(() => {
     findAll();

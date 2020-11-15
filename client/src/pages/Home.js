@@ -4,6 +4,7 @@ import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
 import UserContext from "../utils/UserContext";
+import useDidMountEffect from "../utils/useDidMountEffect";
 
 const Home = (props) => {
   const [kits, setKits] = useState([]);
@@ -31,14 +32,21 @@ const Home = (props) => {
     }
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (favorites.length >= 0) {
-        API.putFavorite(id, favorites).then((res) => {
-          console.log("BLAH");
-        });
-      }
-    }, 200);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (favorites.length > 0) {
+  //       API.putFavorite(id, favorites).then((res) => {
+  //         console.log("put");
+  //       });
+  //     }
+  //   }, 200);
+  // }, [favorites]);
+  useDidMountEffect(() => {
+    if (favorites.length > 0) {
+      API.putFavorite(id, favorites).then((res) => {
+        console.log("put");
+      });
+    }
   }, [favorites]);
 
   return (

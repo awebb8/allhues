@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import UserContext from "../utils/UserContext";
+import useDidMountEffect from "../utils/useDidMountEffect";
 
 const FavoritesPage = () => {
   const [favoriteKits, setFavoriteKits] = useState([]);
@@ -27,19 +28,26 @@ const FavoritesPage = () => {
     }
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (favorites.length >= 0) {
-        API.putFavorite(id, favorites).then((res) => {
-          console.log("BLAH");
-          API.getPopulatedUsers(id).then((resp) => {
-            console.log("mybadyo");
-            console.log(resp.data);
-            setFavoriteKits(resp.data[0].favorites);
-          });
-        });
-      }
-    }, 200);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (favorites.length >= 0) {
+  //       API.putFavorite(id, favorites).then((res) => {
+  //         console.log("BLAH");
+  //         API.getPopulatedUsers(id).then((resp) => {
+  //           console.log("mybadyo");
+  //           console.log(resp.data);
+  //           setFavoriteKits(resp.data[0].favorites);
+  //         });
+  //       });
+  //     }
+  //   }, 200);
+  // }, [favorites]);
+  useDidMountEffect(() => {
+    if (favorites.length > 0) {
+      API.putFavorite(id, favorites).then((res) => {
+        console.log("put");
+      });
+    }
   }, [favorites]);
 
   if (favorites.length === 0) {
