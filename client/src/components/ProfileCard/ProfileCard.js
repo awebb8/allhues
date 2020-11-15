@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./profilecard.css";
-import RoleContext from "../../utils/roleContext";
+import RoleContext from "../../utils/RoleContext";
 import UserContext from "../../utils/UserContext";
 import axios from "axios";
 import API from "../../utils/API";
