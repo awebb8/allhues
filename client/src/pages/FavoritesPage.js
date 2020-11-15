@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
 import UserContext from "../utils/UserContext";
@@ -8,6 +8,7 @@ import useDidMountEffect from "../utils/useDidMountEffect";
 const FavoritesPage = () => {
   const [favoriteKits, setFavoriteKits] = useState([]);
 
+  const history = useHistory();
   // const [kitsToMap, setKitsToMap] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
@@ -45,9 +46,13 @@ const FavoritesPage = () => {
   //   }, 200);
   // }, [favorites]);
   useDidMountEffect(() => {
-    API.putFavorite(id, favorites).then((res) => {
-      console.log("put");
-    });
+    if (id) {
+      API.putFavorite(id, favorites).then((res) => {
+        console.log("put");
+      });
+    } else {
+      history.push("/login");
+    }
   }, [favorites]);
 
   if (favorites.length === 0) {

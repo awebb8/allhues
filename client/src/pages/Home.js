@@ -2,13 +2,14 @@ import React, { useState, useEffect, useContext } from "react";
 import Header from "../components/Header/Header";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import UserContext from "../utils/UserContext";
 import useDidMountEffect from "../utils/useDidMountEffect";
 
 const Home = (props) => {
   const [kits, setKits] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const history = useHistory();
 
   const { id } = useContext(UserContext);
 
@@ -32,19 +33,14 @@ const Home = (props) => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (favorites.length > 0) {
-  //       API.putFavorite(id, favorites).then((res) => {
-  //         console.log("put");
-  //       });
-  //     }
-  //   }, 200);
-  // }, [favorites]);
   useDidMountEffect(() => {
-    API.putFavorite(id, favorites).then((res) => {
-      console.log("put");
-    });
+    if (id) {
+      API.putFavorite(id, favorites).then((res) => {
+        console.log("put");
+      });
+    } else {
+      history.push("/login");
+    }
   }, [favorites]);
 
   return (
