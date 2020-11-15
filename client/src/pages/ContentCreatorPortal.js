@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
-// import AuthContext from "../utils/AuthContext";
+
 import UserContext from "../utils/UserContext";
 import RoleContext from "../utils/roleContext";
 import MultiKit from "../components/MultiKit/MultiKit";
 import ProfileCard from "../components/ProfileCard/ProfileCard";
-// import NameContext from "../utils/NameContext";
+
 import API from "../utils/API";
-// import Kit from "../components/SingleKit/SingleKit";
+
 import { useParams } from "react-router-dom";
 import useDidMountEffect from "../utils/useDidMountEffect";
 import { useHistory } from "react-router-dom";
@@ -46,15 +46,6 @@ const ContentCreatorPortal = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (favorites.length >= 0) {
-  //       API.putFavorite(id, favorites).then((res) => {
-  //         console.log("BLAH");
-  //       });
-  //     }
-  //   }, 200);
-  // }, [favorites]);
   useDidMountEffect(() => {
     if (id) {
       API.putFavorite(id, favorites).then((res) => {
@@ -67,14 +58,6 @@ const ContentCreatorPortal = () => {
 
   // console.log(yourKits);
   const { role } = useContext(RoleContext);
-
-  // if (role === "Consumer") {
-  //   return (
-  //     <>
-  //       <ProfileCard yourKits={yourKits} userProfileInfo={userProfileInfo} />
-  //     </>
-  //   );
-  // }
 
   if (yourKits) {
     return (

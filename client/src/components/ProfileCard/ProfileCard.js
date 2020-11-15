@@ -21,7 +21,6 @@ const ProfileCard = (props) => {
 
   const onChange = (e) => {
     setUploadedImage(e.target.files[0]);
-    //onSubmit(e);
   };
   const url = "https://api.cloudinary.com/v1_1/dsi7lpcmx/image/upload";
   const preset = "askckkso";
@@ -37,7 +36,6 @@ const ProfileCard = (props) => {
       setImage(res.data.image);
       //setUploadedImage(res.data.image);
       setUsersName(res.data.name);
-      console.log(res.data.image);
     });
   }, []);
 
@@ -46,18 +44,13 @@ const ProfileCard = (props) => {
     formData.append("file", uploadedImage);
     formData.append("upload_preset", preset);
     try {
-      // setLoading(true);
-      // TODO: Note that we deleted the custom header cuz 3rd party api
-      // delete axios.defaults.headers["x-auth-token"];
       const res = await axios.post(url, formData);
-      const imageUrl = res.data.secure_url;
-      console.log(imageUrl);
 
       setImage(res.data.secure_url);
       axios
         .put(`/api/users/${id}`, { image: res.data.secure_url })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
         });
     } catch (err) {
       console.error(err);

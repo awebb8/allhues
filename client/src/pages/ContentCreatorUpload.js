@@ -21,7 +21,7 @@ const ContentCreatorUpload = () => {
   const history = useHistory();
   // States
   const [image, setImage] = useState("");
-  // const { jwt } = useContext(AuthContext);
+
   const { id } = useContext(UserContext);
   const [kit, setKit] = useState({
     kitName: "",
@@ -109,9 +109,6 @@ const ContentCreatorUpload = () => {
     formData.append("file", image);
     formData.append("upload_preset", preset);
     try {
-      // setLoading(true);
-      // TODO: Note that we deleted the custom header cuz 3rd party api
-      // delete axios.defaults.headers["x-auth-token"];
       const res = await axios.post(url, formData);
       const imageUrl = res.data.secure_url;
       console.log(imageUrl);

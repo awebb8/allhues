@@ -79,16 +79,6 @@ const ConsumerViewAll = (props) => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (favorites.length >= 0) {
-  //       API.putFavorite(id, favorites).then((res) => {
-  //         console.log("made put call");
-  //       });
-  //     }
-  //   }, 200);
-  // }, [favorites]);
-
   useDidMountEffect(() => {
     if (id) {
       API.putFavorite(id, favorites).then((res) => {
@@ -98,6 +88,7 @@ const ConsumerViewAll = (props) => {
       history.push("/login");
     }
   }, [favorites]);
+
   // Component on mount, retrieve all kits from DB
   useEffect(() => {
     findAll();

@@ -10,18 +10,6 @@ const Navbar = () => {
   const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
 
-  // const [usersName, setUsersName] = useState("");
-  // const [usersPicture, setUsersPicture] = useState("");
-
-  // useEffect(() => {
-  //   if(id !== "") {
-  //     API.getPopulatedUsers(id).then(res => {
-  //       setUsersName(res.data[0].name);
-  //       setUsersPicture(res.data[0].image);
-  //     });
-  //   }
-  // }, []);
-
   if (role === "Consumer") {
     return (
       <nav className="navbar navbar-expand-lg navbar-light sticky-top">

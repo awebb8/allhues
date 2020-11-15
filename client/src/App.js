@@ -5,7 +5,6 @@ import "./App.css";
 import AuthContext from "./utils/AuthContext";
 import UserContext from "./utils/UserContext";
 import RoleContext from "./utils/roleContext";
-// import NameContext from "./utils/NameContext";
 import Home from "./pages/Home";
 import ContentCreatorUpload from "./pages/ContentCreatorUpload";
 import ContentCreatorPortal from "./pages/ContentCreatorPortal";
@@ -13,24 +12,18 @@ import ConsumerViewAll from "./pages/ConsumerViewAll";
 import ConsumerViewOne from "./pages/ConsumerViewOne";
 import Navbar from "./components/Navbar/Navbar";
 import FavoritesPage from "./pages/FavoritesPage";
-// import Footer from "./components/Footer/Footer";
 import Signup from "./components/Authentication/Signup";
 import Login from "./components/Authentication/Login";
 import JsonWebToken from "jsonwebtoken";
-
-// import { setAxiosDefault } from "./utils/axiosDefaults";
 
 function App() {
   const [jwt, setJwt] = useState("");
   const [id, setId] = useState("");
   const [role, setRole] = useState("");
-  // const [name, setName] = useState("");
-  // const { setRoleContext } = useContext(RoleContext);
 
   useEffect(() => {
     const localJwt = localStorage.getItem("token");
     const roleForCurrentUser = localStorage.getItem("role");
-    // setName(localStorage.getItem("name"));
 
     if (roleForCurrentUser) {
       setRole(roleForCurrentUser);
@@ -39,13 +32,8 @@ function App() {
       setJwt(localJwt);
       try {
         const decoded = JsonWebToken.decode(localJwt, process.env.JWT_SECRET);
-        // console.log(decoded);
-        setId(decoded.id);
 
-        // API.getUser().then((res) => {
-        //   console.log(res.data.role);
-        //   setRole(res.data.role);
-        // });
+        setId(decoded.id);
       } catch (e) {
         console.log(e);
       }
@@ -59,18 +47,6 @@ function App() {
     }
   }, [jwt]);
 
-  // useEffect(() => {
-  //   if (role) {
-  //     // setAxiosDefault(jwt);
-  //     localStorage.setItem("role", role);
-  //   }
-  // }, [role]);
-
-  // useEffect(() => {
-  //   Axios.get("/api/users").then((res) => {
-  //     console.log(res.data);
-  //   });
-  // });
   return (
     <div>
       <AuthContext.Provider value={{ jwt, setJwt }}>
