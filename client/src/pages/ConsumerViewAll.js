@@ -6,7 +6,7 @@ import AuthContext from "../utils/AuthContext";
 import useDidMountEffect from "../utils/useDidMountEffect";
 import Select from "react-select";
 import { options, hueOptions, sortOptions } from "../utils/selectOptions";
-import RoleContext from "../utils/RoleContext";
+import RoleContext from "../utils/roleContext";
 import UserContext from "../utils/UserContext";
 import { useHistory } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./profilecard.css";
-import RoleContext from "../../utils/RoleContext";
+import RoleContext from "../../utils/roleContext";
 import UserContext from "../../utils/UserContext";
 import axios from "axios";
 import API from "../../utils/API";
@@ -74,8 +74,7 @@ const ProfileCard = (props) => {
     return shownRole;
   };
 
-
-  if(id !== props.userProfileInfo._id) {
+  if (id !== props.userProfileInfo._id) {
     return (
       <>
         <div className="container-fluid">
@@ -93,13 +92,15 @@ const ProfileCard = (props) => {
                 </h3>
               </div>
               <div className="profile-cover__action bg--img" data-overlay="0.3">
-              <br />
-              <br />
+                <br />
+                <br />
               </div>
               <div className="profile-cover__info">
                 <ul className="nav">
                   <li>
-                    <strong>{props.yourKits ? props.yourKits.length : 0}</strong>
+                    <strong>
+                      {props.yourKits ? props.yourKits.length : 0}
+                    </strong>
                     Created Kits
                   </li>
                   <li>
