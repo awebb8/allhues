@@ -43,7 +43,7 @@ const Navbar = () => {
           <ul className="navbar-nav">
             <li className="nav-item active">
               <Link to="/viewall" className="nav-link">
-                ViewAll<span className="sr-only">(current)</span>
+                View Kits<span className="sr-only">(current)</span>
               </Link>
             </li>
             <li className="nav-item active">
@@ -91,7 +91,7 @@ const Navbar = () => {
           <ul className="navbar-nav">
             <li className="nav-item active">
               <Link to="/viewall" className="nav-link">
-                ViewAll<span className="sr-only">(current)</span>
+                View Kits<span className="sr-only">(current)</span>
               </Link>
             </li>
             <li className="nav-item">
@@ -130,7 +130,7 @@ const Navbar = () => {
         <ul className="navbar-nav">
           <li className="nav-item active">
             <Link to="/viewall" className="nav-link">
-              ViewAll<span className="sr-only">(current)</span>
+              View Kits<span className="sr-only">(current)</span>
             </Link>
           </li>
           <li className="nav-item active">
