@@ -43,11 +43,9 @@ const FavoritesPage = () => {
   //   }, 200);
   // }, [favorites]);
   useDidMountEffect(() => {
-    if (favorites.length > 0) {
-      API.putFavorite(id, favorites).then((res) => {
-        console.log("put");
-      });
-    }
+    API.putFavorite(id, favorites).then((res) => {
+      console.log("put");
+    });
   }, [favorites]);
 
   if (favorites.length === 0) {

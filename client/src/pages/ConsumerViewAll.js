@@ -91,11 +91,9 @@ const ConsumerViewAll = (props) => {
   // }, [favorites]);
 
   useDidMountEffect(() => {
-    if (favorites.length > 0) {
-      API.putFavorite(id, favorites).then((res) => {
-        console.log("put");
-      });
-    }
+    API.putFavorite(id, favorites).then((res) => {
+      console.log("put");
+    });
   }, [favorites]);
   // Component on mount, retrieve all kits from DB
   useEffect(() => {
