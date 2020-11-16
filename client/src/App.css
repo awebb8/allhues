@@ -91,8 +91,19 @@ and (max-width : 1100px) {
 
 /* Large screens ----------- */
 @media only screen 
-and (min-width : 1824px) {
-/* Styles */
+and (min-width : 1450px) {
+	.card-viewall {
+		height: 540px;
+	}
+	.card-img-viewall {
+		height: 375px;
+	}
+	.card-viewone {
+		height: 540px;
+	}
+	.card-img-viewone {
+		height: 375px;
+	}
 }
 
 /* Smartphones (portrait and landscape) ----------- */
@@ -122,14 +133,21 @@ and (max-device-width: 480px) {
 	.lead {
 		font-size: 16px;
 	}
-	  .jumbotron {
+	.jumbotron {
 		height: 10vh!important;
 		min-height: 28vh!important;
-	  }
-	  .video-background {
-		  height: 100%;
-		  width: none;
-	  }
+	}
+	.video-background {
+		height: 100%;
+		width: none;
+	}
+	.profile-cover__action > .btn{
+		position: absolute;
+		top: 2%;
+	}
+	.profile-cover__action {
+		padding-top: 160px!important;
+	}
 }
 
 @media only screen and (min-width : 479px) 
