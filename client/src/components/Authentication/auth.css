@@ -23,7 +23,7 @@ h2 {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #e8d3c4;
+    background-color: white;
 }
 /* .modal-content {
     position: fixed;
@@ -52,13 +52,13 @@ h2 {
     background-color: #fff;
     width: 70%;
     height: 80%;
-    border: 1px solid #ccc;
+    border: 2px solid #b29fb5;
     box-shadow: 1px 1px 1px black;
     padding: 16px;
     left: 15%;
     top: 15%;
     box-sizing: border-box;
-    overflow: scroll;
+    overflow: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     transition: all 0.3s ease-out;

@@ -233,6 +233,7 @@ const ContentCreatorUpload = () => {
                     onChange={handleMakeupCategoryChange}
                     placeholder="Category"
                     isClearable
+                    value={makeupCategory === "" ? false : {label: makeupCategory, value: makeupCategory}}
                   />
                 </div>
               </div>
@@ -259,7 +260,7 @@ const ContentCreatorUpload = () => {
                 className="btn btn-secondary"
                 type="button"
                 onClick={onSubmit}
-                disabled={!image}
+                disabled={!image || kit.kitName === "" || kit.hueType === "" || kit.kitItems.length === 0}
                 style={{ marginBottom: "100px" }}
               >
                 Post your look!
