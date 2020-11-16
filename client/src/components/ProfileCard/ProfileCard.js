@@ -150,17 +150,15 @@ const ProfileCard = (props) => {
               </h3>
             </div>
             <div className="profile-cover__action bg--img" data-overlay="0.3">
-              <button
-                className="btn btn-rounded btn-info"
-                onClick={handleUploadButtonClick}
-              >
-                <i className="fa fa-plus"></i>
-                <span>Upload</span>
-              </button>
-              {/* <button className="btn btn-rounded btn-info">
-                <i className="fa fa-comment"></i>
-                <span>Message</span>
-              </button> */}
+            {props.userProfileInfo.role === "Consumer" ? <><br /><br /></> : 
+            <button
+            className="btn btn-rounded btn-info"
+            onClick={handleUploadButtonClick}
+          >
+            <i className="fa fa-plus"></i>
+            <span>Upload</span>
+          </button>}
+
             </div>
             <div className="profile-cover__info">
               <ul className="nav">
