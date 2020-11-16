@@ -4,7 +4,7 @@ import React, { useState, useContext } from "react";
 import Modal from "react-modal";
 import AuthContext from "../../utils/AuthContext";
 import UserContext from "../../utils/UserContext";
-import RoleContext from "../../utils/RoleContext";
+import RoleContext from "../../utils/roleContext";
 import { useHistory } from "react-router-dom";
 
 Modal.setAppElement("#root");
@@ -151,7 +151,7 @@ const Signup = () => {
                 top: 0,
                 color: "black",
                 backgroundColor: "white",
-                border: 'none'
+                border: "none",
               }}
             >
               <h3>&times;</h3>

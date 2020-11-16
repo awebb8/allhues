@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
 
 import UserContext from "../utils/UserContext";
-import RoleContext from "../utils/RoleContext";
+import RoleContext from "../utils/roleContext";
 import MultiKit from "../components/MultiKit/MultiKit";
 import ProfileCard from "../components/ProfileCard/ProfileCard";
 

@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 // import { useHistory } from "react-router-dom";
 import MultiKit from "../components/MultiKit/MultiKit";
 import API from "../utils/API";
-import AuthContext from "../utils/AuthContext";
+// import AuthContext from "../utils/AuthContext";
 import useDidMountEffect from "../utils/useDidMountEffect";
 import Select from "react-select";
 import { options, hueOptions, sortOptions } from "../utils/selectOptions";
-import RoleContext from "../utils/RoleContext";
+// import RoleContext from "../utils/roleContext";
 import UserContext from "../utils/UserContext";
 import { useHistory } from "react-router-dom";
 

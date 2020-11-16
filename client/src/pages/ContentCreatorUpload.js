@@ -10,7 +10,7 @@ import { options, hueOptions } from "../utils/selectOptions";
 
 const styles = {
   imageUploadContainer: {
-    border: "8px dashed #e6f5e9",
+    border: "8px dashed #B29FB5",
     borderRadius: "5px",
     padding: "70px",
     height: "170px",
@@ -143,10 +143,7 @@ const ContentCreatorUpload = () => {
               style={styles.imageUploadContainer}
             >
               <div className="custom-file d-flex justify-content-center flex-column">
-                <label
-                  className="btn btn-secondary"
-                  style={styles.uploadButton}
-                >
+                <label className="buttons" style={styles.uploadButton}>
                   Upload
                   <input
                     type="file"
@@ -197,7 +194,7 @@ const ContentCreatorUpload = () => {
             <div className="form-group">
               <label htmlFor="kitItemsInput">Kit Items</label>
               <button
-                className="btn btn-outline-secondary btn-sm ml-2 py-0"
+                className="buttons btn-sm ml-2 py-0"
                 type="submit"
                 onClick={handleAddKitItem}
                 disabled={!kitItemLink || !makeupCategory}
@@ -233,7 +230,11 @@ const ContentCreatorUpload = () => {
                     onChange={handleMakeupCategoryChange}
                     placeholder="Category"
                     isClearable
-                    value={makeupCategory === "" ? false : {label: makeupCategory, value: makeupCategory}}
+                    value={
+                      makeupCategory === ""
+                        ? false
+                        : { label: makeupCategory, value: makeupCategory }
+                    }
                   />
                 </div>
               </div>
@@ -243,7 +244,7 @@ const ContentCreatorUpload = () => {
 
             {loading ? (
               <button
-                className="btn btn-secondary"
+                className="buttons"
                 type="button"
                 disabled
                 style={{ marginBottom: "100px" }}
@@ -257,10 +258,15 @@ const ContentCreatorUpload = () => {
               </button>
             ) : (
               <button
-                className="btn btn-secondary"
+                className="buttons"
                 type="button"
                 onClick={onSubmit}
-                disabled={!image || kit.kitName === "" || kit.hueType === "" || kit.kitItems.length === 0}
+                disabled={
+                  !image ||
+                  kit.kitName === "" ||
+                  kit.hueType === "" ||
+                  kit.kitItems.length === 0
+                }
                 style={{ marginBottom: "100px" }}
               >
                 Post your look!
