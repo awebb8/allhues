@@ -1,5 +1,7 @@
 # AllHues
 
+![AllHues Homepage Image](./client/public/images/allhues-homepage.png)
+
 ## Description
 
 AllHues is a portal for content creators to further interact with fans and curious makeup enthusiasts. Find the actual products being used and where you can buy them at https://allhues.herokuapp.com/.
@@ -33,4 +35,7 @@ CSS,JavaScript,node.JS,React
 
 ## Questions
 
-siegelal@protonmail.com [Github page](https://www.github.com/siegelal7)
+siegelal@protonmail.com [Andrew's Github page](https://www.github.com/siegelal7)
+alixkwebb@gmail.com [Alix's Github page](https://github.com/awebb8)
+rajdeepkakar@gmail.com [Raj's Github page](https://github.com/rajdeep24)
+dpan5425@gmail.com [David's Github page](https://github.com/dpan-5)
