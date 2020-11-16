@@ -52,7 +52,7 @@ const Kit = (props) => {
                 ? "http://via.placeholder.com/200"
                 : props.src
             }
-            className="card-img-top crop-viewone"
+            className="card-img-top crop"
             alt="Makeup Kit"
             onClick={handleImgClick}
           />
