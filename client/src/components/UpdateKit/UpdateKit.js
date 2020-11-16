@@ -2,12 +2,12 @@ import React from "react";
 
 const UpdateKit = (props) => {
   return (
-    <div className="card">
+    <div className="card card-viewone">
       <img
         src={
           props.src === undefined ? "http://via.placeholder.com/200" : props.src
         }
-        className="card-img-top crop"
+        className="card-img-top crop card-image-viewone"
         alt="..."
       />
       <div className="card-body">
