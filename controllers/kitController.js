@@ -133,4 +133,30 @@ router.put("/api/kits/uniquevisits/:id", (req, res) => {
     });
 });
 
+//FIXME:
+router.put("/api/kits/affiliatelink/:id", (req, res) => {
+  // db.Kit.findByIdAndUpdate(
+  //   req.params.id,
+  //   {
+  //     $inc: { "kitItems.$.linkClicks": 1 },
+  //   },
+  //   { new: true }
+  // )
+
+  db.Kit.updateOne(
+    {
+      "kitItems._id": req.params.id,
+    },
+    {
+      $inc: { "kitItems.$.linkClicks": 1 },
+    }
+  )
+    .then((kit) => {
+      res.json(kit);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
 module.exports = router;

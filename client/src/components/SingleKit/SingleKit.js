@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import "./SingleKit.css";
 import UserContext from "../../utils/UserContext";
 import { useHistory } from "react-router-dom";
+import Axios from "axios";
 
 const Kit = (props) => {
   const { id } = useContext(UserContext);
@@ -14,6 +15,14 @@ const Kit = (props) => {
 
   const handleProfileClick = () => {
     history.push(`/portal/${props.kitCreatorInfo.id}`);
+  };
+
+  const handleAffiliateClick = (e) => {
+    console.log(e.target.getAttribute("id"));
+    const idVal = e.target.getAttribute("id");
+    Axios.put(`/api/kits/affiliatelink/${idVal}`).then((res) =>
+      console.log(res.data)
+    );
   };
 
   if (id === props.info.creatorId) {
@@ -92,8 +101,10 @@ const Kit = (props) => {
                         {item.makeupCategory}:{" "}
                       </span>
                       <a
+                        id={item._id}
                         key={item.affiliateLink}
                         href={item.affiliateLink}
+                        onClick={handleAffiliateClick}
                         className="card-text"
                         target="_blank"
                         rel="noreferrer"
