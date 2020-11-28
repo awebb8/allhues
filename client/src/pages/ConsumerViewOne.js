@@ -38,7 +38,7 @@ const ConsumerViewOne = () => {
           username: res.data[0].userName,
           id: res.data[0]._id,
           name: res.data[0].name,
-          role: res.data[0].role
+          role: res.data[0].role,
         });
       });
     });
@@ -64,9 +64,6 @@ const ConsumerViewOne = () => {
 
   const onClickDelete = () => {
     API.deleteKit(id).then((res) => {
-      
-      
-
       history.push(`/portal/${userId.id}`);
     });
   };
@@ -76,6 +73,7 @@ const ConsumerViewOne = () => {
       {update ? (
         <UpdateKit
           src={kit.imageUrl}
+          key={kit.imageUrl}
           info={kit}
           onClickUpdate={onClickUpdate}
           handleInputChange={handleInputChange}
@@ -85,6 +83,7 @@ const ConsumerViewOne = () => {
         <div>
           <Kit
             src={kit.imageUrl}
+            key={kit.imageUrl}
             info={kit}
             onClickDelete={onClickDelete}
             onClickUpdate={onClickUpdate}

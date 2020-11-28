@@ -32,7 +32,6 @@ const ConsumerViewAll = (props) => {
     if (fromPopularBtn) {
       API.getKits().then((res) => {
         setKits(res.data);
-
         setFilterKits(res.data.sort((a, b) => b.uniqueVisits - a.uniqueVisits));
       });
     } else if (fromNewBtn) {

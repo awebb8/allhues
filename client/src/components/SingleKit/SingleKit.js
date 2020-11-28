@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import "./SingleKit.css";
 import UserContext from "../../utils/UserContext";
 import { useHistory } from "react-router-dom";
+import API from "../../utils/API";
 
 const Kit = (props) => {
   const { id } = useContext(UserContext);
@@ -14,6 +15,13 @@ const Kit = (props) => {
 
   const handleProfileClick = () => {
     history.push(`/portal/${props.kitCreatorInfo.id}`);
+  };
+
+  const handleAffiliateClick = (e) => {
+    const idVal = e.target.getAttribute("id");
+    API.updateAffiliateLinkNumbers(idVal)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
   };
 
   if (id === props.info.creatorId) {
@@ -52,7 +60,7 @@ const Kit = (props) => {
                 ? "http://via.placeholder.com/200"
                 : props.src
             }
-            className="card-img-top crop-viewone"
+            className="card-img-top crop"
             alt="Makeup Kit"
             onClick={handleImgClick}
           />
@@ -92,8 +100,10 @@ const Kit = (props) => {
                         {item.makeupCategory}:{" "}
                       </span>
                       <a
+                        id={item._id}
                         key={item.affiliateLink}
                         href={item.affiliateLink}
+                        onClick={handleAffiliateClick}
                         className="card-text"
                         target="_blank"
                         rel="noreferrer"
