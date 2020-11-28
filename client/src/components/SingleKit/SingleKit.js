@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./SingleKit.css";
 import UserContext from "../../utils/UserContext";
 import { useHistory } from "react-router-dom";
-import Axios from "axios";
+import API from "../../utils/API";
 
 const Kit = (props) => {
   const { id } = useContext(UserContext);
@@ -18,11 +18,10 @@ const Kit = (props) => {
   };
 
   const handleAffiliateClick = (e) => {
-    console.log(e.target.getAttribute("id"));
     const idVal = e.target.getAttribute("id");
-    Axios.put(`/api/kits/affiliatelink/${idVal}`).then((res) =>
-      console.log(res.data)
-    );
+    API.updateAffiliateLinkNumbers(idVal)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
   };
 
   if (id === props.info.creatorId) {

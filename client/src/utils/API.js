@@ -30,4 +30,7 @@ export default {
   getPopulatedUsers: function (id) {
     return axios.get(`/api/users/${id}`);
   },
+  updateAffiliateLinkNumbers: function (id) {
+    return axios.put(`/api/kits/affiliatelink/${id}`);
+  },
 };

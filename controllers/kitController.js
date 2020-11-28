@@ -135,14 +135,6 @@ router.put("/api/kits/uniquevisits/:id", (req, res) => {
 
 //FIXME:
 router.put("/api/kits/affiliatelink/:id", (req, res) => {
-  // db.Kit.findByIdAndUpdate(
-  //   req.params.id,
-  //   {
-  //     $inc: { "kitItems.$.linkClicks": 1 },
-  //   },
-  //   { new: true }
-  // )
-
   db.Kit.updateOne(
     {
       "kitItems._id": req.params.id,
