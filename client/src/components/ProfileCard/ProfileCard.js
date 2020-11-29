@@ -200,6 +200,17 @@ const ProfileCard = (props) => {
                 </>
               ) : (
                 <>
+                  <div
+                    style={{
+                      display: videoEl,
+                      background: "#f9e5d2",
+                      width: "210px",
+                    }}
+                  >
+                    <form>
+                      <input type="file" onChange={onChangeVideo} />
+                    </form>
+                  </div>
                   <button
                     className="btn btn-rounded btn-info"
                     onClick={handleUploadButtonClick}
@@ -231,11 +242,11 @@ const ProfileCard = (props) => {
           </div>
         </div>
       </div>
-      <div style={{ display: videoEl, height: "100vh", width: "100vw" }}>
+      {/* <div style={{ display: videoEl }}>
         <form>
           <input type="file" onChange={onChangeVideo} />
         </form>
-      </div>
+      </div> */}
     </>
   );
 };
