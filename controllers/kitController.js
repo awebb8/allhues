@@ -133,7 +133,6 @@ router.put("/api/kits/uniquevisits/:id", (req, res) => {
     });
 });
 
-//FIXME:
 router.put("/api/kits/affiliatelink/:id", (req, res) => {
   db.Kit.updateOne(
     {
@@ -145,6 +144,20 @@ router.put("/api/kits/affiliatelink/:id", (req, res) => {
   )
     .then((kit) => {
       res.json(kit);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+router.put("/api/users/videouploads/:id", (req, res) => {
+  db.ContentCreator.findByIdAndUpdate(
+    req.params.id,
+    { $push: { videos: req.body } },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      res.json(updatedUser);
     })
     .catch((err) => {
       res.status(400).json(err);

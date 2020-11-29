@@ -28,6 +28,14 @@ const contentCreatorSchema = new Schema({
     type: String,
     default: "https://avatars.dicebear.com/api/female/sdfsdf.svg",
   },
+  videos: {
+    type: Array,
+  },
+  // videos: [
+  //   {
+  //     vidLink: { type: String },
+  //   },
+  // ],
   role: {
     type: String,
     enum: ["Consumer", "Content Creator"],
