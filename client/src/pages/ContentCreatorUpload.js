@@ -62,7 +62,8 @@ const ContentCreatorUpload = () => {
     setKitItemLink(value);
   };
 
-  const handleAddKitItem = () => {
+  const handleAddKitItem = (e) => {
+    e.preventDefault();
     setKit({
       ...kit,
       kitItems: [
