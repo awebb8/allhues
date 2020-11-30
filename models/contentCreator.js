@@ -28,9 +28,10 @@ const contentCreatorSchema = new Schema({
     type: String,
     default: "https://avatars.dicebear.com/api/female/sdfsdf.svg",
   },
-  videos: {
-    type: Array,
-  },
+  // videos: {
+  //   type: Array,
+  // },
+  videos: [Object],
   // videos: [
   //   {
   //     vidLink: { type: String },

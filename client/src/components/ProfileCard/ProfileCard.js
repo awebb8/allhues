@@ -21,6 +21,9 @@ const ProfileCard = (props) => {
   const [usersName, setUsersName] = useState("");
   const [video, setVideo] = useState("");
   const [videoEl, setVideoEl] = useState("none");
+  const [putUrl, setPutUrl] = useState({
+    videoUrl: "",
+  });
 
   // const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
@@ -90,31 +93,37 @@ const ProfileCard = (props) => {
   };
 
   const urlVid = "https://api.cloudinary.com/v1_1/dsi7lpcmx/upload";
+  // const urlVid = "https://api.cloudinary.com/v1_1/dvr1qfvi0/upload";
+  // const setStateWaitForMe = async (returnedUrl) => {
+  //   setPutUrl({ videoUrl: returnedUrl });
+  // };
 
   const postData = async () => {
     const formData = new FormData();
     formData.append("file", video);
     formData.append("upload_preset", preset);
-    try {
-      const res = await axios.post(urlVid, formData);
-      const imageUrl = res.data.secure_url;
-      console.log(imageUrl);
-      axios
-        .put(`/api/users/videouploads/${id}`, res.data.secure_url)
-        .then((res) => {
-          console.log(res.data);
-        });
 
-      // setKit({ ...kit, imageUrl: imageUrl });
-    } catch (err) {
-      console.error(err);
-    }
+    axios.post(urlVid, formData).then((res) => {
+      const imageUrl = res.data.secure_url;
+
+      setPutUrl({ videoUrl: imageUrl });
+    });
   };
-  // useEffect(() => {
-  //   postData();
-  // }, [video]);
+
   useDidMountEffect(() => {
-    postData();
+    axios
+      .put(`/api/users/videouploads/${id}`, putUrl)
+      .then((res) => {
+        console.log(res);
+        history.push("/videos");
+      })
+      .catch((err) => console.log(err));
+  }, [putUrl]);
+
+  useDidMountEffect(() => {
+    if (video != "") {
+      postData();
+    }
   }, [video]);
 
   if (id !== props.userProfileInfo._id) {

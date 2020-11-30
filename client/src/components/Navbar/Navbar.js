@@ -35,6 +35,11 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
+              <Link to="/videos" className="nav-link">
+                Video Guides<span className="sr-only">(current)</span>
+              </Link>
+            </li>
+            <li className="nav-item">
               <Link to="/favorites" className="nav-link">
                 Favorites<span className="sr-only">(current)</span>
               </Link>
@@ -83,6 +88,11 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
+              <Link to="/videos" className="nav-link">
+                Video Guides<span className="sr-only">(current)</span>
+              </Link>
+            </li>
+            <li className="nav-item">
               <Link to="/signup" className="nav-link">
                 Signup
               </Link>
@@ -119,6 +129,11 @@ const Navbar = () => {
           <li className="nav-item">
             <Link to="/viewall" className="nav-link">
               View Kits<span className="sr-only">(current)</span>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/videos" className="nav-link">
+              Video Guides<span className="sr-only">(current)</span>
             </Link>
           </li>
           <li className="nav-item">

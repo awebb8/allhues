@@ -24,6 +24,16 @@ router.get("/api/kits/:id", (req, res) => {
     });
 });
 
+router.get("/api/videouploads", (req, res) => {
+  db.ContentCreator.find({})
+    .then((found) => {
+      res.json(found);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
 // router.get("/api/kits/user", auth, (req, res) => {
 //   res.json(req.user);
 // });
@@ -151,9 +161,16 @@ router.put("/api/kits/affiliatelink/:id", (req, res) => {
 });
 
 router.put("/api/users/videouploads/:id", (req, res) => {
-  db.ContentCreator.findByIdAndUpdate(
-    req.params.id,
-    { $push: { videos: req.body } },
+  console.log(req.body);
+  db.ContentCreator.updateOne(
+    {
+      _id: req.params.id,
+    },
+    {
+      $push: {
+        videos: req.body,
+      },
+    },
     { new: true }
   )
     .then((updatedUser) => {
