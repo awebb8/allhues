@@ -34,7 +34,9 @@ const contentCreatorSchema = new Schema({
   videos: [Object],
   // videos: [
   //   {
-  //     vidLink: { type: String },
+  //     vidLink: {
+  //       type: String,
+  //     },
   //   },
   // ],
   role: {

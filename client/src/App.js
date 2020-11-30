@@ -73,6 +73,10 @@ function App() {
                   component={ConsumerViewAll}
                 ></Route>
                 <Route exact path="/videos" component={ViewAllVideos}></Route>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 89558053e36cc7a0658dda14217ff8233f102240
                 {/* <Route exact path="/viewone" component={ConsumerViewOne}></Route> */}
                 <Route path="/viewone/:id" component={ConsumerViewOne}></Route>
                 {/* <Route path="/viewone/:id" component={Favo/}></Route> */}

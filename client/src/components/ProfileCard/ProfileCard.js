@@ -32,7 +32,9 @@ const ProfileCard = (props) => {
     setUploadedImage(e.target.files[0]);
   };
   const url = "https://api.cloudinary.com/v1_1/dsi7lpcmx/image/upload";
+  // const url = "https://api.cloudinary.com/v1_1/dvr1qfvi0/image/upload";
   const preset = "askckkso";
+  // const myPreset = "dklqfpym";
 
   useEffect(() => {
     if (uploadedImage) {
@@ -212,13 +214,15 @@ const ProfileCard = (props) => {
                   <div
                     style={{
                       display: videoEl,
-                      background: "#f9e5d2",
+                      background: "rgba(178,159,181,0.6)",
+                      borderRadius: "10%",
+                      height: "fit-content",
                       width: "210px",
                     }}
                   >
-                    <form>
-                      <input type="file" onChange={onChangeVideo} />
-                    </form>
+                    {/* <form> */}
+                    <input type="file" onChange={onChangeVideo} />
+                    {/* </form> */}
                   </div>
                   <button
                     className="btn btn-rounded btn-info"
@@ -231,6 +235,7 @@ const ProfileCard = (props) => {
                     className="btn btn-rounded btn-info"
                     onClick={handleVideoUploadClick}
                   >
+                    {/* <input type="file" onChange={onChangeVideo} /> */}
                     <i className="fa fa-plus"></i>
                     <span>Upload Video</span>
                   </button>

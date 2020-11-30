@@ -133,7 +133,7 @@ const Navbar = () => {
           </li>
           <li className="nav-item">
             <Link to="/videos" className="nav-link">
-              Video Guides<span className="sr-only">(current)</span>
+              Video Uploads<span className="sr-only">(current)</span>
             </Link>
           </li>
           <li className="nav-item">
