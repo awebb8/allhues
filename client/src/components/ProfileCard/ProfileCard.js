@@ -34,7 +34,7 @@ const ProfileCard = (props) => {
   const url = "https://api.cloudinary.com/v1_1/dsi7lpcmx/image/upload";
   // const url = "https://api.cloudinary.com/v1_1/dvr1qfvi0/image/upload";
   const preset = "askckkso";
-  const myPreset = "dklqfpym";
+  // const myPreset = "dklqfpym";
 
   useEffect(() => {
     if (uploadedImage) {
@@ -94,8 +94,8 @@ const ProfileCard = (props) => {
     }
   };
 
-  // const urlVid = "https://api.cloudinary.com/v1_1/dsi7lpcmx/upload";
-  const urlVid = "https://api.cloudinary.com/v1_1/dvr1qfvi0/upload";
+  const urlVid = "https://api.cloudinary.com/v1_1/dsi7lpcmx/upload";
+  // const urlVid = "https://api.cloudinary.com/v1_1/dvr1qfvi0/upload";
   // const setStateWaitForMe = async (returnedUrl) => {
   //   setPutUrl({ videoUrl: returnedUrl });
   // };
@@ -103,7 +103,7 @@ const ProfileCard = (props) => {
   const postData = async () => {
     const formData = new FormData();
     formData.append("file", video);
-    formData.append("upload_preset", myPreset);
+    formData.append("upload_preset", preset);
 
     axios.post(urlVid, formData).then((res) => {
       const imageUrl = res.data.secure_url;
