@@ -1,7 +1,8 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
+import MultiVideo from "../components/MultiVideo/MultiVideo";
 
-const ViewAllVideos = () => {
+const ViewAllVideos = (props) => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
@@ -18,18 +19,13 @@ const ViewAllVideos = () => {
   }, []);
   return (
     <div>
-      {videos.map((i) => (
-        <>
-          {/* <p>{() => {}}</p> */}
-          <video width="320" height="240" controls>
-            {/* <source
-              src="http://techslides.com/demos/sample-videos/small.ogv"
-              type="video/ogg"
-            />  */}
-            <source src={i.videoUrl} type="video/mp4" />
-          </video>
-        </>
-      ))}
+      <div className="container-fluid">
+        <div className="row row-cols-1 row-cols-md-3">
+          {videos.map((i) => (
+            <MultiVideo videoUrl={i.videoUrl} key={i.videoUrl} />
+          ))}{" "}
+        </div>
+      </div>
     </div>
   );
 };
