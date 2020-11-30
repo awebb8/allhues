@@ -2,6 +2,23 @@ const router = require("express").Router();
 const db = require("../models");
 const auth = require("../middleware/auth");
 
+// router.get("/api/users/videouploads", (req, res) => {
+//   db.ContentCreator.find({})
+//     .then((found) => {
+//       res.json(found);
+//     })
+//     .catch((err) => res.status(400).json(err));
+// });
+router.get("/api/videouploads", (req, res) => {
+  db.ContentCreator.find({})
+    .then((found) => {
+      res.json(found);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
 router.get("/api/kits", (req, res) => {
   db.Kit.find({})
     .populate("kits")
@@ -133,7 +150,6 @@ router.put("/api/kits/uniquevisits/:id", (req, res) => {
     });
 });
 
-//FIXME:
 router.put("/api/kits/affiliatelink/:id", (req, res) => {
   db.Kit.updateOne(
     {
@@ -145,6 +161,27 @@ router.put("/api/kits/affiliatelink/:id", (req, res) => {
   )
     .then((kit) => {
       res.json(kit);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+router.put("/api/users/videouploads/:id", (req, res) => {
+  console.log(req.body);
+  db.ContentCreator.updateOne(
+    {
+      _id: req.params.id,
+    },
+    {
+      $push: {
+        videos: req.body,
+      },
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      res.json(updatedUser);
     })
     .catch((err) => {
       res.status(400).json(err);

@@ -68,7 +68,7 @@ const ContentCreatorPortal = () => {
   }, [favorites]);
 
   // console.log(yourKits);
-  const { role } = useContext(RoleContext);
+  // const { role } = useContext(RoleContext);
 
   if (yourKits) {
     return (

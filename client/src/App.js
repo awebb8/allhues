@@ -10,6 +10,7 @@ import ContentCreatorUpload from "./pages/ContentCreatorUpload";
 import ContentCreatorPortal from "./pages/ContentCreatorPortal";
 import ConsumerViewAll from "./pages/ConsumerViewAll";
 import ConsumerViewOne from "./pages/ConsumerViewOne";
+import ViewAllVideos from "./pages/ViewAllVideos";
 import Navbar from "./components/Navbar/Navbar";
 import FavoritesPage from "./pages/FavoritesPage";
 import Signup from "./components/Authentication/Signup";
@@ -71,6 +72,7 @@ function App() {
                   path="/viewall"
                   component={ConsumerViewAll}
                 ></Route>
+                <Route exact path="/videos" component={ViewAllVideos}></Route>
 
                 {/* <Route exact path="/viewone" component={ConsumerViewOne}></Route> */}
                 <Route path="/viewone/:id" component={ConsumerViewOne}></Route>
