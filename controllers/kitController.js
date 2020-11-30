@@ -2,6 +2,23 @@ const router = require("express").Router();
 const db = require("../models");
 const auth = require("../middleware/auth");
 
+// router.get("/api/users/videouploads", (req, res) => {
+//   db.ContentCreator.find({})
+//     .then((found) => {
+//       res.json(found);
+//     })
+//     .catch((err) => res.status(400).json(err));
+// });
+router.get("/api/videouploads", (req, res) => {
+  db.ContentCreator.find({})
+    .then((found) => {
+      res.json(found);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
 router.get("/api/kits", (req, res) => {
   db.Kit.find({})
     .populate("kits")
@@ -151,9 +168,16 @@ router.put("/api/kits/affiliatelink/:id", (req, res) => {
 });
 
 router.put("/api/users/videouploads/:id", (req, res) => {
-  db.ContentCreator.findByIdAndUpdate(
-    req.params.id,
-    { $push: { videos: req.body } },
+  console.log(req.body);
+  db.ContentCreator.updateOne(
+    {
+      _id: req.params.id,
+    },
+    {
+      $push: {
+        videos: req.body,
+      },
+    },
     { new: true }
   )
     .then((updatedUser) => {

@@ -21,6 +21,9 @@ const ProfileCard = (props) => {
   const [usersName, setUsersName] = useState("");
   const [video, setVideo] = useState("");
   const [videoEl, setVideoEl] = useState("none");
+  const [putUrl, setPutUrl] = useState({
+    videoUrl: "",
+  });
 
   // const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
@@ -29,7 +32,9 @@ const ProfileCard = (props) => {
     setUploadedImage(e.target.files[0]);
   };
   const url = "https://api.cloudinary.com/v1_1/dsi7lpcmx/image/upload";
+  // const url = "https://api.cloudinary.com/v1_1/dvr1qfvi0/image/upload";
   const preset = "askckkso";
+  const myPreset = "dklqfpym";
 
   useEffect(() => {
     if (uploadedImage) {
@@ -89,32 +94,38 @@ const ProfileCard = (props) => {
     }
   };
 
-  const urlVid = "https://api.cloudinary.com/v1_1/dsi7lpcmx/upload";
+  // const urlVid = "https://api.cloudinary.com/v1_1/dsi7lpcmx/upload";
+  const urlVid = "https://api.cloudinary.com/v1_1/dvr1qfvi0/upload";
+  // const setStateWaitForMe = async (returnedUrl) => {
+  //   setPutUrl({ videoUrl: returnedUrl });
+  // };
 
   const postData = async () => {
     const formData = new FormData();
     formData.append("file", video);
-    formData.append("upload_preset", preset);
-    try {
-      const res = await axios.post(urlVid, formData);
-      const imageUrl = res.data.secure_url;
-      console.log(imageUrl);
-      axios
-        .put(`/api/users/videouploads/${id}`, res.data.secure_url)
-        .then((res) => {
-          console.log(res.data);
-        });
+    formData.append("upload_preset", myPreset);
 
-      // setKit({ ...kit, imageUrl: imageUrl });
-    } catch (err) {
-      console.error(err);
-    }
+    axios.post(urlVid, formData).then((res) => {
+      const imageUrl = res.data.secure_url;
+
+      setPutUrl({ videoUrl: imageUrl });
+    });
   };
-  // useEffect(() => {
-  //   postData();
-  // }, [video]);
+
   useDidMountEffect(() => {
-    postData();
+    axios
+      .put(`/api/users/videouploads/${id}`, putUrl)
+      .then((res) => {
+        console.log(res);
+        history.push("/videos");
+      })
+      .catch((err) => console.log(err));
+  }, [putUrl]);
+
+  useDidMountEffect(() => {
+    if (video != "") {
+      postData();
+    }
   }, [video]);
 
   if (id !== props.userProfileInfo._id) {
@@ -203,13 +214,15 @@ const ProfileCard = (props) => {
                   <div
                     style={{
                       display: videoEl,
-                      background: "#f9e5d2",
+                      background: "rgba(178,159,181,0.6)",
+                      borderRadius: "10%",
+                      height: "fit-content",
                       width: "210px",
                     }}
                   >
-                    <form>
-                      <input type="file" onChange={onChangeVideo} />
-                    </form>
+                    {/* <form> */}
+                    <input type="file" onChange={onChangeVideo} />
+                    {/* </form> */}
                   </div>
                   <button
                     className="btn btn-rounded btn-info"
@@ -222,6 +235,7 @@ const ProfileCard = (props) => {
                     className="btn btn-rounded btn-info"
                     onClick={handleVideoUploadClick}
                   >
+                    {/* <input type="file" onChange={onChangeVideo} /> */}
                     <i className="fa fa-plus"></i>
                     <span>Upload Video</span>
                   </button>
