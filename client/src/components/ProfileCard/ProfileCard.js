@@ -41,56 +41,20 @@ const ProfileCard = (props) => {
     }
   }, [uploadedImage]);
 
-  // useEffect(() => {
-  //   API.getUser().then((res) => {
-  //     console.log(res.data);
-  //     setImage(res.data.image);
-  //     //setUploadedImage(res.data.image);
-  //     setUsersName(res.data.name);
-  //     console.log(res.data.following[0]);
-  //     // for (let i =0;)
-  //     // if (res.data.following.includes(id)) {
-  //     //   setAlrdyFollowed(true);
-  //     // }
-  //     setAlrdyFollowed(
-  //       res.data.following.filter((i) => i.id === props.userProfileInfo)
-  //     );
-  //     // const tryThis = res.data.following.filter((i) => {
-  //     //   i.id === id;
-  //     // });
-  //   });
-  // }, []);
-
   useDidMountEffect(() => {
     API.getUser().then((res) => {
-      // console.log(res.data);
       setImage(res.data.image);
-      //setUploadedImage(res.data.image);
+
       setUsersName(res.data.name);
-      // console.log(res.data.following[0]);
+
       setFollowInfo({ ...followInfo, id: props.userProfileInfo._id });
-      // for (let i =0;)
-      // if (res.data.following.includes(id)) {
-      //   setAlrdyFollowed(true);
-      // }
+
       const testMe = res.data.following.map(
         (i) => i.id == props.userProfileInfo._id
       );
-      console.log(testMe);
+      // console.log(testMe);
       setAlrdyFollowed(testMe[0]);
-      // setAlrdyFollowed(
-      //   res.data.following.map((i) => i.id === props.userProfileInfo).
-      // );
-      // const tryThis = res.data.following.filter((i) => {
-      //   i.id === id;
-      // });
     });
-    // if (id === props.userProfileInfo._id) {
-    //   setFollowInfo({ ...followInfo, id: props.userProfileInfo._id });
-    // } else {
-    //   // setFollowInfo({ ...followInfo, operator: "Following" });
-    //   setFollowInfo({ ...followInfo, id: props.userProfileInfo._id });
-    // }
   }, [props.userProfileInfo]);
 
   const onSubmit = async () => {
