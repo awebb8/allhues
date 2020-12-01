@@ -19,10 +19,12 @@ const ProfileCard = (props) => {
   const [uploadedImage, setUploadedImage] = useState("");
   const [image, setImage] = useState("");
   const [usersName, setUsersName] = useState("");
-  const [video, setVideo] = useState("");
+  const [video, setVideo] = useState();
   const [videoEl, setVideoEl] = useState("none");
   const [putUrl, setPutUrl] = useState({
     videoUrl: "",
+    title: "",
+    description: "",
   });
 
   // const { role } = useContext(RoleContext);
@@ -108,7 +110,7 @@ const ProfileCard = (props) => {
     axios.post(urlVid, formData).then((res) => {
       const imageUrl = res.data.secure_url;
 
-      setPutUrl({ videoUrl: imageUrl });
+      setPutUrl({ ...putUrl, videoUrl: imageUrl });
     });
   };
 
@@ -120,7 +122,7 @@ const ProfileCard = (props) => {
         history.push("/videos");
       })
       .catch((err) => console.log(err));
-  }, [putUrl]);
+  }, [putUrl.videoUrl]);
 
   useDidMountEffect(() => {
     if (video != "") {
@@ -220,9 +222,34 @@ const ProfileCard = (props) => {
                       width: "210px",
                     }}
                   >
-                    {/* <form> */}
-                    <input type="file" onChange={onChangeVideo} />
-                    {/* </form> */}
+                    <form>
+                      <input type="file" onChange={onChangeVideo} />
+                      {/* <label htmlFor="title">Title</label> */}
+                      <input
+                        placeholder="title"
+                        name="title"
+                        type="text"
+                        value={putUrl.title}
+                        onChange={(e) =>
+                          setPutUrl({
+                            ...putUrl,
+                            [e.target.name]: e.target.value,
+                          })
+                        }
+                      />
+                      <input
+                        placeholder="description"
+                        type="text"
+                        name="description"
+                        value={putUrl.description}
+                        onChange={(e) =>
+                          setPutUrl({
+                            ...putUrl,
+                            [e.target.name]: e.target.value,
+                          })
+                        }
+                      />
+                    </form>
                   </div>
                   <button
                     className="btn btn-rounded btn-info"
