@@ -18,7 +18,7 @@ const styles = {
   },
 };
 
-const ContentCreatorUpload = () => {
+const ContentCreatorUpload = (props) => {
   const history = useHistory();
   // States
   const [image, setImage] = useState("");
@@ -38,7 +38,7 @@ const ContentCreatorUpload = () => {
 
   const [loading, setLoading] = useState(false);
   const [video, setVideo] = useState();
-  const [videoEl, setVideoEl] = useState("none");
+  // const [videoEl, setVideoEl] = useState("none");
   const [putUrl, setPutUrl] = useState({
     videoUrl: "",
     title: "",
@@ -56,6 +56,19 @@ const ContentCreatorUpload = () => {
       API.postKit(id, kit);
     }
   }, [kit, id]);
+
+  useEffect(() => {
+    if (
+      props &&
+      props.location &&
+      props.location.state &&
+      props.location.state.uploadType
+    ) {
+      // console.log("Props Location STate");
+      // console.log(props.location.state);
+      setUploadType(props.location.state.uploadType);
+    }
+  }, [props.location.state]);
 
   // Event listener functions
   const onChange = (e) => {
