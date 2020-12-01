@@ -39,6 +39,8 @@ const contentCreatorSchema = new Schema({
   //     },
   //   },
   // ],
+  following: [Object],
+  followers: [Object],
   role: {
     type: String,
     enum: ["Consumer", "Content Creator"],
