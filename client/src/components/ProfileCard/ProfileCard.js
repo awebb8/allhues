@@ -5,7 +5,7 @@ import UserContext from "../../utils/UserContext";
 import axios from "axios";
 import API from "../../utils/API";
 import { useHistory, Link } from "react-router-dom";
-// import useDidMountEffect from "../../utils/useDidMountEffect";
+import useDidMountEffect from "../../utils/useDidMountEffect";
 
 const ProfileCard = (props) => {
   const history = useHistory();
@@ -19,6 +19,10 @@ const ProfileCard = (props) => {
   const [uploadedImage, setUploadedImage] = useState("");
   const [image, setImage] = useState("");
   const [usersName, setUsersName] = useState("");
+  const [followInfo, setFollowInfo] = useState({
+    id: props.userProfileInfo._id,
+  });
+  const [alrdyFollowed, setAlrdyFollowed] = useState(false);
 
   // const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
@@ -37,13 +41,57 @@ const ProfileCard = (props) => {
     }
   }, [uploadedImage]);
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   API.getUser().then((res) => {
+  //     console.log(res.data);
+  //     setImage(res.data.image);
+  //     //setUploadedImage(res.data.image);
+  //     setUsersName(res.data.name);
+  //     console.log(res.data.following[0]);
+  //     // for (let i =0;)
+  //     // if (res.data.following.includes(id)) {
+  //     //   setAlrdyFollowed(true);
+  //     // }
+  //     setAlrdyFollowed(
+  //       res.data.following.filter((i) => i.id === props.userProfileInfo)
+  //     );
+  //     // const tryThis = res.data.following.filter((i) => {
+  //     //   i.id === id;
+  //     // });
+  //   });
+  // }, []);
+
+  useDidMountEffect(() => {
     API.getUser().then((res) => {
+      // console.log(res.data);
       setImage(res.data.image);
       //setUploadedImage(res.data.image);
       setUsersName(res.data.name);
+      // console.log(res.data.following[0]);
+      setFollowInfo({ ...followInfo, id: props.userProfileInfo._id });
+      // for (let i =0;)
+      // if (res.data.following.includes(id)) {
+      //   setAlrdyFollowed(true);
+      // }
+      const testMe = res.data.following.map(
+        (i) => i.id == props.userProfileInfo._id
+      );
+      console.log(testMe);
+      setAlrdyFollowed(testMe[0]);
+      // setAlrdyFollowed(
+      //   res.data.following.map((i) => i.id === props.userProfileInfo).
+      // );
+      // const tryThis = res.data.following.filter((i) => {
+      //   i.id === id;
+      // });
     });
-  }, []);
+    // if (id === props.userProfileInfo._id) {
+    //   setFollowInfo({ ...followInfo, id: props.userProfileInfo._id });
+    // } else {
+    //   // setFollowInfo({ ...followInfo, operator: "Following" });
+    //   setFollowInfo({ ...followInfo, id: props.userProfileInfo._id });
+    // }
+  }, [props.userProfileInfo]);
 
   const onSubmit = async () => {
     const formData = new FormData();
@@ -77,6 +125,18 @@ const ProfileCard = (props) => {
     history.push("/upload");
   };
 
+  const handleFollowClick = () => {
+    // const alrdyFollowed
+    setAlrdyFollowed(true);
+
+    axios
+      .put(`/api/follow/${id}`, followInfo)
+      .then((res) => console.log(res.data))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   if (id !== props.userProfileInfo._id) {
     return (
       <>
@@ -95,10 +155,26 @@ const ProfileCard = (props) => {
                 </h3>
               </div>
               <div className="profile-cover__action bg--img" data-overlay="0.3">
-                <button className="btn btn-rounded btn-info">
-                  <i className="fa fa-plus"></i>
-                  <span>Follow</span>
-                </button>
+                {alrdyFollowed ? (
+                  <button
+                    onClick={handleFollowClick}
+                    className="btn btn-rounded btn-info"
+                    disabled
+                  >
+                    <i className="fa fa-plus"></i>
+                    <span>Follow</span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleFollowClick}
+                    className="btn btn-rounded btn-info"
+                    // disabled
+                  >
+                    <i className="fa fa-plus"></i>
+                    <span>Follow</span>
+                  </button>
+                )}
+
                 <button className="btn btn-rounded btn-info">
                   <i className="fa fa-comment"></i>
                   <span>Message</span>
