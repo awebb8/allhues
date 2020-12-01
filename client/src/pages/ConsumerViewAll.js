@@ -80,12 +80,14 @@ const ConsumerViewAll = (props) => {
 
   useEffect(() => {
     if (favorites) {
-      API.getUser().then((res) => {
-        // console.log(res.data);
-        if (res.data) {
-          setFavorites(res.data.favorites);
-        }
-      });
+      API.getUser()
+        .then((res) => {
+          // console.log(res.data);
+          if (res.data) {
+            setFavorites(res.data.favorites);
+          }
+        })
+        .catch((err) => console.log(err));
     }
   }, []);
 
