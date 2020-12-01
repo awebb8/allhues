@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./profilecard.css";
-import RoleContext from "../../utils/roleContext";
+// import RoleContext from "../../utils/roleContext";
 import UserContext from "../../utils/UserContext";
 import axios from "axios";
 import API from "../../utils/API";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import useDidMountEffect from "../../utils/useDidMountEffect";
 
 const ProfileCard = (props) => {
@@ -19,13 +19,10 @@ const ProfileCard = (props) => {
   const [uploadedImage, setUploadedImage] = useState("");
   const [image, setImage] = useState("");
   const [usersName, setUsersName] = useState("");
-  const [video, setVideo] = useState();
-  const [videoEl, setVideoEl] = useState("none");
-  const [putUrl, setPutUrl] = useState({
-    videoUrl: "",
-    title: "",
-    description: "",
+  const [followInfo, setFollowInfo] = useState({
+    id: props.userProfileInfo._id,
   });
+  const [alrdyFollowed, setAlrdyFollowed] = useState(false);
 
   // const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
@@ -44,13 +41,21 @@ const ProfileCard = (props) => {
     }
   }, [uploadedImage]);
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     API.getUser().then((res) => {
       setImage(res.data.image);
-      //setUploadedImage(res.data.image);
+
       setUsersName(res.data.name);
+
+      setFollowInfo({ ...followInfo, id: props.userProfileInfo._id });
+
+      const testMe = res.data.following.map(
+        (i) => i.id == props.userProfileInfo._id
+      );
+      // console.log(testMe);
+      setAlrdyFollowed(testMe[0]);
     });
-  }, []);
+  }, [props.userProfileInfo]);
 
   const onSubmit = async () => {
     const formData = new FormData();
@@ -70,10 +75,6 @@ const ProfileCard = (props) => {
     }
   };
 
-  const onChangeVideo = (e) => {
-    setVideo(e.target.files[0]);
-  };
-
   const determineRoleToShowConsumer = () => {
     var shownRole;
     if (props.userProfileInfo.role === "Consumer") {
@@ -88,47 +89,17 @@ const ProfileCard = (props) => {
     history.push("/upload");
   };
 
-  const handleVideoUploadClick = () => {
-    if (videoEl === "none") {
-      setVideoEl("block");
-    } else {
-      setVideoEl("none");
-    }
-  };
+  const handleFollowClick = () => {
+    // const alrdyFollowed
+    setAlrdyFollowed(true);
 
-  const urlVid = "https://api.cloudinary.com/v1_1/dsi7lpcmx/upload";
-  // const urlVid = "https://api.cloudinary.com/v1_1/dvr1qfvi0/upload";
-  // const setStateWaitForMe = async (returnedUrl) => {
-  //   setPutUrl({ videoUrl: returnedUrl });
-  // };
-
-  const postData = async () => {
-    const formData = new FormData();
-    formData.append("file", video);
-    formData.append("upload_preset", preset);
-
-    axios.post(urlVid, formData).then((res) => {
-      const imageUrl = res.data.secure_url;
-
-      setPutUrl({ ...putUrl, videoUrl: imageUrl });
-    });
-  };
-
-  useDidMountEffect(() => {
     axios
-      .put(`/api/users/videouploads/${id}`, putUrl)
-      .then((res) => {
-        console.log(res);
-        history.push("/videos");
-      })
-      .catch((err) => console.log(err));
-  }, [putUrl.videoUrl]);
-
-  useDidMountEffect(() => {
-    if (video != "") {
-      postData();
-    }
-  }, [video]);
+      .put(`/api/follow/${id}`, followInfo)
+      .then((res) => console.log(res.data))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   if (id !== props.userProfileInfo._id) {
     return (
@@ -148,10 +119,26 @@ const ProfileCard = (props) => {
                 </h3>
               </div>
               <div className="profile-cover__action bg--img" data-overlay="0.3">
-                <button className="btn btn-rounded btn-info">
-                  <i className="fa fa-plus"></i>
-                  <span>Follow</span>
-                </button>
+                {alrdyFollowed ? (
+                  <button
+                    onClick={handleFollowClick}
+                    className="btn btn-rounded btn-info"
+                    disabled
+                  >
+                    <i className="fa fa-plus"></i>
+                    <span>Follow</span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleFollowClick}
+                    className="btn btn-rounded btn-info"
+                    // disabled
+                  >
+                    <i className="fa fa-plus"></i>
+                    <span>Follow</span>
+                  </button>
+                )}
+
                 <button className="btn btn-rounded btn-info">
                   <i className="fa fa-comment"></i>
                   <span>Message</span>
@@ -213,44 +200,6 @@ const ProfileCard = (props) => {
                 </>
               ) : (
                 <>
-                  <div
-                    style={{
-                      display: videoEl,
-                      background: "rgba(178,159,181,0.6)",
-                      borderRadius: "10%",
-                      height: "fit-content",
-                      width: "210px",
-                    }}
-                  >
-                    <form>
-                      <input type="file" onChange={onChangeVideo} />
-                      {/* <label htmlFor="title">Title</label> */}
-                      <input
-                        placeholder="title"
-                        name="title"
-                        type="text"
-                        value={putUrl.title}
-                        onChange={(e) =>
-                          setPutUrl({
-                            ...putUrl,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
-                      />
-                      <input
-                        placeholder="description"
-                        type="text"
-                        name="description"
-                        value={putUrl.description}
-                        onChange={(e) =>
-                          setPutUrl({
-                            ...putUrl,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
-                      />
-                    </form>
-                  </div>
                   <button
                     className="btn btn-rounded btn-info"
                     onClick={handleUploadButtonClick}
@@ -260,11 +209,19 @@ const ProfileCard = (props) => {
                   </button>
                   <button
                     className="btn btn-rounded btn-info"
-                    onClick={handleVideoUploadClick}
+                    // onClick={handleVideoUploadClick}
                   >
                     {/* <input type="file" onChange={onChangeVideo} /> */}
-                    <i className="fa fa-plus"></i>
-                    <span>Upload Video</span>
+                    <Link
+                      to={{
+                        pathname: "/upload",
+                        state: { uploadType: "Video" },
+                      }}
+                    >
+                      <i className="fa fa-plus" style={{ color: "white" }}></i>
+
+                      <span style={{ color: "white" }}>Upload Video</span>
+                    </Link>
                   </button>
                 </>
               )}
@@ -283,11 +240,6 @@ const ProfileCard = (props) => {
           </div>
         </div>
       </div>
-      {/* <div style={{ display: videoEl }}>
-        <form>
-          <input type="file" onChange={onChangeVideo} />
-        </form>
-      </div> */}
     </>
   );
 };

@@ -18,7 +18,7 @@ const styles = {
   },
 };
 
-const ContentCreatorUpload = () => {
+const ContentCreatorUpload = (props) => {
   const history = useHistory();
   // States
   const [image, setImage] = useState("");
@@ -38,7 +38,7 @@ const ContentCreatorUpload = () => {
 
   const [loading, setLoading] = useState(false);
   const [video, setVideo] = useState();
-  const [videoEl, setVideoEl] = useState("none");
+  // const [videoEl, setVideoEl] = useState("none");
   const [putUrl, setPutUrl] = useState({
     videoUrl: "",
     title: "",
@@ -56,6 +56,19 @@ const ContentCreatorUpload = () => {
       API.postKit(id, kit);
     }
   }, [kit, id]);
+
+  useEffect(() => {
+    if (
+      props &&
+      props.location &&
+      props.location.state &&
+      props.location.state.uploadType
+    ) {
+      // console.log("Props Location STate");
+      // console.log(props.location.state);
+      setUploadType(props.location.state.uploadType);
+    }
+  }, [props.location.state]);
 
   // Event listener functions
   const onChange = (e) => {
@@ -146,18 +159,9 @@ const ContentCreatorUpload = () => {
       })
       .catch((err) => console.log(err));
   };
-  // useDidMountEffect(() => {
-  //   axios
-  //     .put(`/api/users/videouploads/${id}`, putUrl)
-  //     .then((res) => {
-  //       console.log(res);
-  //       history.push("/videos");
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, [putUrl.videoUrl]);
 
   useDidMountEffect(() => {
-    if (video != "") {
+    if (video != "" && video != null) {
       postData();
     }
   }, [video]);
@@ -362,12 +366,32 @@ const ContentCreatorUpload = () => {
             onChange={handleTypeSelector}
           />
           <br />
-          <form>
-            <input type="file" onChange={onChangeVideo} />
+          <form style={{ margin: "auto" }}>
+            <div
+              className="input-group mb-3"
+              style={styles.imageUploadContainer}
+            >
+              <div className="custom-file d-flex justify-content-center flex-column">
+                <label className="buttons" style={styles.uploadButton}>
+                  Upload
+                  <input
+                    type="file"
+                    id="kitImageInput"
+                    // className="custom-file-input"
+                    hidden
+                    onChange={onChangeVideo}
+                  />
+                </label>
+                <p>{video ? video.name : "Select a video file.."}</p>
+              </div>
+            </div>
+            {/* <input type="file" onChange={onChangeVideo} /> */}
             {/* <label htmlFor="title">Title</label> */}
             <input
+              style={{ display: "block" }}
               placeholder="title"
               name="title"
+              className="form-control"
               type="text"
               value={putUrl.title}
               onChange={(e) =>
@@ -377,9 +401,11 @@ const ContentCreatorUpload = () => {
                 })
               }
             />
-            <input
+            <textarea
+              style={{ display: "block" }}
               placeholder="description"
               type="text"
+              className="form-control"
               name="description"
               value={putUrl.description}
               onChange={(e) =>
@@ -390,7 +416,10 @@ const ContentCreatorUpload = () => {
               }
             />
             {putUrl.videoUrl === "" ? (
-              <p>{vidUploadStatus}</p>
+              <>
+                <br />
+                <h4>{vidUploadStatus}</h4>
+              </>
             ) : (
               <button onClick={handleVideoUploadSubmit} className="buttons">
                 Done!

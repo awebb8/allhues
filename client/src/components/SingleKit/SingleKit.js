@@ -203,8 +203,10 @@ const Kit = (props) => {
                       {item.makeupCategory}:{" "}
                     </span>
                     <a
+                      id={item._id}
                       key={item.affiliateLink}
                       href={item.affiliateLink}
+                      onClick={handleAffiliateClick}
                       className="card-text"
                       target="_blank"
                       rel="noreferrer"

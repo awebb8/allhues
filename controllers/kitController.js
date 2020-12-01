@@ -178,7 +178,7 @@ router.put("/api/kits/affiliatelink/:id", (req, res) => {
 });
 
 router.put("/api/users/videouploads/:id", (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   db.ContentCreator.updateOne(
     {
       _id: req.params.id,
@@ -187,6 +187,28 @@ router.put("/api/users/videouploads/:id", (req, res) => {
       $push: {
         videos: req.body,
       },
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+router.put("/api/follow/:id", (req, res) => {
+  // console.log(req.body);
+  db.ContentCreator.updateOne(
+    {
+      _id: req.params.id,
+    },
+    {
+      $push: {
+        following: req.body,
+      },
+      // $push: req.body,
     },
     { new: true }
   )
