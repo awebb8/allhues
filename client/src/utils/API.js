@@ -4,6 +4,9 @@ export default {
   getKit: function (id) {
     return axios.get(`/api/kits/${id}`);
   },
+  getAllUsers: function () {
+    return axios.get("/api/videouploads");
+  },
   getKits: function () {
     return axios.get("/api/kits");
   },

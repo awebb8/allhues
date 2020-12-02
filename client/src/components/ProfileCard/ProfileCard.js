@@ -47,8 +47,7 @@ const ProfileCard = (props) => {
     setUsersName(props.userProfileInfo.name);
     setFollowInfo({ ...followInfo, id: props.userProfileInfo._id });
     //Crappy api route name but jsut gets all contentCreators
-    axios
-      .get("/api/videouploads")
+    API.getAllUsers()
       .then((res) => {
         let iterVal = res.data;
 

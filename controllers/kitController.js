@@ -4,6 +4,7 @@ const auth = require("../middleware/auth");
 
 router.get("/api/videouploads", (req, res) => {
   db.ContentCreator.find({})
+    .populate("kits")
     .then((found) => {
       res.json(found);
     })

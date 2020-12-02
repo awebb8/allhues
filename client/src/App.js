@@ -8,6 +8,7 @@ import RoleContext from "./utils/roleContext";
 import Home from "./pages/Home";
 import ContentCreatorUpload from "./pages/ContentCreatorUpload";
 import ContentCreatorPortal from "./pages/ContentCreatorPortal";
+import FollowingPage from "./pages/FollowingPage";
 import ConsumerViewAll from "./pages/ConsumerViewAll";
 import ConsumerViewOne from "./pages/ConsumerViewOne";
 import ViewAllVideos from "./pages/ViewAllVideos";
@@ -66,6 +67,11 @@ function App() {
                   exact
                   path="/portal/:id"
                   component={ContentCreatorPortal}
+                ></Route>
+                <Route
+                  exact
+                  path="/following"
+                  component={FollowingPage}
                 ></Route>
                 <Route
                   exact
