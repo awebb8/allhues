@@ -246,10 +246,13 @@ const ProfileCard = (props) => {
             </div>
             <div className="profile-cover__info">
               <ul className="nav">
-                <li>
-                  <strong>{numberOfFollowers}</strong>
-                  Followers
-                </li>
+                {props.userProfileInfo.role == "Content Creator" && (
+                  <li>
+                    <strong>{numberOfFollowers}</strong>
+                    Followers
+                  </li>
+                )}
+
                 <li>
                   <strong>{props.yourKits ? props.yourKits.length : 0}</strong>
                   Created Kits
