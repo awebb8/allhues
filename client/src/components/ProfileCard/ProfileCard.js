@@ -246,10 +246,15 @@ const ProfileCard = (props) => {
             </div>
             <div className="profile-cover__info">
               <ul className="nav">
-                {props.userProfileInfo.role == "Content Creator" && (
+                {props.userProfileInfo.role == "Content Creator" ? (
                   <li>
                     <strong>{numberOfFollowers}</strong>
                     Followers
+                  </li>
+                ) : (
+                  <li>
+                    <strong>{props.userProfileInfo.following.length}</strong>
+                    Following
                   </li>
                 )}
 
