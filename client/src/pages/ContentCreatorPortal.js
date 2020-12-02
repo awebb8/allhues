@@ -24,9 +24,12 @@ const ContentCreatorPortal = () => {
   const userId = useParams();
 
   const getKits = () => {
-    axios.get(`/api/users/${id}`).then((res) => {
-      setYourKits(res.data[0].kits);
-    });
+    axios
+      .get(`/api/users/${id}`)
+      .then((res) => {
+        setYourKits(res.data[0].kits);
+      })
+      .catch((err) => console.log(err));
 
     axios.get(`/api/users/${userId.id}`).then((res) => {
       setYourKits(res.data[0].kits);

@@ -41,6 +41,16 @@ router.get("/api/kits/:id", (req, res) => {
     });
 });
 
+router.get("/api/videouploads", (req, res) => {
+  db.ContentCreator.find({})
+    .then((found) => {
+      res.json(found);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
 // router.get("/api/kits/user", auth, (req, res) => {
 //   res.json(req.user);
 // });

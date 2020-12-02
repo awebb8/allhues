@@ -7,7 +7,10 @@ const Logout = () => {
 
   const handleClick = () => {
     localStorage.removeItem("token");
+    // localStorage.setItem("token", "");
     localStorage.removeItem("role");
+    // localStorage.setItem("role", "");
+    // localStorage.clear();
 
     history.push("/");
     window.location.reload();

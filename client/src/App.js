@@ -73,7 +73,6 @@ function App() {
                   component={ConsumerViewAll}
                 ></Route>
                 <Route exact path="/videos" component={ViewAllVideos}></Route>
-
                 {/* <Route exact path="/viewone" component={ConsumerViewOne}></Route> */}
                 <Route path="/viewone/:id" component={ConsumerViewOne}></Route>
                 {/* <Route path="/viewone/:id" component={Favo/}></Route> */}

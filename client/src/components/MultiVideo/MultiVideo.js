@@ -17,6 +17,8 @@ const MultiVideo = (props) => {
             />  */}
           <source src={props.videoUrl} type="video/mp4" />
         </video>
+        <h3>{props.info.title}</h3>
+        <p>{props.info.description}</p>
       </div>
     </div>
   );
