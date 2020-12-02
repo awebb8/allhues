@@ -47,7 +47,7 @@ const FollowingPage = () => {
           {/* <p>{i.kits[0].kitName}</p> */}
 
           {i.kits.map((j) => (
-            <FollowMulti info={j} />
+            <FollowMulti key={j._id} info={j} />
           ))}
           <br />
         </div>

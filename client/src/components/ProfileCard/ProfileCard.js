@@ -42,6 +42,35 @@ const ProfileCard = (props) => {
     }
   }, [uploadedImage]);
 
+  const showPersonsFollowerNumber = (iterVal) => {
+    if (id != props.userProfileInfo._id) {
+      let me = iterVal.filter((t) => t._id === props.userProfileInfo._id);
+      // console.log(me);
+      setNumberOfFollowers(me[0].followers.length);
+    }
+  };
+
+  const showMyFollowerNumberAndDisableBtnIfFollowed = (iterVal) => {
+    for (let i = 0; i < iterVal.length; i++) {
+      if (iterVal[i]._id == id) {
+        const numbOfFoll = iterVal[i].followers.length;
+        if (id === props.userProfileInfo._id) {
+          setNumberOfFollowers(numbOfFoll);
+        }
+
+        // disableBtnIfFollowedAlrdy(iterVal[i]);
+
+        if (
+          iterVal[i].following
+            .map((j) => j.id == props.userProfileInfo._id)
+            .includes(true)
+        ) {
+          setAlrdyFollowed(true);
+        }
+      }
+    }
+  };
+
   useDidMountEffect(() => {
     setImage(props.userProfileInfo.image);
     setUsersName(props.userProfileInfo.name);
@@ -51,19 +80,9 @@ const ProfileCard = (props) => {
       .then((res) => {
         let iterVal = res.data;
 
-        for (let i = 0; i < iterVal.length; i++) {
-          if (iterVal[i]._id == id) {
-            const numbOfFoll = iterVal[i].followers.length;
-            setNumberOfFollowers(numbOfFoll);
-            if (
-              iterVal[i].following
-                .map((j) => j.id == props.userProfileInfo._id)
-                .includes(true)
-            ) {
-              setAlrdyFollowed(true);
-            }
-          }
-        }
+        showPersonsFollowerNumber(iterVal);
+
+        showMyFollowerNumberAndDisableBtnIfFollowed(iterVal);
       })
       .catch((err) => console.log(err));
   }, [props.userProfileInfo]);
@@ -103,6 +122,9 @@ const ProfileCard = (props) => {
   const handleFollowClick = () => {
     // const alrdyFollowed
     setAlrdyFollowed(true);
+    let numb = numberOfFollowers;
+
+    setNumberOfFollowers(numb + 1);
     const payload = {
       id,
     };
@@ -137,7 +159,7 @@ const ProfileCard = (props) => {
                 </h3>
               </div>
               <div className="profile-cover__action bg--img" data-overlay="0.3">
-                {alrdyFollowed ? (
+                {alrdyFollowed || !id ? (
                   <button
                     onClick={handleFollowClick}
                     className="btn btn-rounded btn-info"
@@ -157,13 +179,24 @@ const ProfileCard = (props) => {
                   </button>
                 )}
 
-                <button className="btn btn-rounded btn-info">
-                  <i className="fa fa-comment"></i>
-                  <span>Message</span>
-                </button>
+                {!id ? (
+                  <button className="btn btn-rounded btn-info" disabled>
+                    <i className="fa fa-comment"></i>
+                    <span>Message</span>
+                  </button>
+                ) : (
+                  <button className="btn btn-rounded btn-info">
+                    <i className="fa fa-comment"></i>
+                    <span>Message</span>
+                  </button>
+                )}
               </div>
               <div className="profile-cover__info">
                 <ul className="nav">
+                  <li>
+                    <strong>{numberOfFollowers}</strong>
+                    Followers
+                  </li>
                   <li>
                     <strong>
                       {props.yourKits ? props.yourKits.length : 0}
