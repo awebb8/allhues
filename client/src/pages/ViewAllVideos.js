@@ -7,7 +7,6 @@ const ViewAllVideos = (props) => {
 
   useEffect(() => {
     Axios.get("/api/videouploads").then((res) => {
-      console.log(res.data);
       for (let i = 0; i < res.data.length; i++) {
         if (res.data[i].videos.length > 0) {
           for (let j = 0; j < res.data[i].videos.length; j++) {

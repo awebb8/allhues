@@ -50,20 +50,17 @@ const ProfileCard = (props) => {
     axios
       .get("/api/videouploads")
       .then((res) => {
-        console.log(res.data);
         let iterVal = res.data;
 
         for (let i = 0; i < iterVal.length; i++) {
           if (iterVal[i]._id == id) {
-            console.log(iterVal[i].followers.length);
             const numbOfFoll = iterVal[i].followers.length;
             setNumberOfFollowers(numbOfFoll);
-          } else if (iterVal[i]._id == id) {
-            let alrdyFollow = iterVal[i].following.map(
-              (j) => j.id == props.userProfileInfo._id
-            );
-            // console.log(alrdyFollow);
-            if (alrdyFollow.includes(true)) {
+            if (
+              iterVal[i].following
+                .map((j) => j.id == props.userProfileInfo._id)
+                .includes(true)
+            ) {
               setAlrdyFollowed(true);
             }
           }
@@ -113,13 +110,13 @@ const ProfileCard = (props) => {
 
     axios
       .put(`/api/follow/${id}`, followInfo)
-      .then((res) => console.log(res.data))
+      .then((res) => {})
       .catch((err) => {
         console.log(err);
       });
     axios
       .put(`/api/followers/${followInfo.id}`, payload)
-      .then((res) => console.log(res.data))
+      .then((res) => {})
       .catch((err) => console.log(err));
   };
 
