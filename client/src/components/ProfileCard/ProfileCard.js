@@ -23,6 +23,7 @@ const ProfileCard = (props) => {
     id: props.userProfileInfo._id,
   });
   const [alrdyFollowed, setAlrdyFollowed] = useState(false);
+  const [numberOfFollowers, setNumberOfFollowers] = useState(0);
 
   // const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
@@ -42,19 +43,33 @@ const ProfileCard = (props) => {
   }, [uploadedImage]);
 
   useDidMountEffect(() => {
-    API.getUser().then((res) => {
-      setImage(res.data.image);
+    setImage(props.userProfileInfo.image);
+    setUsersName(props.userProfileInfo.name);
+    setFollowInfo({ ...followInfo, id: props.userProfileInfo._id });
+    //Crappy api route name but jsut gets all contentCreators
+    axios
+      .get("/api/videouploads")
+      .then((res) => {
+        console.log(res.data);
+        let iterVal = res.data;
 
-      setUsersName(res.data.name);
-
-      setFollowInfo({ ...followInfo, id: props.userProfileInfo._id });
-
-      const testMe = res.data.following.map(
-        (i) => i.id == props.userProfileInfo._id
-      );
-      // console.log(testMe);
-      setAlrdyFollowed(testMe[0]);
-    });
+        for (let i = 0; i < iterVal.length; i++) {
+          if (iterVal[i]._id == id) {
+            console.log(iterVal[i].followers.length);
+            const numbOfFoll = iterVal[i].followers.length;
+            setNumberOfFollowers(numbOfFoll);
+          } else if (iterVal[i]._id == id) {
+            let alrdyFollow = iterVal[i].following.map(
+              (j) => j.id == props.userProfileInfo._id
+            );
+            // console.log(alrdyFollow);
+            if (alrdyFollow.includes(true)) {
+              setAlrdyFollowed(true);
+            }
+          }
+        }
+      })
+      .catch((err) => console.log(err));
   }, [props.userProfileInfo]);
 
   const onSubmit = async () => {
@@ -92,6 +107,9 @@ const ProfileCard = (props) => {
   const handleFollowClick = () => {
     // const alrdyFollowed
     setAlrdyFollowed(true);
+    const payload = {
+      id,
+    };
 
     axios
       .put(`/api/follow/${id}`, followInfo)
@@ -99,6 +117,10 @@ const ProfileCard = (props) => {
       .catch((err) => {
         console.log(err);
       });
+    axios
+      .put(`/api/followers/${followInfo.id}`, payload)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
   };
 
   if (id !== props.userProfileInfo._id) {
@@ -228,6 +250,10 @@ const ProfileCard = (props) => {
             </div>
             <div className="profile-cover__info">
               <ul className="nav">
+                <li>
+                  <strong>{numberOfFollowers}</strong>
+                  Followers
+                </li>
                 <li>
                   <strong>{props.yourKits ? props.yourKits.length : 0}</strong>
                   Created Kits
