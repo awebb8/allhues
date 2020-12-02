@@ -41,14 +41,6 @@ const ContentCreatorPortal = () => {
     getKits();
   }, [id]);
 
-  // useEffect(() => {
-  //   if (favorites) {
-  //     API.getUser().then((res) => {
-  //       setFavorites(res.data.favorites);
-  //     });
-  //   }
-  // }, []);
-
   useEffect(() => {
     if (favorites) {
       API.getUser().then((res) => {

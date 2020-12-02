@@ -1,13 +1,13 @@
-import Axios from "axios";
+// import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import MultiVideo from "../components/MultiVideo/MultiVideo";
+import API from "../utils/API";
 
 const ViewAllVideos = (props) => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    Axios.get("/api/videouploads").then((res) => {
-      console.log(res.data);
+    API.getAllUsers().then((res) => {
       for (let i = 0; i < res.data.length; i++) {
         if (res.data[i].videos.length > 0) {
           for (let j = 0; j < res.data[i].videos.length; j++) {

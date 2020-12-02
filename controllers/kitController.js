@@ -2,15 +2,9 @@ const router = require("express").Router();
 const db = require("../models");
 const auth = require("../middleware/auth");
 
-// router.get("/api/users/videouploads", (req, res) => {
-//   db.ContentCreator.find({})
-//     .then((found) => {
-//       res.json(found);
-//     })
-//     .catch((err) => res.status(400).json(err));
-// });
 router.get("/api/videouploads", (req, res) => {
   db.ContentCreator.find({})
+    .populate("kits")
     .then((found) => {
       res.json(found);
     })
@@ -207,6 +201,28 @@ router.put("/api/follow/:id", (req, res) => {
     {
       $push: {
         following: req.body,
+      },
+      // $push: req.body,
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+router.put("/api/followers/:id", (req, res) => {
+  console.log(req.body);
+  db.ContentCreator.updateOne(
+    {
+      _id: req.params.id,
+    },
+    {
+      $push: {
+        followers: req.body,
       },
       // $push: req.body,
     },

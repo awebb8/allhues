@@ -23,6 +23,7 @@ const ProfileCard = (props) => {
     id: props.userProfileInfo._id,
   });
   const [alrdyFollowed, setAlrdyFollowed] = useState(false);
+  const [numberOfFollowers, setNumberOfFollowers] = useState(0);
 
   // const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
@@ -41,20 +42,49 @@ const ProfileCard = (props) => {
     }
   }, [uploadedImage]);
 
+  const showPersonsFollowerNumber = (iterVal) => {
+    if (id != props.userProfileInfo._id) {
+      let me = iterVal.filter((t) => t._id === props.userProfileInfo._id);
+      // console.log(me);
+      setNumberOfFollowers(me[0].followers.length);
+    }
+  };
+
+  const showMyFollowerNumberAndDisableBtnIfFollowed = (iterVal) => {
+    for (let i = 0; i < iterVal.length; i++) {
+      if (iterVal[i]._id == id) {
+        const numbOfFoll = iterVal[i].followers.length;
+        if (id === props.userProfileInfo._id) {
+          setNumberOfFollowers(numbOfFoll);
+        }
+
+        // disableBtnIfFollowedAlrdy(iterVal[i]);
+
+        if (
+          iterVal[i].following
+            .map((j) => j.id == props.userProfileInfo._id)
+            .includes(true)
+        ) {
+          setAlrdyFollowed(true);
+        }
+      }
+    }
+  };
+
   useDidMountEffect(() => {
-    API.getUser().then((res) => {
-      setImage(res.data.image);
+    setImage(props.userProfileInfo.image);
+    setUsersName(props.userProfileInfo.name);
+    setFollowInfo({ ...followInfo, id: props.userProfileInfo._id });
+    //Crappy api route name but jsut gets all contentCreators
+    API.getAllUsers()
+      .then((res) => {
+        let iterVal = res.data;
 
-      setUsersName(res.data.name);
+        showPersonsFollowerNumber(iterVal);
 
-      setFollowInfo({ ...followInfo, id: props.userProfileInfo._id });
-
-      const testMe = res.data.following.map(
-        (i) => i.id == props.userProfileInfo._id
-      );
-      // console.log(testMe);
-      setAlrdyFollowed(testMe[0]);
-    });
+        showMyFollowerNumberAndDisableBtnIfFollowed(iterVal);
+      })
+      .catch((err) => console.log(err));
   }, [props.userProfileInfo]);
 
   const onSubmit = async () => {
@@ -92,13 +122,23 @@ const ProfileCard = (props) => {
   const handleFollowClick = () => {
     // const alrdyFollowed
     setAlrdyFollowed(true);
+    let numb = numberOfFollowers;
+
+    setNumberOfFollowers(numb + 1);
+    const payload = {
+      id,
+    };
 
     axios
       .put(`/api/follow/${id}`, followInfo)
-      .then((res) => console.log(res.data))
+      .then((res) => {})
       .catch((err) => {
         console.log(err);
       });
+    axios
+      .put(`/api/followers/${followInfo.id}`, payload)
+      .then((res) => {})
+      .catch((err) => console.log(err));
   };
 
   if (id !== props.userProfileInfo._id) {
@@ -119,7 +159,7 @@ const ProfileCard = (props) => {
                 </h3>
               </div>
               <div className="profile-cover__action bg--img" data-overlay="0.3">
-                {alrdyFollowed ? (
+                {alrdyFollowed || !id ? (
                   <button
                     onClick={handleFollowClick}
                     className="btn btn-rounded btn-info"
@@ -139,13 +179,24 @@ const ProfileCard = (props) => {
                   </button>
                 )}
 
-                <button className="btn btn-rounded btn-info">
-                  <i className="fa fa-comment"></i>
-                  <span>Message</span>
-                </button>
+                {!id ? (
+                  <button className="btn btn-rounded btn-info" disabled>
+                    <i className="fa fa-comment"></i>
+                    <span>Message</span>
+                  </button>
+                ) : (
+                  <button className="btn btn-rounded btn-info">
+                    <i className="fa fa-comment"></i>
+                    <span>Message</span>
+                  </button>
+                )}
               </div>
               <div className="profile-cover__info">
                 <ul className="nav">
+                  <li>
+                    <strong>{numberOfFollowers}</strong>
+                    Followers
+                  </li>
                   <li>
                     <strong>
                       {props.yourKits ? props.yourKits.length : 0}
@@ -228,6 +279,18 @@ const ProfileCard = (props) => {
             </div>
             <div className="profile-cover__info">
               <ul className="nav">
+                {props.userProfileInfo.role == "Content Creator" ? (
+                  <li>
+                    <strong>{numberOfFollowers}</strong>
+                    Followers
+                  </li>
+                ) : (
+                  <li>
+                    <strong>{props.userProfileInfo.following.length}</strong>
+                    Following
+                  </li>
+                )}
+
                 <li>
                   <strong>{props.yourKits ? props.yourKits.length : 0}</strong>
                   Created Kits
