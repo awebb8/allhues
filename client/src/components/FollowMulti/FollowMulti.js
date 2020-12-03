@@ -9,6 +9,7 @@ const FollowMulti = (props) => {
       {/* <p>hi</p> */}
 
       <p>{props.info.kitName}</p>
+      <br />
     </div>
   );
 };

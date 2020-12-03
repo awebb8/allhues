@@ -70,14 +70,6 @@ const ConsumerViewAll = (props) => {
     findAll();
   }, [fromNewBtn]);
 
-  // useEffect(() => {
-  //   if (favorites) {
-  //     API.getUser().then((res) => {
-  //       setFavorites(res.data.favorites);
-  //     });
-  //   }
-  // }, []);
-
   useEffect(() => {
     if (favorites) {
       API.getUser()
@@ -93,9 +85,11 @@ const ConsumerViewAll = (props) => {
 
   useDidMountEffect(() => {
     if (id) {
-      API.putFavorite(id, favorites).then((res) => {
-        // console.log("put");
-      });
+      API.putFavorite(id, favorites)
+        .then((res) => {
+          // console.log("put");
+        })
+        .catch((err) => console.log(err));
     } else {
       history.push("/login");
     }
