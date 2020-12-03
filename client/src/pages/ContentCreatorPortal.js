@@ -17,6 +17,7 @@ const ContentCreatorPortal = () => {
   const [favorites, setFavorites] = useState([]);
 
   const [userProfileInfo, setUserProfileInfo] = useState([]);
+  // const [clickedInfo, setClickedInfo] = useState("");
 
   const { id } = useContext(UserContext);
   const history = useHistory;
@@ -24,17 +25,27 @@ const ContentCreatorPortal = () => {
   const userId = useParams();
 
   const getKits = () => {
-    axios
-      .get(`/api/users/${id}`)
+    API.getAllUsers()
       .then((res) => {
-        setYourKits(res.data[0].kits);
+        let iterVal = res.data;
+        // console.log(userId);
+        if (userId.id == id) {
+          for (let i = 0; i < iterVal.length; i++) {
+            if (iterVal[i]._id === userId.id) {
+              setYourKits(iterVal[i].kits);
+              setUserProfileInfo(iterVal[i]);
+            }
+          }
+        } else {
+          for (let j = 0; j < iterVal.length; j++) {
+            if (iterVal[j]._id === userId.id) {
+              setYourKits(iterVal[j].kits);
+              setUserProfileInfo(iterVal[j]);
+            }
+          }
+        }
       })
       .catch((err) => console.log(err));
-
-    axios.get(`/api/users/${userId.id}`).then((res) => {
-      setYourKits(res.data[0].kits);
-      setUserProfileInfo(res.data[0]);
-    });
   };
 
   useEffect(() => {

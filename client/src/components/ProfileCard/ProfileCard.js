@@ -24,6 +24,7 @@ const ProfileCard = (props) => {
   });
   const [alrdyFollowed, setAlrdyFollowed] = useState(false);
   const [numberOfFollowers, setNumberOfFollowers] = useState(0);
+  // const [clickedInfo, setClickedInfo] = useState("");
 
   // const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
@@ -57,8 +58,6 @@ const ProfileCard = (props) => {
         if (id === props.userProfileInfo._id) {
           setNumberOfFollowers(numbOfFoll);
         }
-
-        // disableBtnIfFollowedAlrdy(iterVal[i]);
 
         if (
           iterVal[i].following
@@ -285,10 +284,12 @@ const ProfileCard = (props) => {
                     Followers
                   </li>
                 ) : (
-                  <li>
-                    <strong>{props.userProfileInfo.following.length}</strong>
-                    Following
-                  </li>
+                  <Link to="/following">
+                    <li>
+                      <strong>{props.userProfileInfo.following.length}</strong>
+                      Following
+                    </li>
+                  </Link>
                 )}
 
                 <li>
