@@ -194,14 +194,20 @@ const MultiKit = (props) => {
                 <i className={`${props.class} fas fa-heart`}></i>
               ) : (
                 <i className={`${props.class} far fa-heart`}></i>
-              )}{" "}
+              )}
             </button>
           ) : (
             <div className="mt-4"></div>
           )}
 
           <h5
-            style={{ textAlign: "center" }}
+            style={{
+              textAlign: "center",
+              overflow: "hidden",
+              display: '-webkit-box',
+              WebkitBoxOrient: "vertical",
+              WebkitLineClamp: 1,
+            }}
             className={
               props.class === undefined
                 ? "card-title"
@@ -211,7 +217,13 @@ const MultiKit = (props) => {
             {props.info.kitName ? props.info.kitName : ""}
           </h5>
           <p
-            style={{ textAlign: "center" }}
+            style={{
+              textAlign: "center",
+              overflow: "hidden",
+              display: "-webkit-box",
+              WebkitLineClamp: 1,
+              WebkitBoxOrient: "vertical",
+            }}
             className={
               props.class === undefined
                 ? "card-text"

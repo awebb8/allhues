@@ -11,9 +11,38 @@ img {
 }
 
 .grow:hover {
-  transform: scale(1.04);
+  transform: scale(1.01);
 }
 
 .card-body {
   padding-top: 5px;
+}
+
+.card-title {
+  font-weight: 600;
+  /* display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; */
+}
+
+.card-text {
+  color: rgb(114, 114, 114);
+  font-size: small;
+  /* display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; */
+}
+
+.fa-heart {
+  transition: 0.3s;
+}
+
+.fa-heart:hover {
+  color: rgb(230, 63, 90);
+}
+
+.fas {
+  color: rgb(230, 63, 90);
 }
