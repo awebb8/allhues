@@ -63,7 +63,7 @@ const ContentCreatorUpload = (props) => {
   useEffect(() => {
     setKit({ ...kit, creatorId: id });
     API.getKits().then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       const minesies = res.data.filter((i) => i.creatorId === id);
       // console.log(minesies);
       // setKitToAddVideoTo(minesies);
@@ -81,7 +81,7 @@ const ContentCreatorUpload = (props) => {
       API.postKit(id, kit)
         .then((res) => {
           // console.log("myb");
-          console.log(res.data);
+          // console.log(res.data);
         })
         .catch((err) => console.log(err));
     }
@@ -208,7 +208,8 @@ const ContentCreatorUpload = (props) => {
         axios
           .put(`/api/vidtokit/${kitToAddVideoTo}`, urlForVidToKit)
           .then((response) => {
-            console.log(response.data);
+            // console.log(response.data);
+            history.push(`/portal/${id}`);
           })
           .catch((err) => console.log(err));
       })
