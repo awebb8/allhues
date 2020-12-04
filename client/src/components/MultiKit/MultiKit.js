@@ -52,7 +52,7 @@ const MultiKit = (props) => {
       return (
         <img
           src={fitz1}
-          style={{ height: "1.3em", width: "1.3em" }}
+          style={{ height: "1.3em", width: "1.3em", borderRadius: 10 }}
           alt="light skin tone"
         />
       );
@@ -60,7 +60,7 @@ const MultiKit = (props) => {
       return (
         <img
           src={fitz2}
-          style={{ height: "1.3em", width: "1.3em" }}
+          style={{ height: "1.3em", width: "1.3em", borderRadius: 10 }}
           alt="light skin tone"
         />
       );
@@ -68,7 +68,7 @@ const MultiKit = (props) => {
       return (
         <img
           src={fitz3}
-          style={{ height: "1.3em", width: "1.3em" }}
+          style={{ height: "1.3em", width: "1.3em", borderRadius: 10 }}
           alt="lightish skin tone"
         />
       );
@@ -76,7 +76,7 @@ const MultiKit = (props) => {
       return (
         <img
           src={fitz4}
-          style={{ height: "1.3em", width: "1.3em" }}
+          style={{ height: "1.3em", width: "1.3em", borderRadius: 10 }}
           alt="medium skin tone"
         />
       );
@@ -84,7 +84,7 @@ const MultiKit = (props) => {
       return (
         <img
           src={fitz5}
-          style={{ height: "1.3em", width: "1.3em" }}
+          style={{ height: "1.3em", width: "1.3em", borderRadius: 10 }}
           alt="darkish skin tone"
         />
       );
@@ -92,7 +92,7 @@ const MultiKit = (props) => {
       return (
         <img
           src={fitz6}
-          style={{ height: "1.3em", width: "1.3em" }}
+          style={{ height: "1.3em", width: "1.3em", borderRadius: 10 }}
           alt="dark skin tone"
         />
       );
@@ -225,12 +225,12 @@ const MultiKit = (props) => {
           className="text-muted d-flex"
           style={{
             position: "absolute",
-            bottom: 0,
+            bottom: 5,
             left: 5,
             fontSize: "15px",
           }}
         >
-          <i className="fas fa-palette"></i>
+          {/* <i className="fas fa-palette"></i> */}
           {determineFitzColorToShow(props.info.hueType)}
         </div>
         <div
@@ -243,7 +243,6 @@ const MultiKit = (props) => {
           }}
         >
           <i className="ph-eye pr-1"></i>
-          {props.info.uniqueVisits}
         </div>
       </div>
     </div>
