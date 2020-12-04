@@ -68,8 +68,29 @@ h2 {
   transition: all 0.3s ease-out;
 }
 
+.followers-modal-content {
+  position: fixed;
+  color: #46483b;
+  background-color: #fff;
+  width: 34%;
+  height: 80%;
+  border: 2px solid #b29fb5;
+  box-shadow: 1px 1px 1px black;
+  padding: 16px;
+  left: 34%;
+  top: 15%;
+  box-sizing: border-box;
+  overflow: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  transition: all 0.3s ease-out;
+}
+
 @media (max-width: 1024px) {
   .modal-content {
+    top: 10%;
+  }
+  .followers-modal-content {
     top: 10%;
   }
 }
