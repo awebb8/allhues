@@ -242,14 +242,58 @@ router.put("/api/follow/:id", (req, res) => {
     });
 });
 
+router.put("/api/unfollow/:id", (req, res) => {
+  // console.log(req.body);
+  db.ContentCreator.updateOne(
+    {
+      _id: req.params.id,
+    },
+    {
+      $pull: {
+        following: req.body,
+      },
+      // $push: req.body,
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
 router.put("/api/followers/:id", (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   db.ContentCreator.updateOne(
     {
       _id: req.params.id,
     },
     {
       $push: {
+        followers: req.body,
+      },
+      // $push: req.body,
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+router.put("/api/unfollowers/:id", (req, res) => {
+  // console.log(req.body);
+  db.ContentCreator.updateOne(
+    {
+      _id: req.params.id,
+    },
+    {
+      $pull: {
         followers: req.body,
       },
       // $push: req.body,
