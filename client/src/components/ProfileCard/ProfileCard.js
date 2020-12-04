@@ -6,9 +6,97 @@ import axios from "axios";
 import API from "../../utils/API";
 import { useHistory, Link } from "react-router-dom";
 import useDidMountEffect from "../../utils/useDidMountEffect";
+import FollowMulti from "../FollowMulti/FollowMulti";
+
+// Import Modal for the Followers Modal
+import Modal from 'react-modal';
+Modal.setAppElement("#root");
+
 
 const ProfileCard = (props) => {
   const history = useHistory();
+
+  // Followers Modal
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const handleCloseBtnClick = () => {
+    setModalIsOpen(false);
+  };
+  const handleFollowersBtnClick = () => {
+      setModalIsOpen(true);
+  };
+
+// ---------- Followers Modal content ----------
+  const [allPeople, setAllPeople] = useState([]);
+  const [peopleFollowing, setPeopleFollowing] = useState([]);
+  const [followerInfo, setFollowerInfo] = useState([]);
+
+  useEffect(() => {
+    API.getAllUsers()
+      .then((res) => {
+        setAllPeople(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useDidMountEffect(() => {
+    let arr = allPeople.filter((i) => i._id === id);
+    setPeopleFollowing(arr[0].followers);
+  }, [allPeople]);
+
+  useDidMountEffect(() => {
+    // let arr =allPeople.filter(i=>i._id )
+    let arr = [];
+    for (let i = 0; i < allPeople.length; i++) {
+      for (let k = 0; k < peopleFollowing.length; k++) {
+        if (allPeople[i]._id === peopleFollowing[k].id) {
+          //   console.log("mathc");
+          arr.push(allPeople[i]);
+        }
+      }
+    }
+    setFollowerInfo(arr);
+    // console.log(arr);
+  }, [peopleFollowing]);
+
+  const handleProfileChange = (i) => {
+  history.push(`/portal/${id}`);
+  // console.log(followerInfo);
+  }
+  // ---------------------------------------------
+
+  // ---------- Following Modal content ----------
+  const [allPpl, setAllPpl] = useState([]);
+  const [pplFollowed, setPplFollowed] = useState([]);
+  const [followedInfo, setFollowedInfo] = useState([]);
+
+  useEffect(() => {
+    API.getAllUsers()
+      .then((res) => {
+        setAllPpl(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useDidMountEffect(() => {
+    let arr = allPpl.filter((i) => i._id === id);
+    setPplFollowed(arr[0].following);
+  }, [allPpl]);
+
+  useDidMountEffect(() => {
+    // let arr =allPpl.filter(i=>i._id )
+    let arr = [];
+    for (let i = 0; i < allPpl.length; i++) {
+      for (let k = 0; k < pplFollowed.length; k++) {
+        if (allPpl[i]._id === pplFollowed[k].id) {
+          //   console.log("mathc");
+          arr.push(allPpl[i]);
+        }
+      }
+    }
+    setFollowedInfo(arr);
+    // console.log(arr);
+  }, [pplFollowed]);
+  // ---------------------------------------------
 
   let totalKitViews = 0;
 
@@ -281,7 +369,10 @@ const ProfileCard = (props) => {
                 {props.userProfileInfo.role == "Content Creator" ? (
                   <li>
                     <strong>{numberOfFollowers}</strong>
-                    Followers
+                    <a
+                      onClick={handleFollowersBtnClick}>
+                      <span>Followers</span>
+                    </a>
                   </li>
                 ) : (
                   <Link to="/following">
@@ -304,6 +395,78 @@ const ProfileCard = (props) => {
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={modalIsOpen}
+        className="followers-modal-content"
+        overlayClassName="followers-modal-overlay"
+      >
+        <div>
+          <h2>Followers</h2>
+          <hr />
+          <form>
+  
+    {/* Show followers */}
+    <div>
+      {followerInfo.map((i) => (
+        <div className="container" key={i._id}>
+          <p>
+            <a 
+            id = {i._id}
+            onClick = {handleProfileChange}>
+              {i.name}</a>
+            <br/>
+            {i.userName}
+          </p>
+          {/* <p>{i.kits[0].kitName}</p> */}
+
+          {/* {i.kits.map((j) => (
+            <FollowMulti key={j._id} info={j} />
+          ))} */}
+          <br />
+        </div>
+      ))}
+    </div>
+    <hr />
+
+    <h2>Following</h2>
+    <hr />
+    {/* Show following */}
+    <div>
+      {followedInfo.map((i) => (
+        <div className="container" key={i._id}>
+          <p>{i.name}
+            <br/>
+            {i.userName}
+          </p>
+          {/* <p>{i.kits[0].kitName}</p> */}
+
+          {/* {i.kits.map((j) => (
+            <FollowMulti key={j._id} info={j} />
+          ))} */}
+          <br />
+        </div>
+      ))}
+    </div>
+
+            <button
+              className="buttons shadow-none py-0 px-2 text-muted"
+              onClick={handleCloseBtnClick}
+              style={{
+                position: "absolute",
+                right: 0,
+                top: 0,
+                color: "black",
+                backgroundColor: "white",
+                border: "none",
+              }}
+            >
+              <h3>&times;</h3>
+            </button>
+            
+          </form>
+        </div>
+      </Modal>
     </>
   );
 };
