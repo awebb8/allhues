@@ -3,6 +3,12 @@ import "./SingleKit.css";
 import UserContext from "../../utils/UserContext";
 import { useHistory } from "react-router-dom";
 import API from "../../utils/API";
+import fitz1 from "../../assets/images/fitz1.png";
+import fitz2 from "../../assets/images/fitz2.png";
+import fitz3 from "../../assets/images/fitz3.png";
+import fitz4 from "../../assets/images/fitz4.png";
+import fitz5 from "../../assets/images/fitz5.png";
+import fitz6 from "../../assets/images/fitz6.png";
 
 const Kit = (props) => {
   const { id } = useContext(UserContext);
@@ -22,6 +28,58 @@ const Kit = (props) => {
     API.updateAffiliateLinkNumbers(idVal)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
+  };
+
+  const determineFitzColorToShow = (val) => {
+    if (val === "Fitz1") {
+      return (
+        <img
+          src={fitz1}
+          style={{ height: "1.3em", width: "1.3em" }}
+          alt="light skin tone"
+        />
+      );
+    } else if (val === "Fitz2") {
+      return (
+        <img
+          src={fitz2}
+          style={{ height: "1.3em", width: "1.3em" }}
+          alt="light skin tone"
+        />
+      );
+    } else if (val === "Fitz3") {
+      return (
+        <img
+          src={fitz3}
+          style={{ height: "1.3em", width: "1.3em" }}
+          alt="lightish skin tone"
+        />
+      );
+    } else if (val === "Fitz4") {
+      return (
+        <img
+          src={fitz4}
+          style={{ height: "1.3em", width: "1.3em" }}
+          alt="medium skin tone"
+        />
+      );
+    } else if (val === "Fitz5") {
+      return (
+        <img
+          src={fitz5}
+          style={{ height: "1.3em", width: "1.3em" }}
+          alt="darkish skin tone"
+        />
+      );
+    } else if (val === "Fitz6") {
+      return (
+        <img
+          src={fitz6}
+          style={{ height: "1.3em", width: "1.3em" }}
+          alt="dark skin tone"
+        />
+      );
+    }
   };
 
   if (id === props.info.creatorId) {
@@ -94,6 +152,19 @@ const Kit = (props) => {
             <p className="card-text" style={{ textAlign: "center" }}>
               {props.info.kitDescription ? props.info.kitDescription : ""}
             </p>
+
+            <div
+              className="text-muted d-flex"
+              style={{
+                position: "absolute",
+                bottom: 0,
+                left: 5,
+                fontSize: "15px",
+              }}
+            >
+              <i className="fas fa-palette"></i>
+              {determineFitzColorToShow(props.info.hueType)}
+            </div>
 
             <div
               className="text-muted d-flex"
