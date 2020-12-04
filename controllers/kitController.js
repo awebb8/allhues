@@ -45,10 +45,6 @@ router.get("/api/videouploads", (req, res) => {
     });
 });
 
-// router.get("/api/kits/user", auth, (req, res) => {
-//   res.json(req.user);
-// });
-
 router.get("/user", auth, (req, res) => {
   db.ContentCreator.findById(req.user.id)
     .select("-password")
@@ -92,6 +88,7 @@ router.put("/api/users/:id", (req, res) => {
 });
 
 router.post("/api/kits/:id", (req, res) => {
+  // console.log(req.body);
   db.Kit.create(req.body)
     .then((item) =>
       db.ContentCreator.findOneAndUpdate(
@@ -144,6 +141,15 @@ router.put("/api/kits/:id", (req, res) => {
     });
 });
 
+router.put("/api/vidtokit/:id", (req, res) => {
+  console.log(req.body);
+  db.Kit.findByIdAndUpdate(req.params.id, {
+    $push: { videoUrl: req.body },
+  })
+    .then((kit) => res.json(kit))
+    .catch((err) => res.status(400).json(err));
+});
+
 router.put("/api/kits/uniquevisits/:id", (req, res) => {
   db.Kit.findByIdAndUpdate(req.params.id, { $inc: { uniqueVisits: 1 } })
     .then((kit) => {
@@ -186,6 +192,28 @@ router.put("/api/users/videouploads/:id", (req, res) => {
   )
     .then((updatedUser) => {
       res.json(updatedUser);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+router.put("/api/picuploads/:id", (req, res) => {
+  console.log("new one");
+  console.log(req.body);
+  db.Kit.updateOne(
+    {
+      _id: req.params.id,
+    },
+    {
+      $push: {
+        imageUrl: req.body,
+      },
+    },
+    { new: true }
+  )
+    .then((updatedKit) => {
+      res.json(updatedKit);
     })
     .catch((err) => {
       res.status(400).json(err);

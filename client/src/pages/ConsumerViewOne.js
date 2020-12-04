@@ -73,7 +73,7 @@ const ConsumerViewOne = () => {
       {update ? (
         <UpdateKit
           src={kit.imageUrl}
-          key={kit.imageUrl}
+          key={kit.imageUrl.url}
           info={kit}
           onClickUpdate={onClickUpdate}
           handleInputChange={handleInputChange}
