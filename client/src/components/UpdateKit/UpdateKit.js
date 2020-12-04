@@ -47,19 +47,14 @@ const UpdateKit = (props) => {
       setUploadedVidUrl({ url: imageUrl });
 
       setPutUrl({ ...putUrl, videoUrl: imageUrl });
-      // axios
-      //   .put(`/api/vidtokit/${props.info._id}`, uploadedVidUrl)
-      //   .then((res) => console.log(res.data))
-      //   .catch((err) => console.log(err));
     });
   };
-  // console.log(kitId);
 
   const handleVideoUploadSubmit = (e) => {
     e.preventDefault();
     if (video.type === "video/mp4") {
       axios
-        .put(`/api/users/videouploads/${props.info._id}`, putUrl)
+        .put(`/api/users/videouploads/${props.info.creatorId}`, putUrl)
         .then((res) => {
           console.log(res);
           axios

@@ -160,19 +160,6 @@ const ContentCreatorUpload = (props) => {
 
   const handleKitToAddVidToChange = (e) => {
     setKitToAddVideoTo(e.value);
-    // console.log(e.value);
-    // axios
-    //   .put(`/api/users/videouploads/${id}`, putUrl)
-    //   .then((res) => {
-    //     // FIXME:
-    //     axios
-    //       .put(`/api/vidtokit/${kitToAddVideoTo}`, urlForVidToKit)
-    //       .then((response) => {
-    //         console.log(response.data);
-    //       })
-    //       .catch((err) => console.log(err));
-    //   })
-    //   .catch((err) => console.log(err));
   };
 
   const onChangeVideo = (e) => {
@@ -214,14 +201,6 @@ const ContentCreatorUpload = (props) => {
           .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
-
-    // axios
-    //   .put(`/api/users/videouploads/${id}`, putUrl)
-    //   .then((res) => {
-    //     console.log(res);
-    //     history.push("/videos");
-    //   })
-    //   .catch((err) => console.log(err));
   };
 
   useDidMountEffect(() => {
