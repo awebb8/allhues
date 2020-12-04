@@ -4,10 +4,10 @@ h2 {
 }
 
 .buttons {
-  border: 2px solid black;
+  border: 1px solid #b29fb5;
   background-color: #b29fb5;
   color: white;
-  box-shadow: 1px 1px #46483b;
+  /* box-shadow: 1px 1px #46483b; */
   border-radius: 5px;
   padding: 10px 15px;
   margin: 5px;
@@ -15,10 +15,12 @@ h2 {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  transition: 0.3s ease;
 }
 
 .buttons:hover {
   cursor: pointer;
+  background-color: #938396;
 }
 
 .modal-overlay {
@@ -57,7 +59,7 @@ h2 {
   width: 70%;
   height: 80%;
   border: 2px solid #b29fb5;
-  box-shadow: 1px 1px 1px black;
+  /* box-shadow: 1px 1px 1px black; */
   padding: 16px;
   left: 15%;
   top: 15%;
