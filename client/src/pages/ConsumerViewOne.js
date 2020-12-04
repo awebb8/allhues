@@ -30,9 +30,10 @@ const ConsumerViewOne = () => {
         .catch((err) => {
           console.log(err);
         });
-
+      // console.log(res.data);
       API.getPopulatedUsers(res.data.creatorId).then((res) => {
         // console.log("This is the res", res.data);
+
         setKitCreatorInfo({
           image: res.data[0].image,
           username: res.data[0].userName,
@@ -73,7 +74,7 @@ const ConsumerViewOne = () => {
       {update ? (
         <UpdateKit
           src={kit.imageUrl}
-          key={kit.imageUrl.url}
+          key={kit._id}
           info={kit}
           onClickUpdate={onClickUpdate}
           handleInputChange={handleInputChange}
@@ -83,7 +84,7 @@ const ConsumerViewOne = () => {
         <div>
           <Kit
             src={kit.imageUrl}
-            key={kit.imageUrl}
+            key={kit._id}
             info={kit}
             onClickDelete={onClickDelete}
             onClickUpdate={onClickUpdate}

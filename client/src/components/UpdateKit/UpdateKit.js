@@ -147,7 +147,9 @@ const UpdateKit = (props) => {
               <div className="row">
                 <div className="col-sm-6 offset-sm-3">
                   {/* <h1 className="mb-3 mt-3 text-center">Create a Kit</h1> */}
-                  <h2 className="text-center mb-3 mt-3">Upload a Video</h2>
+                  <h2 className="text-center mb-3 mt-3">
+                    Upload Image or video
+                  </h2>
 
                   <br />
                   <form style={{ margin: "auto" }}>
@@ -181,13 +183,18 @@ const UpdateKit = (props) => {
                               type="file"
                               id="kitImageInput"
                               // className="custom-file-input"
+                              // accept="image/* || video/*"
                               hidden
                               onChange={onChangeVideo}
                             />
                           </label>
                         )}
 
-                        <p>{video ? video.name : "Select a video file.."}</p>
+                        <p>
+                          {video
+                            ? video.name.substr(0, 15) + "..."
+                            : "Select a file.."}
+                        </p>
                       </div>
                     </div>
                     {/* <input type="file" onChange={onChangeVideo} /> */}

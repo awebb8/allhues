@@ -111,6 +111,7 @@ const ProfileCard = (props) => {
   });
   const [alrdyFollowed, setAlrdyFollowed] = useState(false);
   const [numberOfFollowers, setNumberOfFollowers] = useState(0);
+  const [affilLinkClicks, setAffilLinkClicks] = useState(0);
   // const [clickedInfo, setClickedInfo] = useState("");
 
   // const { role } = useContext(RoleContext);
@@ -130,14 +131,16 @@ const ProfileCard = (props) => {
     }
   }, [uploadedImage]);
 
-  const showPersonsFollowerNumber = (iterVal) => {
-    if (id != props.userProfileInfo._id) {
-      let me = iterVal.filter((t) => t._id === props.userProfileInfo._id);
-      // console.log(me);
-      setNumberOfFollowers(me[0].followers.length);
-    }
-  };
+  //TODO: don't think we need this cuz of what we have in props
+  // const showPersonsFollowerNumber = (iterVal) => {
+  //   if (id != props.userProfileInfo._id) {
+  //     let me = iterVal.filter((t) => t._id === props.userProfileInfo._id);
+  //     // console.log(me);
+  //     setNumberOfFollowers(me[0].followers.length);
+  //   }
+  // };
 
+  // TODO: might not need this or the below api call due to props info
   const showMyFollowerNumberAndDisableBtnIfFollowed = (iterVal) => {
     for (let i = 0; i < iterVal.length; i++) {
       if (iterVal[i]._id == id) {
@@ -161,17 +164,31 @@ const ProfileCard = (props) => {
     setImage(props.userProfileInfo.image);
     setUsersName(props.userProfileInfo.name);
     setFollowInfo({ ...followInfo, id: props.userProfileInfo._id });
+
+    setNumberOfFollowers(props.userProfileInfo.followers.length);
+
     //Crappy api route name but jsut gets all contentCreators
     API.getAllUsers()
       .then((res) => {
         let iterVal = res.data;
 
-        showPersonsFollowerNumber(iterVal);
+        // showPersonsFollowerNumber(iterVal);
 
         showMyFollowerNumberAndDisableBtnIfFollowed(iterVal);
       })
       .catch((err) => console.log(err));
   }, [props.userProfileInfo]);
+
+  useDidMountEffect(() => {
+    const urKits = props.yourKits;
+    let numbba = 0;
+    for (let i = 0; i < urKits.length; i++) {
+      for (let j = 0; j < urKits[i].kitItems.length; j++) {
+        numbba = numbba + urKits[i].kitItems[j].linkClicks;
+      }
+    }
+    setAffilLinkClicks(numbba);
+  }, [props.yourKits]);
 
   const onSubmit = async () => {
     const formData = new FormData();
@@ -400,6 +417,10 @@ const ProfileCard = (props) => {
                     </li>
                   </Link>
                 )}
+                <li>
+                  <strong>{affilLinkClicks}</strong>
+                  Affiliate Link Clicks
+                </li>
 
                 <li>
                   <strong>{props.yourKits ? props.yourKits.length : 0}</strong>
