@@ -14,7 +14,6 @@ const Kit = (props) => {
   const { id } = useContext(UserContext);
 
   const handleImgClick = () => {
-    // window.location.href = props.src;
     window.open(props.src, '_blank')
   };
 

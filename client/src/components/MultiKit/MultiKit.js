@@ -243,6 +243,7 @@ const MultiKit = (props) => {
           }}
         >
           <i className="ph-eye pr-1"></i>
+          {props.info.uniqueVisits}
         </div>
       </div>
     </div>
