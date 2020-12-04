@@ -62,9 +62,6 @@ const ContentCreatorUpload = (props) => {
   // useEffect
   useEffect(() => {
     setKit({ ...kit, creatorId: id });
-  }, [id]);
-
-  useDidMountEffect(() => {
     API.getKits().then((res) => {
       console.log(res.data);
       const minesies = res.data.filter((i) => i.creatorId === id);
