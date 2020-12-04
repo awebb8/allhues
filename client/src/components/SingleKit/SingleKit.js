@@ -53,7 +53,30 @@ const Kit = (props) => {
           </div>
         </div>
         <div className="card card-viewone">
-          <img
+          {typeof props.src[0] === "object" ? (
+            <img
+              src={props.src[0].url}
+              style={{ cursor: "pointer" }}
+              alt="Makeup Kit"
+              className="card-img-top crop"
+              alt="Makeup Kit"
+              onClick={handleImgClick}
+            />
+          ) : (
+            <img
+              src={
+                props.src === undefined || props.src === ""
+                  ? "http://via.placeholder.com/200"
+                  : props.src
+              }
+              style={{ cursor: "pointer" }}
+              alt="Makeup Kit"
+              className="card-img-top crop"
+              alt="Makeup Kit"
+              onClick={handleImgClick}
+            />
+          )}
+          {/* <img
             style={{ cursor: "pointer" }}
             src={
               props.src === undefined
@@ -63,7 +86,7 @@ const Kit = (props) => {
             className="card-img-top crop"
             alt="Makeup Kit"
             onClick={handleImgClick}
-          />
+          /> */}
           <div className="card-body">
             <h5 className="card-title" style={{ textAlign: "center" }}>
               {props.info.kitName ? props.info.kitName : ""}
@@ -157,7 +180,28 @@ const Kit = (props) => {
         </div>
       </div>
       <div className="card">
-        <img
+        {props.src && typeof props.src[0] === "object" ? (
+          <img
+            style={{ cursor: "pointer" }}
+            src={props.src[0].url}
+            className="card-img-top"
+            alt="Makeup Kit"
+            onClick={handleImgClick}
+          />
+        ) : (
+          <img
+            style={{ cursor: "pointer" }}
+            src={
+              props.src === undefined || props.src === ""
+                ? "http://via.placeholder.com/200"
+                : props.src
+            }
+            className="card-img-top"
+            alt="Makeup Kit"
+            onClick={handleImgClick}
+          />
+        )}
+        {/* <img
           style={{ cursor: "pointer" }}
           src={
             props.src === undefined
@@ -167,7 +211,7 @@ const Kit = (props) => {
           className="card-img-top"
           alt="Makeup Kit"
           onClick={handleImgClick}
-        />
+        /> */}
         <div className="card-body">
           <h5 className="card-title" style={{ textAlign: "center" }}>
             {props.info.kitName ? props.info.kitName : ""}

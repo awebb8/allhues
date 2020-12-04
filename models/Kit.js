@@ -19,9 +19,14 @@ const KitSchema = new Schema({
   creatorId: {
     type: String,
   },
-  imageUrl: {
-    type: String,
-  },
+  // imageUrl: {
+  //   type: String,
+  // },
+  imageUrl: [Object],
+  // videoUrl: {
+  //   type: String,
+  // },
+  videoUrl: [Object],
   kitItems: [
     {
       affiliateLink: {
