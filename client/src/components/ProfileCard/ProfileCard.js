@@ -9,9 +9,8 @@ import useDidMountEffect from "../../utils/useDidMountEffect";
 import FollowMulti from "../FollowMulti/FollowMulti";
 
 // Import Modal for the Followers Modal
-import Modal from 'react-modal';
+import Modal from "react-modal";
 Modal.setAppElement("#root");
-
 
 const ProfileCard = (props) => {
   const history = useHistory();
@@ -22,10 +21,10 @@ const ProfileCard = (props) => {
     setModalIsOpen(false);
   };
   const handleFollowersBtnClick = () => {
-      setModalIsOpen(true);
+    setModalIsOpen(true);
   };
 
-// ---------- Followers Modal content ----------
+  // ---------- Followers Modal content ----------
   const [allPeople, setAllPeople] = useState([]);
   const [peopleFollowing, setPeopleFollowing] = useState([]);
   const [followerInfo, setFollowerInfo] = useState([]);
@@ -59,9 +58,9 @@ const ProfileCard = (props) => {
   }, [peopleFollowing]);
 
   const handleProfileChange = (i) => {
-  history.push(`/portal/${id}`);
-  // console.log(followerInfo);
-  }
+    history.push(`/portal/${id}`);
+    // console.log(followerInfo);
+  };
   // ---------------------------------------------
 
   // ---------- Following Modal content ----------
@@ -215,7 +214,6 @@ const ProfileCard = (props) => {
     const payload = {
       id,
     };
-
     axios
       .put(`/api/follow/${id}`, followInfo)
       .then((res) => {})
@@ -224,6 +222,27 @@ const ProfileCard = (props) => {
       });
     axios
       .put(`/api/followers/${followInfo.id}`, payload)
+      .then((res) => {})
+      .catch((err) => console.log(err));
+  };
+
+  const handleUnfollowClick = () => {
+    // const alrdyFollowed
+    setAlrdyFollowed(false);
+    let numb = numberOfFollowers;
+
+    setNumberOfFollowers(numb - 1);
+    const payload = {
+      id,
+    };
+    axios
+      .put(`/api/unfollow/${id}`, followInfo)
+      .then((res) => {})
+      .catch((err) => {
+        console.log(err);
+      });
+    axios
+      .put(`/api/unfollowers/${followInfo.id}`, payload)
       .then((res) => {})
       .catch((err) => console.log(err));
   };
@@ -248,12 +267,12 @@ const ProfileCard = (props) => {
               <div className="profile-cover__action bg--img" data-overlay="0.3">
                 {alrdyFollowed || !id ? (
                   <button
-                    onClick={handleFollowClick}
+                    onClick={handleUnfollowClick}
                     className="btn btn-rounded btn-info"
-                    disabled
+                    // disabled
                   >
-                    <i className="fa fa-plus"></i>
-                    <span>Follow</span>
+                    <i className="fa fa-minus"></i>
+                    <span>Unfollow</span>
                   </button>
                 ) : (
                   <button
@@ -369,8 +388,7 @@ const ProfileCard = (props) => {
                 {props.userProfileInfo.role == "Content Creator" ? (
                   <li>
                     <strong>{numberOfFollowers}</strong>
-                    <a
-                      onClick={handleFollowersBtnClick}>
+                    <a onClick={handleFollowersBtnClick}>
                       <span>Followers</span>
                     </a>
                   </li>
@@ -405,49 +423,48 @@ const ProfileCard = (props) => {
           <h2>Followers</h2>
           <hr />
           <form>
-  
-    {/* Show followers */}
-    <div>
-      {followerInfo.map((i) => (
-        <div className="container" key={i._id}>
-          <p>
-            <a 
-            id = {i._id}
-            onClick = {handleProfileChange}>
-              {i.name}</a>
-            <br/>
-            {i.userName}
-          </p>
-          {/* <p>{i.kits[0].kitName}</p> */}
+            {/* Show followers */}
+            <div>
+              {followerInfo.map((i) => (
+                <div className="container" key={i._id}>
+                  <p>
+                    <a id={i._id} onClick={handleProfileChange}>
+                      {i.name}
+                    </a>
+                    <br />
+                    {i.userName}
+                  </p>
+                  {/* <p>{i.kits[0].kitName}</p> */}
 
-          {/* {i.kits.map((j) => (
+                  {/* {i.kits.map((j) => (
             <FollowMulti key={j._id} info={j} />
           ))} */}
-          <br />
-        </div>
-      ))}
-    </div>
-    <hr />
+                  <br />
+                </div>
+              ))}
+            </div>
+            <hr />
 
-    <h2>Following</h2>
-    <hr />
-    {/* Show following */}
-    <div>
-      {followedInfo.map((i) => (
-        <div className="container" key={i._id}>
-          <p>{i.name}
-            <br/>
-            {i.userName}
-          </p>
-          {/* <p>{i.kits[0].kitName}</p> */}
+            <h2>Following</h2>
+            <hr />
+            {/* Show following */}
+            <div>
+              {followedInfo.map((i) => (
+                <div className="container" key={i._id}>
+                  <p>
+                    {i.name}
+                    <br />
+                    {i.userName}
+                  </p>
+                  {/* <p>{i.kits[0].kitName}</p> */}
 
-          {/* {i.kits.map((j) => (
+                  {/* {i.kits.map((j) => (
             <FollowMulti key={j._id} info={j} />
           ))} */}
-          <br />
-        </div>
-      ))}
-    </div>
+                  <br />
+                </div>
+              ))}
+            </div>
 
             <button
               className="buttons shadow-none py-0 px-2 text-muted"
@@ -463,7 +480,6 @@ const ProfileCard = (props) => {
             >
               <h3>&times;</h3>
             </button>
-            
           </form>
         </div>
       </Modal>
