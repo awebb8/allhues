@@ -356,9 +356,9 @@ const ProfileCard = (props) => {
                   hidden
                 />
                 <img
-                  className="crop"
+                  className="crop-profile"
                   src={image}
-                  alt="placeholder image"
+                  alt="user's profile picture"
                   style={{ cursor: "pointer" }}
                 />
               </label>

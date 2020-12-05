@@ -32,10 +32,15 @@
 }
 
 .profile-cover__action > .btn {
-	border: 2px solid black;
+	border: 1px solid #b29fb5;
 	background-color:  #b29fb5;
 	margin-left: 10px;
 	margin-bottom: 10px;
+}
+
+.profile-cover__action > .btn:hover {
+	border: 1px solid #968699;
+	background-color: #968699;
 }
 
 .profile-cover__img {
