@@ -2,7 +2,8 @@ import Axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../utils/UserContext";
-import Select from "react-select";
+// import Select from "react-select";
+import { Link } from "react-router-dom";
 
 const SendMessage = (props) => {
   const [messageText, setMessageText] = useState({
@@ -59,7 +60,7 @@ const SendMessage = (props) => {
     // console.log(whoToMsgInput);
     Axios.get(`/api/finduser/${msgRecip.userName}`, msgRecip)
       .then((res) => {
-        setFoundUsers(res.data);
+        setFoundUsers((foundUsers) => [...foundUsers, res.data]);
       })
       .catch((err) => console.log(err));
     setSearchResModal(true);
@@ -85,36 +86,26 @@ const SendMessage = (props) => {
       >
         <h3>Select who to message:</h3>
         <br />
-        {foundUsers.length > 1 ? (
+        {foundUsers[0] != null ? (
           foundUsers.map((i) => (
-            <>
-              <h5
-                data={i._id}
-                style={{
-                  cursor: "pointer",
-                  color: "#b29fb5",
-                  //   transform: "transition(1.02)",
-                }}
-                onClick={handleUserClick}
-              >
-                {i.name}
-              </h5>
-              {/* <p>{i.userName}</p> */}
-            </>
+            <h5
+              onClick={handleUserClick}
+              style={{ cursor: "pointer" }}
+              data={i._id}
+            >
+              {i.userName}
+            </h5>
           ))
         ) : (
           <>
-            {/* <div></div> */}
-            <h5
-              data={foundUsers._id}
-              style={{ cursor: "pointer", color: "#b29fb5" }}
-              onClick={handleUserClick}
+            <h5>No users match that name</h5>
+
+            <button
+              className="buttons"
+              onClick={() => setSearchResModal(false)}
             >
-              {foundUsers.name}
-            </h5>
-            {/* <p style={{ cursor: "pointer" }} onClick={handleUserClick}>
-              {foundUsers.userName}
-            </p> */}
+              <i className="fas fa-step-backward"></i>
+            </button>
           </>
         )}
       </div>
