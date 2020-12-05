@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 const SendMessage = (props) => {
   const [messageText, setMessageText] = useState({
+    id: "",
     subject: "",
     message: "",
   });
@@ -21,6 +22,10 @@ const SendMessage = (props) => {
 
   const { id } = useContext(UserContext);
   const history = useHistory();
+
+  useEffect(() => {
+    setMessageText({ ...messageText, id: id });
+  }, [id]);
 
   useEffect(() => {
     if (props && props.location && props.location.state) {
