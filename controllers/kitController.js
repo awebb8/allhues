@@ -308,4 +308,56 @@ router.put("/api/unfollowers/:id", (req, res) => {
     });
 });
 
+router.put("/api/sentmessage/:id", (req, res) => {
+  // console.log(req.body);
+  db.ContentCreator.updateOne(
+    {
+      _id: req.params.id,
+    },
+    {
+      $push: {
+        sentMessages: req.body,
+      },
+      // $push: req.body,
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+router.put("/api/yourmessages/:id", (req, res) => {
+  // console.log(req.body);
+  db.ContentCreator.updateOne(
+    {
+      _id: req.params.id,
+    },
+    {
+      $push: {
+        receivedMessages: req.body,
+      },
+      // $push: req.body,
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+router.get("/api/finduser/:name", (req, res) => {
+  db.ContentCreator.findOne({ userName: req.params.name })
+    .then((found) => {
+      res.json(found);
+    })
+    .catch((err) => console.log(err));
+});
+
 module.exports = router;

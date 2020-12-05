@@ -34,20 +34,25 @@ const Navbar = () => {
                 View Kits<span className="sr-only">(current)</span>
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link to="/videos" className="nav-link">
                 Video Guides<span className="sr-only">(current)</span>
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item">
               <Link to="/favorites" className="nav-link">
                 Favorites<span className="sr-only">(current)</span>
               </Link>
             </li>
             <li className="nav-item">
-              <a href={`/portal/${id}`} className="nav-link">
+              <Link to={`/portal/${id}`} className="nav-link">
                 Profile<span className="sr-only">(current)</span>
-              </a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={`/messages`} className="nav-link">
+                Messages<span className="sr-only">(current)</span>
+              </Link>
             </li>
             <li className="nav-item">
               <div className="nav-link">
@@ -87,11 +92,11 @@ const Navbar = () => {
                 View Kits<span className="sr-only">(current)</span>
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link to="/videos" className="nav-link">
                 Video Guides<span className="sr-only">(current)</span>
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item">
               <Link to="/signup" className="nav-link">
                 Signup
@@ -131,11 +136,11 @@ const Navbar = () => {
               View Kits<span className="sr-only">(current)</span>
             </Link>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link to="/videos" className="nav-link">
               Video Uploads<span className="sr-only">(current)</span>
             </Link>
-          </li>
+          </li> */}
           <li className="nav-item">
             <Link to="/favorites" className="nav-link">
               Favorites<span className="sr-only">(current)</span>
@@ -148,9 +153,14 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <a href={`/portal/${id}`} className="nav-link">
+            <Link to={`/portal/${id}`} className="nav-link">
               Profile<span className="sr-only">(current)</span>
-            </a>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={`/messages`} className="nav-link">
+              Messages<span className="sr-only">(current)</span>
+            </Link>
           </li>
           <li className="nav-item">
             <div className="nav-link">

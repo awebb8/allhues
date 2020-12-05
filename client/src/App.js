@@ -12,11 +12,13 @@ import FollowingPage from "./pages/FollowingPage";
 import ConsumerViewAll from "./pages/ConsumerViewAll";
 import ConsumerViewOne from "./pages/ConsumerViewOne";
 import ViewAllVideos from "./pages/ViewAllVideos";
+import SendMessage from "./pages/SendMessage";
 import Navbar from "./components/Navbar/Navbar";
 import FavoritesPage from "./pages/FavoritesPage";
 import Signup from "./components/Authentication/Signup";
 import Login from "./components/Authentication/Login";
 import JsonWebToken from "jsonwebtoken";
+import YourMessages from "./pages/YourMessages";
 
 function App() {
   const [jwt, setJwt] = useState("");
@@ -72,6 +74,13 @@ function App() {
                   exact
                   path="/following"
                   component={FollowingPage}
+                ></Route>
+                <Route exact path="/newmessage" component={SendMessage}></Route>
+                <Route
+                  exact
+                  path="/messages"
+                  // key={Math.floor(Math.random() * 10000 + 1)}
+                  component={YourMessages}
                 ></Route>
                 <Route
                   exact

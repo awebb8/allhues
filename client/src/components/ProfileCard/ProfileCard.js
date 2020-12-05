@@ -264,6 +264,8 @@ const ProfileCard = (props) => {
       .catch((err) => console.log(err));
   };
 
+  // const handleMessageBtnClick = () => {};
+
   if (id !== props.userProfileInfo._id) {
     return (
       <>
@@ -308,9 +310,19 @@ const ProfileCard = (props) => {
                     <span>Message</span>
                   </button>
                 ) : (
-                  <button className="btn btn-rounded btn-info">
+                  <button
+                    className="btn btn-rounded btn-info"
+                    // onClick={handleMessageBtnClick}
+                  >
                     <i className="fa fa-comment"></i>
-                    <span>Message</span>
+                    <Link
+                      to={{
+                        pathname: "/newmessage",
+                        state: { id: props.userProfileInfo._id },
+                      }}
+                    >
+                      <span style={{ color: "white" }}>Message</span>
+                    </Link>
                   </button>
                 )}
               </div>
