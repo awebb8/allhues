@@ -381,6 +381,20 @@ const ProfileCard = (props) => {
             <div className="profile-cover__action bg--img" data-overlay="0.3">
               {props.userProfileInfo.role === "Consumer" ? (
                 <>
+                  <button
+                    onClick={handleFollowClick}
+                    className="btn btn-rounded btn-info"
+                    // disabled
+                  >
+                    <Link to="/messages">
+                      <i
+                        style={{ color: "white" }}
+                        className="fas fa-inbox"
+                      ></i>
+                      <span style={{ color: "white" }}>Messages</span>
+                    </Link>
+                  </button>
+
                   <br />
                   <br />
                 </>

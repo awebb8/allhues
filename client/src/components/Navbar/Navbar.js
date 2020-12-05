@@ -49,11 +49,11 @@ const Navbar = () => {
                 Profile<span className="sr-only">(current)</span>
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link to={`/messages`} className="nav-link">
                 Messages<span className="sr-only">(current)</span>
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item">
               <div className="nav-link">
                 <Logout />
@@ -157,11 +157,11 @@ const Navbar = () => {
               Profile<span className="sr-only">(current)</span>
             </Link>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link to={`/messages`} className="nav-link">
               Messages<span className="sr-only">(current)</span>
             </Link>
-          </li>
+          </li> */}
           <li className="nav-item">
             <div className="nav-link">
               <Logout />
