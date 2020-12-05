@@ -55,9 +55,9 @@ const FavoritesPage = () => {
   if (favorites.length === 0) {
     return (
       <>
-        <h4>You don't have any favorites yet..</h4>
+        <h1 className="mt-4">You don't have any favorites yet..</h1>
         <Link to="/viewall">
-          <h4>View all kits?</h4>
+          <h4 style={{ color: "grey" }}>Click here to view all kits</h4>
         </Link>
       </>
     );
@@ -67,7 +67,20 @@ const FavoritesPage = () => {
     <div>
       <div className="container-fluid">
         <div className="row row-cols-1 row-cols-md-3">
-          {favoriteKits.map((i) => (
+          {favoriteKits
+            .filter((kit) => favorites.includes(kit._id))
+            .map((i) => (
+              <MultiKit
+                setFavorites={setFavorites}
+                favorites={favorites}
+                key={i._id}
+                src={i.imageUrl}
+                filledHeart={i._id}
+                class={i._id}
+                info={i}
+              />
+            ))}
+          {/* {favoriteKits.map((i) => (
             <MultiKit
               setFavorites={setFavorites}
               favorites={favorites}
@@ -77,7 +90,7 @@ const FavoritesPage = () => {
               class={i._id}
               info={i}
             />
-          ))}
+          ))} */}
         </div>
       </div>
     </div>
