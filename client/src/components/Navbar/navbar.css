@@ -22,6 +22,11 @@ nav li {
     color: white!important;
 }
 
+.nav-link:hover {
+	color: white!important;
+	text-decoration: none;
+}
+
 @media (min-width: 992px) {
     nav {
         max-height: 72px;

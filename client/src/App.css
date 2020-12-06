@@ -10,7 +10,7 @@ a {
 }
 
 a:hover {
-	color: white!important;
+	color: inherit;
 	text-decoration: none;
 }
 
