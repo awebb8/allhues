@@ -58,9 +58,8 @@ const ProfileCard = (props) => {
     // console.log(arr);
   }, [peopleFollowing]);
 
-  const handleProfileChange = (i) => {
-    history.push(`/portal/${id}`);
-    // console.log(followerInfo);
+  const handleProfileChange = (e) => {
+    window.location.href = `/portal/${e.target.id}`;
   };
   // ---------------------------------------------
 
@@ -492,30 +491,38 @@ const ProfileCard = (props) => {
           {followerDisplayState === "Followers" ? (
             <div>
               {followerInfo.map((i) => (
-                <div className="container" key={i._id}>
-                  <p>
-                    <a id={i._id} onClick={handleProfileChange}>
-                      {i.name}
-                    </a>
-                    <br />
-                    {i.userName}
-                  </p>
-
-                  <br />
+                <div className="container" key={i._id} style={{marginBottom: 8, display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+                  <div>
+                    <img src={i.image} style={{width: 40, height: 40, borderRadius: 20}}/>
+                  </div>
+                  <div style={{paddingLeft: 10}}>
+                    <p>
+                      <a id={i._id} onClick={(e) => handleProfileChange(e)} style={{fontWeight: 600, cursor: 'pointer'}}>
+                        {i.name}
+                      </a>
+                      <br />
+                      {i.userName}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
           ) : (
             <div>
               {followedInfo.map((i) => (
-                <div className="container" key={i._id}>
-                  <p>
-                    {i.name}
-                    <br />
-                    {i.userName}
-                  </p>
-
-                  <br />
+                <div className="container" key={i._id} style={{marginBottom: 8, display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+                  <div>
+                    <img src={i.image} style={{width: 40, height: 40, borderRadius: 20}}/>
+                  </div>
+                  <div style={{paddingLeft: 10}}>
+                    <p>
+                      <a id={i._id} onClick={(e) => handleProfileChange(e)} style={{fontWeight: 600, cursor: 'pointer'}}>
+                        {i.name}
+                      </a>
+                      <br />
+                      {i.userName}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
