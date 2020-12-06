@@ -40,7 +40,9 @@ const ProfileCard = (props) => {
 
   useDidMountEffect(() => {
     let arr = allPeople.filter((i) => i._id === id);
-    setPeopleFollowing(arr[0].followers);
+    if (arr && arr[0] && arr[0].followers != undefined) {
+      setPeopleFollowing(arr[0].followers);
+    }
   }, [allPeople]);
 
   useDidMountEffect(() => {
@@ -68,33 +70,6 @@ const ProfileCard = (props) => {
   const [pplFollowed, setPplFollowed] = useState([]);
   const [followedInfo, setFollowedInfo] = useState([]);
 
-  useEffect(() => {
-    API.getAllUsers()
-      .then((res) => {
-        setAllPpl(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-  useDidMountEffect(() => {
-    let arr = allPpl.filter((i) => i._id === id);
-    setPplFollowed(arr[0].following);
-  }, [allPpl]);
-
-  useDidMountEffect(() => {
-    // let arr =allPpl.filter(i=>i._id )
-    let arr = [];
-    for (let i = 0; i < allPpl.length; i++) {
-      for (let k = 0; k < pplFollowed.length; k++) {
-        if (allPpl[i]._id === pplFollowed[k].id) {
-          //   console.log("mathc");
-          arr.push(allPpl[i]);
-        }
-      }
-    }
-    setFollowedInfo(arr);
-    // console.log(arr);
-  }, [pplFollowed]);
   // ---------------------------------------------
 
   let totalKitViews = 0;

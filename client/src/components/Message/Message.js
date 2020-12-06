@@ -16,29 +16,41 @@ const Message = (props) => {
         <p style={{ display: "inline" }}>Message: </p>
         {props.info.message}
       </p>
-      <Link
-        to={{
-          pathname: "/newmessage",
-          state: { id: props.info.senderId },
-        }}
-      >
+      {props.info.senderId ? (
+        <>
+          <Link
+            to={{
+              pathname: "/newmessage",
+              state: { id: props.info.senderId },
+            }}
+          >
+            <button
+              style={{ margin: "auto", float: "left" }}
+              // data={props.info.senderId}
+              className="buttons"
+            >
+              <i class="fas fa-reply"></i>
+            </button>
+          </Link>
+          <button
+            style={{ margin: "auto", float: "right" }}
+            className="buttons"
+            data={props.info._id}
+            onClick={props.handleDeleteClick}
+          >
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </>
+      ) : (
         <button
-          style={{ margin: "auto", float: "left" }}
-          // data={props.info.senderId}
+          style={{ margin: "auto", float: "right" }}
           className="buttons"
+          data={props.info._id}
+          onClick={props.handleDeleteClick}
         >
-          Reply
+          <i class="fas fa-trash-alt"></i>
         </button>
-      </Link>
-
-      <button
-        style={{ margin: "auto", float: "right" }}
-        className="buttons"
-        data={props.info._id}
-        onClick={props.handleDeleteClick}
-      >
-        Delete
-      </button>
+      )}
     </div>
   );
 };
