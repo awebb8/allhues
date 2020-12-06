@@ -96,7 +96,7 @@ const YourMessages = () => {
                   key={i._id}
                   info={i}
                   handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
-                  handleReplyClick={(e) => handleReplyClick(e)}
+                  // handleReplyClick={(e) => handleReplyClick(e)}
                 />
               ))}
           </div>
@@ -104,8 +104,8 @@ const YourMessages = () => {
       </>
     );
   } else if (
-    (yourMsgs != undefined && sentMsgs != undefined && yourMsgs.length > 0) ||
-    sentMsgs.length > 0
+    (yourMsgs != undefined && yourMsgs.length > 0) ||
+    (sentMsgs != undefined && sentMsgs.length > 0)
   ) {
     return (
       <>
