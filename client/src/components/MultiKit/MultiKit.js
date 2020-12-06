@@ -114,49 +114,6 @@ const MultiKit = (props) => {
         onClick={(e) => handleSingleKitClick(e)}
         style={{ cursor: "pointer" }}
       >
-        {/* {props.info.videoUrls.length > 0 ? (
-          <div
-            id="carouselExampleControls"
-            className="carousel slide"
-            data-ride="carousel"
-          >
-            <div className="carousel-inner">
-              <div class="carousel-item">
-                {/* <video width="400" height="280" controls>
-                  <source src={props.info.videoUrls[0].url} type="video/mp4" />
-                </video> */}
-        {/* <img src="https://loremflickr.com/320/240" />
-              </div>
-              <div class="carousel-item">
-                <img src="https://loremflickr.com/320/240" />
-              </div>
-            </div>
-            <a
-              className="carousel-control-prev"
-              href="#carouselExampleControls"
-              role="button"
-              data-slide="prev"
-            >
-              <span
-                className="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span className="sr-only">Previous</span>
-            </a>
-            <a
-              className="carousel-control-next"
-              href="#carouselExampleControls"
-              role="button"
-              data-slide="next"
-            >
-              <span
-                className="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span className="sr-only">Next</span>
-            </a>
-          </div>
-        ) : ( */}
         {typeof props.src[0] === "object" ? (
           <img
             src={props.src[0].url}

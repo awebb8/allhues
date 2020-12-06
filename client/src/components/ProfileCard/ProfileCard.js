@@ -39,11 +39,6 @@ const ProfileCard = (props) => {
   }, []);
 
   useDidMountEffect(() => {
-    let arr = allPeople.filter((i) => i._id === id);
-    setPeopleFollowing(arr[0].followers);
-  }, [allPeople]);
-
-  useDidMountEffect(() => {
     // let arr =allPeople.filter(i=>i._id )
     let arr = [];
     for (let i = 0; i < allPeople.length; i++) {
@@ -78,7 +73,9 @@ const ProfileCard = (props) => {
 
   useDidMountEffect(() => {
     let arr = allPpl.filter((i) => i._id === id);
-    setPplFollowed(arr[0].following);
+    if (arr[0] != undefined) {
+      setPeopleFollowing(arr[0].followers);
+    }
   }, [allPpl]);
 
   useDidMountEffect(() => {
@@ -264,6 +261,8 @@ const ProfileCard = (props) => {
       .catch((err) => console.log(err));
   };
 
+  // const handleMessageBtnClick = () => {};
+
   if (id !== props.userProfileInfo._id) {
     return (
       <>
@@ -308,9 +307,19 @@ const ProfileCard = (props) => {
                     <span>Message</span>
                   </button>
                 ) : (
-                  <button className="btn btn-rounded btn-info">
+                  <button
+                    className="btn btn-rounded btn-info"
+                    // onClick={handleMessageBtnClick}
+                  >
                     <i className="fa fa-comment"></i>
-                    <span>Message</span>
+                    <Link
+                      to={{
+                        pathname: "/newmessage",
+                        state: { id: props.userProfileInfo._id },
+                      }}
+                    >
+                      <span style={{ color: "white" }}>Message</span>
+                    </Link>
                   </button>
                 )}
               </div>
@@ -369,6 +378,20 @@ const ProfileCard = (props) => {
             <div className="profile-cover__action bg--img" data-overlay="0.3">
               {props.userProfileInfo.role === "Consumer" ? (
                 <>
+                  <button
+                    onClick={handleFollowClick}
+                    className="btn btn-rounded btn-info"
+                    // disabled
+                  >
+                    <Link to="/messages">
+                      <i
+                        style={{ color: "white" }}
+                        className="fas fa-inbox"
+                      ></i>
+                      <span style={{ color: "white" }}>Messages</span>
+                    </Link>
+                  </button>
+
                   <br />
                   <br />
                 </>
@@ -386,6 +409,14 @@ const ProfileCard = (props) => {
                     // onClick={handleVideoUploadClick}
                   >
                     {/* <input type="file" onChange={onChangeVideo} /> */}
+                    <Link to="/messages">
+                      <i
+                        style={{ color: "white" }}
+                        className="fas fa-inbox"
+                      ></i>
+
+                      <span style={{ color: "white" }}>Messages</span>
+                    </Link>
                     <Link
                       to={{
                         pathname: "/upload",

@@ -36,6 +36,10 @@ const contentCreatorSchema = new Schema({
     enum: ["Consumer", "Content Creator"],
     default: "Consumer",
   },
+  sentMessages: [{ type: Schema.Types.ObjectId, ref: "SentMessage" }],
+  // sentMessages: [Object],
+  // receivedMessages: [Object],
+  receivedMessages: [{ type: Schema.Types.ObjectId, ref: "ReceivedMessage" }],
   favorites: [{ type: Schema.Types.ObjectId, ref: "Kit" }],
   kits: [{ type: Schema.Types.ObjectId, ref: "Kit" }],
 });
