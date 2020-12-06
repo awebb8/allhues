@@ -39,6 +39,11 @@ const ProfileCard = (props) => {
   }, []);
 
   useDidMountEffect(() => {
+    let arr = allPeople.filter((i) => i._id === id);
+    setPeopleFollowing(arr[0].followers);
+  }, [allPeople]);
+
+  useDidMountEffect(() => {
     // let arr =allPeople.filter(i=>i._id )
     let arr = [];
     for (let i = 0; i < allPeople.length; i++) {
@@ -73,9 +78,7 @@ const ProfileCard = (props) => {
 
   useDidMountEffect(() => {
     let arr = allPpl.filter((i) => i._id === id);
-    if (arr[0] != undefined) {
-      setPeopleFollowing(arr[0].followers);
-    }
+    setPplFollowed(arr[0].following);
   }, [allPpl]);
 
   useDidMountEffect(() => {
@@ -261,8 +264,6 @@ const ProfileCard = (props) => {
       .catch((err) => console.log(err));
   };
 
-  // const handleMessageBtnClick = () => {};
-
   if (id !== props.userProfileInfo._id) {
     return (
       <>
@@ -378,20 +379,6 @@ const ProfileCard = (props) => {
             <div className="profile-cover__action bg--img" data-overlay="0.3">
               {props.userProfileInfo.role === "Consumer" ? (
                 <>
-                  <button
-                    onClick={handleFollowClick}
-                    className="btn btn-rounded btn-info"
-                    // disabled
-                  >
-                    <Link to="/messages">
-                      <i
-                        style={{ color: "white" }}
-                        className="fas fa-inbox"
-                      ></i>
-                      <span style={{ color: "white" }}>Messages</span>
-                    </Link>
-                  </button>
-
                   <br />
                   <br />
                 </>
@@ -409,14 +396,6 @@ const ProfileCard = (props) => {
                     // onClick={handleVideoUploadClick}
                   >
                     {/* <input type="file" onChange={onChangeVideo} /> */}
-                    <Link to="/messages">
-                      <i
-                        style={{ color: "white" }}
-                        className="fas fa-inbox"
-                      ></i>
-
-                      <span style={{ color: "white" }}>Messages</span>
-                    </Link>
                     <Link
                       to={{
                         pathname: "/upload",
@@ -500,7 +479,7 @@ const ProfileCard = (props) => {
               }
               onClick={() => setFollowerDisplayState("Followers")}
             >
-              Followers2
+              Followers
             </h5>
 
             <h5
@@ -522,13 +501,29 @@ const ProfileCard = (props) => {
           {followerDisplayState === "Followers" ? (
             <div>
               {followerInfo.map((i) => (
-                <div className="container" key={i._id} style={{marginBottom: 8, display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+                <div
+                  className="container"
+                  key={i._id}
+                  style={{
+                    marginBottom: 8,
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                  }}
+                >
                   <div>
-                    <img src={i.image} style={{width: 40, height: 40, borderRadius: 20}}/>
+                    <img
+                      src={i.image}
+                      style={{ width: 40, height: 40, borderRadius: 20 }}
+                    />
                   </div>
-                  <div style={{paddingLeft: 10}}>
+                  <div style={{ paddingLeft: 10 }}>
                     <p>
-                      <a id={i._id} onClick={(e) => handleProfileChange(e)} style={{fontWeight: 600, cursor: 'pointer'}}>
+                      <a
+                        id={i._id}
+                        onClick={(e) => handleProfileChange(e)}
+                        style={{ fontWeight: 600, cursor: "pointer" }}
+                      >
                         {i.name}
                       </a>
                       <br />
@@ -541,13 +536,29 @@ const ProfileCard = (props) => {
           ) : (
             <div>
               {followedInfo.map((i) => (
-                <div className="container" key={i._id} style={{marginBottom: 8, display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+                <div
+                  className="container"
+                  key={i._id}
+                  style={{
+                    marginBottom: 8,
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                  }}
+                >
                   <div>
-                    <img src={i.image} style={{width: 40, height: 40, borderRadius: 20}}/>
+                    <img
+                      src={i.image}
+                      style={{ width: 40, height: 40, borderRadius: 20 }}
+                    />
                   </div>
-                  <div style={{paddingLeft: 10}}>
+                  <div style={{ paddingLeft: 10 }}>
                     <p>
-                      <a id={i._id} onClick={(e) => handleProfileChange(e)} style={{fontWeight: 600, cursor: 'pointer'}}>
+                      <a
+                        id={i._id}
+                        onClick={(e) => handleProfileChange(e)}
+                        style={{ fontWeight: 600, cursor: "pointer" }}
+                      >
                         {i.name}
                       </a>
                       <br />
