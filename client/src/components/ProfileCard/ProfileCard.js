@@ -412,7 +412,7 @@ const ProfileCard = (props) => {
             </div>
             <div className="profile-cover__info">
               <ul className="nav">
-                {props.userProfileInfo.role == "Content Creator" ? (
+                
                   <li
                     style={{ cursor: "pointer" }}
                     onClick={handleFollowersBtnClick}
@@ -420,14 +420,7 @@ const ProfileCard = (props) => {
                     <strong>{numberOfFollowers}</strong>
                     <span>Followers</span>
                   </li>
-                ) : (
-                  <Link to="/following">
-                    <li>
-                      <strong>{props.userProfileInfo.following.length}</strong>
-                      Following
-                    </li>
-                  </Link>
-                )}
+
                 <li>
                   <strong>{affilLinkClicks}</strong>
                   Affiliate Link Clicks
