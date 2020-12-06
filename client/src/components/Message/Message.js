@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Message = (props) => {
   return (
@@ -15,13 +16,20 @@ const Message = (props) => {
         <p style={{ display: "inline" }}>Message: </p>
         {props.info.message}
       </p>
-      <button
-        style={{ margin: "auto", float: "left" }}
-        data={props.info._id}
-        className="buttons"
+      <Link
+        to={{
+          pathname: "/newmessage",
+          state: { id: props.info.senderId },
+        }}
       >
-        Reply
-      </button>
+        <button
+          style={{ margin: "auto", float: "left" }}
+          // data={props.info.senderId}
+          className="buttons"
+        >
+          Reply
+        </button>
+      </Link>
 
       <button
         style={{ margin: "auto", float: "right" }}

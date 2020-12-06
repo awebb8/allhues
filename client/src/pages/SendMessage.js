@@ -55,17 +55,6 @@ const SendMessage = (props) => {
           .catch((errors) => console.log(errors))
       )
       .catch((err) => console.log(err));
-    // Axios.put(`/api/yourmessages/${recipientId}`, messageText)
-    //   .then((res) => {
-    //     // console.log(res.data);
-    //     Axios.put(`/api/sentmessage/${id}`, messageText)
-    //       .then((response) => {
-    //         history.push("/messages");
-    //         // console.log(response.data);
-    //       })
-    //       .catch((errors) => console.log(errors));
-    //   })
-    //   .catch((err) => console.log(err));
   };
 
   const handleUsernameChangeInput = (e) => {
