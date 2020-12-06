@@ -500,7 +500,7 @@ const ProfileCard = (props) => {
               }
               onClick={() => setFollowerDisplayState("Followers")}
             >
-              Followers
+              Followers2
             </h5>
 
             <h5
