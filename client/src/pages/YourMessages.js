@@ -104,7 +104,7 @@ const YourMessages = () => {
       </>
     );
   } else if (
-    (yourMsgs != undefined && yourMsgs.length > 0) ||
+    (yourMsgs != undefined && sentMsgs != undefined && yourMsgs.length > 0) ||
     sentMsgs.length > 0
   ) {
     return (
