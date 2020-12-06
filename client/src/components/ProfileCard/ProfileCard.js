@@ -29,11 +29,34 @@ const ProfileCard = (props) => {
   const [peopleFollowing, setPeopleFollowing] = useState([]);
   const [followerInfo, setFollowerInfo] = useState([]);
   const [followerDisplayState, setFollowerDisplayState] = useState("Followers");
+  // ---------- Following Modal content ----------
+  const [allPpl, setAllPpl] = useState([]);
+  const [pplFollowed, setPplFollowed] = useState([]);
+  const [followedInfo, setFollowedInfo] = useState([]);
 
+  const [uploadedImage, setUploadedImage] = useState("");
+  const [image, setImage] = useState("");
+  const [usersName, setUsersName] = useState("");
+  const [followInfo, setFollowInfo] = useState({
+    id: props.userProfileInfo._id,
+  });
+  const [alrdyFollowed, setAlrdyFollowed] = useState(false);
+  const [numberOfFollowers, setNumberOfFollowers] = useState(0);
+  const [affilLinkClicks, setAffilLinkClicks] = useState(0);
+
+  // TODO: assess why there are 2
   useEffect(() => {
     API.getAllUsers()
       .then((res) => {
         setAllPeople(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    API.getAllUsers()
+      .then((res) => {
+        setAllPpl(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -60,17 +83,29 @@ const ProfileCard = (props) => {
     // console.log(arr);
   }, [peopleFollowing]);
 
+  useDidMountEffect(() => {
+    let arr = allPpl.filter((i) => i._id === id);
+    setPplFollowed(arr[0].following);
+  }, [allPpl]);
+
+  useDidMountEffect(() => {
+    // let arr =allPpl.filter(i=>i._id )
+    let arr = [];
+    for (let i = 0; i < allPpl.length; i++) {
+      for (let k = 0; k < pplFollowed.length; k++) {
+        if (allPpl[i]._id === pplFollowed[k].id) {
+          //   console.log("mathc");
+          arr.push(allPpl[i]);
+        }
+      }
+    }
+    setFollowedInfo(arr);
+    // console.log(arr);
+  }, [pplFollowed]);
+
   const handleProfileChange = (e) => {
     window.location.href = `/portal/${e.target.id}`;
   };
-  // ---------------------------------------------
-
-  // ---------- Following Modal content ----------
-  const [allPpl, setAllPpl] = useState([]);
-  const [pplFollowed, setPplFollowed] = useState([]);
-  const [followedInfo, setFollowedInfo] = useState([]);
-
-  // ---------------------------------------------
 
   let totalKitViews = 0;
 
@@ -78,15 +113,6 @@ const ProfileCard = (props) => {
     props.yourKits.forEach((kit) => (totalKitViews += kit.uniqueVisits));
   }
 
-  const [uploadedImage, setUploadedImage] = useState("");
-  const [image, setImage] = useState("");
-  const [usersName, setUsersName] = useState("");
-  const [followInfo, setFollowInfo] = useState({
-    id: props.userProfileInfo._id,
-  });
-  const [alrdyFollowed, setAlrdyFollowed] = useState(false);
-  const [numberOfFollowers, setNumberOfFollowers] = useState(0);
-  const [affilLinkClicks, setAffilLinkClicks] = useState(0);
   // const [clickedInfo, setClickedInfo] = useState("");
 
   // const { role } = useContext(RoleContext);
