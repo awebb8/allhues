@@ -8,13 +8,23 @@ a {
     color: #46483b;
 }
 
-a:hover {
-    color: #4181ad;
-    text-decoration: none;
-}
-
 nav li {
     display: inline;
     padding-right: 30px;
     color: white!important;
 }
+
+#navbarNav {
+    margin-left: 30px;
+}
+
+.nav-link-active {
+    color: white!important;
+}
+
+@media (min-width: 992px) {
+    nav {
+        max-height: 72px;
+    }
+  }
+

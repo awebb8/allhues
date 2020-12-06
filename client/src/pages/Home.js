@@ -150,8 +150,7 @@ const Home = (props) => {
       </Link>
 
       <p className="mt-3">
-        Click a hue above to filter by products that look great on your unique
-        skin.
+        Select a hue to filter by products that look great on your unique skin
       </p>
       <br />
       <hr />

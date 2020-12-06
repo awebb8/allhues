@@ -270,6 +270,31 @@ const ConsumerViewAll = (props) => {
     }
   };
 
+  const customStyles = {
+    control: (base, state) => ({
+      ...base,
+      border: '1px solid #CCCCCC',
+      boxShadow: 'none',
+      '&:hover': {
+        border: '1px solid #B2A0B4',
+    }
+
+    }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      return {
+        ...styles,
+        backgroundColor: isDisabled
+          ? null
+          : isSelected
+          ? '#B2A0B4'
+          : isFocused
+          ? 'rgb(207, 190, 209, 0.3)'
+          : null,
+      }}
+  };
+
+
+
   return (
     <div>
       <div
@@ -283,6 +308,7 @@ const ConsumerViewAll = (props) => {
               onChange={handleSortChange}
               placeholder="Sort by..."
               isClearable
+              styles={customStyles}
             />
           </div>
           <div className="col-sm-4">
@@ -292,6 +318,7 @@ const ConsumerViewAll = (props) => {
               placeholder="Filter by Product"
               isClearable
               isMulti
+              styles={customStyles}
             />
           </div>
           <div className="col-sm-4">
@@ -305,6 +332,7 @@ const ConsumerViewAll = (props) => {
               }
               placeholder="Filter by Hue"
               isClearable
+              styles={customStyles}
             />
           </div>
         </div>

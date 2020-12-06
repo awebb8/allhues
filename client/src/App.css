@@ -5,9 +5,13 @@ body {
   font-family: 'Nanum Gothic', sans-serif;
 }
 
+a {
+	transition: 0.3s ease-out;
+}
+
 a:hover {
-	color: rgb(75, 75, 75)!important;
-	font-weight: bold;
+	color: white!important;
+	text-decoration: none;
 }
 
 /* Kit cards */
