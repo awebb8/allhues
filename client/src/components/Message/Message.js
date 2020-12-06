@@ -2,18 +2,36 @@ import React from "react";
 
 const Message = (props) => {
   return (
-    <>
-      <p>{props.sentOrRec} Messages</p>
-      <li key={props.m._id}>
-        Subject: {props.m.subject}
-        <br />
-        <br />
-        <p style={{ borderBottom: "1px dotted black" }}>
-          Message: {props.m.message}
-        </p>
-        <br />
-      </li>
-    </>
+    <div
+      key={props.info.subject}
+      className="card"
+      style={{ textAlign: "left" }}
+    >
+      <h5>
+        <p style={{ display: "inline" }}>Subject: </p>
+        {props.info.subject}
+      </h5>
+      <p>
+        <p style={{ display: "inline" }}>Message: </p>
+        {props.info.message}
+      </p>
+      <button
+        style={{ margin: "auto", float: "left" }}
+        data={props.info._id}
+        className="buttons"
+      >
+        Reply
+      </button>
+
+      <button
+        style={{ margin: "auto", float: "right" }}
+        className="buttons"
+        data={props.info._id}
+        onClick={props.handleDeleteClick}
+      >
+        Delete
+      </button>
+    </div>
   );
 };
 

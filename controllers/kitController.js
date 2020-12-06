@@ -58,6 +58,20 @@ router.get("/api/users/:id", (req, res) => {
   db.ContentCreator.find({ _id: req.params.id })
     .populate("kits")
     .populate("favorites")
+    // .populate("sentMessages")
+    // .populate("receivedMessages")
+    .then((found) => {
+      res.json(found);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+router.get("/api/messages/:id", (req, res) => {
+  db.ContentCreator.find({ _id: req.params.id })
+    .populate("sentMessages")
+    .populate("receivedMessages")
     .then((found) => {
       res.json(found);
     })
@@ -199,8 +213,8 @@ router.put("/api/users/videouploads/:id", (req, res) => {
 });
 
 router.put("/api/picuploads/:id", (req, res) => {
-  console.log("new one");
-  console.log(req.body);
+  // console.log("new one");
+  // console.log(req.body);
   db.Kit.updateOne(
     {
       _id: req.params.id,
@@ -308,44 +322,56 @@ router.put("/api/unfollowers/:id", (req, res) => {
     });
 });
 
-router.put("/api/sentmessage/:id", (req, res) => {
+router.post("/api/sentmessage/:id", (req, res) => {
   // console.log(req.body);
-  db.ContentCreator.updateOne(
-    {
-      _id: req.params.id,
-    },
-    {
-      $push: {
-        sentMessages: req.body,
-      },
-      // $push: req.body,
-    },
-    { new: true }
-  )
-    .then((updatedUser) => {
-      res.json(updatedUser);
+  db.SentMessage.create(req.body)
+    .then((item) =>
+      db.ContentCreator.findOneAndUpdate(
+        { _id: req.params.id },
+        { $push: { sentMessages: item._id } },
+        { new: true }
+      )
+    )
+    .then((response) => {
+      res.json(response);
     })
     .catch((err) => {
       res.status(400).json(err);
     });
 });
 
-router.put("/api/yourmessages/:id", (req, res) => {
+router.post("/api/receivedmessage/:id", (req, res) => {
   // console.log(req.body);
-  db.ContentCreator.updateOne(
-    {
-      _id: req.params.id,
-    },
-    {
-      $push: {
-        receivedMessages: req.body,
-      },
-      // $push: req.body,
-    },
-    { new: true }
-  )
-    .then((updatedUser) => {
-      res.json(updatedUser);
+  db.ReceivedMessage.create(req.body)
+    .then((item) =>
+      db.ContentCreator.findOneAndUpdate(
+        { _id: req.params.id },
+        { $push: { receivedMessages: item._id } },
+        { new: true }
+      )
+    )
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+router.delete("/api/sentmessages/:id", (req, res) => {
+  db.SentMessage.findByIdAndDelete(req.params.id)
+    .then((deletedMsg) => {
+      res.json(deletedMsg);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+router.delete("/api/receivedmessages/:id", (req, res) => {
+  db.ReceivedMessage.findByIdAndDelete(req.params.id)
+    .then((deletedMsg) => {
+      res.json(deletedMsg);
     })
     .catch((err) => {
       res.status(400).json(err);

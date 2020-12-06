@@ -38,11 +38,6 @@ const ProfileCard = (props) => {
   }, []);
 
   useDidMountEffect(() => {
-    let arr = allPeople.filter((i) => i._id === id);
-    setPeopleFollowing(arr[0].followers);
-  }, [allPeople]);
-
-  useDidMountEffect(() => {
     // let arr =allPeople.filter(i=>i._id )
     let arr = [];
     for (let i = 0; i < allPeople.length; i++) {
@@ -78,7 +73,9 @@ const ProfileCard = (props) => {
 
   useDidMountEffect(() => {
     let arr = allPpl.filter((i) => i._id === id);
-    setPplFollowed(arr[0].following);
+    if (arr[0] != undefined) {
+      setPeopleFollowing(arr[0].followers);
+    }
   }, [allPpl]);
 
   useDidMountEffect(() => {
@@ -412,6 +409,14 @@ const ProfileCard = (props) => {
                     // onClick={handleVideoUploadClick}
                   >
                     {/* <input type="file" onChange={onChangeVideo} /> */}
+                    <Link to="/messages">
+                      <i
+                        style={{ color: "white" }}
+                        className="fas fa-inbox"
+                      ></i>
+
+                      <span style={{ color: "white" }}>Messages</span>
+                    </Link>
                     <Link
                       to={{
                         pathname: "/upload",

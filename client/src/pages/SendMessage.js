@@ -7,9 +7,10 @@ import { Link } from "react-router-dom";
 
 const SendMessage = (props) => {
   const [messageText, setMessageText] = useState({
-    id: "",
+    receiverId: "",
     subject: "",
     message: "",
+    senderId: "",
   });
   //   const [peopleOptions, setPeopleOptions] = useState([]);
   const [recipientId, setRecipientId] = useState("");
@@ -23,13 +24,18 @@ const SendMessage = (props) => {
   const { id } = useContext(UserContext);
   const history = useHistory();
 
-  useEffect(() => {
-    setMessageText({ ...messageText, id: id });
-  }, [id]);
+  // useEffect(() => {
+  //   setMessageText({ ...messageText, receiverId: id });
+  // }, [id]);
 
   useEffect(() => {
     if (props && props.location && props.location.state) {
       setRecipientId(props.location.state.id);
+      setMessageText({
+        ...messageText,
+        receiverId: props.location.state.id,
+        senderId: id,
+      });
     }
   }, [props.location.state]);
 
@@ -41,17 +47,25 @@ const SendMessage = (props) => {
   const handleSendMessage = (e) => {
     e.preventDefault();
     // console.log(messageText);
-    Axios.put(`/api/yourmessages/${recipientId}`, messageText)
-      .then((res) => {
-        // console.log(res.data);
-        Axios.put(`/api/sentmessage/${id}`, messageText)
-          .then((response) => {
-            history.push("/messages");
-            // console.log(response.data);
-          })
-          .catch((errors) => console.log(errors));
-      })
+    Axios.post(`/api/sentmessage/${id}`, messageText)
+      .then((res) =>
+        // console.log(res)
+        Axios.post(`/api/receivedmessage/${recipientId}`, messageText)
+          .then((resp) => history.push("/messages"))
+          .catch((errors) => console.log(errors))
+      )
       .catch((err) => console.log(err));
+    // Axios.put(`/api/yourmessages/${recipientId}`, messageText)
+    //   .then((res) => {
+    //     // console.log(res.data);
+    //     Axios.put(`/api/sentmessage/${id}`, messageText)
+    //       .then((response) => {
+    //         history.push("/messages");
+    //         // console.log(response.data);
+    //       })
+    //       .catch((errors) => console.log(errors));
+    //   })
+    //   .catch((err) => console.log(err));
   };
 
   const handleUsernameChangeInput = (e) => {
