@@ -103,7 +103,10 @@ const YourMessages = () => {
         </div>
       </>
     );
-  } else if (yourMsgs.length > 0 || sentMsgs.length > 0) {
+  } else if (
+    (yourMsgs != undefined && yourMsgs.length > 0) ||
+    sentMsgs.length > 0
+  ) {
     return (
       <>
         <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5>
@@ -122,7 +125,7 @@ const YourMessages = () => {
               ))}
           </div>
         </div>
-        {yourMsgs.length > 0 && (
+        {yourMsgs != undefined && yourMsgs.length > 0 && (
           <>
             <h5 style={{ fontWeight: "bold" }}>Received Messages</h5>
             <div
