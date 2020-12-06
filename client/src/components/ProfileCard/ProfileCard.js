@@ -379,8 +379,15 @@ const ProfileCard = (props) => {
             <div className="profile-cover__action bg--img" data-overlay="0.3">
               {props.userProfileInfo.role === "Consumer" ? (
                 <>
-                  <br />
-                  <br />
+                  <button className="btn btn-rounded btn-info">
+                    <Link to="/messages">
+                      <i class="fas fa-inbox" style={{ color: "white" }}></i>
+
+                      <span style={{ color: "white" }}>Messages</span>
+                    </Link>
+                  </button>
+                  {/* <br />
+                  <br /> */}
                 </>
               ) : (
                 <>
@@ -407,9 +414,17 @@ const ProfileCard = (props) => {
                       <span style={{ color: "white" }}>Upload Video</span>
                     </Link>
                   </button>
+                  <button className="btn btn-rounded btn-info">
+                    <Link to="/messages">
+                      <i class="fas fa-inbox" style={{ color: "white" }}></i>
+
+                      <span style={{ color: "white" }}>Messages</span>
+                    </Link>
+                  </button>
                 </>
               )}
             </div>
+
             <div className="profile-cover__info">
               <ul className="nav">
                 {props.userProfileInfo.role == "Content Creator" ? (
