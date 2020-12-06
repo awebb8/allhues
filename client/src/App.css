@@ -37,6 +37,14 @@ a:hover {
   width: 100%;
 }
 
+.crop-profile {
+	object-fit: cover;
+	overflow: hidden;
+	align-items: center;
+	width: 250px;
+	height: 250px;
+  }
+
 .fitz {
   margin: 10px !important;
   border: none !important;

@@ -52,7 +52,7 @@ const MultiKit = (props) => {
       return (
         <img
           src={fitz1}
-          style={{ height: "1.3em", width: "1.3em" }}
+          style={{ height: "1.3em", width: "1.3em", borderRadius: 10 }}
           alt="light skin tone"
         />
       );
@@ -60,7 +60,7 @@ const MultiKit = (props) => {
       return (
         <img
           src={fitz2}
-          style={{ height: "1.3em", width: "1.3em" }}
+          style={{ height: "1.3em", width: "1.3em", borderRadius: 10 }}
           alt="light skin tone"
         />
       );
@@ -68,7 +68,7 @@ const MultiKit = (props) => {
       return (
         <img
           src={fitz3}
-          style={{ height: "1.3em", width: "1.3em" }}
+          style={{ height: "1.3em", width: "1.3em", borderRadius: 10 }}
           alt="lightish skin tone"
         />
       );
@@ -76,7 +76,7 @@ const MultiKit = (props) => {
       return (
         <img
           src={fitz4}
-          style={{ height: "1.3em", width: "1.3em" }}
+          style={{ height: "1.3em", width: "1.3em", borderRadius: 10 }}
           alt="medium skin tone"
         />
       );
@@ -84,7 +84,7 @@ const MultiKit = (props) => {
       return (
         <img
           src={fitz5}
-          style={{ height: "1.3em", width: "1.3em" }}
+          style={{ height: "1.3em", width: "1.3em", borderRadius: 10 }}
           alt="darkish skin tone"
         />
       );
@@ -92,7 +92,7 @@ const MultiKit = (props) => {
       return (
         <img
           src={fitz6}
-          style={{ height: "1.3em", width: "1.3em" }}
+          style={{ height: "1.3em", width: "1.3em", borderRadius: 10 }}
           alt="dark skin tone"
         />
       );
@@ -194,14 +194,20 @@ const MultiKit = (props) => {
                 <i className={`${props.class} fas fa-heart`}></i>
               ) : (
                 <i className={`${props.class} far fa-heart`}></i>
-              )}{" "}
+              )}
             </button>
           ) : (
             <div className="mt-4"></div>
           )}
 
           <h5
-            style={{ textAlign: "center" }}
+            style={{
+              textAlign: "center",
+              overflow: "hidden",
+              display: '-webkit-box',
+              WebkitBoxOrient: "vertical",
+              WebkitLineClamp: 1,
+            }}
             className={
               props.class === undefined
                 ? "card-title"
@@ -211,7 +217,13 @@ const MultiKit = (props) => {
             {props.info.kitName ? props.info.kitName : ""}
           </h5>
           <p
-            style={{ textAlign: "center" }}
+            style={{
+              textAlign: "center",
+              overflow: "hidden",
+              display: "-webkit-box",
+              WebkitLineClamp: 1,
+              WebkitBoxOrient: "vertical",
+            }}
             className={
               props.class === undefined
                 ? "card-text"
@@ -225,12 +237,12 @@ const MultiKit = (props) => {
           className="text-muted d-flex"
           style={{
             position: "absolute",
-            bottom: 0,
+            bottom: 5,
             left: 5,
             fontSize: "15px",
           }}
         >
-          <i className="fas fa-palette"></i>
+          {/* <i className="fas fa-palette"></i> */}
           {determineFitzColorToShow(props.info.hueType)}
         </div>
         <div
