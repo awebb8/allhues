@@ -56,6 +56,11 @@ const YourMessages = () => {
       .catch((err) => console.log(err));
   };
 
+  const handleReplyClick = (e) => {
+    const idToReplyTo = e.target.getAttribute("data");
+    console.log(idToReplyTo);
+  };
+
   if (sentMsgs.length > 0 && yourMsgs.length > 0) {
     return (
       <>
@@ -91,6 +96,7 @@ const YourMessages = () => {
                   key={i._id}
                   info={i}
                   handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
+                  handleReplyClick={(e) => handleReplyClick(e)}
                 />
               ))}
           </div>
