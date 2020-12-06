@@ -28,6 +28,7 @@ const ProfileCard = (props) => {
   const [allPeople, setAllPeople] = useState([]);
   const [peopleFollowing, setPeopleFollowing] = useState([]);
   const [followerInfo, setFollowerInfo] = useState([]);
+  const [followerDisplayState, setFollowerDisplayState] = useState("Followers");
 
   useEffect(() => {
     API.getAllUsers()
@@ -36,6 +37,11 @@ const ProfileCard = (props) => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  useDidMountEffect(() => {
+    let arr = allPeople.filter((i) => i._id === id);
+    setPeopleFollowing(arr[0].followers);
+  }, [allPeople]);
 
   useDidMountEffect(() => {
     // let arr =allPeople.filter(i=>i._id )
@@ -52,9 +58,8 @@ const ProfileCard = (props) => {
     // console.log(arr);
   }, [peopleFollowing]);
 
-  const handleProfileChange = (i) => {
-    history.push(`/portal/${id}`);
-    // console.log(followerInfo);
+  const handleProfileChange = (e) => {
+    window.location.href = `/portal/${e.target.id}`;
   };
   // ---------------------------------------------
 
@@ -73,9 +78,7 @@ const ProfileCard = (props) => {
 
   useDidMountEffect(() => {
     let arr = allPpl.filter((i) => i._id === id);
-    if (arr[0] != undefined) {
-      setPeopleFollowing(arr[0].followers);
-    }
+    setPplFollowed(arr[0].following);
   }, [allPpl]);
 
   useDidMountEffect(() => {
@@ -261,8 +264,6 @@ const ProfileCard = (props) => {
       .catch((err) => console.log(err));
   };
 
-  // const handleMessageBtnClick = () => {};
-
   if (id !== props.userProfileInfo._id) {
     return (
       <>
@@ -365,9 +366,9 @@ const ProfileCard = (props) => {
                   hidden
                 />
                 <img
-                  className="crop"
+                  className="crop-profile"
                   src={image}
-                  alt="placeholder image"
+                  alt="user's profile picture"
                   style={{ cursor: "pointer" }}
                 />
               </label>
@@ -378,20 +379,6 @@ const ProfileCard = (props) => {
             <div className="profile-cover__action bg--img" data-overlay="0.3">
               {props.userProfileInfo.role === "Consumer" ? (
                 <>
-                  <button
-                    onClick={handleFollowClick}
-                    className="btn btn-rounded btn-info"
-                    // disabled
-                  >
-                    <Link to="/messages">
-                      <i
-                        style={{ color: "white" }}
-                        className="fas fa-inbox"
-                      ></i>
-                      <span style={{ color: "white" }}>Messages</span>
-                    </Link>
-                  </button>
-
                   <br />
                   <br />
                 </>
@@ -408,6 +395,7 @@ const ProfileCard = (props) => {
                     className="btn btn-rounded btn-info"
                     // onClick={handleVideoUploadClick}
                   >
+                    {/* <input type="file" onChange={onChangeVideo} /> */}
                     <Link
                       to={{
                         pathname: "/upload",
@@ -425,11 +413,12 @@ const ProfileCard = (props) => {
             <div className="profile-cover__info">
               <ul className="nav">
                 {props.userProfileInfo.role == "Content Creator" ? (
-                  <li>
+                  <li
+                    style={{ cursor: "pointer" }}
+                    onClick={handleFollowersBtnClick}
+                  >
                     <strong>{numberOfFollowers}</strong>
-                    <a onClick={handleFollowersBtnClick}>
-                      <span>Followers</span>
-                    </a>
+                    <span>Followers</span>
                   </li>
                 ) : (
                   <Link to="/following">
@@ -490,8 +479,9 @@ const ProfileCard = (props) => {
               }
               onClick={() => setFollowerDisplayState("Followers")}
             >
-              Followers2
+              Followers
             </h5>
+
             <h5
               style={
                 followerDisplayState === "Following"
@@ -507,6 +497,7 @@ const ProfileCard = (props) => {
               Following
             </h5>
           </div>
+
           {followerDisplayState === "Followers" ? (
             <div>
               {followerInfo.map((i) => (
@@ -578,6 +569,7 @@ const ProfileCard = (props) => {
               ))}
             </div>
           )}
+
           <button
             className="buttons shadow-none py-0 px-2 text-muted"
             onClick={handleCloseBtnClick}
