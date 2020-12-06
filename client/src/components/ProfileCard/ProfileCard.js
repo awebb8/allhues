@@ -28,6 +28,7 @@ const ProfileCard = (props) => {
   const [allPeople, setAllPeople] = useState([]);
   const [peopleFollowing, setPeopleFollowing] = useState([]);
   const [followerInfo, setFollowerInfo] = useState([]);
+  const [followerDisplayState, setFollowerDisplayState] = useState("Followers");
 
   useEffect(() => {
     API.getAllUsers()
@@ -403,11 +404,12 @@ const ProfileCard = (props) => {
             <div className="profile-cover__info">
               <ul className="nav">
                 {props.userProfileInfo.role == "Content Creator" ? (
-                  <li>
+                  <li
+                    style={{ cursor: "pointer" }}
+                    onClick={handleFollowersBtnClick}
+                  >
                     <strong>{numberOfFollowers}</strong>
-                    <a onClick={handleFollowersBtnClick}>
-                      <span>Followers</span>
-                    </a>
+                    <span>Followers</span>
                   </li>
                 ) : (
                   <Link to="/following">
@@ -438,13 +440,56 @@ const ProfileCard = (props) => {
       <Modal
         isOpen={modalIsOpen}
         className="followers-modal-content"
-        overlayClassName="followers-modal-overlay"
+        overlayClassName={{
+          base: "followers-modal-overlay",
+          afterOpen: "followers-modal-overlay--after",
+          beforeClose: "followers-modal-overlay--before",
+        }}
+        onRequestClose={() => setModalIsOpen(false)}
+        closeTimeoutMS={200}
       >
         <div>
-          <h2>Followers</h2>
-          <hr />
-          <form>
-            {/* Show followers */}
+          <div
+            style={{
+              marginTop: 20,
+              marginBottom: 20,
+              display: "flex",
+              justifyContent: "space-evenly",
+              borderBottom: "1px solid lightgrey",
+            }}
+          >
+            <h5
+              style={
+                followerDisplayState === "Followers"
+                  ? {
+                      cursor: "pointer",
+                      borderBottom: "3px solid #b29fb5",
+                      marginBottom: -2,
+                    }
+                  : { cursor: "pointer" }
+              }
+              onClick={() => setFollowerDisplayState("Followers")}
+            >
+              Followers
+            </h5>
+
+            <h5
+              style={
+                followerDisplayState === "Following"
+                  ? {
+                      cursor: "pointer",
+                      borderBottom: "3px solid #b29fb5",
+                      marginBottom: -2,
+                    }
+                  : { cursor: "pointer" }
+              }
+              onClick={() => setFollowerDisplayState("Following")}
+            >
+              Following
+            </h5>
+          </div>
+
+          {followerDisplayState === "Followers" ? (
             <div>
               {followerInfo.map((i) => (
                 <div className="container" key={i._id}>
@@ -455,20 +500,12 @@ const ProfileCard = (props) => {
                     <br />
                     {i.userName}
                   </p>
-                  {/* <p>{i.kits[0].kitName}</p> */}
 
-                  {/* {i.kits.map((j) => (
-            <FollowMulti key={j._id} info={j} />
-          ))} */}
                   <br />
                 </div>
               ))}
             </div>
-            <hr />
-
-            <h2>Following</h2>
-            <hr />
-            {/* Show following */}
+          ) : (
             <div>
               {followedInfo.map((i) => (
                 <div className="container" key={i._id}>
@@ -477,31 +514,27 @@ const ProfileCard = (props) => {
                     <br />
                     {i.userName}
                   </p>
-                  {/* <p>{i.kits[0].kitName}</p> */}
 
-                  {/* {i.kits.map((j) => (
-            <FollowMulti key={j._id} info={j} />
-          ))} */}
                   <br />
                 </div>
               ))}
             </div>
+          )}
 
-            <button
-              className="buttons shadow-none py-0 px-2 text-muted"
-              onClick={handleCloseBtnClick}
-              style={{
-                position: "absolute",
-                right: 0,
-                top: 0,
-                color: "black",
-                backgroundColor: "white",
-                border: "none",
-              }}
-            >
-              <h3>&times;</h3>
-            </button>
-          </form>
+          <button
+            className="buttons shadow-none py-0 px-2 text-muted"
+            onClick={handleCloseBtnClick}
+            style={{
+              position: "absolute",
+              right: 0,
+              top: 0,
+              color: "black",
+              backgroundColor: "white",
+              border: "none",
+            }}
+          >
+            <h3>&times;</h3>
+          </button>
         </div>
       </Modal>
     </>

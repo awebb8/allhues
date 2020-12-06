@@ -77,7 +77,7 @@ h2 {
   width: 34%;
   height: 80%;
   border: 2px solid #b29fb5;
-  box-shadow: 1px 1px 1px black;
+  /* box-shadow: 1px 1px 1px black; */
   padding: 16px;
   left: 34%;
   top: 15%;
@@ -95,4 +95,23 @@ h2 {
   .followers-modal-content {
     top: 10%;
   }
+}
+
+.followers-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+}
+
+.followers-modal-overlay--after {
+  opacity: 1;
+}
+
+.followers-modal-overlay--before {
+  opacity: 0;
 }
