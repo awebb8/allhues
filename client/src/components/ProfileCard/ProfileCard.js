@@ -28,7 +28,6 @@ const ProfileCard = (props) => {
   const [allPeople, setAllPeople] = useState([]);
   const [peopleFollowing, setPeopleFollowing] = useState([]);
   const [followerInfo, setFollowerInfo] = useState([]);
-  const [followerDisplayState, setFollowerDisplayState] = useState("Followers");
 
   useEffect(() => {
     API.getAllUsers()
@@ -53,8 +52,9 @@ const ProfileCard = (props) => {
     // console.log(arr);
   }, [peopleFollowing]);
 
-  const handleProfileChange = (e) => {
-    window.location.href = `/portal/${e.target.id}`;
+  const handleProfileChange = (i) => {
+    history.push(`/portal/${id}`);
+    // console.log(followerInfo);
   };
   // ---------------------------------------------
 
@@ -365,9 +365,9 @@ const ProfileCard = (props) => {
                   hidden
                 />
                 <img
-                  className="crop-profile"
+                  className="crop"
                   src={image}
-                  alt="user's profile picture"
+                  alt="placeholder image"
                   style={{ cursor: "pointer" }}
                 />
               </label>
@@ -408,15 +408,6 @@ const ProfileCard = (props) => {
                     className="btn btn-rounded btn-info"
                     // onClick={handleVideoUploadClick}
                   >
-                    {/* <input type="file" onChange={onChangeVideo} /> */}
-                    <Link to="/messages">
-                      <i
-                        style={{ color: "white" }}
-                        className="fas fa-inbox"
-                      ></i>
-
-                      <span style={{ color: "white" }}>Messages</span>
-                    </Link>
                     <Link
                       to={{
                         pathname: "/upload",
@@ -434,12 +425,11 @@ const ProfileCard = (props) => {
             <div className="profile-cover__info">
               <ul className="nav">
                 {props.userProfileInfo.role == "Content Creator" ? (
-                  <li
-                    style={{ cursor: "pointer" }}
-                    onClick={handleFollowersBtnClick}
-                  >
+                  <li>
                     <strong>{numberOfFollowers}</strong>
-                    <span>Followers</span>
+                    <a onClick={handleFollowersBtnClick}>
+                      <span>Followers</span>
+                    </a>
                   </li>
                 ) : (
                   <Link to="/following">
@@ -470,109 +460,70 @@ const ProfileCard = (props) => {
       <Modal
         isOpen={modalIsOpen}
         className="followers-modal-content"
-        overlayClassName={{
-          base: "followers-modal-overlay",
-          afterOpen: "followers-modal-overlay--after",
-          beforeClose: "followers-modal-overlay--before",
-        }}
-        onRequestClose={() => setModalIsOpen(false)}
-        closeTimeoutMS={200}
+        overlayClassName="followers-modal-overlay"
       >
         <div>
-          <div
-            style={{
-              marginTop: 20,
-              marginBottom: 20,
-              display: "flex",
-              justifyContent: "space-evenly",
-              borderBottom: "1px solid lightgrey",
-            }}
-          >
-            <h5
-              style={
-                followerDisplayState === "Followers"
-                  ? {
-                      cursor: "pointer",
-                      borderBottom: "3px solid #b29fb5",
-                      marginBottom: -2,
-                    }
-                  : { cursor: "pointer" }
-              }
-              onClick={() => setFollowerDisplayState("Followers")}
-            >
-              Followers
-            </h5>
-
-            <h5
-              style={
-                followerDisplayState === "Following"
-                  ? {
-                      cursor: "pointer",
-                      borderBottom: "3px solid #b29fb5",
-                      marginBottom: -2,
-                    }
-                  : { cursor: "pointer" }
-              }
-              onClick={() => setFollowerDisplayState("Following")}
-            >
-              Following
-            </h5>
-          </div>
-
-          {followerDisplayState === "Followers" ? (
+          <h2>Followers</h2>
+          <hr />
+          <form>
+            {/* Show followers */}
             <div>
               {followerInfo.map((i) => (
-                <div className="container" key={i._id} style={{marginBottom: 8, display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
-                  <div>
-                    <img src={i.image} style={{width: 40, height: 40, borderRadius: 20}}/>
-                  </div>
-                  <div style={{paddingLeft: 10}}>
-                    <p>
-                      <a id={i._id} onClick={(e) => handleProfileChange(e)} style={{fontWeight: 600, cursor: 'pointer'}}>
-                        {i.name}
-                      </a>
-                      <br />
-                      {i.userName}
-                    </p>
-                  </div>
+                <div className="container" key={i._id}>
+                  <p>
+                    <a id={i._id} onClick={handleProfileChange}>
+                      {i.name}
+                    </a>
+                    <br />
+                    {i.userName}
+                  </p>
+                  {/* <p>{i.kits[0].kitName}</p> */}
+
+                  {/* {i.kits.map((j) => (
+            <FollowMulti key={j._id} info={j} />
+          ))} */}
+                  <br />
                 </div>
               ))}
             </div>
-          ) : (
+            <hr />
+
+            <h2>Following</h2>
+            <hr />
+            {/* Show following */}
             <div>
               {followedInfo.map((i) => (
-                <div className="container" key={i._id} style={{marginBottom: 8, display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
-                  <div>
-                    <img src={i.image} style={{width: 40, height: 40, borderRadius: 20}}/>
-                  </div>
-                  <div style={{paddingLeft: 10}}>
-                    <p>
-                      <a id={i._id} onClick={(e) => handleProfileChange(e)} style={{fontWeight: 600, cursor: 'pointer'}}>
-                        {i.name}
-                      </a>
-                      <br />
-                      {i.userName}
-                    </p>
-                  </div>
+                <div className="container" key={i._id}>
+                  <p>
+                    {i.name}
+                    <br />
+                    {i.userName}
+                  </p>
+                  {/* <p>{i.kits[0].kitName}</p> */}
+
+                  {/* {i.kits.map((j) => (
+            <FollowMulti key={j._id} info={j} />
+          ))} */}
+                  <br />
                 </div>
               ))}
             </div>
-          )}
 
-          <button
-            className="buttons shadow-none py-0 px-2 text-muted"
-            onClick={handleCloseBtnClick}
-            style={{
-              position: "absolute",
-              right: 0,
-              top: 0,
-              color: "black",
-              backgroundColor: "white",
-              border: "none",
-            }}
-          >
-            <h3>&times;</h3>
-          </button>
+            <button
+              className="buttons shadow-none py-0 px-2 text-muted"
+              onClick={handleCloseBtnClick}
+              style={{
+                position: "absolute",
+                right: 0,
+                top: 0,
+                color: "black",
+                backgroundColor: "white",
+                border: "none",
+              }}
+            >
+              <h3>&times;</h3>
+            </button>
+          </form>
         </div>
       </Modal>
     </>

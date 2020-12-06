@@ -45,9 +45,9 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to={`/portal/${id}`} className="nav-link">
+              <a href={`/portal/${id}`} className="nav-link">
                 Profile<span className="sr-only">(current)</span>
-              </Link>
+              </a>
             </li>
             {/* <li className="nav-item">
               <Link to={`/messages`} className="nav-link">
@@ -153,9 +153,9 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to={`/portal/${id}`} className="nav-link">
+            <a href={`/portal/${id}`} className="nav-link">
               Profile<span className="sr-only">(current)</span>
-            </Link>
+            </a>
           </li>
           {/* <li className="nav-item">
             <Link to={`/messages`} className="nav-link">
