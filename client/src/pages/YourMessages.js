@@ -61,7 +61,7 @@ const YourMessages = () => {
     console.log(idToReplyTo);
   };
 
-  if (sentMsgs.length > 0 && yourMsgs.length > 0) {
+  if (sentMsgs != undefined && sentMsgs.length > 0 && yourMsgs.length > 0) {
     return (
       <>
         <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5>
