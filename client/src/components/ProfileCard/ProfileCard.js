@@ -239,7 +239,7 @@ const ProfileCard = (props) => {
       .catch((err) => console.log(err));
   };
 
-  if (id !== props.userProfileInfo._id) {
+  if (id && id !== props.userProfileInfo._id) {
     return (
       <>
         <div className="container-fluid">
@@ -278,10 +278,11 @@ const ProfileCard = (props) => {
                 )}
 
                 {!id ? (
-                  <button className="btn btn-rounded btn-info" disabled>
-                    <i className="fa fa-comment"></i>
-                    <span>Message</span>
-                  </button>
+                  // <button className="btn btn-rounded btn-info" disabled>
+                  //   <i className="fa fa-comment"></i>
+                  //   <span>Message</span>
+                  // </button>
+                  <></>
                 ) : (
                   <button
                     className="btn btn-rounded btn-info"
@@ -299,6 +300,49 @@ const ProfileCard = (props) => {
                   </button>
                 )}
               </div>
+              <div className="profile-cover__info">
+                <ul className="nav">
+                  <li>
+                    <strong>{numberOfFollowers}</strong>
+                    Followers
+                  </li>
+                  <li>
+                    <strong>
+                      {props.yourKits ? props.yourKits.length : 0}
+                    </strong>
+                    Created Kits
+                  </li>
+                  <li>
+                    <strong>{totalKitViews}</strong>Total Kit Views
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  } else if (!id) {
+    return (
+      <>
+        <div className="container-fluid">
+          <div className="col-lg-12">
+            <div className="panel profile-cover">
+              <div className="profile-cover__img">
+                <label htmlFor="AvatarImageInput">
+                  <img
+                    src={props.userProfileInfo.image}
+                    alt="placeholder image"
+                  />
+                </label>
+                <h3 className="h3">
+                  {determineRoleToShowConsumer()}: {props.userProfileInfo.name}
+                </h3>
+              </div>
+              <div
+                className="profile-cover__action bg--img"
+                data-overlay="0.3"
+              ></div>
               <div className="profile-cover__info">
                 <ul className="nav">
                   <li>
@@ -402,14 +446,13 @@ const ProfileCard = (props) => {
 
             <div className="profile-cover__info">
               <ul className="nav">
-                
-                  <li
-                    style={{ cursor: "pointer" }}
-                    onClick={handleFollowersBtnClick}
-                  >
-                    <strong>{numberOfFollowers}</strong>
-                    <span>Followers</span>
-                  </li>
+                <li
+                  style={{ cursor: "pointer" }}
+                  onClick={handleFollowersBtnClick}
+                >
+                  <strong>{numberOfFollowers}</strong>
+                  <span>Followers</span>
+                </li>
 
                 <li>
                   <strong>{affilLinkClicks}</strong>
