@@ -44,7 +44,7 @@ const ProfileCard = (props) => {
   const [numberOfFollowers, setNumberOfFollowers] = useState(0);
   const [affilLinkClicks, setAffilLinkClicks] = useState(0);
 
-  // TODO: assess why there are 2
+  // TODO: assess why there are 2 allppl states
   useEffect(() => {
     API.getAllUsers()
       .then((res) => {
@@ -85,7 +85,12 @@ const ProfileCard = (props) => {
 
   useDidMountEffect(() => {
     let arr = allPpl.filter((i) => i._id === id);
-    setPplFollowed(arr[0].following);
+    // if (arr && arr[0].following) {
+    //   setPplFollowed(arr[0].following);
+    // }
+    if (arr && arr[0] && arr[0].following != undefined) {
+      setPeopleFollowing(arr[0].following);
+    }
   }, [allPpl]);
 
   useDidMountEffect(() => {
