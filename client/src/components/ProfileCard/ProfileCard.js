@@ -465,28 +465,42 @@ const ProfileCard = (props) => {
             </div>
 
             <div className="profile-cover__info">
-              <ul className="nav">
-                <li
-                  style={{ cursor: "pointer" }}
-                  onClick={handleFollowersBtnClick}
-                >
-                  <strong>{numberOfFollowers}</strong>
-                  <span>Followers</span>
-                </li>
+              {props.userProfileInfo.role === "Consumer" ? (
+                <ul className="nav">
+                  <li
+                    style={{ cursor: "pointer", marginRight: "1%" }}
+                    onClick={handleFollowersBtnClick}
+                  >
+                    <strong>{numberOfFollowers}</strong>
+                    <span>Followers</span>
+                  </li>
+                </ul>
+              ) : (
+                <ul className="nav">
+                  <li
+                    style={{ cursor: "pointer" }}
+                    onClick={handleFollowersBtnClick}
+                  >
+                    <strong>{numberOfFollowers}</strong>
+                    <span>Followers</span>
+                  </li>
 
-                <li>
-                  <strong>{affilLinkClicks}</strong>
-                  Affiliate Link Clicks
-                </li>
+                  <li>
+                    <strong>{affilLinkClicks}</strong>
+                    Affiliate Link Clicks
+                  </li>
 
-                <li>
-                  <strong>{props.yourKits ? props.yourKits.length : 0}</strong>
-                  Created Kits
-                </li>
-                <li>
-                  <strong>{totalKitViews}</strong>Total Kit Views
-                </li>
-              </ul>
+                  <li>
+                    <strong>
+                      {props.yourKits ? props.yourKits.length : 0}
+                    </strong>
+                    Created Kits
+                  </li>
+                  <li>
+                    <strong>{totalKitViews}</strong>Total Kit Views
+                  </li>
+                </ul>
+              )}
             </div>
           </div>
         </div>
