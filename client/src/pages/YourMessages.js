@@ -10,23 +10,14 @@ import Axios from "axios";
 const YourMessages = () => {
   const [yourMsgs, setYourMsgs] = useState([]);
   const [sentMsgs, setSentMsgs] = useState([]);
-  const [putPayload, setPutPayload] = useState({
-    message: "",
-  });
+
   const { id } = useContext(UserContext);
 
   useEffect(() => {
-    setPutPayload({
-      message: "test",
-    });
     Axios.get(`/api/messages/${id}`)
       .then((res) => {
-        // console.log(res.data);
         setSentMsgs(res.data[0].sentMessages);
         setYourMsgs(res.data[0].receivedMessages);
-        // console.log(res.data);
-        // setYourMsgs(res.data.receivedMessages);
-        // setSentMsgs(res.data.sentMessages);
       })
       .catch((err) => console.log(err));
   }, [id]);
