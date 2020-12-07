@@ -182,15 +182,21 @@ and (max-width : 767px) {
 	}
 }
 
-/* @media only screen 
-and (max-width : 1000px) {
+@media only screen 
+and (min-width : 1101px) and (max-width : 1320px) {
+	.card {
+		width: 300px!important;
+	}
+	.mk-row {
+		margin-left: -20px!important
+	}
 	.shrink {
 		-webkit-transform: scale(0.65);
 		-moz-transform: scale(0.65);
 		-ms-transform: scale(0.65);
 		transform: scale(0.65);
 	}
-} */
+}
 
 @media only screen 
 and (max-width : 830px) and (min-width : 768px) {

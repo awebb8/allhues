@@ -10,6 +10,9 @@ import fitz4 from "../../assets/images/fitz4.png";
 import fitz5 from "../../assets/images/fitz5.png";
 import fitz6 from "../../assets/images/fitz6.png";
 
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
+
 const Kit = (props) => {
   const { id } = useContext(UserContext);
 
@@ -111,6 +114,7 @@ const Kit = (props) => {
           </div>
         </div>
         <div className="card card-viewone">
+
           {typeof props.src[0] === "object" ? (
             <img
               src={props.src[0].url}

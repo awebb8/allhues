@@ -7,11 +7,14 @@ import UpdateKit from "../components/UpdateKit/UpdateKit";
 import { useHistory } from "react-router-dom";
 import Axios from "axios";
 
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
+
 const ConsumerViewOne = () => {
   let { id } = useParams();
   const userId = useContext(UserContext);
 
-  const [kit, setKit] = useState({});
+  const [kit, setKit] = useState([]);
 
   const [update, setUpdate] = useState(false);
 
@@ -69,9 +72,47 @@ const ConsumerViewOne = () => {
     });
   };
 
+  const handleProfileClick = () => {
+    console.log("hi");
+  };
+
   return (
-    <div>
-      {update ? (
+    <div className="container">
+      <div className="row">
+        <div className="col-sm-3">
+          <img
+            className="avatar"
+            src={kitCreatorInfo && kitCreatorInfo.image}
+            alt="content creator's profile picture"
+            onClick={handleProfileClick}
+            style={{ cursor: "pointer" }}
+          />
+        </div>
+        <div className="col-sm-9 mt-2">
+          <span
+            className="username-handle"
+            onClick={handleProfileClick}
+            style={{ cursor: "pointer" }}
+          >
+            {kitCreatorInfo && kitCreatorInfo.name}
+          </span>
+          <p onClick={handleProfileClick} style={{ cursor: "pointer" }}>
+            @{kitCreatorInfo && kitCreatorInfo.username}
+          </p>
+        </div>
+      </div>
+
+      {/* <div style={{width: 300, height: 300}}>
+      <Carousel>
+        {kit.length !== 0 && kit.imageUrl.map(media => (
+          <div>
+            <img src={media} className="card-img-top crop" />
+          </div>
+        ))}
+      </Carousel>
+      </div> */}
+
+      {/* {update ? (
         <UpdateKit
           src={kit.imageUrl}
           key={kit._id}
@@ -92,7 +133,7 @@ const ConsumerViewOne = () => {
           />
         </div>
       )}
-      <br />
+      <br /> */}
     </div>
   );
 };
