@@ -303,7 +303,10 @@ const ProfileCard = (props) => {
                     <Link
                       to={{
                         pathname: "/newmessage",
-                        state: { id: props.userProfileInfo._id },
+                        state: {
+                          id: props.userProfileInfo._id,
+                          userName: props.userProfileInfo.userName,
+                        },
                       }}
                     >
                       <span style={{ color: "white" }}>Message</span>
