@@ -6,7 +6,7 @@ import axios from "axios";
 import API from "../../utils/API";
 import { useHistory, Link } from "react-router-dom";
 import useDidMountEffect from "../../utils/useDidMountEffect";
-import FollowMulti from "../FollowMulti/FollowMulti";
+// import FollowMulti from "../FollowMulti/FollowMulti";
 
 // Import Modal for the Followers Modal
 import Modal from "react-modal";
@@ -30,7 +30,7 @@ const ProfileCard = (props) => {
   const [followerInfo, setFollowerInfo] = useState([]);
   const [followerDisplayState, setFollowerDisplayState] = useState("Followers");
   // ---------- Following Modal content ----------
-  const [allPpl, setAllPpl] = useState([]);
+  // const [allPeople, setAllPpl] = useState([]);
   const [pplFollowed, setPplFollowed] = useState([]);
   const [followedInfo, setFollowedInfo] = useState([]);
 
@@ -56,7 +56,7 @@ const ProfileCard = (props) => {
   useEffect(() => {
     API.getAllUsers()
       .then((res) => {
-        setAllPpl(res.data);
+        setAllPeople(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -84,23 +84,23 @@ const ProfileCard = (props) => {
   }, [peopleFollowing]);
 
   useDidMountEffect(() => {
-    let arr = allPpl.filter((i) => i._id === id);
+    let arr = allPeople.filter((i) => i._id === id);
     // if (arr && arr[0].following) {
     //   setPplFollowed(arr[0].following);
     // }
     if (arr && arr[0] && arr[0].following != undefined) {
-      setPeopleFollowing(arr[0].following);
+      setPplFollowed(arr[0].following);
     }
-  }, [allPpl]);
+  }, [allPeople]);
 
   useDidMountEffect(() => {
     // let arr =allPpl.filter(i=>i._id )
     let arr = [];
-    for (let i = 0; i < allPpl.length; i++) {
+    for (let i = 0; i < allPeople.length; i++) {
       for (let k = 0; k < pplFollowed.length; k++) {
-        if (allPpl[i]._id === pplFollowed[k].id) {
+        if (allPeople[i]._id === pplFollowed[k].id) {
           //   console.log("mathc");
-          arr.push(allPpl[i]);
+          arr.push(allPeople[i]);
         }
       }
     }
