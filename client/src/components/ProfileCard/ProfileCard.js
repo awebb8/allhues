@@ -53,14 +53,6 @@ const ProfileCard = (props) => {
       .catch((err) => console.log(err));
   }, []);
 
-  useEffect(() => {
-    API.getAllUsers()
-      .then((res) => {
-        setAllPeople(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
   useDidMountEffect(() => {
     let arr = allPeople.filter((i) => i._id === id);
     if (arr && arr[0] && arr[0].followers != undefined) {
@@ -85,9 +77,7 @@ const ProfileCard = (props) => {
 
   useDidMountEffect(() => {
     let arr = allPeople.filter((i) => i._id === id);
-    // if (arr && arr[0].following) {
-    //   setPplFollowed(arr[0].following);
-    // }
+
     if (arr && arr[0] && arr[0].following != undefined) {
       setPplFollowed(arr[0].following);
     }
@@ -120,7 +110,6 @@ const ProfileCard = (props) => {
 
   // const [clickedInfo, setClickedInfo] = useState("");
 
-  // const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
 
   const onChange = (e) => {
@@ -136,15 +125,6 @@ const ProfileCard = (props) => {
       onSubmit();
     }
   }, [uploadedImage]);
-
-  //TODO: don't think we need this cuz of what we have in props
-  // const showPersonsFollowerNumber = (iterVal) => {
-  //   if (id != props.userProfileInfo._id) {
-  //     let me = iterVal.filter((t) => t._id === props.userProfileInfo._id);
-  //     // console.log(me);
-  //     setNumberOfFollowers(me[0].followers.length);
-  //   }
-  // };
 
   // TODO: might not need this or the below api call due to props info
   const showMyFollowerNumberAndDisableBtnIfFollowed = (iterVal) => {
@@ -431,7 +411,10 @@ const ProfileCard = (props) => {
                 <>
                   <button className="btn btn-rounded btn-info">
                     <Link to="/messages">
-                      <i class="fas fa-inbox" style={{ color: "white" }}></i>
+                      <i
+                        className="fas fa-inbox"
+                        style={{ color: "white" }}
+                      ></i>
 
                       <span style={{ color: "white" }}>Messages</span>
                     </Link>
@@ -466,7 +449,10 @@ const ProfileCard = (props) => {
                   </button>
                   <button className="btn btn-rounded btn-info">
                     <Link to="/messages">
-                      <i class="fas fa-inbox" style={{ color: "white" }}></i>
+                      <i
+                        className="fas fa-inbox"
+                        style={{ color: "white" }}
+                      ></i>
 
                       <span style={{ color: "white" }}>Messages</span>
                     </Link>

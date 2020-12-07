@@ -35,7 +35,8 @@ const YourMessages = () => {
     // console.log(e.target.getAttribute("data"));
     const idToDelete = e.target.getAttribute("data");
     console.log(idToDelete);
-    Axios.delete(`/api/sentmessages/${e.target.getAttribute("data")}`)
+    // Axios.delete(`/api/sentmessages/${e.target.getAttribute("data")}`)
+    Axios.delete(`/api/sentmessages/${idToDelete}`)
       .then((res) => {
         console.log(res.data);
         const filteredSent = sentMsgs.filter((i) => i._id != idToDelete);
@@ -47,7 +48,8 @@ const YourMessages = () => {
 
   const handleReceivedDeleteClick = (e) => {
     const idToDelete = e.target.getAttribute("data");
-    Axios.delete(`/api/receivedmessages/${e.target.getAttribute("data")}`)
+    // Axios.delete(`/api/receivedmessages/${e.target.getAttribute("data")}`)
+    Axios.delete(`/api/receivedmessages/${idToDelete}`)
       .then((res) => {
         // console.log(res.data)
         const filteredSent = yourMsgs.filter((i) => i._id != idToDelete);
@@ -56,10 +58,10 @@ const YourMessages = () => {
       .catch((err) => console.log(err));
   };
 
-  const handleReplyClick = (e) => {
-    const idToReplyTo = e.target.getAttribute("data");
-    console.log(idToReplyTo);
-  };
+  // const handleReplyClick = (e) => {
+  //   const idToReplyTo = e.target.getAttribute("data");
+  //   console.log(idToReplyTo);
+  // };
 
   if (
     sentMsgs != undefined &&
