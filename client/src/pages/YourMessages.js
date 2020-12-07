@@ -32,23 +32,23 @@ const YourMessages = () => {
   }, [id]);
 
   const handleSentDeleteClick = (e) => {
+    e.stopPropagation();
     // console.log(e.target.getAttribute("data"));
-    const idToDelete = e.target.getAttribute("data");
-    console.log(idToDelete);
-    // Axios.delete(`/api/sentmessages/${e.target.getAttribute("data")}`)
+    var idToDelete = e.target.getAttribute("data");
+
     Axios.delete(`/api/sentmessages/${idToDelete}`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         const filteredSent = sentMsgs.filter((i) => i._id != idToDelete);
         setSentMsgs(filteredSent);
       })
       .catch((err) => console.log(err));
-    // Axios.put(`/api/deletesentmsg/${id}`, test).then((res) => console.log(res));
   };
 
   const handleReceivedDeleteClick = (e) => {
-    const idToDelete = e.target.getAttribute("data");
-    // Axios.delete(`/api/receivedmessages/${e.target.getAttribute("data")}`)
+    e.stopPropagation();
+    var idToDelete = e.target.getAttribute("data");
+
     Axios.delete(`/api/receivedmessages/${idToDelete}`)
       .then((res) => {
         // console.log(res.data)
@@ -82,6 +82,7 @@ const YourMessages = () => {
                 <Message
                   key={i._id}
                   info={i}
+                  url={i._id}
                   handleDeleteClick={(e) => handleSentDeleteClick(e)}
                 />
               ))}
@@ -102,6 +103,7 @@ const YourMessages = () => {
                 <Message
                   key={i._id}
                   info={i}
+                  url={i._id}
                   handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
                   // handleReplyClick={(e) => handleReplyClick(e)}
                 />
@@ -126,6 +128,7 @@ const YourMessages = () => {
               sentMsgs.map((i) => (
                 <Message
                   key={i._id}
+                  url={i._id}
                   info={i}
                   handleDeleteClick={(e) => handleSentDeleteClick(e)}
                 />
@@ -145,6 +148,7 @@ const YourMessages = () => {
                     <Message
                       key={i._id}
                       info={i}
+                      url={i._id}
                       handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
                     />
                   ))}

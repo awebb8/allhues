@@ -63,21 +63,21 @@ const Message = (props) => {
           </Link>
           <button
             style={{ margin: "auto", float: "right" }}
-            className="buttons"
-            data={props.info._id}
+            className={props.info._id + " buttons"}
+            data={props.url}
             onClick={props.handleDeleteClick}
           >
-            <i className="fas fa-trash-alt"></i>
+            <i data={props.url} className="fas fa-trash-alt"></i>
           </button>
         </>
       ) : (
         <button
           style={{ margin: "auto", float: "right" }}
-          className="buttons"
+          className={props.info._id + " buttons"}
           data={props.info._id}
           onClick={props.handleDeleteClick}
         >
-          <i className="fas fa-trash-alt"></i>
+          <i data={props.url} className="fas fa-trash-alt"></i>
         </button>
       )}
     </div>
