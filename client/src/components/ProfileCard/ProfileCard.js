@@ -6,7 +6,7 @@ import axios from "axios";
 import API from "../../utils/API";
 import { useHistory, Link } from "react-router-dom";
 import useDidMountEffect from "../../utils/useDidMountEffect";
-import FollowMulti from "../FollowMulti/FollowMulti";
+// import FollowMulti from "../FollowMulti/FollowMulti";
 
 // Import Modal for the Followers Modal
 import Modal from "react-modal";
@@ -29,7 +29,22 @@ const ProfileCard = (props) => {
   const [peopleFollowing, setPeopleFollowing] = useState([]);
   const [followerInfo, setFollowerInfo] = useState([]);
   const [followerDisplayState, setFollowerDisplayState] = useState("Followers");
+  // ---------- Following Modal content ----------
+  // const [allPeople, setAllPpl] = useState([]);
+  const [pplFollowed, setPplFollowed] = useState([]);
+  const [followedInfo, setFollowedInfo] = useState([]);
 
+  const [uploadedImage, setUploadedImage] = useState("");
+  const [image, setImage] = useState("");
+  const [usersName, setUsersName] = useState("");
+  const [followInfo, setFollowInfo] = useState({
+    id: props.userProfileInfo._id,
+  });
+  const [alrdyFollowed, setAlrdyFollowed] = useState(false);
+  const [numberOfFollowers, setNumberOfFollowers] = useState(0);
+  const [affilLinkClicks, setAffilLinkClicks] = useState(0);
+
+  // TODO: assess why there are 2 allppl states
   useEffect(() => {
     API.getAllUsers()
       .then((res) => {
@@ -40,7 +55,9 @@ const ProfileCard = (props) => {
 
   useDidMountEffect(() => {
     let arr = allPeople.filter((i) => i._id === id);
-    setPeopleFollowing(arr[0].followers);
+    if (arr && arr[0] && arr[0].followers != undefined) {
+      setPeopleFollowing(arr[0].followers);
+    }
   }, [allPeople]);
 
   useDidMountEffect(() => {
@@ -58,44 +75,32 @@ const ProfileCard = (props) => {
     // console.log(arr);
   }, [peopleFollowing]);
 
-  const handleProfileChange = (e) => {
-    window.location.href = `/portal/${e.target.id}`;
-  };
-  // ---------------------------------------------
-
-  // ---------- Following Modal content ----------
-  const [allPpl, setAllPpl] = useState([]);
-  const [pplFollowed, setPplFollowed] = useState([]);
-  const [followedInfo, setFollowedInfo] = useState([]);
-
-  useEffect(() => {
-    API.getAllUsers()
-      .then((res) => {
-        setAllPpl(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
   useDidMountEffect(() => {
-    let arr = allPpl.filter((i) => i._id === id);
-    setPplFollowed(arr[0].following);
-  }, [allPpl]);
+    let arr = allPeople.filter((i) => i._id === id);
+
+    if (arr && arr[0] && arr[0].following != undefined) {
+      setPplFollowed(arr[0].following);
+    }
+  }, [allPeople]);
 
   useDidMountEffect(() => {
     // let arr =allPpl.filter(i=>i._id )
     let arr = [];
-    for (let i = 0; i < allPpl.length; i++) {
+    for (let i = 0; i < allPeople.length; i++) {
       for (let k = 0; k < pplFollowed.length; k++) {
-        if (allPpl[i]._id === pplFollowed[k].id) {
+        if (allPeople[i]._id === pplFollowed[k].id) {
           //   console.log("mathc");
-          arr.push(allPpl[i]);
+          arr.push(allPeople[i]);
         }
       }
     }
     setFollowedInfo(arr);
     // console.log(arr);
   }, [pplFollowed]);
-  // ---------------------------------------------
+
+  const handleProfileChange = (e) => {
+    window.location.href = `/portal/${e.target.id}`;
+  };
 
   let totalKitViews = 0;
 
@@ -103,18 +108,8 @@ const ProfileCard = (props) => {
     props.yourKits.forEach((kit) => (totalKitViews += kit.uniqueVisits));
   }
 
-  const [uploadedImage, setUploadedImage] = useState("");
-  const [image, setImage] = useState("");
-  const [usersName, setUsersName] = useState("");
-  const [followInfo, setFollowInfo] = useState({
-    id: props.userProfileInfo._id,
-  });
-  const [alrdyFollowed, setAlrdyFollowed] = useState(false);
-  const [numberOfFollowers, setNumberOfFollowers] = useState(0);
-  const [affilLinkClicks, setAffilLinkClicks] = useState(0);
   // const [clickedInfo, setClickedInfo] = useState("");
 
-  // const { role } = useContext(RoleContext);
   const { id } = useContext(UserContext);
 
   const onChange = (e) => {
@@ -130,15 +125,6 @@ const ProfileCard = (props) => {
       onSubmit();
     }
   }, [uploadedImage]);
-
-  //TODO: don't think we need this cuz of what we have in props
-  // const showPersonsFollowerNumber = (iterVal) => {
-  //   if (id != props.userProfileInfo._id) {
-  //     let me = iterVal.filter((t) => t._id === props.userProfileInfo._id);
-  //     // console.log(me);
-  //     setNumberOfFollowers(me[0].followers.length);
-  //   }
-  // };
 
   // TODO: might not need this or the below api call due to props info
   const showMyFollowerNumberAndDisableBtnIfFollowed = (iterVal) => {
@@ -264,7 +250,7 @@ const ProfileCard = (props) => {
       .catch((err) => console.log(err));
   };
 
-  if (id !== props.userProfileInfo._id) {
+  if (id && id !== props.userProfileInfo._id) {
     return (
       <>
         <div className="container-fluid">
@@ -303,10 +289,11 @@ const ProfileCard = (props) => {
                 )}
 
                 {!id ? (
-                  <button className="btn btn-rounded btn-info" disabled>
-                    <i className="fa fa-comment"></i>
-                    <span>Message</span>
-                  </button>
+                  // <button className="btn btn-rounded btn-info" disabled>
+                  //   <i className="fa fa-comment"></i>
+                  //   <span>Message</span>
+                  // </button>
+                  <></>
                 ) : (
                   <button
                     className="btn btn-rounded btn-info"
@@ -324,6 +311,49 @@ const ProfileCard = (props) => {
                   </button>
                 )}
               </div>
+              <div className="profile-cover__info">
+                <ul className="nav">
+                  <li>
+                    <strong>{numberOfFollowers}</strong>
+                    Followers
+                  </li>
+                  <li>
+                    <strong>
+                      {props.yourKits ? props.yourKits.length : 0}
+                    </strong>
+                    Created Kits
+                  </li>
+                  <li>
+                    <strong>{totalKitViews}</strong>Total Kit Views
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  } else if (!id) {
+    return (
+      <>
+        <div className="container-fluid">
+          <div className="col-lg-12">
+            <div className="panel profile-cover">
+              <div className="profile-cover__img">
+                <label htmlFor="AvatarImageInput">
+                  <img
+                    src={props.userProfileInfo.image}
+                    alt="placeholder image"
+                  />
+                </label>
+                <h3 className="h3">
+                  {determineRoleToShowConsumer()}: {props.userProfileInfo.name}
+                </h3>
+              </div>
+              <div
+                className="profile-cover__action bg--img"
+                data-overlay="0.3"
+              ></div>
               <div className="profile-cover__info">
                 <ul className="nav">
                   <li>
@@ -379,8 +409,18 @@ const ProfileCard = (props) => {
             <div className="profile-cover__action bg--img" data-overlay="0.3">
               {props.userProfileInfo.role === "Consumer" ? (
                 <>
-                  <br />
-                  <br />
+                  <button className="btn btn-rounded btn-info">
+                    <Link to="/messages">
+                      <i
+                        className="fas fa-inbox"
+                        style={{ color: "white" }}
+                      ></i>
+
+                      <span style={{ color: "white" }}>Messages</span>
+                    </Link>
+                  </button>
+                  {/* <br />
+                  <br /> */}
                 </>
               ) : (
                 <>
@@ -407,19 +447,29 @@ const ProfileCard = (props) => {
                       <span style={{ color: "white" }}>Upload Video</span>
                     </Link>
                   </button>
+                  <button className="btn btn-rounded btn-info">
+                    <Link to="/messages">
+                      <i
+                        className="fas fa-inbox"
+                        style={{ color: "white" }}
+                      ></i>
+
+                      <span style={{ color: "white" }}>Messages</span>
+                    </Link>
+                  </button>
                 </>
               )}
             </div>
+
             <div className="profile-cover__info">
               <ul className="nav">
-                
-                  <li
-                    style={{ cursor: "pointer" }}
-                    onClick={handleFollowersBtnClick}
-                  >
-                    <strong>{numberOfFollowers}</strong>
-                    <span>Followers</span>
-                  </li>
+                <li
+                  style={{ cursor: "pointer" }}
+                  onClick={handleFollowersBtnClick}
+                >
+                  <strong>{numberOfFollowers}</strong>
+                  <span>Followers</span>
+                </li>
 
                 <li>
                   <strong>{affilLinkClicks}</strong>

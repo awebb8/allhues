@@ -35,7 +35,8 @@ const YourMessages = () => {
     // console.log(e.target.getAttribute("data"));
     const idToDelete = e.target.getAttribute("data");
     console.log(idToDelete);
-    Axios.delete(`/api/sentmessages/${e.target.getAttribute("data")}`)
+    // Axios.delete(`/api/sentmessages/${e.target.getAttribute("data")}`)
+    Axios.delete(`/api/sentmessages/${idToDelete}`)
       .then((res) => {
         console.log(res.data);
         const filteredSent = sentMsgs.filter((i) => i._id != idToDelete);
@@ -47,7 +48,8 @@ const YourMessages = () => {
 
   const handleReceivedDeleteClick = (e) => {
     const idToDelete = e.target.getAttribute("data");
-    Axios.delete(`/api/receivedmessages/${e.target.getAttribute("data")}`)
+    // Axios.delete(`/api/receivedmessages/${e.target.getAttribute("data")}`)
+    Axios.delete(`/api/receivedmessages/${idToDelete}`)
       .then((res) => {
         // console.log(res.data)
         const filteredSent = yourMsgs.filter((i) => i._id != idToDelete);
@@ -56,12 +58,17 @@ const YourMessages = () => {
       .catch((err) => console.log(err));
   };
 
-  const handleReplyClick = (e) => {
-    const idToReplyTo = e.target.getAttribute("data");
-    console.log(idToReplyTo);
-  };
+  // const handleReplyClick = (e) => {
+  //   const idToReplyTo = e.target.getAttribute("data");
+  //   console.log(idToReplyTo);
+  // };
 
-  if (sentMsgs.length > 0 && yourMsgs.length > 0) {
+  if (
+    sentMsgs != undefined &&
+    yourMsgs != undefined &&
+    sentMsgs.length > 0 &&
+    yourMsgs.length > 0
+  ) {
     return (
       <>
         <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5>
@@ -96,14 +103,17 @@ const YourMessages = () => {
                   key={i._id}
                   info={i}
                   handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
-                  handleReplyClick={(e) => handleReplyClick(e)}
+                  // handleReplyClick={(e) => handleReplyClick(e)}
                 />
               ))}
           </div>
         </div>
       </>
     );
-  } else if (yourMsgs.length > 0 || sentMsgs.length > 0) {
+  } else if (
+    (yourMsgs != undefined && yourMsgs.length > 0) ||
+    (sentMsgs != undefined && sentMsgs.length > 0)
+  ) {
     return (
       <>
         <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5>
@@ -122,7 +132,7 @@ const YourMessages = () => {
               ))}
           </div>
         </div>
-        {yourMsgs.length > 0 && (
+        {yourMsgs != undefined && yourMsgs.length > 0 && (
           <>
             <h5 style={{ fontWeight: "bold" }}>Received Messages</h5>
             <div
