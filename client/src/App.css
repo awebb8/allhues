@@ -62,14 +62,16 @@ a:hover {
 }
 
 .homeCard {
-	border: 2px solid #b29fb5;
-	margin: 20px;
-	display: inline-block !important;
+	border: 2px solid #b59fa2;
+	/* margin: 20px; */
+	/* display: inline-block !important; */
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+	height: 430px;
 }
 
 .featured-looks-text {
 	font-size: 28px;
+	letter-spacing: 6px;
 }
 
 .shrink {
@@ -90,14 +92,18 @@ and (max-width : 1100px) {
 	.homeCard {
 		margin: 10px!important;
 	}
-	.shrink {
+	/* .shrink {
 		-webkit-transform: scale(0.9);
 		-moz-transform: scale(0.9);
 		-ms-transform: scale(0.9);
 		transform: scale(0.9);
-	}
+	} */
 	.jumbotron {
 	height: 0!important;
+	}
+
+	.card {
+		width: 300px!important;
 	}
 }
 
@@ -130,12 +136,12 @@ and (max-device-width: 480px) {
 		width: 90%!important;
 	}
 	/* Homepage ViewAll cards */
-	.shrink {
+	/* .shrink {
 		-webkit-transform: scale(0.9);
 		-moz-transform: scale(0.9);
 		-ms-transform: scale(0.9);
 		transform: scale(0.9);
-	}
+	} */
 	.overlay {
 		top: 10%!important; right: 0; bottom: 0; left: 0;
 	}
@@ -160,6 +166,9 @@ and (max-device-width: 480px) {
 	.profile-cover__action {
 		padding-top: 160px!important;
 	}
+	.homeCard {
+		margin: 10px!important;
+	}
 }
 
 @media only screen and (min-width : 479px) 
@@ -170,5 +179,29 @@ and (max-width : 767px) {
 	}
 	.homeCard {
 		margin: 10px!important;
+	}
+}
+
+/* @media only screen 
+and (max-width : 1000px) {
+	.shrink {
+		-webkit-transform: scale(0.65);
+		-moz-transform: scale(0.65);
+		-ms-transform: scale(0.65);
+		transform: scale(0.65);
+	}
+} */
+
+@media only screen 
+and (max-width : 830px) and (min-width : 768px) {
+	.mk-row {
+		margin-left: -35px!important;
+	}
+}
+
+@media only screen 
+and (max-width : 790px) and (min-width : 768px) {
+	.mk-row {
+		margin-left: -50px!important;
 	}
 }

@@ -339,7 +339,7 @@ const ConsumerViewAll = (props) => {
       </div>
 
       <div className="container-fluid">
-        <div className="row row-cols-1 row-cols-md-3">
+        <div className="row cva-row">
           {filterKits
             .filter((kit) => {
               if (selectedFilterProducts === undefined) {
@@ -352,6 +352,7 @@ const ConsumerViewAll = (props) => {
               return true;
             })
             .map((i) => (
+              <div className="col-lg-4 col-md-6 col-sm-12 col-xs-12">
               <MultiKit
                 setFavorites={setFavorites}
                 favorites={favorites}
@@ -361,6 +362,7 @@ const ConsumerViewAll = (props) => {
                 class={i._id}
                 info={i}
               />
+              </div>
             ))}
         </div>
       </div>
