@@ -49,11 +49,6 @@ const YourMessages = () => {
       .catch((err) => console.log(err));
   };
 
-  // const handleReplyClick = (e) => {
-  //   const idToReplyTo = e.target.getAttribute("data");
-  //   console.log(idToReplyTo);
-  // };
-
   if (
     sentMsgs != undefined &&
     yourMsgs != undefined &&
