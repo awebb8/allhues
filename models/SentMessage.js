@@ -11,6 +11,9 @@ const SentMessageSchema = new Schema({
   receiverId: {
     type: String,
   },
+  receiverUsername: {
+    type: String,
+  },
 
   createdDate: {
     type: Date,

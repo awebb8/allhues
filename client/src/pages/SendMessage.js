@@ -3,14 +3,19 @@ import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../utils/UserContext";
 // import Select from "react-select";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import API from "../utils/API";
+import useDidMountEffect from "../utils/useDidMountEffect";
 
 const SendMessage = (props) => {
+  const { id } = useContext(UserContext);
   const [messageText, setMessageText] = useState({
     receiverId: "",
     subject: "",
     message: "",
-    senderId: "",
+    senderId: id,
+    receiverUsername: "",
+    senderUsername: "",
   });
   //   const [peopleOptions, setPeopleOptions] = useState([]);
   const [recipientId, setRecipientId] = useState("");
@@ -20,21 +25,58 @@ const SendMessage = (props) => {
   //   const [whoToMsgInput, setWhoToMsgInput] = useState("");
   const [searchResModal, setSearchResModal] = useState(false);
   const [foundUsers, setFoundUsers] = useState([]);
+  // const [senderUsername, setSenderUsername] = useState("");
 
-  const { id } = useContext(UserContext);
   const history = useHistory();
 
-  // useEffect(() => {
-  //   setMessageText({ ...messageText, receiverId: id });
-  // }, [id]);
+  useDidMountEffect(() => {
+    API.getPopulatedUsers(recipientId).then((res) => {
+      API.getUser().then((resp) => {
+        // console.log()
+        setMessageText({
+          ...messageText,
+          receiverId: res.data[0]._id,
+          receiverUsername: res.data[0].userName,
+          senderId: id,
+          senderUsername: resp.data.userName,
+        });
+
+        // setMessageText({ ...messageText });
+      });
+    });
+  }, [recipientId]);
 
   useEffect(() => {
     if (props && props.location && props.location.state) {
-      setRecipientId(props.location.state.id);
-      setMessageText({
-        ...messageText,
-        receiverId: props.location.state.id,
-        senderId: id,
+      API.getUser().then((res) => {
+        setRecipientId(props.location.state.id);
+        setMessageText({
+          ...messageText,
+          receiverId: props.location.state.id,
+          senderId: id,
+          receiverUsername: props.location.state.userName,
+          senderUsername: res.data.userName,
+        });
+      });
+    } else if (props.location.state !== undefined) {
+      API.getUser().then((res) => {
+        setMessageText({
+          ...messageText,
+          receiverId: props.location.state.id,
+          senderId: id,
+          // receiverUsername: props.location.state.userName,
+          senderUsername: res.data.userName,
+        });
+      });
+    } else {
+      API.getUser().then((res) => {
+        setMessageText({
+          ...messageText,
+          // receiverId: props.location.state.id,
+          senderId: id,
+          // receiverUsername: props.location.state.userName,
+          senderUsername: res.data.userName,
+        });
       });
     }
   }, [props.location.state]);
