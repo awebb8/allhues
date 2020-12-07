@@ -1,0 +1,23 @@
+@media only screen 
+and (max-width : 500px) {
+	img.img-display {
+		width: 300px!important;
+		height: 300px!important;
+	}
+	video.video-display {
+		width: 300px!important;
+		height: 300px!important;
+	}
+	.img-display-container {
+		width: 300px!important
+	}
+}
+
+svg:hover {
+	opacity: 0.5;
+}
+
+.share-icon:hover {
+	opacity: 0.5;
+	cursor: pointer;
+}
