@@ -2,7 +2,7 @@ import Axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../utils/UserContext";
-// import Select from "react-select";
+import Select from "react-select";
 // import { Link } from "react-router-dom";
 import API from "../utils/API";
 import useDidMountEffect from "../utils/useDidMountEffect";
@@ -26,6 +26,14 @@ const SendMessage = (props) => {
   const [searchResModal, setSearchResModal] = useState(false);
   const [foundUsers, setFoundUsers] = useState([]);
   // const [senderUsername, setSenderUsername] = useState("");
+  const [allPeople, setAllPeople] = useState([]);
+  const [idOfPplFollowed, setIdOfPplFollowed] = useState([]);
+  const [followedInfo, setFollowedInfo] = useState([]);
+  const [optionsForSelect, setOptionsForSelect] = useState([
+    { label: "Someone else", value: "Someone else" },
+  ]);
+  const [displayForInput, setDisplayForInput] = useState("none");
+  const [currentSelectorVal, setCurrentSelectorVal] = useState("");
 
   const history = useHistory();
 
@@ -45,6 +53,51 @@ const SendMessage = (props) => {
       });
     });
   }, [recipientId]);
+
+  useEffect(() => {
+    API.getAllUsers()
+      .then((res) => {
+        // console.log(res.data);
+        setAllPeople(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useDidMountEffect(() => {
+    let arr = allPeople.filter((i) => i._id === id);
+    // if (arr && arr[0] && arr[0].followers != undefined) {
+    //   setPeopleFollowing(arr[0].followers);
+    // }
+    if (arr && arr[0] && arr[0].following != undefined) {
+      setIdOfPplFollowed(arr[0].following);
+    }
+  }, [allPeople]);
+
+  useDidMountEffect(() => {
+    // let arr =allPpl.filter(i=>i._id )
+    let arr = [];
+    for (let i = 0; i < allPeople.length; i++) {
+      for (let k = 0; k < idOfPplFollowed.length; k++) {
+        if (allPeople[i]._id === idOfPplFollowed[k].id) {
+          //   console.log("mathc");
+          arr.push(allPeople[i]);
+        }
+      }
+    }
+    setFollowedInfo(arr);
+    // console.log(arr);
+  }, [idOfPplFollowed]);
+
+  useDidMountEffect(() => {
+    const arr = [{ label: "Someone else", value: "Someone else" }];
+    for (let i = 0; i < followedInfo.length; i++) {
+      // setOptionsForSelect(optionsForSelect=>{...optionsForSelect, label= "", value=""})
+      arr.push({ value: followedInfo[i]._id, label: followedInfo[i].userName });
+    }
+    //this sets the first element in the array as the last.. for someone else thing..
+    arr.push(arr.shift());
+    setOptionsForSelect(arr);
+  }, [followedInfo]);
 
   useEffect(() => {
     if (props && props.location && props.location.state) {
@@ -122,6 +175,17 @@ const SendMessage = (props) => {
     setRecipientId(searchId);
   };
 
+  const handleSelectValueChange = (e) => {
+    // console.log(e.label);
+
+    if (e.label !== "Someone else") {
+      setMsgRecip({ userName: e.label });
+      setRecipientId(e.value);
+    } else {
+      setDisplayForInput("inline");
+    }
+  };
+
   if (searchResModal) {
     return (
       <div
@@ -177,7 +241,20 @@ const SendMessage = (props) => {
         >
           {!recipientId && (
             <>
-              <form type="submit" onSubmit={handleUsernameSubmit}>
+              <div
+                style={{ margin: "auto", width: "60%", marginBottom: "1.5%" }}
+              >
+                <Select
+                  options={optionsForSelect}
+                  placeholder="Select username"
+                  onChange={handleSelectValueChange}
+                />
+              </div>
+              <form
+                type="submit"
+                onSubmit={handleUsernameSubmit}
+                style={{ display: displayForInput }}
+              >
                 <label htmlFor="msgRecip" style={{ color: "red" }}>
                   Username to message
                 </label>
