@@ -35,7 +35,7 @@ const SendMessage = (props) => {
   const [displayForInput, setDisplayForInput] = useState("none");
   const [currentSelectorVal, setCurrentSelectorVal] = useState({});
   const [selectDisplayStatus, setSelectDisplayStatus] = useState("block");
-  const [msgSomeoneElse, setMsgSomeoneElse] = useState("none");
+  // const [msgSomeoneElse, setMsgSomeoneElse] = useState("none");
 
   const history = useHistory();
 
@@ -186,7 +186,7 @@ const SendMessage = (props) => {
       setMsgRecip(e.label);
       setRecipientId(e.value);
       setSelectDisplayStatus("none");
-      setMsgSomeoneElse("block");
+      // setMsgSomeoneElse("block");
     }
   };
 
@@ -252,49 +252,55 @@ const SendMessage = (props) => {
             height: "fit-content",
           }}
         >
-          <div
-            style={{
-              margin: "auto",
-              width: "60%",
-              marginBottom: "1.5%",
-              display: selectDisplayStatus,
-            }}
-          >
-            <Select
-              options={optionsForSelect}
-              placeholder="Select username"
-              onChange={handleSelectValueChange}
-            />
-          </div>
+          {messageText.receiverId === "" && (
+            <div
+              style={{
+                margin: "auto",
+                width: "60%",
+                marginBottom: "1.5%",
+                display: selectDisplayStatus,
+              }}
+            >
+              <Select
+                options={optionsForSelect}
+                placeholder="Select username"
+                onChange={handleSelectValueChange}
+              />
+            </div>
+          )}
+
           {/* {!recipientId && ( */}
           {/* <> */}
-          <form
-            type="submit"
-            onSubmit={handleUsernameSubmit}
-            style={{ display: displayForInput }}
-          >
-            <label htmlFor="msgRecip" style={{ color: "red" }}>
-              Username to message
-            </label>
-            <input
-              type="text"
-              name="msgRecip"
-              style={{ display: "block", margin: "auto", width: "20vw" }}
-              onChange={handleUsernameChangeInput}
-            />
-            {msgRecip.userName !== "" && (
-              <button
-                className="buttons"
-                style={{
-                  display: "inline",
-                  padding: "3px 3px",
-                  marginBottom: "3%",
-                }}
-              >
-                Search for user
-              </button>
-            )}
-          </form>
+          {!recipientId && (
+            <form
+              type="submit"
+              onSubmit={handleUsernameSubmit}
+              style={{ display: displayForInput }}
+            >
+              <label htmlFor="msgRecip" style={{ color: "red" }}>
+                Username to message
+              </label>
+              <input
+                type="text"
+                name="msgRecip"
+                style={{ display: "block", margin: "auto", width: "20vw" }}
+                onChange={handleUsernameChangeInput}
+              />
+              {msgRecip.userName !== "" && (
+                <button
+                  className="buttons"
+                  style={{
+                    display: "inline",
+                    padding: "3px 3px",
+                    marginBottom: "3%",
+                  }}
+                >
+                  Search for user
+                </button>
+              )}
+            </form>
+          )}
+
           <br />
           {/* </> */}
           {/* )} */}
@@ -335,27 +341,32 @@ const SendMessage = (props) => {
                 >
                   Send
                 </button>
-                <a
-                  // className="buttons"
+                {messageText.receiverId !== "" && (
+                  <a
+                    // className="buttons"
 
-                  onClick={() => {
-                    setSelectDisplayStatus("block");
-                    setMsgSomeoneElse("none");
-                    setMessageText({
-                      ...messageText,
-                      receiverId: "",
-                      receiverUsername: "",
-                    });
-                  }}
-                  style={{
-                    display: msgSomeoneElse,
-                    padding: "0px 0px",
-                    margin: "auto",
-                    cursor: "pointer",
-                  }}
-                >
-                  Msg someone else
-                </a>
+                    onClick={() => {
+                      setSelectDisplayStatus("block");
+                      // setMsgSomeoneElse("none");
+                      setMessageText({
+                        ...messageText,
+                        receiverId: "",
+                        receiverUsername: "",
+                      });
+                      setRecipientId("");
+                      setMsgRecip({ userName: "" });
+                    }}
+                    style={{
+                      // display: msgSomeoneElse,
+                      display: "block",
+                      padding: "0px 0px",
+                      margin: "auto",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Msg someone else
+                  </a>
+                )}
               </form>
             )}
           </div>
