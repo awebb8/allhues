@@ -81,8 +81,8 @@ const YourMessages = () => {
 
   useDidMountEffect(() => {
     if (
-      (uniqueUsernames.length === 0 && sentMsgs) ||
-      (uniqueUsernames.length === 0 && yourMsgs)
+      (uniqueUsernames.length === 0 && sentMsgs != undefined) ||
+      (uniqueUsernames.length === 0 && yourMsgs != undefined)
     ) {
       const r = [];
       for (let i = 0; i < sentMsgs.length; i++) {
