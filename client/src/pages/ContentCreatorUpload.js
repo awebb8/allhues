@@ -448,7 +448,7 @@ const ContentCreatorUpload = (props) => {
             onChange={handleTypeSelector}
             styles={customStyles}
           />
-          
+
           <div className="mb-2"/>
 
           <Select

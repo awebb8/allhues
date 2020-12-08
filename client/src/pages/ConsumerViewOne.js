@@ -127,14 +127,14 @@ const ConsumerViewOne = () => {
         .then((res) => {
           console.log(res);
           Axios.put(`/api/vidtokit/${kit._id}`, uploadedVidUrl)
-            .then((res) => history.push(`/portal/${id}`))
+            .then((res) => {})
             .catch((err) => console.log(err));
           // history.push(`/portal/${id}`);
         })
         .catch((err) => console.log(err));
     } else if (video.type === "image/jpeg" || video.type === "image/png") {
       Axios.put(`/api/picuploads/${kit._id}`, uploadedVidUrl)
-        .then((res) => history.push(`/viewone/${kit._id}`))
+        .then((res) => {})
         .catch((err) => console.log(err));
     }
     // history.push(`/portal/${id}`);
@@ -242,7 +242,7 @@ const ConsumerViewOne = () => {
   };
 
   const handleProfileClick = () => {
-    console.log("hi");
+    history.push(`/portal/${kitCreatorInfo.id}`);
   };
 
   const handleAffiliateClick = (e) => {
@@ -355,7 +355,9 @@ const ConsumerViewOne = () => {
                     whiteSpace: "nowrap",
                     fontSize: 22,
                     letterSpacing: 1,
+                    cursor: 'pointer'
                   }}
+                  onClick={handleProfileClick}
                 >
                   @{kitCreatorInfo && kitCreatorInfo.username}
                 </div>
