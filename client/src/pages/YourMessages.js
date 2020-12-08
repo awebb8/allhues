@@ -134,16 +134,7 @@ const YourMessages = () => {
                 />
               ))}
           {/* </div> */}
-        </div>
-        <br />
-        <br />
-        <br />
-        <br />
         {/* <h5 style={{ fontWeight: "bold" }}>Received Messages</h5> */}
-        <div
-          className="container-fluid"
-          style={{ width: "fit-content", minWidth: "45vw" }}
-        >
           {/* <div className="row row-cols-1 row-cols-md-3"> */}
             {filteredSent &&
               // yourMsgs
