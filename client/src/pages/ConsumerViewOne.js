@@ -80,6 +80,74 @@ function copyTextToClipboard(text) {
 }
 
 const ConsumerViewOne = () => {
+  // Add video modal state management
+  const [addVideoModalIsOpen, setAddVideoModalIsOpen] = useState(false);
+  const [putUrl, setPutUrl] = useState({
+    videoUrl: "",
+    title: "",
+    description: "",
+  });
+  const [video, setVideo] = useState();
+  const [vidUploadStatus, setVidUploadStatus] = useState("");
+  const [uploadedVidUrl, setUploadedVidUrl] = useState({
+    url: "",
+  });
+
+  // const preset = "askckkso";
+  const preset = "dklqfpym";
+  // const urlVid = "https://api.cloudinary.com/v1_1/dsi7lpcmx/upload";
+  const urlVid = "https://api.cloudinary.com/v1_1/dvr1qfvi0/upload";
+
+  const onChangeVideo = (e) => {
+    setVideo(e.target.files[0]);
+  };
+
+  const postData = async () => {
+    const formData = new FormData();
+    formData.append("file", video);
+    formData.append("upload_preset", preset);
+    setVidUploadStatus("Uploading...");
+    await Axios.post(urlVid, formData).then((res) => {
+      const imageUrl = res.data.secure_url;
+      setUploadedVidUrl({ url: imageUrl });
+
+      setPutUrl({ ...putUrl, videoUrl: imageUrl });
+    });
+  };
+
+  useEffect(() => {
+    if (video != "" && video != null) {
+      postData();
+    }
+  }, [video]);
+
+  const handleVideoUploadSubmit = () => {
+    if (video.type === "video/mp4") {
+      Axios.put(`/api/users/videouploads/${kit.creatorId}`, putUrl)
+        .then((res) => {
+          console.log(res);
+          Axios.put(`/api/vidtokit/${kit._id}`, uploadedVidUrl)
+            .then((res) => history.push(`/portal/${id}`))
+            .catch((err) => console.log(err));
+          // history.push(`/portal/${id}`);
+        })
+        .catch((err) => console.log(err));
+    } else if (video.type === "image/jpeg" || video.type === "image/png") {
+      Axios.put(`/api/picuploads/${kit._id}`, uploadedVidUrl)
+        .then((res) => history.push(`/viewone/${kit._id}`))
+        .catch((err) => console.log(err));
+    }
+    // history.push(`/portal/${id}`);
+    //reset all states
+    setAddVideoModalIsOpen(false);
+    setPutUrl({
+      videoUrl: "",
+      title: "",
+      description: "",
+    });
+    setVidUploadStatus("");
+  };
+
   // Delete modal state management
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
 
@@ -404,12 +472,23 @@ const ConsumerViewOne = () => {
                     <div style={{ position: "absolute", top: 165, right: -28 }}>
                       <img
                         className="share-icon"
+                        onClick={() => setAddVideoModalIsOpen(true)}
+                        style={{
+                          width: 14,
+                          height: 14,
+                          cursor: "pointer",
+                        }}
+                        src="https://icons-for-free.com/iconfiles/png/512/box+document+outline+share+top+upload+icon-1320195323221671611.png"
+                      />
+                    </div>
+                    <div style={{ position: "absolute", top: 205, right: -28 }}>
+                      <img
+                        className="share-icon"
                         onClick={() => setDeleteModalIsOpen(true)}
                         style={{
                           width: 14,
                           height: 14,
                           cursor: "pointer",
-                          color: "red",
                         }}
                         src="data:image/png;base64,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"
                       />
@@ -627,8 +706,54 @@ const ConsumerViewOne = () => {
         >
           <h3>Are you sure you want to delete this kit?</h3>
           <p>This action cannot be undone.</p>
-          <button onClick={() => setDeleteModalIsOpen(false)} className="buttons">Cancel</button>
-          <button onClick={onClickDelete} className="delete-button">Delete</button>
+          <button
+            onClick={() => setDeleteModalIsOpen(false)}
+            className="buttons"
+          >
+            Cancel
+          </button>
+          <button onClick={onClickDelete} className="delete-button">
+            Delete
+          </button>
+        </Modal>
+        <Modal
+          isOpen={addVideoModalIsOpen}
+          overlayClassName={{
+            base: "followers-modal-overlay",
+            afterOpen: "followers-modal-overlay--after",
+            beforeClose: "followers-modal-overlay--before",
+          }}
+          onRequestClose={() => setAddVideoModalIsOpen(false)}
+          closeTimeoutMS={200}
+          style={customStyles}
+        >
+          <h3>Add a video or image</h3>
+          {vidUploadStatus === "Uploading..." ? (
+            <label className="buttons">
+              Upload
+              <input disabled type="file" id="kitImageInput" hidden />
+            </label>
+          ) : (
+            <label className="buttons">
+              Upload
+              <input
+                type="file"
+                id="kitImageInput"
+                hidden
+                onChange={onChangeVideo}
+              />
+            </label>
+          )}
+          {putUrl.videoUrl === "" ? (
+            <>
+              <br />
+              <h4>{vidUploadStatus}</h4>
+            </>
+          ) : (
+            <button onClick={handleVideoUploadSubmit} className="buttons">
+              Done!
+            </button>
+          )}
         </Modal>
       </div>
     </>
