@@ -195,7 +195,7 @@ const Home = (props) => {
               />
               <div className="card-body">
                 <p className="card-text">
-                  Look at all the beauty our talented creators have enhanced.
+                  Browse all looks to find the one...
                 </p>
                 <Link to="/viewall" className="buttons">
                   View All
@@ -215,7 +215,7 @@ const Home = (props) => {
               />
               <div className="card-body">
                 <p className="card-text">
-                  Check out what's been recently posted.
+                  Check out what's been recently posted...
                 </p>
                 <br />
                 <Link

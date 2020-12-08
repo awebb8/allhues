@@ -11,11 +11,13 @@ const ReceivedMessageSchema = new Schema({
   senderId: {
     type: String,
   },
-
-  //   createdDate: {
-  //     type: Date,
-  //     default: Date.now,
-  //   },
+  senderUsername: {
+    type: String,
+  },
+    createdDate: {
+      type: Date,
+      default: Date.now,
+    },
 });
 const ReceivedMessage = mongoose.model(
   "ReceivedMessage",

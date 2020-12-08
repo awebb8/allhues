@@ -6,62 +6,136 @@ import UserContext from "../utils/UserContext";
 import Message from "../components/Message/Message";
 import { Link } from "react-router-dom";
 import Axios from "axios";
+import Modal from "react-modal";
+import useDidMountEffect from "../utils/useDidMountEffect";
+
+Modal.setAppElement("#root");
 
 const YourMessages = () => {
   const [yourMsgs, setYourMsgs] = useState([]);
   const [sentMsgs, setSentMsgs] = useState([]);
-  const [putPayload, setPutPayload] = useState({
-    message: "",
-  });
+  const [messageThreadUsername, setMessageThreadUsername] = useState("");
+  // const [filteredSent, setFilteredSent] = useState([]);
+  // const [filteredReceived, setFilteredReceived] = useState([]);
+  const [allFilteredMessages, setAllFilteredMessages] = useState([]);
+  const [uniqueUsernames, setUniqueUsernames] = useState([]);
+
   const { id } = useContext(UserContext);
 
   useEffect(() => {
-    setPutPayload({
-      message: "test",
-    });
     Axios.get(`/api/messages/${id}`)
       .then((res) => {
-        // console.log(res.data);
         setSentMsgs(res.data[0].sentMessages);
         setYourMsgs(res.data[0].receivedMessages);
-        // console.log(res.data);
-        // setYourMsgs(res.data.receivedMessages);
-        // setSentMsgs(res.data.sentMessages);
       })
       .catch((err) => console.log(err));
   }, [id]);
 
   const handleSentDeleteClick = (e) => {
+    e.stopPropagation();
     // console.log(e.target.getAttribute("data"));
-    const idToDelete = e.target.getAttribute("data");
-    console.log(idToDelete);
-    // Axios.delete(`/api/sentmessages/${e.target.getAttribute("data")}`)
+    var idToDelete = e.target.getAttribute("data");
+
     Axios.delete(`/api/sentmessages/${idToDelete}`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         const filteredSent = sentMsgs.filter((i) => i._id != idToDelete);
         setSentMsgs(filteredSent);
+        const filteredAll = allFilteredMessages.filter(
+          (j) => j._id != idToDelete
+        );
+        setAllFilteredMessages(filteredAll);
       })
       .catch((err) => console.log(err));
-    // Axios.put(`/api/deletesentmsg/${id}`, test).then((res) => console.log(res));
   };
 
   const handleReceivedDeleteClick = (e) => {
-    const idToDelete = e.target.getAttribute("data");
-    // Axios.delete(`/api/receivedmessages/${e.target.getAttribute("data")}`)
+    e.stopPropagation();
+    var idToDelete = e.target.getAttribute("data");
+
     Axios.delete(`/api/receivedmessages/${idToDelete}`)
       .then((res) => {
         // console.log(res.data)
         const filteredSent = yourMsgs.filter((i) => i._id != idToDelete);
         setYourMsgs(filteredSent);
+        const filteredAll = allFilteredMessages.filter(
+          (j) => j._id != idToDelete
+        );
+        setAllFilteredMessages(filteredAll);
       })
       .catch((err) => console.log(err));
   };
 
-  // const handleReplyClick = (e) => {
-  //   const idToReplyTo = e.target.getAttribute("data");
-  //   console.log(idToReplyTo);
-  // };
+  // ---- Modal ----
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const handleCloseBtnClick = () => {
+    setModalIsOpen(false);
+  };
+
+  const handleShowMessages = (e) => {
+    setModalIsOpen(true);
+    // console.log(yourMsgs);
+
+    setMessageThreadUsername(e.target.getAttribute("class"));
+  };
+
+  useDidMountEffect(() => {
+    if (uniqueUsernames.length === 0) {
+      const r = [];
+      for (let i = 0; i < sentMsgs.length; i++) {
+        console.log(sentMsgs[i]);
+        if (!r.includes(sentMsgs[i].receiverUsername)) {
+          r.push(sentMsgs[i].receiverUsername);
+        }
+      }
+      for (let j = 0; j < yourMsgs.length; j++) {
+        if (!r.includes(yourMsgs[j].senderUsername)) {
+          r.push(yourMsgs[j].senderUsername);
+        }
+      }
+      // console.log(r);
+      setUniqueUsernames(r);
+    }
+  }, [sentMsgs, yourMsgs]);
+
+  // useDidMountEffect(() => {
+  //   if (uniqueUsernames.length === 0) {
+  //     const arr = [];
+  //     for (let i = 0; i < yourMsgs.length; i++) {
+  //       if (!arr.includes(yourMsgs[i].senderUsername)) {
+  //         arr.push(yourMsgs[i].senderUsername);
+  //       }
+  //     }
+  //     // console.log(r);
+  //     setUniqueUsernames(r);
+  //   }
+  // }, [yourMsgs]);
+
+  useDidMountEffect(() => {
+    console.log(messageThreadUsername);
+    const showSent = yourMsgs.filter(
+      (name) => name.senderUsername === messageThreadUsername
+    );
+    // yourMsgs.filter(name => console.log(name.senderUsername))
+    // setFilteredSent(showSent);
+
+    const showReceived = sentMsgs.filter(
+      (name) => name.receiverUsername === messageThreadUsername
+    );
+    // setFilteredReceived(showReceived);
+
+    const allFilteredMessagesArray = showSent.concat(showReceived);
+    const x = allFilteredMessagesArray.sort((a, b) => {
+      return (
+        new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime()
+      );
+    });
+    setAllFilteredMessages(x);
+    // console.log(x);
+  }, [messageThreadUsername]);
+
+  // ---------------
 
   if (
     sentMsgs != undefined &&
@@ -69,44 +143,87 @@ const YourMessages = () => {
     sentMsgs.length > 0 &&
     yourMsgs.length > 0
   ) {
+    // console.log("me");
     return (
       <>
-        <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5>
-        <div
-          className="container-fluid"
-          style={{ width: "fit-content", minWidth: "45vw" }}
-        >
-          <div className="row row-cols-1 row-cols-md-3">
-            {sentMsgs &&
-              sentMsgs.map((i) => (
+        <div>
+          <br />
+          <h3>Click on a username to view messages:</h3>
+          <br />
+          {/* Map over users who have messaged with this person */}
+          {uniqueUsernames &&
+            uniqueUsernames.map((i) => (
+              // i.senderUsername
+              <p>
+                <a
+                  style={{ cursor: "pointer" }}
+                  className={i}
+                  onClick={(e) => handleShowMessages(e)}
+                >
+                  {i}
+                </a>
+              </p>
+            ))}
+          {/* ------------------------------------------------- */}
+
+          <Modal isOpen={modalIsOpen} className="modal-content">
+            <div>
+              <h4>Messages with {messageThreadUsername}</h4>
+              <br />
+              {/* <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5> */}
+              <div
+                className="container-fluid"
+                style={{ width: "fit-content", minWidth: "45vw" }}
+              >
+                {/* {filteredReceived &&
+              filteredReceived.map((i) => (
                 <Message
                   key={i._id}
                   info={i}
+                  url={i._id}
                   handleDeleteClick={(e) => handleSentDeleteClick(e)}
                 />
               ))}
-          </div>
-        </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <h5 style={{ fontWeight: "bold" }}>Received Messages</h5>
-        <div
-          className="container-fluid"
-          style={{ width: "fit-content", minWidth: "45vw" }}
-        >
-          <div className="row row-cols-1 row-cols-md-3">
-            {yourMsgs &&
-              yourMsgs.map((i) => (
+            {filteredSent &&
+              filteredSent.map((i) => (
                 <Message
                   key={i._id}
                   info={i}
+                  url={i._id}
                   handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
-                  // handleReplyClick={(e) => handleReplyClick(e)}
                 />
-              ))}
-          </div>
+              ))} */}
+                {allFilteredMessages &&
+                  allFilteredMessages.map((i) => (
+                    <ul style={{ listStyle: "none" }}>
+                      <li>
+                        <Message
+                          key={i._id}
+                          info={i}
+                          url={i._id}
+                          handleReceivedDeleteClick={handleReceivedDeleteClick}
+                          handleSentDeleteClick={handleSentDeleteClick}
+                        />
+                      </li>
+                    </ul>
+                  ))}
+              </div>
+              <button
+                className="buttons shadow-none py-0 px-2 text-muted"
+                onClick={handleCloseBtnClick}
+                style={{
+                  position: "absolute",
+                  right: 0,
+                  top: 0,
+                  color: "black",
+                  backgroundColor: "white",
+                  border: "none",
+                }}
+              >
+                <h3>&times;</h3>
+              </button>
+            </div>
+          </Modal>
         </div>
       </>
     );
@@ -116,45 +233,156 @@ const YourMessages = () => {
   ) {
     return (
       <>
-        <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5>
-        <div
-          className="container-fluid"
-          style={{ width: "fit-content", minWidth: "45vw" }}
-        >
-          <div className="row row-cols-1 row-cols-md-3">
-            {sentMsgs &&
-              sentMsgs.map((i) => (
+        <div>
+          <br />
+          <h3>Click on a username to view messages:</h3>
+          <br />
+          {/* Map over users who have messaged with this person */}
+          {uniqueUsernames &&
+            uniqueUsernames.map((i) => (
+              // i.senderUsername
+              <p>
+                <a
+                  style={{ cursor: "pointer" }}
+                  className={i}
+                  onClick={(e) => handleShowMessages(e)}
+                >
+                  {i}
+                </a>
+              </p>
+            ))}
+          {/* ------------------------------------------------- */}
+
+          <Modal isOpen={modalIsOpen} className="modal-content">
+            <div>
+              <h4>Messages with {messageThreadUsername}</h4>
+              <br />
+              {/* <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5> */}
+              <div
+                className="container-fluid"
+                style={{ width: "fit-content", minWidth: "45vw" }}
+              >
+                {/* {filteredReceived &&
+              filteredReceived.map((i) => (
                 <Message
                   key={i._id}
                   info={i}
+                  url={i._id}
                   handleDeleteClick={(e) => handleSentDeleteClick(e)}
                 />
               ))}
-          </div>
-        </div>
-        {yourMsgs != undefined && yourMsgs.length > 0 && (
-          <>
-            <h5 style={{ fontWeight: "bold" }}>Received Messages</h5>
-            <div
-              className="container-fluid"
-              style={{ width: "fit-content", minWidth: "45vw" }}
-            >
-              <div className="row row-cols-1 row-cols-md-3">
-                {yourMsgs &&
-                  yourMsgs.map((i) => (
-                    <Message
-                      key={i._id}
-                      info={i}
-                      handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
-                    />
+            {filteredSent &&
+              filteredSent.map((i) => (
+                <Message
+                  key={i._id}
+                  info={i}
+                  url={i._id}
+                  handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
+                />
+              ))} */}
+                {allFilteredMessages &&
+                  allFilteredMessages.map((i) => (
+                    <ul style={{ listStyle: "none" }}>
+                      <li>
+                        <Message
+                          key={i._id}
+                          info={i}
+                          url={i._id}
+                          handleReceivedDeleteClick={handleReceivedDeleteClick}
+                          handleSentDeleteClick={handleSentDeleteClick}
+                        />
+                      </li>
+                    </ul>
                   ))}
               </div>
+              <button
+                className="buttons shadow-none py-0 px-2 text-muted"
+                onClick={handleCloseBtnClick}
+                style={{
+                  position: "absolute",
+                  right: 0,
+                  top: 0,
+                  color: "black",
+                  backgroundColor: "white",
+                  border: "none",
+                }}
+              >
+                <h3>&times;</h3>
+              </button>
             </div>
-          </>
-        )}
+          </Modal>
+        </div>
       </>
     );
   }
+  // else if (
+  //   (yourMsgs != undefined && yourMsgs.length > 0) ||
+  //   (sentMsgs != undefined && sentMsgs.length > 0)
+  // ) {
+  //   return (
+  //     <>
+  //     <Modal
+  //       isOpen={modalIsOpen}
+  //       className="modal-content"
+  //     >
+  //   <div>
+  //     <h4>Messages with {messageThreadUsername}</h4>
+  //     <br />
+  //       {/* <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5> */}
+  //       <div
+  //         className="container-fluid"
+  //         style={{ width: "fit-content", minWidth: "45vw" }}
+  //       >
+  //           {
+  //           sentMsgs &&
+  //             sentMsgs
+  //             .map((i) => (
+  //               <Message
+  //                 key={i._id}
+  //                 url={i._id}
+  //                 info={i}
+  //                 handleDeleteClick={(e) => handleSentDeleteClick(e)}
+  //               />
+  //             ))}
+  //       </div>
+  //       {yourMsgs != undefined && yourMsgs.length > 0 && (
+  //         <>
+  //           <h5 style={{ fontWeight: "bold" }}>Received Messages</h5>
+  //           <div
+  //             className="container-fluid"
+  //             style={{ width: "fit-content", minWidth: "45vw" }}
+  //           >
+  //               {yourMsgs &&
+  //                 yourMsgs.map((i) => (
+  //                   <Message
+  //                     key={i._id}
+  //                     info={i}
+  //                     url={i._id}
+  //                     handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
+  //                   />
+  //                 ))}
+  //           </div>
+  //         </>
+  //       )}
+  //       <button
+  //           className="buttons shadow-none py-0 px-2 text-muted"
+  //           onClick={handleCloseBtnClick}
+  //           style={{
+  //             position: "absolute",
+  //             right: 0,
+  //             top: 0,
+  //             color: "black",
+  //             backgroundColor: "white",
+  //             border: "none",
+  //           }}
+  //         >
+  //           <h3>&times;</h3>
+  //       </button>
+  //       </div>
+  //       </Modal>
+  //     </>
+  // );
+  // }
 
   return (
     <>

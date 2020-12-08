@@ -44,7 +44,6 @@ const ProfileCard = (props) => {
   const [numberOfFollowers, setNumberOfFollowers] = useState(0);
   const [affilLinkClicks, setAffilLinkClicks] = useState(0);
 
-  // TODO: assess why there are 2 allppl states
   useEffect(() => {
     API.getAllUsers()
       .then((res) => {
@@ -57,6 +56,9 @@ const ProfileCard = (props) => {
     let arr = allPeople.filter((i) => i._id === id);
     if (arr && arr[0] && arr[0].followers != undefined) {
       setPeopleFollowing(arr[0].followers);
+    }
+    if (arr && arr[0] && arr[0].following != undefined) {
+      setPplFollowed(arr[0].following);
     }
   }, [allPeople]);
 
@@ -75,13 +77,13 @@ const ProfileCard = (props) => {
     // console.log(arr);
   }, [peopleFollowing]);
 
-  useDidMountEffect(() => {
-    let arr = allPeople.filter((i) => i._id === id);
+  // useDidMountEffect(() => {
+  //   let arr = allPeople.filter((i) => i._id === id);
 
-    if (arr && arr[0] && arr[0].following != undefined) {
-      setPplFollowed(arr[0].following);
-    }
-  }, [allPeople]);
+  //   if (arr && arr[0] && arr[0].following != undefined) {
+  //     setPplFollowed(arr[0].following);
+  //   }
+  // }, [allPeople]);
 
   useDidMountEffect(() => {
     // let arr =allPpl.filter(i=>i._id )
@@ -303,7 +305,10 @@ const ProfileCard = (props) => {
                     <Link
                       to={{
                         pathname: "/newmessage",
-                        state: { id: props.userProfileInfo._id },
+                        state: {
+                          id: props.userProfileInfo._id,
+                          userName: props.userProfileInfo.userName,
+                        },
                       }}
                     >
                       <span style={{ color: "white" }}>Message</span>
@@ -462,28 +467,42 @@ const ProfileCard = (props) => {
             </div>
 
             <div className="profile-cover__info">
-              <ul className="nav">
-                <li
-                  style={{ cursor: "pointer" }}
-                  onClick={handleFollowersBtnClick}
-                >
-                  <strong>{numberOfFollowers}</strong>
-                  <span>Followers</span>
-                </li>
+              {props.userProfileInfo.role === "Consumer" ? (
+                <ul className="nav">
+                  <li
+                    style={{ cursor: "pointer", marginRight: "1%" }}
+                    onClick={handleFollowersBtnClick}
+                  >
+                    <strong>{numberOfFollowers}</strong>
+                    <span>Followers</span>
+                  </li>
+                </ul>
+              ) : (
+                <ul className="nav">
+                  <li
+                    style={{ cursor: "pointer" }}
+                    onClick={handleFollowersBtnClick}
+                  >
+                    <strong>{numberOfFollowers}</strong>
+                    <span>Followers</span>
+                  </li>
 
-                <li>
-                  <strong>{affilLinkClicks}</strong>
-                  Affiliate Link Clicks
-                </li>
+                  <li>
+                    <strong>{affilLinkClicks}</strong>
+                    Affiliate Link Clicks
+                  </li>
 
-                <li>
-                  <strong>{props.yourKits ? props.yourKits.length : 0}</strong>
-                  Created Kits
-                </li>
-                <li>
-                  <strong>{totalKitViews}</strong>Total Kit Views
-                </li>
-              </ul>
+                  <li>
+                    <strong>
+                      {props.yourKits ? props.yourKits.length : 0}
+                    </strong>
+                    Created Kits
+                  </li>
+                  <li>
+                    <strong>{totalKitViews}</strong>Total Kit Views
+                  </li>
+                </ul>
+              )}
             </div>
           </div>
         </div>

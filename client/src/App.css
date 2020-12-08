@@ -71,7 +71,7 @@ a:hover {
 
 .featured-looks-text {
 	font-size: 28px;
-	letter-spacing: 6px;
+	letter-spacing: 5px;
 }
 
 .shrink {
@@ -80,7 +80,6 @@ a:hover {
 	-ms-transform: scale(0.75);
 	transform: scale(0.75);
 }
-
 
 /* iPad & iPad Pro (portrait) */
 @media only screen and (min-width : 768px) 
