@@ -81,21 +81,37 @@ const YourMessages = () => {
 
   useDidMountEffect(() => {
     if (
-      (uniqueUsernames.length === 0 && sentMsgs != undefined) ||
-      (uniqueUsernames.length === 0 && yourMsgs != undefined)
+      (uniqueUsernames.length === 0 && sentMsgs !== undefined) ||
+      (uniqueUsernames.length === 0 && yourMsgs !== undefined)
     ) {
       const r = [];
-      for (let i = 0; i < sentMsgs.length; i++) {
-        // console.log(sentMsgs[i]);
-        if (!r.includes(sentMsgs[i].receiverUsername)) {
-          r.push(sentMsgs[i].receiverUsername);
+      if (sentMsgs != undefined && yourMsgs != undefined) {
+        for (let i = 0; i < sentMsgs.length; i++) {
+          // console.log(sentMsgs[i]);
+          if (!r.includes(sentMsgs[i].receiverUsername)) {
+            r.push(sentMsgs[i].receiverUsername);
+          }
+        }
+        for (let j = 0; j < yourMsgs.length; j++) {
+          if (!r.includes(yourMsgs[j].senderUsername)) {
+            r.push(yourMsgs[j].senderUsername);
+          }
+        }
+      } else if (sentMsgs != undefined && yourMsgs == undefined) {
+        for (let i = 0; i < sentMsgs.length; i++) {
+          // console.log(sentMsgs[i]);
+          if (!r.includes(sentMsgs[i].receiverUsername)) {
+            r.push(sentMsgs[i].receiverUsername);
+          }
+        }
+      } else if (yourMsgs != undefined && sentMsgs == undefined) {
+        for (let j = 0; j < yourMsgs.length; j++) {
+          if (!r.includes(yourMsgs[j].senderUsername)) {
+            r.push(yourMsgs[j].senderUsername);
+          }
         }
       }
-      for (let j = 0; j < yourMsgs.length; j++) {
-        if (!r.includes(yourMsgs[j].senderUsername)) {
-          r.push(yourMsgs[j].senderUsername);
-        }
-      }
+
       // console.log(r);
       setUniqueUsernames(r);
     }
