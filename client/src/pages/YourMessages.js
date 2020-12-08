@@ -127,11 +127,9 @@ const YourMessages = () => {
               // sentMsgs
               filteredReceived.map((i) => (
                 <Message
-                  className="receiver"
                   key={i._id}
                   info={i}
                   url={i._id}
-                  style={{backgroundColor:"#eee", float:"left"}}
                   handleDeleteClick={(e) => handleSentDeleteClick(e)}
                 />
               ))}
@@ -150,16 +148,13 @@ const YourMessages = () => {
             {filteredSent &&
               // yourMsgs
               filteredSent.map((i) => (
-                <div style={{backgroundColor:"fff", float:"right!important"}}>
                 <Message
                   key={i._id}
                   info={i}
                   url={i._id}
-                  style={{backgroundColor:"fff", float:"right!important"}}
                   handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
                   // handleReplyClick={(e) => handleReplyClick(e)}
                 />
-                </div>
               ))}
           {/* </div> */}
         </div>
