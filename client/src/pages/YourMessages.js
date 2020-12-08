@@ -146,10 +146,13 @@ const YourMessages = () => {
     // console.log("me");
     return (
       <>
-        <div>
+        <div className="container">
           <br />
-          <h3>Click on a username to view messages:</h3>
-          <br />
+          <div className="row">
+          <h3 style={{backgroundColor:"#b29fb5", color:"white", float:"left", padding:"10px 20px 8px 20px", marginTop:"20px"}}>
+            View Messages:
+          </h3>
+          <div className="row">
           {/* Map over users who have messaged with this person */}
           {uniqueUsernames &&
             uniqueUsernames.map((i) => (
@@ -165,16 +168,20 @@ const YourMessages = () => {
               </p>
             ))}
           {/* ------------------------------------------------- */}
+          </div>
+          </div>
 
-          <Modal isOpen={modalIsOpen} className="modal-content">
+          <Modal isOpen={modalIsOpen} className="messages-modal-content">
             <div>
-              <h4>Messages with {messageThreadUsername}</h4>
+              <h4 style={{backgroundColor:"#b29fb5", color:"white", padding:"10px"}}>
+                {messageThreadUsername}
+              </h4>
               <br />
               {/* <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5> */}
-              <div
+              {/* <div
                 className="container-fluid"
                 style={{ width: "fit-content", minWidth: "45vw" }}
-              >
+              > */}
                 {/* {filteredReceived &&
               filteredReceived.map((i) => (
                 <Message
@@ -207,7 +214,7 @@ const YourMessages = () => {
                       </li>
                     </ul>
                   ))}
-              </div>
+              {/* </div> */}
               <button
                 className="buttons shadow-none py-0 px-2 text-muted"
                 onClick={handleCloseBtnClick}
@@ -234,10 +241,15 @@ const YourMessages = () => {
     return (
       <>
         <div>
+          <h3 style={{backgroundColor:"#b29fb5", color:"white", float:"left", padding:"10px 20px 8px 20px", marginTop:"20px"}}>
+            View Messages:
+          </h3>
           <br />
-          <h3>Click on a username to view messages:</h3>
+          <br />
+          <br />
           <br />
           {/* Map over users who have messaged with this person */}
+          <div style={{float:"left", marginLeft:"20px"}}>
           {uniqueUsernames &&
             uniqueUsernames.map((i) => (
               // i.senderUsername
@@ -252,16 +264,24 @@ const YourMessages = () => {
               </p>
             ))}
           {/* ------------------------------------------------- */}
+          </div>
+          <br />
+          <br />
+          <h3 style={{backgroundColor:"#b29fb5", color:"white", float:"left", padding:"10px 20px 8px 20px", marginTop:"20px", width:"246.25px"}}>
+          <Link to="/newmessage">Create New <br /> Message <i class="fas fa-envelope"></i></Link>
+          </h3>
 
-          <Modal isOpen={modalIsOpen} className="modal-content">
+          <Modal isOpen={modalIsOpen} className="messages-modal-content">
             <div>
-              <h4>Messages with {messageThreadUsername}</h4>
+              <h4 style={{backgroundColor:"#b29fb5", color:"white", padding:"10px"}}>
+                {messageThreadUsername}
+              </h4>
               <br />
               {/* <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5> */}
-              <div
+              {/* <div
                 className="container-fluid"
                 style={{ width: "fit-content", minWidth: "45vw" }}
-              >
+              > */}
                 {/* {filteredReceived &&
               filteredReceived.map((i) => (
                 <Message
@@ -280,6 +300,7 @@ const YourMessages = () => {
                   handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
                 />
               ))} */}
+              <div style={{padding:"0 8px 0 8px"}}>
                 {allFilteredMessages &&
                   allFilteredMessages.map((i) => (
                     <ul style={{ listStyle: "none" }}>
@@ -303,7 +324,6 @@ const YourMessages = () => {
                   right: 0,
                   top: 0,
                   color: "black",
-                  backgroundColor: "white",
                   border: "none",
                 }}
               >
