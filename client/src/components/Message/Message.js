@@ -39,77 +39,94 @@ const Message = (props) => {
         <p style={{ display: "inline" }}>Subject: </p>
         {props.info.subject}
       </h5> */}
-      {/* <p style={{ display: "inline" }}>Message: </p> */}
-      {props.info.senderId ? (
-      <>
-      <div style={{float:"left"}}>
-        <div style={{display:"inline-block", clear:"both", padding:"10px", marginBottom:"10px", border:"1px solid black", borderRadius:"30px 0 0 30px", backgroundColor:"#eee"}}>
-        {props.info.message}
-          </div>
-      
-          <Link
-            to={{
-              pathname: "/newmessage",
-              state: { id: props.info.senderId },
-            }}
-          >
-            <button
-              style={{
-                margin: "auto",
-                border: "1px solid black",
-                borderRadius: "0 30px 30px 0px",
-              }}
-              className={props.info._id + " buttons"}
-              data={props.url}
-              onClick={props.handleDeleteClick}
-            >
-              <i data={props.url} className="fas fa-trash-alt"></i>
-            </button>
+        {/* <p style={{ display: "inline" }}>Message: </p> */}
+        {props.info.senderId ? (
+          <>
+            <div style={{ float: "left" }}>
+              <div
+                style={{
+                  display: "inline-block",
+                  clear: "both",
+                  padding: "10px",
+                  marginBottom: "10px",
+                  border: "1px solid black",
+                  borderRadius: "30px 0 0 30px",
+                  backgroundColor: "#eee",
+                }}
+              >
+                {props.info.message}
+              </div>
+
+              <Link
+                to={{
+                  pathname: "/newmessage",
+                  state: { id: props.info.senderId },
+                }}
+              >
+                <button
+                  style={{
+                    margin: "auto",
+                    border: "1px solid black",
+                    borderRadius: "0",
+                  }}
+                  // data={props.info.senderId}
+                  className="buttons"
+                >
+                  <i className="fas fa-reply"></i>
+                </button>
+              </Link>
+              <button
+                style={{
+                  margin: "auto",
+                  border: "1px solid black",
+                  borderRadius: "0 30px 30px 0px",
+                }}
+                className={props.info._id + " buttons"}
+                data={props.url}
+                onClick={props.handleDeleteClick}
+              >
+                <i data={props.url} className="fas fa-trash-alt"></i>
+              </button>
+            </div>
+            <br />
+            <br />
           </>
         ) : (
-          <button
-            style={{
-              margin: "auto",
-              border: "1px solid black",
-              borderRadius: "0 30px 30px 0px",
-            }}
-            className={props.info._id + " buttons"}
-            data={props.info._id}
-            onClick={props.handleDeleteClick}
-          >
-            <i data={props.url} className="fas fa-trash-alt"></i>
-          </button>
-<<<<<<< HEAD
+          <>
+            <div style={{ float: "right" }}>
+              <div
+                style={{
+                  display: "inline-block",
+                  clear: "both",
+                  padding: "10px",
+                  marginBottom: "10px",
+                  border: "1px solid black",
+                  borderRadius: "30px 0 0 30px",
+                  backgroundColor: "#0084ff",
+                  color: "#fff",
+                }}
+              >
+                {props.info.message}
+              </div>
+
+              <button
+                style={{
+                  margin: "auto",
+                  border: "1px solid black",
+                  borderRadius: "0 30px 30px 0px",
+                }}
+                className={props.info._id + " buttons"}
+                data={props.info._id}
+                onClick={props.handleDeleteClick}
+              >
+                <i data={props.url} className="fas fa-trash-alt"></i>
+              </button>
+            </div>
+            <br />
+            <br />
+          </>
         )}
       </div>
-=======
-      </div>
-      <br />
-      <br/>
-      </>
-      ) : (
-      <>
-      <div style={{float:"right"}}>
-        <div style={{display:"inline-block", clear:"both", padding:"10px", marginBottom:"10px", border:"1px solid black", borderRadius:"30px 0 0 30px", backgroundColor:"#0084ff", color:"#fff"}}>
-          {props.info.message}
-        </div>
-
-        <button
-          style={{ margin:"auto", border:"1px solid black", borderRadius:"0 30px 30px 0px" }}
-          className={props.info._id + " buttons"}
-          data={props.info._id}
-          onClick={props.handleDeleteClick}
-        >
-          <i data={props.url} className="fas fa-trash-alt"></i>
-        </button>
-      </div>
-      <br />
-      <br/>
-      </>
-      )}
-      
-    </div>
->>>>>>> d267f2dbd3bf04f92ae7dd4070a22e6630614e7d
     </>
   );
 };
