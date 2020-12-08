@@ -270,6 +270,31 @@ const ConsumerViewAll = (props) => {
     }
   };
 
+  const customStyles = {
+    control: (base, state) => ({
+      ...base,
+      border: '1px solid #CCCCCC',
+      boxShadow: 'none',
+      '&:hover': {
+        border: '1px solid #B2A0B4',
+    }
+
+    }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      return {
+        ...styles,
+        backgroundColor: isDisabled
+          ? null
+          : isSelected
+          ? '#B2A0B4'
+          : isFocused
+          ? 'rgb(207, 190, 209, 0.3)'
+          : null,
+      }}
+  };
+
+
+
   return (
     <div>
       <div
@@ -283,6 +308,7 @@ const ConsumerViewAll = (props) => {
               onChange={handleSortChange}
               placeholder="Sort by..."
               isClearable
+              styles={customStyles}
             />
           </div>
           <div className="col-sm-4">
@@ -292,6 +318,7 @@ const ConsumerViewAll = (props) => {
               placeholder="Filter by Product"
               isClearable
               isMulti
+              styles={customStyles}
             />
           </div>
           <div className="col-sm-4">
@@ -305,13 +332,14 @@ const ConsumerViewAll = (props) => {
               }
               placeholder="Filter by Hue"
               isClearable
+              styles={customStyles}
             />
           </div>
         </div>
       </div>
 
       <div className="container-fluid">
-        <div className="row row-cols-1 row-cols-md-3">
+        <div className="row cva-row">
           {filterKits
             .filter((kit) => {
               if (selectedFilterProducts === undefined) {
@@ -324,6 +352,7 @@ const ConsumerViewAll = (props) => {
               return true;
             })
             .map((i) => (
+              <div className="col-lg-4 col-md-6 col-sm-12 col-xs-12">
               <MultiKit
                 setFavorites={setFavorites}
                 favorites={favorites}
@@ -333,6 +362,7 @@ const ConsumerViewAll = (props) => {
                 class={i._id}
                 info={i}
               />
+              </div>
             ))}
         </div>
       </div>

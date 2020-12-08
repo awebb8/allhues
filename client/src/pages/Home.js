@@ -150,93 +150,111 @@ const Home = (props) => {
       </Link>
 
       <p className="mt-3">
-        Click a hue above to filter by products that look great on your unique
-        skin.
+        Select a hue to filter by products that look great on your unique skin
       </p>
       <br />
       <hr />
-      {/* Card to view most popular */}
-      <div className="homeCard" style={{ width: "14rem", padding: "5px" }}>
-        <img
-          src="https://images.unsplash.com/photo-1576877138403-8ec2f82cb1f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-          className="card-img-top"
-          alt="view popular"
-        />
-        <div className="card-body">
-          <p className="card-text">
-            Check out the looks people are loving the most...
-          </p>
-          <br />
-          <Link
-            className="buttons"
-            to={{
-              pathname: "/viewall",
-              state: { fromPopularBtn: true },
-            }}
-          >
-            View Popular
-          </Link>
+
+      <div className="container">
+        <div className="row">
+          <div className="col-md-4 col-xs-12" align="center" style={{padding:0}}>
+            <div
+              className="homeCard"
+              style={{ width: "14rem", padding: "5px" }}
+            >
+              <img
+                src="https://images.unsplash.com/photo-1576877138403-8ec2f82cb1f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                className="card-img-top"
+                alt="view popular"
+              />
+              <div className="card-body">
+                <p className="card-text">
+                  Check out the looks people are loving the most.
+                </p>
+                <Link
+                  className="buttons"
+                  to={{
+                    pathname: "/viewall",
+                    state: { fromPopularBtn: true },
+                  }}
+                >
+                  View Popular
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4 col-xs-12" align="center" style={{padding:0}}>
+            <div
+              className="homeCard"
+              style={{ width: "14rem", padding: "5px" }}
+            >
+              <img
+                src="https://images.unsplash.com/photo-1526379879527-8559ecfcaec0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                className="card-img-top"
+                alt="view all"
+              />
+              <div className="card-body">
+                <p className="card-text">
+                  Browse all looks to find the one...
+                </p>
+                <Link to="/viewall" className="buttons">
+                  View All
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4 col-xs-12" align="center" style={{padding:0}}>
+            <div
+              className="homeCard"
+              style={{ width: "14rem", padding: "5px" }}
+            >
+              <img
+                src="https://images.unsplash.com/photo-1588367171393-c0f77a14faff?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80"
+                className="card-img-top"
+                alt="view all"
+              />
+              <div className="card-body">
+                <p className="card-text">
+                  Check out what's been recently posted...
+                </p>
+                <br />
+                <Link
+                  to={{
+                    pathname: "/viewall",
+                    state: { fromNewBtn: true },
+                  }}
+                  className="buttons"
+                >
+                  View Recent
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="homeCard" style={{ width: "14rem", padding: "5px" }}>
-        <img
-          src="https://images.unsplash.com/photo-1526379879527-8559ecfcaec0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-          className="card-img-top"
-          alt="view all"
-        />
-        <div className="card-body">
-          <p className="card-text">Browse all looks to find the one...</p>
-          <br />
-          <Link to="/viewall" className="buttons">
-            View All
-          </Link>
-        </div>
-      </div>
-      <div className="homeCard" style={{ width: "14rem", padding: "5px" }}>
-        <img
-          src="https://images.unsplash.com/photo-1588367171393-c0f77a14faff?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80"
-          className="card-img-top"
-          alt="view all"
-        />
-        <div className="card-body">
-          <p className="card-text">Check out what's been recently posted...</p>
-          <br />
-          <Link
-            to={{
-              pathname: "/viewall",
-              state: { fromNewBtn: true },
-            }}
-            className="buttons"
-          >
-            View Recent
-          </Link>
-        </div>
-      </div>
+
       <br />
       <br />
+
       <hr />
-      <div className="container-fluid shrink">
-        <b className="featured-looks-text">Featured Looks</b>
-        <div className="row row-cols-1 row-cols-md-4">
-          {kits.slice(0, 4).map((i) => (
+
+      <div className="container-fluid">
+        <h1 className="featured-looks-text">Featured Looks</h1>
+        <div className="row mk-row" style={{margin: 0, padding: 0}}>
+          {kits.slice(0, 3).map((i) => (
+            <div key={i._id} style={{margin: 0, padding: 0}} className="shrink col-lg-4 col-md-4 col-xs-12" align="center">
             <MultiKit
               setFavorites={setFavorites}
               favorites={favorites}
               filledHeart={i._id}
-              key={i._id}
               src={i.imageUrl}
               class={i._id}
               info={i}
             />
+            </div>
           ))}
         </div>
-        <Link to="/viewall" className="buttons">
-          View More Looks
-        </Link>
       </div>
-      <br />
-      <br />
-      {/* <Footer /> */}
     </div>
   );
 };
