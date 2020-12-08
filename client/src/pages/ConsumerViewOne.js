@@ -127,14 +127,14 @@ const ConsumerViewOne = () => {
         .then((res) => {
           console.log(res);
           Axios.put(`/api/vidtokit/${kit._id}`, uploadedVidUrl)
-            .then((res) => history.push(`/portal/${id}`))
+            .then((res) => {})
             .catch((err) => console.log(err));
           // history.push(`/portal/${id}`);
         })
         .catch((err) => console.log(err));
     } else if (video.type === "image/jpeg" || video.type === "image/png") {
       Axios.put(`/api/picuploads/${kit._id}`, uploadedVidUrl)
-        .then((res) => history.push(`/viewone/${kit._id}`))
+        .then((res) => {})
         .catch((err) => console.log(err));
     }
     // history.push(`/portal/${id}`);
@@ -543,7 +543,7 @@ const ConsumerViewOne = () => {
               <div className="row mt-1">
                 <div className="col-lg-12">
                   {kit.imageUrl
-                    .concat(Object.values(kit.videoUrl[0]))
+                    .concat(kit.videoUrl.map((i) => i.url))
                     .map((img, index) => {
                       if (typeof img === "object") {
                         return (

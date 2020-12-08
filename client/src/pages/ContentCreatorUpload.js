@@ -21,12 +21,11 @@ const styles = {
 const customStyles = {
   control: (base, state) => ({
     ...base,
-    border: '1px solid #CCCCCC',
-    boxShadow: 'none',
-    '&:hover': {
-      border: '1px solid #B2A0B4',
-  }
-
+    border: "1px solid #CCCCCC",
+    boxShadow: "none",
+    "&:hover": {
+      border: "1px solid #B2A0B4",
+    },
   }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
     return {
@@ -34,11 +33,12 @@ const customStyles = {
       backgroundColor: isDisabled
         ? null
         : isSelected
-        ? '#B2A0B4'
+        ? "#B2A0B4"
         : isFocused
-        ? 'rgb(207, 190, 209, 0.3)'
+        ? "rgb(207, 190, 209, 0.3)"
         : null,
-    }}
+    };
+  },
 };
 
 const ContentCreatorUpload = (props) => {
@@ -275,14 +275,21 @@ const ContentCreatorUpload = (props) => {
         <div className="row">
           <div className="col-sm-6 offset-sm-3">
             {/* <h1 className="mb-3 mt-3 text-center">Create a Kit</h1> */}
-            <h3 className="text-center mb-3 mt-3" style={{letterSpacing: 1, fontWeight: 600}}>Create a Kit</h3>
+            <h3
+              className="text-center mb-3 mt-3"
+              style={{ letterSpacing: 1, fontWeight: 600 }}
+            >
+              Create a Kit
+            </h3>
+
             <Select
               options={uploadTypeOptions}
               placeholder="Select upload type"
               onChange={handleTypeSelector}
               styles={customStyles}
-              value={{label: uploadType, value: uploadType}}
+              value={{ label: uploadType, value: uploadType }}
             />
+
             <br />
             <form>
               <div
@@ -350,7 +357,11 @@ const ContentCreatorUpload = (props) => {
                   type="submit"
                   onClick={handleAddKitItem}
                   disabled={!kitItemLink || !makeupCategory}
-                  style={!kitItemLink || !makeupCategory ? {pointerEvents: 'none', opacity: 0.6} : {}}
+                  style={
+                    !kitItemLink || !makeupCategory
+                      ? { pointerEvents: "none", opacity: 0.6 }
+                      : {}
+                  }
                 >
                   Add link
                 </button>
@@ -421,10 +432,18 @@ const ContentCreatorUpload = (props) => {
                     kit.hueType === "" ||
                     kit.kitItems.length === 0
                   }
-                  style={!image ||
+                  style={
+                    !image ||
                     kit.kitName === "" ||
                     kit.hueType === "" ||
-                    kit.kitItems.length === 0 ? {pointerEvents: 'none', opacity: 0.6, marginBottom: 50} : {marginBottom: 50}}
+                    kit.kitItems.length === 0
+                      ? {
+                          pointerEvents: "none",
+                          opacity: 0.6,
+                          marginBottom: 50,
+                        }
+                      : { marginBottom: 50 }
+                  }
                 >
                   Post your look!
                 </button>
@@ -440,16 +459,22 @@ const ContentCreatorUpload = (props) => {
       <div className="row">
         <div className="col-sm-6 offset-sm-3">
           {/* <h1 className="mb-3 mt-3 text-center">Create a Kit</h1> */}
-          <h3 className="text-center mb-3 mt-3" style={{letterSpacing: 1, fontWeight: 600}}>Upload a Video</h3>
+          <h3
+            className="text-center mb-3 mt-3"
+            style={{ letterSpacing: 1, fontWeight: 600 }}
+          >
+            Upload a Video
+          </h3>
           <Select
             options={uploadTypeOptions}
             placeholder="Select upload type"
             // defaultValue="Kit"
             onChange={handleTypeSelector}
             styles={customStyles}
+            value={{ label: uploadType, value: uploadType }}
           />
-          
-          <div className="mb-2"/>
+
+          <div className="mb-2" />
 
           <Select
             options={optionsForSelect}
