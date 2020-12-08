@@ -1,0 +1,47 @@
+@media only screen 
+and (max-width : 500px) {
+	img.img-display {
+		width: 300px!important;
+		height: 300px!important;
+	}
+	video.video-display {
+		width: 300px!important;
+		height: 300px!important;
+	}
+	.img-display-container {
+		width: 300px!important
+	}
+}
+
+svg:hover {
+	opacity: 0.5;
+}
+
+.share-icon:hover {
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+.Toastify__toast--info {
+	background-color: #b29fb5!important;
+}
+
+.delete-button {
+	background-color: #e37676;
+	border: 1px solid #e37676;
+	color: white;
+	border-radius: 5px;
+	padding: 10px 15px;
+	margin: 5px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	transition: 0.3s ease;
+}
+
+.delete-button:hover {
+	background-color: #c46464!important;
+}
+
+/* style={{backgroundColor: '#e37676', border: '1px solid #e37676'}} */

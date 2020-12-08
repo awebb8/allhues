@@ -18,6 +18,29 @@ const styles = {
   },
 };
 
+const customStyles = {
+  control: (base, state) => ({
+    ...base,
+    border: '1px solid #CCCCCC',
+    boxShadow: 'none',
+    '&:hover': {
+      border: '1px solid #B2A0B4',
+  }
+
+  }),
+  option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+    return {
+      ...styles,
+      backgroundColor: isDisabled
+        ? null
+        : isSelected
+        ? '#B2A0B4'
+        : isFocused
+        ? 'rgb(207, 190, 209, 0.3)'
+        : null,
+    }}
+};
+
 const ContentCreatorUpload = (props) => {
   const history = useHistory();
   const { id } = useContext(UserContext);
@@ -252,11 +275,13 @@ const ContentCreatorUpload = (props) => {
         <div className="row">
           <div className="col-sm-6 offset-sm-3">
             {/* <h1 className="mb-3 mt-3 text-center">Create a Kit</h1> */}
-            <h2 className="text-center mb-3 mt-3">Create a Kit</h2>
+            <h3 className="text-center mb-3 mt-3" style={{letterSpacing: 1, fontWeight: 600}}>Create a Kit</h3>
             <Select
               options={uploadTypeOptions}
               placeholder="Select upload type"
               onChange={handleTypeSelector}
+              styles={customStyles}
+              value={{label: uploadType, value: uploadType}}
             />
             <br />
             <form>
@@ -289,6 +314,7 @@ const ContentCreatorUpload = (props) => {
                   placeholder="Select Hue"
                   isClearable
                   onChange={handleHueChange}
+                  styles={customStyles}
                 />
 
                 {/* <input type="checkbox" style={{ display: "inline" }} /> */}
@@ -324,6 +350,7 @@ const ContentCreatorUpload = (props) => {
                   type="submit"
                   onClick={handleAddKitItem}
                   disabled={!kitItemLink || !makeupCategory}
+                  style={!kitItemLink || !makeupCategory ? {pointerEvents: 'none', opacity: 0.6} : {}}
                 >
                   Add link
                 </button>
@@ -361,6 +388,7 @@ const ContentCreatorUpload = (props) => {
                           ? false
                           : { label: makeupCategory, value: makeupCategory }
                       }
+                      styles={customStyles}
                     />
                   </div>
                 </div>
@@ -389,12 +417,14 @@ const ContentCreatorUpload = (props) => {
                   onClick={onSubmit}
                   disabled={
                     !image ||
-                    // !file ||
                     kit.kitName === "" ||
                     kit.hueType === "" ||
                     kit.kitItems.length === 0
                   }
-                  style={{ marginBottom: "100px" }}
+                  style={!image ||
+                    kit.kitName === "" ||
+                    kit.hueType === "" ||
+                    kit.kitItems.length === 0 ? {pointerEvents: 'none', opacity: 0.6, marginBottom: 50} : {marginBottom: 50}}
                 >
                   Post your look!
                 </button>
@@ -410,18 +440,23 @@ const ContentCreatorUpload = (props) => {
       <div className="row">
         <div className="col-sm-6 offset-sm-3">
           {/* <h1 className="mb-3 mt-3 text-center">Create a Kit</h1> */}
-          <h2 className="text-center mb-3 mt-3">Upload a Video</h2>
+          <h3 className="text-center mb-3 mt-3" style={{letterSpacing: 1, fontWeight: 600}}>Upload a Video</h3>
           <Select
             options={uploadTypeOptions}
             placeholder="Select upload type"
             // defaultValue="Kit"
             onChange={handleTypeSelector}
+            styles={customStyles}
           />
+          
+          <div className="mb-2"/>
+
           <Select
             options={optionsForSelect}
             placeholder="Add to which kit?"
             // defaultValue="Kit"
             onChange={handleKitToAddVidToChange}
+            styles={customStyles}
           />
           <br />
           <form style={{ margin: "auto" }}>
@@ -448,7 +483,7 @@ const ContentCreatorUpload = (props) => {
             {/* <label htmlFor="title">Title</label> */}
             <input
               style={{ display: "block" }}
-              placeholder="title"
+              placeholder="Title"
               name="title"
               className="form-control"
               type="text"
@@ -462,9 +497,9 @@ const ContentCreatorUpload = (props) => {
             />
             <textarea
               style={{ display: "block" }}
-              placeholder="description"
+              placeholder="Description"
               type="text"
-              className="form-control"
+              className="form-control mt-2"
               name="description"
               value={putUrl.description}
               onChange={(e) =>

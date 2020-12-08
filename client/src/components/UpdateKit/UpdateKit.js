@@ -69,7 +69,7 @@ const UpdateKit = (props) => {
         .put(`/api/picuploads/${props.info._id}`, uploadedVidUrl)
         .then((res) => history.push(`/viewone/${props.info._id}`))
         .catch((err) => console.log(err));
-      // history.push(`/viewone/${props.info._id}`);
+      
     }
     history.push(`/portal/${id}`);
   };
@@ -182,8 +182,6 @@ const UpdateKit = (props) => {
                             <input
                               type="file"
                               id="kitImageInput"
-                              // className="custom-file-input"
-                              // accept="image/* || video/*"
                               hidden
                               onChange={onChangeVideo}
                             />
