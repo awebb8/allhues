@@ -95,13 +95,7 @@ const Message = (props) => {
       <br/>
       </>
       )}
-
-      {/* {props.info.senderId ? (
-        <>
-          
-        </>
-      ) : (
-      )} */}
+      
     </div>
     </>
   );
