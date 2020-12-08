@@ -61,8 +61,10 @@ const YourMessages = () => {
   };
 
   const [messageThreadUsername, setMessageThreadUsername] = useState("");
-  const [filteredSent, setFilteredSent] = useState([]);
-  const [filteredReceived, setFilteredReceived] = useState([]);
+  // const [filteredSent, setFilteredSent] = useState([]);
+  // const [filteredReceived, setFilteredReceived] = useState([]);
+  const [allFilteredMessages, setAllFilteredMessages] = useState([]);
+  const [uniqueUsernames, setUniqueUsernames] = useState([]);
 
   const handleShowMessages = (e) => {
     setModalIsOpen(true);
@@ -72,17 +74,50 @@ const YourMessages = () => {
   };
 
   useDidMountEffect(() => {
+    const r = [];
+    for (let i = 0; i < sentMsgs.length; i++) {
+      for (let j = 0; j < sentMsgs.length; j++) {
+        if (!r.includes(sentMsgs[i].receiverUsername)) {
+          r.push(sentMsgs[i].receiverUsername);
+        }
+      }
+    }
+    console.log(r);
+    setUniqueUsernames(r);
+  }, [sentMsgs]);
+
+  useDidMountEffect(() => {
+    const r = [];
+    for (let i = 0; i < yourMsgs.length; i++) {
+      for (let j = 0; j < yourMsgs.length; j++) {
+        if (!r.includes(yourMsgs[i].senderUsername)) {
+          r.push(yourMsgs[i].senderUsername);
+        }
+      }
+    }
+    console.log(r);
+    setUniqueUsernames(r);
+  }, [yourMsgs]);
+
+  useDidMountEffect(() => {
     console.log(messageThreadUsername);
     const showSent = yourMsgs.filter(
       (name) => name.senderUsername === messageThreadUsername
     );
     // yourMsgs.filter(name => console.log(name.senderUsername))
-    setFilteredSent(showSent);
+    // setFilteredSent(showSent);
 
     const showReceived = sentMsgs.filter(
       (name) => name.receiverUsername === messageThreadUsername
     );
-    setFilteredReceived(showReceived);
+    // setFilteredReceived(showReceived);
+
+    const allFilteredMessagesArray = showSent.concat(showReceived);
+    const x = allFilteredMessagesArray.sort(
+      (a, b) => b.createdDate - a.createdDate
+    );
+    setAllFilteredMessages(x);
+    console.log(x);
   }, [messageThreadUsername]);
 
   // ---------------
@@ -100,15 +135,12 @@ const YourMessages = () => {
           <h3>Click on a username to view messages:</h3>
           <br />
           {/* Map over users who have messaged with this person */}
-          {yourMsgs &&
-            yourMsgs.map((i) => (
+          {uniqueUsernames &&
+            uniqueUsernames.map((i) => (
               // i.senderUsername
               <p>
-                <a
-                  className={i.senderUsername}
-                  onClick={(e) => handleShowMessages(e)}
-                >
-                  {i.senderUsername}
+                <a className={i} onClick={(e) => handleShowMessages(e)}>
+                  {i}
                 </a>
               </p>
             ))}
@@ -123,42 +155,42 @@ const YourMessages = () => {
                 className="container-fluid"
                 style={{ width: "fit-content", minWidth: "45vw" }}
               >
-                {/* <div className="row row-cols-1 row-cols-md-3"> */}
-                {filteredReceived &&
-                  // sentMsgs
-                  filteredReceived.map((i) => (
-                    <ul style={{ listStyleType: "none" }}>
+                {/* {filteredReceived &&
+              filteredReceived.map((i) => (
+                <Message
+                  key={i._id}
+                  info={i}
+                  url={i._id}
+                  handleDeleteClick={(e) => handleSentDeleteClick(e)}
+                />
+              ))}
+            {filteredSent &&
+              filteredSent.map((i) => (
+                <Message
+                  key={i._id}
+                  info={i}
+                  url={i._id}
+                  handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
+                />
+              ))} */}
+                {allFilteredMessages &&
+                  allFilteredMessages.map((i) => (
+                    <ul style={{ listStyle: "none" }}>
                       <li>
                         <Message
                           key={i._id}
                           info={i}
                           url={i._id}
-                          handleDeleteClick={(e) => handleSentDeleteClick(e)}
-                        />
-                      </li>
-                    </ul>
-                  ))}
-                {/* </div> */}
-                {/* <h5 style={{ fontWeight: "bold" }}>Received Messages</h5> */}
-                {/* <div className="row row-cols-1 row-cols-md-3"> */}
-                {filteredSent &&
-                  // yourMsgs
-                  filteredSent.map((i) => (
-                    <ul style={{ listStyleType: "none" }}>
-                      <li>
-                        <Message
-                          key={i._id}
-                          info={i}
-                          url={i._id}
-                          handleDeleteClick={(e) =>
+                          handleReceivedDeleteClick={(e) =>
                             handleReceivedDeleteClick(e)
                           }
-                          // handleReplyClick={(e) => handleReplyClick(e)}
+                          handleSentDeleteClick={(e) =>
+                            handleSentDeleteClick(e)
+                          }
                         />
                       </li>
                     </ul>
                   ))}
-                {/* </div> */}
               </div>
               <button
                 className="buttons shadow-none py-0 px-2 text-muted"
@@ -179,63 +211,75 @@ const YourMessages = () => {
         </div>
       </>
     );
-  } else if (
-    (yourMsgs != undefined && yourMsgs.length > 0) ||
-    (sentMsgs != undefined && sentMsgs.length > 0)
-  ) {
-    return (
-      <>
-        <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5>
-        <div
-          className="container-fluid"
-          style={{ width: "fit-content", minWidth: "45vw" }}
-        >
-          <div className="row row-cols-1 row-cols-md-3">
-            {sentMsgs &&
-              sentMsgs.map((i) => (
-                <ul style={{ listStyleType: "none" }}>
-                  <li>
-                    <Message
-                      key={i._id}
-                      url={i._id}
-                      info={i}
-                      handleDeleteClick={(e) => handleSentDeleteClick(e)}
-                    />
-                  </li>
-                </ul>
-              ))}
-          </div>
-        </div>
-        {yourMsgs != undefined && yourMsgs.length > 0 && (
-          <>
-            <h5 style={{ fontWeight: "bold" }}>Received Messages</h5>
-            <div
-              className="container-fluid"
-              style={{ width: "fit-content", minWidth: "45vw" }}
-            >
-              <div className="row row-cols-1 row-cols-md-3">
-                {yourMsgs &&
-                  yourMsgs.map((i) => (
-                    <ul style={{ listStyleType: "none" }}>
-                      <li>
-                        <Message
-                          key={i._id}
-                          info={i}
-                          url={i._id}
-                          handleDeleteClick={(e) =>
-                            handleReceivedDeleteClick(e)
-                          }
-                        />
-                      </li>
-                    </ul>
-                  ))}
-              </div>
-            </div>
-          </>
-        )}
-      </>
-    );
   }
+  // else if (
+  //   (yourMsgs != undefined && yourMsgs.length > 0) ||
+  //   (sentMsgs != undefined && sentMsgs.length > 0)
+  // ) {
+  //   return (
+  //     <>
+  //     <Modal
+  //       isOpen={modalIsOpen}
+  //       className="modal-content"
+  //     >
+  //   <div>
+  //     <h4>Messages with {messageThreadUsername}</h4>
+  //     <br />
+  //       {/* <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5> */}
+  //       <div
+  //         className="container-fluid"
+  //         style={{ width: "fit-content", minWidth: "45vw" }}
+  //       >
+  //           {
+  //           sentMsgs &&
+  //             sentMsgs
+  //             .map((i) => (
+  //               <Message
+  //                 key={i._id}
+  //                 url={i._id}
+  //                 info={i}
+  //                 handleDeleteClick={(e) => handleSentDeleteClick(e)}
+  //               />
+  //             ))}
+  //       </div>
+  //       {yourMsgs != undefined && yourMsgs.length > 0 && (
+  //         <>
+  //           <h5 style={{ fontWeight: "bold" }}>Received Messages</h5>
+  //           <div
+  //             className="container-fluid"
+  //             style={{ width: "fit-content", minWidth: "45vw" }}
+  //           >
+  //               {yourMsgs &&
+  //                 yourMsgs.map((i) => (
+  //                   <Message
+  //                     key={i._id}
+  //                     info={i}
+  //                     url={i._id}
+  //                     handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
+  //                   />
+  //                 ))}
+  //           </div>
+  //         </>
+  //       )}
+  //       <button
+  //           className="buttons shadow-none py-0 px-2 text-muted"
+  //           onClick={handleCloseBtnClick}
+  //           style={{
+  //             position: "absolute",
+  //             right: 0,
+  //             top: 0,
+  //             color: "black",
+  //             backgroundColor: "white",
+  //             border: "none",
+  //           }}
+  //         >
+  //           <h3>&times;</h3>
+  //       </button>
+  //       </div>
+  //       </Modal>
+  //     </>
+  // );
+  // }
 
   return (
     <>
