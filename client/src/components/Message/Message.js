@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Message = (props) => {
+
+
   // const handleSentDeleteClick = (e) => {
   //   // console.log(e.target.getAttribute("data"));
   //   const idToDelete = e.target.getAttribute("data");
@@ -29,22 +31,22 @@ const Message = (props) => {
   //     .catch((err) => console.log(err));
   // };
   return (
+    <>
     <div
       key={props.info.subject}
-      className="card"
-      style={{ textAlign: "left" }}
+      // className="card"
+      // style={{ textAlign:"left", borderRadius:"50px"}}
     >
-      <h5>
+      {/* <h5>
         <p style={{ display: "inline" }}>Subject: </p>
         {props.info.subject}
-      </h5>
+      </h5> */}
       {/* <p> */}
-      <p style={{ display: "inline" }}>Message: </p>
-      {props.info.message}
+      {/* <p style={{ display: "inline" }}>Message: </p> */}
+      <div style={{display:"inline-block", clear:"both", padding:"10px", marginBottom:"10px", border:"1px solid black", borderRadius:"30px 0 0 30px"}}>
+        {props.info.message}
+      </div>
       {/* </p> */}
-      <br />
-      <br />
-
       {props.info.senderId ? (
         <>
           <Link
@@ -54,7 +56,7 @@ const Message = (props) => {
             }}
           >
             <button
-              style={{ margin: "auto", float: "left" }}
+              style={{ margin: "auto", border:"1px solid black", borderRadius:"0"}}
               // data={props.info.senderId}
               className="buttons"
             >
@@ -62,7 +64,7 @@ const Message = (props) => {
             </button>
           </Link>
           <button
-            style={{ margin: "auto", float: "right" }}
+            style={{ margin:"auto", border:"1px solid black", borderRadius:"0 30px 30px 0px" }}
             className={props.info._id + " buttons"}
             data={props.url}
             onClick={props.handleDeleteClick}
@@ -72,7 +74,7 @@ const Message = (props) => {
         </>
       ) : (
         <button
-          style={{ margin: "auto", float: "right" }}
+          style={{ margin:"auto", border:"1px solid black", borderRadius:"0 30px 30px 0px" }}
           className={props.info._id + " buttons"}
           data={props.info._id}
           onClick={props.handleDeleteClick}
@@ -81,6 +83,7 @@ const Message = (props) => {
         </button>
       )}
     </div>
+    </>
   );
 };
 
