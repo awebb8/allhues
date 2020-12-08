@@ -6,6 +6,10 @@ import UserContext from "../utils/UserContext";
 import Message from "../components/Message/Message";
 import { Link } from "react-router-dom";
 import Axios from "axios";
+import Modal from "react-modal";
+import useDidMountEffect from "../utils/useDidMountEffect";
+
+Modal.setAppElement("#root");
 
 const YourMessages = () => {
   const [yourMsgs, setYourMsgs] = useState([]);
@@ -49,6 +53,37 @@ const YourMessages = () => {
       .catch((err) => console.log(err));
   };
 
+  // ---- Modal ----
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const handleCloseBtnClick = () => {
+    setModalIsOpen(false);
+  };
+
+  const [messageThreadUsername, setMessageThreadUsername] = useState("");
+  const [filteredSent, setFilteredSent] = useState([]);
+  const [filteredReceived, setFilteredReceived] = useState([]);
+
+  const handleShowMessages = (e) => {
+    setModalIsOpen(true);
+    // console.log(yourMsgs);
+
+    setMessageThreadUsername(e.target.getAttribute("class"));
+  }
+
+  useDidMountEffect(() => {
+    console.log(messageThreadUsername);
+    const showSent = yourMsgs.filter(name => name.senderUsername === messageThreadUsername)
+    // yourMsgs.filter(name => console.log(name.senderUsername))
+    setFilteredSent(showSent);
+
+    const showReceived = sentMsgs.filter(name => name.receiverUsername === messageThreadUsername)
+    setFilteredReceived(showReceived);
+
+  }, [messageThreadUsername])
+
+  // ---------------
+
   if (
     sentMsgs != undefined &&
     yourMsgs != undefined &&
@@ -57,45 +92,94 @@ const YourMessages = () => {
   ) {
     return (
       <>
-        <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5>
+      <div>
+      <br />
+      <h3>Click on a username to view messages:</h3>
+      <br />
+        {/* Map over users who have messaged with this person */}
+        {yourMsgs &&
+            yourMsgs.map((i) => (
+              // i.senderUsername
+              <p>
+                <a className={i.senderUsername}
+                onClick={(e) => handleShowMessages(e)}>
+                {i.senderUsername}
+                </a>
+              </p>
+            ))
+        }
+        {/* ------------------------------------------------- */}
+
+    <Modal
+        isOpen={modalIsOpen}
+        className="modal-content"
+      >
+    <div>
+      <h4>Messages with {messageThreadUsername}</h4>
+      <br />
+        {/* <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5> */}
         <div
           className="container-fluid"
           style={{ width: "fit-content", minWidth: "45vw" }}
         >
-          <div className="row row-cols-1 row-cols-md-3">
-            {sentMsgs &&
-              sentMsgs.map((i) => (
+          {/* <div className="row row-cols-1 row-cols-md-3"> */}
+            {filteredReceived &&
+              // sentMsgs
+              filteredReceived.map((i) => (
                 <Message
+                  className="receiver"
                   key={i._id}
                   info={i}
                   url={i._id}
+                  style={{backgroundColor:"#eee", float:"left"}}
                   handleDeleteClick={(e) => handleSentDeleteClick(e)}
                 />
               ))}
-          </div>
+          {/* </div> */}
         </div>
         <br />
         <br />
         <br />
         <br />
-        <h5 style={{ fontWeight: "bold" }}>Received Messages</h5>
+        {/* <h5 style={{ fontWeight: "bold" }}>Received Messages</h5> */}
         <div
           className="container-fluid"
           style={{ width: "fit-content", minWidth: "45vw" }}
         >
-          <div className="row row-cols-1 row-cols-md-3">
-            {yourMsgs &&
-              yourMsgs.map((i) => (
+          {/* <div className="row row-cols-1 row-cols-md-3"> */}
+            {filteredSent &&
+              // yourMsgs
+              filteredSent.map((i) => (
+                <div style={{backgroundColor:"fff", float:"right!important"}}>
                 <Message
                   key={i._id}
                   info={i}
                   url={i._id}
+                  style={{backgroundColor:"fff", float:"right!important"}}
                   handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
                   // handleReplyClick={(e) => handleReplyClick(e)}
                 />
+                </div>
               ))}
-          </div>
+          {/* </div> */}
         </div>
+        <button
+            className="buttons shadow-none py-0 px-2 text-muted"
+            onClick={handleCloseBtnClick}
+            style={{
+              position: "absolute",
+              right: 0,
+              top: 0,
+              color: "black",
+              backgroundColor: "white",
+              border: "none",
+            }}
+          >
+            <h3>&times;</h3>
+    </button>
+    </div>
+    </Modal>
+    </div>
       </>
     );
   } else if (
@@ -110,8 +194,10 @@ const YourMessages = () => {
           style={{ width: "fit-content", minWidth: "45vw" }}
         >
           <div className="row row-cols-1 row-cols-md-3">
-            {sentMsgs &&
-              sentMsgs.map((i) => (
+            {
+            sentMsgs &&
+              sentMsgs
+              .map((i) => (
                 <Message
                   key={i._id}
                   url={i._id}
