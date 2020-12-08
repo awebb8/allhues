@@ -747,7 +747,7 @@ const ConsumerViewOne = () => {
           {putUrl.videoUrl === "" ? (
             <>
               <br />
-              <h4>{vidUploadStatus}</h4>
+              <h5>{vidUploadStatus}</h5>
             </>
           ) : (
             <button onClick={handleVideoUploadSubmit} className="buttons">
