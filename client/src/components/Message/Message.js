@@ -83,7 +83,7 @@ const Message = (props) => {
                 }}
                 className={props.info._id + " buttons"}
                 data={props.url}
-                onClick={props.handleDeleteClick}
+                onClick={(e) => props.handleReceivedDeleteClick(e)}
               >
                 <i data={props.url} className="fas fa-trash-alt"></i>
               </button>
@@ -117,7 +117,7 @@ const Message = (props) => {
                 }}
                 className={props.info._id + " buttons"}
                 data={props.info._id}
-                onClick={props.handleDeleteClick}
+                onClick={(e) => props.handleSentDeleteClick(e)}
               >
                 <i data={props.url} className="fas fa-trash-alt"></i>
               </button>

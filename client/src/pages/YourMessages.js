@@ -14,6 +14,11 @@ Modal.setAppElement("#root");
 const YourMessages = () => {
   const [yourMsgs, setYourMsgs] = useState([]);
   const [sentMsgs, setSentMsgs] = useState([]);
+  const [messageThreadUsername, setMessageThreadUsername] = useState("");
+  // const [filteredSent, setFilteredSent] = useState([]);
+  // const [filteredReceived, setFilteredReceived] = useState([]);
+  const [allFilteredMessages, setAllFilteredMessages] = useState([]);
+  const [uniqueUsernames, setUniqueUsernames] = useState([]);
 
   const { id } = useContext(UserContext);
 
@@ -36,6 +41,10 @@ const YourMessages = () => {
         // console.log(res.data);
         const filteredSent = sentMsgs.filter((i) => i._id != idToDelete);
         setSentMsgs(filteredSent);
+        const filteredAll = allFilteredMessages.filter(
+          (j) => j._id != idToDelete
+        );
+        setAllFilteredMessages(filteredAll);
       })
       .catch((err) => console.log(err));
   };
@@ -49,6 +58,10 @@ const YourMessages = () => {
         // console.log(res.data)
         const filteredSent = yourMsgs.filter((i) => i._id != idToDelete);
         setYourMsgs(filteredSent);
+        const filteredAll = allFilteredMessages.filter(
+          (j) => j._id != idToDelete
+        );
+        setAllFilteredMessages(filteredAll);
       })
       .catch((err) => console.log(err));
   };
@@ -60,12 +73,6 @@ const YourMessages = () => {
     setModalIsOpen(false);
   };
 
-  const [messageThreadUsername, setMessageThreadUsername] = useState("");
-  // const [filteredSent, setFilteredSent] = useState([]);
-  // const [filteredReceived, setFilteredReceived] = useState([]);
-  const [allFilteredMessages, setAllFilteredMessages] = useState([]);
-  const [uniqueUsernames, setUniqueUsernames] = useState([]);
-
   const handleShowMessages = (e) => {
     setModalIsOpen(true);
     // console.log(yourMsgs);
@@ -74,30 +81,36 @@ const YourMessages = () => {
   };
 
   useDidMountEffect(() => {
-    const r = [];
-    for (let i = 0; i < sentMsgs.length; i++) {
-      for (let j = 0; j < sentMsgs.length; j++) {
+    if (uniqueUsernames.length === 0) {
+      const r = [];
+      for (let i = 0; i < sentMsgs.length; i++) {
+        console.log(sentMsgs[i]);
         if (!r.includes(sentMsgs[i].receiverUsername)) {
           r.push(sentMsgs[i].receiverUsername);
         }
       }
-    }
-    console.log(r);
-    setUniqueUsernames(r);
-  }, [sentMsgs]);
-
-  useDidMountEffect(() => {
-    const r = [];
-    for (let i = 0; i < yourMsgs.length; i++) {
       for (let j = 0; j < yourMsgs.length; j++) {
-        if (!r.includes(yourMsgs[i].senderUsername)) {
-          r.push(yourMsgs[i].senderUsername);
+        if (!r.includes(yourMsgs[j].senderUsername)) {
+          r.push(yourMsgs[j].senderUsername);
         }
       }
+      // console.log(r);
+      setUniqueUsernames(r);
     }
-    console.log(r);
-    setUniqueUsernames(r);
-  }, [yourMsgs]);
+  }, [sentMsgs, yourMsgs]);
+
+  // useDidMountEffect(() => {
+  //   if (uniqueUsernames.length === 0) {
+  //     const arr = [];
+  //     for (let i = 0; i < yourMsgs.length; i++) {
+  //       if (!arr.includes(yourMsgs[i].senderUsername)) {
+  //         arr.push(yourMsgs[i].senderUsername);
+  //       }
+  //     }
+  //     // console.log(r);
+  //     setUniqueUsernames(r);
+  //   }
+  // }, [yourMsgs]);
 
   useDidMountEffect(() => {
     console.log(messageThreadUsername);
@@ -113,11 +126,13 @@ const YourMessages = () => {
     // setFilteredReceived(showReceived);
 
     const allFilteredMessagesArray = showSent.concat(showReceived);
-    const x = allFilteredMessagesArray.sort(
-      (a, b) => b.createdDate - a.createdDate
-    );
+    const x = allFilteredMessagesArray.sort((a, b) => {
+      return (
+        new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime()
+      );
+    });
     setAllFilteredMessages(x);
-    console.log(x);
+    // console.log(x);
   }, [messageThreadUsername]);
 
   // ---------------
@@ -128,6 +143,7 @@ const YourMessages = () => {
     sentMsgs.length > 0 &&
     yourMsgs.length > 0
   ) {
+    // console.log("me");
     return (
       <>
         <div>
@@ -139,7 +155,11 @@ const YourMessages = () => {
             uniqueUsernames.map((i) => (
               // i.senderUsername
               <p>
-                <a className={i} onClick={(e) => handleShowMessages(e)}>
+                <a
+                  style={{ cursor: "pointer" }}
+                  className={i}
+                  onClick={(e) => handleShowMessages(e)}
+                >
                   {i}
                 </a>
               </p>
@@ -181,12 +201,95 @@ const YourMessages = () => {
                           key={i._id}
                           info={i}
                           url={i._id}
-                          handleReceivedDeleteClick={(e) =>
-                            handleReceivedDeleteClick(e)
-                          }
-                          handleSentDeleteClick={(e) =>
-                            handleSentDeleteClick(e)
-                          }
+                          handleReceivedDeleteClick={handleReceivedDeleteClick}
+                          handleSentDeleteClick={handleSentDeleteClick}
+                        />
+                      </li>
+                    </ul>
+                  ))}
+              </div>
+              <button
+                className="buttons shadow-none py-0 px-2 text-muted"
+                onClick={handleCloseBtnClick}
+                style={{
+                  position: "absolute",
+                  right: 0,
+                  top: 0,
+                  color: "black",
+                  backgroundColor: "white",
+                  border: "none",
+                }}
+              >
+                <h3>&times;</h3>
+              </button>
+            </div>
+          </Modal>
+        </div>
+      </>
+    );
+  } else if (
+    (yourMsgs != undefined && yourMsgs.length > 0) ||
+    (sentMsgs != undefined && sentMsgs.length > 0)
+  ) {
+    return (
+      <>
+        <div>
+          <br />
+          <h3>Click on a username to view messages:</h3>
+          <br />
+          {/* Map over users who have messaged with this person */}
+          {uniqueUsernames &&
+            uniqueUsernames.map((i) => (
+              // i.senderUsername
+              <p>
+                <a
+                  style={{ cursor: "pointer" }}
+                  className={i}
+                  onClick={(e) => handleShowMessages(e)}
+                >
+                  {i}
+                </a>
+              </p>
+            ))}
+          {/* ------------------------------------------------- */}
+
+          <Modal isOpen={modalIsOpen} className="modal-content">
+            <div>
+              <h4>Messages with {messageThreadUsername}</h4>
+              <br />
+              {/* <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5> */}
+              <div
+                className="container-fluid"
+                style={{ width: "fit-content", minWidth: "45vw" }}
+              >
+                {/* {filteredReceived &&
+              filteredReceived.map((i) => (
+                <Message
+                  key={i._id}
+                  info={i}
+                  url={i._id}
+                  handleDeleteClick={(e) => handleSentDeleteClick(e)}
+                />
+              ))}
+            {filteredSent &&
+              filteredSent.map((i) => (
+                <Message
+                  key={i._id}
+                  info={i}
+                  url={i._id}
+                  handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
+                />
+              ))} */}
+                {allFilteredMessages &&
+                  allFilteredMessages.map((i) => (
+                    <ul style={{ listStyle: "none" }}>
+                      <li>
+                        <Message
+                          key={i._id}
+                          info={i}
+                          url={i._id}
+                          handleReceivedDeleteClick={handleReceivedDeleteClick}
+                          handleSentDeleteClick={handleSentDeleteClick}
                         />
                       </li>
                     </ul>
