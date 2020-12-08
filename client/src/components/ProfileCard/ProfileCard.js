@@ -44,7 +44,6 @@ const ProfileCard = (props) => {
   const [numberOfFollowers, setNumberOfFollowers] = useState(0);
   const [affilLinkClicks, setAffilLinkClicks] = useState(0);
 
-  // TODO: assess why there are 2 allppl states
   useEffect(() => {
     API.getAllUsers()
       .then((res) => {
@@ -57,6 +56,9 @@ const ProfileCard = (props) => {
     let arr = allPeople.filter((i) => i._id === id);
     if (arr && arr[0] && arr[0].followers != undefined) {
       setPeopleFollowing(arr[0].followers);
+    }
+    if (arr && arr[0] && arr[0].following != undefined) {
+      setPplFollowed(arr[0].following);
     }
   }, [allPeople]);
 
@@ -75,13 +77,13 @@ const ProfileCard = (props) => {
     // console.log(arr);
   }, [peopleFollowing]);
 
-  useDidMountEffect(() => {
-    let arr = allPeople.filter((i) => i._id === id);
+  // useDidMountEffect(() => {
+  //   let arr = allPeople.filter((i) => i._id === id);
 
-    if (arr && arr[0] && arr[0].following != undefined) {
-      setPplFollowed(arr[0].following);
-    }
-  }, [allPeople]);
+  //   if (arr && arr[0] && arr[0].following != undefined) {
+  //     setPplFollowed(arr[0].following);
+  //   }
+  // }, [allPeople]);
 
   useDidMountEffect(() => {
     // let arr =allPpl.filter(i=>i._id )

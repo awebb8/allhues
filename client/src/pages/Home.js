@@ -164,8 +164,9 @@ const Home = (props) => {
         />
         <div className="card-body">
           <p className="card-text">
-            Check out the looks people are loving the most.
+            Check out the looks people are loving the most...
           </p>
+          <br />
           <Link
             className="buttons"
             to={{
@@ -184,9 +185,8 @@ const Home = (props) => {
           alt="view all"
         />
         <div className="card-body">
-          <p className="card-text">
-            Look at all the beauty our talented creators have enhanced.
-          </p>
+          <p className="card-text">Browse all looks to find the one...</p>
+          <br />
           <Link to="/viewall" className="buttons">
             View All
           </Link>
@@ -199,7 +199,7 @@ const Home = (props) => {
           alt="view all"
         />
         <div className="card-body">
-          <p className="card-text">Check out what's been recently posted.</p>
+          <p className="card-text">Check out what's been recently posted...</p>
           <br />
           <Link
             to={{

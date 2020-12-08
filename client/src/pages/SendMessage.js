@@ -2,7 +2,7 @@ import Axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../utils/UserContext";
-// import Select from "react-select";
+import Select from "react-select";
 // import { Link } from "react-router-dom";
 import API from "../utils/API";
 import useDidMountEffect from "../utils/useDidMountEffect";
@@ -26,6 +26,16 @@ const SendMessage = (props) => {
   const [searchResModal, setSearchResModal] = useState(false);
   const [foundUsers, setFoundUsers] = useState([]);
   // const [senderUsername, setSenderUsername] = useState("");
+  const [allPeople, setAllPeople] = useState([]);
+  const [idOfPplFollowed, setIdOfPplFollowed] = useState([]);
+  const [followedInfo, setFollowedInfo] = useState([]);
+  const [optionsForSelect, setOptionsForSelect] = useState([
+    { label: "Someone else", value: "Someone else" },
+  ]);
+  const [displayForInput, setDisplayForInput] = useState("none");
+  const [currentSelectorVal, setCurrentSelectorVal] = useState({});
+  const [selectDisplayStatus, setSelectDisplayStatus] = useState("block");
+  const [msgSomeoneElse, setMsgSomeoneElse] = useState("none");
 
   const history = useHistory();
 
@@ -45,6 +55,51 @@ const SendMessage = (props) => {
       });
     });
   }, [recipientId]);
+
+  useEffect(() => {
+    API.getAllUsers()
+      .then((res) => {
+        // console.log(res.data);
+        setAllPeople(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useDidMountEffect(() => {
+    let arr = allPeople.filter((i) => i._id === id);
+    // if (arr && arr[0] && arr[0].followers != undefined) {
+    //   setPeopleFollowing(arr[0].followers);
+    // }
+    if (arr && arr[0] && arr[0].following != undefined) {
+      setIdOfPplFollowed(arr[0].following);
+    }
+  }, [allPeople]);
+
+  useDidMountEffect(() => {
+    // let arr =allPpl.filter(i=>i._id )
+    let arr = [];
+    for (let i = 0; i < allPeople.length; i++) {
+      for (let k = 0; k < idOfPplFollowed.length; k++) {
+        if (allPeople[i]._id === idOfPplFollowed[k].id) {
+          //   console.log("mathc");
+          arr.push(allPeople[i]);
+        }
+      }
+    }
+    setFollowedInfo(arr);
+    // console.log(arr);
+  }, [idOfPplFollowed]);
+
+  useDidMountEffect(() => {
+    const arr = [{ label: "Someone else", value: "Someone else" }];
+    for (let i = 0; i < followedInfo.length; i++) {
+      // setOptionsForSelect(optionsForSelect=>{...optionsForSelect, label= "", value=""})
+      arr.push({ value: followedInfo[i]._id, label: followedInfo[i].userName });
+    }
+    //this sets the first element in the array as the last.. for someone else thing..
+    arr.push(arr.shift());
+    setOptionsForSelect(arr);
+  }, [followedInfo]);
 
   useEffect(() => {
     if (props && props.location && props.location.state) {
@@ -122,6 +177,28 @@ const SendMessage = (props) => {
     setRecipientId(searchId);
   };
 
+  const handleSelectValueChange = (e) => {
+    console.log(e.label);
+    setCurrentSelectorVal({ label: e.label, value: e.value });
+    if (e.label === "Someone else") {
+      setDisplayForInput("inline");
+    } else {
+      setMsgRecip(e.label);
+      setRecipientId(e.value);
+      setSelectDisplayStatus("none");
+      setMsgSomeoneElse("block");
+    }
+  };
+
+  // const handleSelectFinal = () => {
+  //   if (currentSelectorVal.label !== "Someone else") {
+  //     setMsgRecip({ userName: currentSelectorVal.label });
+  //     setRecipientId(currentSelectorVal.value);
+  //   } //else {
+  //   //   setDisplayForInput("inline");
+  //   // }
+  // };
+
   if (searchResModal) {
     return (
       <div
@@ -175,60 +252,112 @@ const SendMessage = (props) => {
             height: "fit-content",
           }}
         >
-          {!recipientId && (
-            <>
-              <form type="submit" onSubmit={handleUsernameSubmit}>
-                <label htmlFor="msgRecip" style={{ color: "red" }}>
-                  Username to message
-                </label>
-                <input
-                  type="text"
-                  name="msgRecip"
-                  style={{ display: "block", margin: "auto", width: "20vw" }}
-                  onChange={handleUsernameChangeInput}
-                />
-                {msgRecip.userName !== "" && (
-                  <button className="buttons" style={{ display: "inline" }}>
-                    Search for user
-                  </button>
-                )}
-              </form>
-              <br />
-            </>
+          <div
+            style={{
+              margin: "auto",
+              width: "60%",
+              marginBottom: "1.5%",
+              display: selectDisplayStatus,
+            }}
+          >
+            <Select
+              options={optionsForSelect}
+              placeholder="Select username"
+              onChange={handleSelectValueChange}
+            />
+          </div>
+          {/* {!recipientId && ( */}
+          {/* <> */}
+          <form
+            type="submit"
+            onSubmit={handleUsernameSubmit}
+            style={{ display: displayForInput }}
+          >
+            <label htmlFor="msgRecip" style={{ color: "red" }}>
+              Username to message
+            </label>
+            <input
+              type="text"
+              name="msgRecip"
+              style={{ display: "block", margin: "auto", width: "20vw" }}
+              onChange={handleUsernameChangeInput}
+            />
+            {msgRecip.userName !== "" && (
+              <button
+                className="buttons"
+                style={{
+                  display: "inline",
+                  padding: "3px 3px",
+                  marginBottom: "3%",
+                }}
+              >
+                Search for user
+              </button>
+            )}
+          </form>
+          <br />
+          {/* </> */}
+          {/* )} */}
+          {messageText.receiverUsername && (
+            <h5>Message to {messageText.receiverUsername}</h5>
           )}
+
           <div
             className="container"
             style={{ textAlign: "center", justifyContent: "center" }}
           >
-            <form>
-              <label htmlFor="subject">Subject: </label>
-              <input
-                type="text"
-                name="subject"
-                style={{ display: "block", margin: "auto", width: "20vw" }}
-                onChange={handleTextChange}
-              />
-              <label htmlFor="message">Message: </label>
-              <textarea
-                type="text"
-                name="message"
-                style={{
-                  height: "6em",
-                  display: "block",
-                  margin: "auto",
-                  width: "20vw",
-                }}
-                onChange={handleTextChange}
-              />
-              <button
-                className="buttons"
-                type="submit"
-                onClick={handleSendMessage}
-                style={{ marginBottom: "50px" }}
-              >
-                Send
-              </button>
-            </form>
+            {messageText.receiverId !== "" && (
+              <form>
+                <label htmlFor="subject">Subject: </label>
+                <input
+                  type="text"
+                  name="subject"
+                  style={{ display: "block", margin: "auto", width: "20vw" }}
+                  onChange={handleTextChange}
+                />
+                <label htmlFor="message">Message: </label>
+                <textarea
+                  type="text"
+                  name="message"
+                  style={{
+                    height: "6em",
+                    display: "block",
+                    margin: "auto",
+                    width: "20vw",
+                  }}
+                  onChange={handleTextChange}
+                />
+                <button
+                  className="buttons"
+                  type="submit"
+                  onClick={handleSendMessage}
+                  style={{ marginBottom: "50px" }}
+                >
+                  Send
+                </button>
+                <a
+                  // className="buttons"
+
+                  onClick={() => {
+                    setSelectDisplayStatus("block");
+                    setMsgSomeoneElse("none");
+                    setMessageText({
+                      ...messageText,
+                      receiverId: "",
+                      receiverUsername: "",
+                    });
+                  }}
+                  style={{
+                    display: msgSomeoneElse,
+                    padding: "0px 0px",
+                    margin: "auto",
+                    cursor: "pointer",
+                  }}
+                >
+                  Msg someone else
+                </a>
+              </form>
+            )}
           </div>
         </div>
       </div>
