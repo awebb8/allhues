@@ -125,6 +125,16 @@ const Navbar = () => {
         <ul className="navbar-nav ml-auto">
         <li className="nav-item">
             <NavLink
+              to='/messages'
+              className="nav-link"
+              activeClassName="nav-link-active"
+              style={{ letterSpacing: "0.5px" }}
+            >
+              Messages
+            </NavLink>
+          </li>
+        <li className="nav-item">
+            <NavLink
               to={`/portal/${id}`}
               className="nav-link"
               activeClassName="nav-link-active"

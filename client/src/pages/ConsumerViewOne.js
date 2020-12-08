@@ -242,7 +242,7 @@ const ConsumerViewOne = () => {
   };
 
   const handleProfileClick = () => {
-    console.log("hi");
+    history.push(`/portal/${kitCreatorInfo.id}`);
   };
 
   const handleAffiliateClick = (e) => {
@@ -355,7 +355,9 @@ const ConsumerViewOne = () => {
                     whiteSpace: "nowrap",
                     fontSize: 22,
                     letterSpacing: 1,
+                    cursor: 'pointer'
                   }}
+                  onClick={handleProfileClick}
                 >
                   @{kitCreatorInfo && kitCreatorInfo.username}
                 </div>
