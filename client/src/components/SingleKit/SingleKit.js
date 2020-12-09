@@ -15,7 +15,7 @@ const Kit = (props) => {
   const { id } = useContext(UserContext);
 
   const handleImgClick = () => {
-    window.open(props.src, '_blank')
+    window.open(props.src, "_blank");
   };
 
   const history = useHistory();
@@ -27,7 +27,7 @@ const Kit = (props) => {
   const handleAffiliateClick = (e) => {
     const idVal = e.target.getAttribute("id");
     API.updateAffiliateLinkNumbers(idVal)
-      .then((res) => console.log(res.data))
+      .then((res) => {})
       .catch((err) => console.log(err));
   };
 

@@ -355,7 +355,7 @@ const ConsumerViewOne = () => {
                     whiteSpace: "nowrap",
                     fontSize: 22,
                     letterSpacing: 1,
-                    cursor: 'pointer'
+                    cursor: "pointer",
                   }}
                   onClick={handleProfileClick}
                 >
@@ -545,7 +545,7 @@ const ConsumerViewOne = () => {
               <div className="row mt-1">
                 <div className="col-lg-12">
                   {kit.imageUrl
-                    .concat(Object.values(kit.videoUrl.map(i=>i.url)))
+                    .concat(Object.values(kit.videoUrl.map((i) => i.url)))
                     .map((img, index) => {
                       if (typeof img === "object") {
                         return (
@@ -604,16 +604,54 @@ const ConsumerViewOne = () => {
                     })}
                 </div>
               </div>
-            ) : kit && kit.imageUrl && kit.imageUrl.length > 1 ?               <div className="row mt-1">
-            <div className="col-lg-12">
-              {kit.imageUrl
-                .map((img, index) => {
-                  if (typeof img === "object") {
+            ) : kit && kit.imageUrl && kit.imageUrl.length > 1 ? (
+              <div className="row mt-1">
+                <div className="col-lg-12">
+                  {kit.imageUrl.map((img, index) => {
+                    if (typeof img === "object") {
+                      return (
+                        <img
+                          key={index}
+                          id={index}
+                          src={img.url}
+                          style={{
+                            margin: 2,
+                            width: 40,
+                            height: 40,
+                            cursor: "pointer",
+                            borderRadius: 3,
+                          }}
+                          onClick={(e) => onCarouselChange(e.target.id)}
+                        />
+                      );
+                    }
+
+                    const imgType = img.toString().slice(img.length - 4);
+
+                    if (imgType === ".mp4") {
+                      return (
+                        <img
+                          key={index}
+                          id={index}
+                          src="https://static.thenounproject.com/png/1813969-200.png"
+                          style={{
+                            margin: 2,
+                            width: 40,
+                            height: 40,
+                            cursor: "pointer",
+                            backgroundColor: "rgb(245 245 245)",
+                            borderRadius: 3,
+                            border: "1px solid rgb(205 205 205)",
+                          }}
+                          onClick={(e) => onCarouselChange(e.target.id)}
+                        />
+                      );
+                    }
                     return (
                       <img
                         key={index}
                         id={index}
-                        src={img.url}
+                        src={img}
                         style={{
                           margin: 2,
                           width: 40,
@@ -624,47 +662,12 @@ const ConsumerViewOne = () => {
                         onClick={(e) => onCarouselChange(e.target.id)}
                       />
                     );
-                  }
-
-                  const imgType = img.toString().slice(img.length - 4);
-
-                  if (imgType === ".mp4") {
-                    return (
-                      <img
-                        key={index}
-                        id={index}
-                        src="https://static.thenounproject.com/png/1813969-200.png"
-                        style={{
-                          margin: 2,
-                          width: 40,
-                          height: 40,
-                          cursor: "pointer",
-                          backgroundColor: "rgb(245 245 245)",
-                          borderRadius: 3,
-                          border: "1px solid rgb(205 205 205)",
-                        }}
-                        onClick={(e) => onCarouselChange(e.target.id)}
-                      />
-                    );
-                  }
-                  return (
-                    <img
-                      key={index}
-                      id={index}
-                      src={img}
-                      style={{
-                        margin: 2,
-                        width: 40,
-                        height: 40,
-                        cursor: "pointer",
-                        borderRadius: 3,
-                      }}
-                      onClick={(e) => onCarouselChange(e.target.id)}
-                    />
-                  );
-                })}
-            </div>
-          </div> : ""}
+                  })}
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
 

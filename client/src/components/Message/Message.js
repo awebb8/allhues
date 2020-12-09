@@ -2,32 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Message = (props) => {
-  // const handleSentDeleteClick = (e) => {
-  //   // console.log(e.target.getAttribute("data"));
-  //   const idToDelete = e.target.getAttribute("data");
-  //   console.log(idToDelete);
-  //   // Axios.delete(`/api/sentmessages/${e.target.getAttribute("data")}`)
-  //   Axios.delete(`/api/sentmessages/${idToDelete}`)
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       const filteredSent = sentMsgs.filter((i) => i._id != idToDelete);
-  //       setSentMsgs(filteredSent);
-  //     })
-  //     .catch((err) => console.log(err));
-  //   // Axios.put(`/api/deletesentmsg/${id}`, test).then((res) => console.log(res));
-  // };
-
-  // const handleReceivedDeleteClick = (e) => {
-  //   const idToDelete = e.target.getAttribute("data");
-  //   // Axios.delete(`/api/receivedmessages/${e.target.getAttribute("data")}`)
-  //   Axios.delete(`/api/receivedmessages/${idToDelete}`)
-  //     .then((res) => {
-  //       // console.log(res.data)
-  //       const filteredSent = yourMsgs.filter((i) => i._id != idToDelete);
-  //       setYourMsgs(filteredSent);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
   return (
     <>
       <div
