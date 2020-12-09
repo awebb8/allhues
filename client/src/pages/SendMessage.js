@@ -208,9 +208,12 @@ const SendMessage = (props) => {
           minHeight: "50vh",
           width: "20vw",
           margin: "auto",
-          background: "lightyellow",
+          marginTop: "5%",
+          padding: "20px",
+          border: "2px solid #b29fb5"
         }}
       >
+        <br />
         <h3>Select who to message:</h3>
         <br />
         {foundUsers[0] != null ? (
@@ -247,15 +250,18 @@ const SendMessage = (props) => {
           style={{
             width: "30vw",
             margin: "auto",
-            background: "lightyellow",
+            marginTop: "5%",
+            padding: "20px",
             minHeight: "60vh",
             height: "fit-content",
+            border: "2px solid #b29fb5"
           }}
         >
           {messageText.receiverId === "" && (
             <div
               style={{
                 margin: "auto",
+                marginTop: "20px",
                 width: "60%",
                 marginBottom: "1.5%",
                 display: selectDisplayStatus,
@@ -313,7 +319,8 @@ const SendMessage = (props) => {
             style={{
               textAlign: "center",
               justifyContent: "center",
-              position: "relative",
+              position: "absolute",
+              bottom: "0"
             }}
           >
             {messageText.receiverId !== "" && (
