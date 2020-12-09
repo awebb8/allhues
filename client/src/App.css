@@ -130,6 +130,9 @@ and (max-width : 1100px) {
 	.messagesSidebar {
 		margin-left: 2%
 	}
+	.messageImg {
+		display: none;
+	}
 }
 
 /* Large screens ----------- */
@@ -211,6 +214,9 @@ and (max-device-width: 480px) {
 		-webkit-overflow-scrolling: touch;
 		transition: all 0.3s ease-out;
 	}
+	.messageImg {
+		display: none;
+	}
 }
 
 @media only screen and (min-width : 479px) 
@@ -245,11 +251,17 @@ and (max-width : 830px) and (min-width : 768px) {
 	.mk-row {
 		margin-left: -35px!important;
 	}
+	.messageImg {
+		display: none;
+	}
 }
 
 @media only screen 
 and (max-width : 790px) and (min-width : 768px) {
 	.mk-row {
 		margin-left: -50px!important;
+	}
+	.messageImg {
+		display: none;
 	}
 }

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import Modal from "react-modal";
 import useDidMountEffect from "../utils/useDidMountEffect";
+import makeupArtist from "../assets/images/makeup-artist.jpeg";
 
 Modal.setAppElement("#root");
 
@@ -199,42 +200,24 @@ const YourMessages = () => {
               ))}
             {/* ------------------------------------------------- */}
           </div>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <h3
-            style={{
-              backgroundColor: "#b29fb5",
-              color: "white",
-              float: "left",
-              padding: "10px 20px 8px 20px",
-              marginTop: "20px",
-              width: "246.25px",
-            }}
-          >
-            <Link to="/newmessage">
-              Create New <br /> Message <i className="fas fa-envelope"></i>
-            </Link>
+
+          <h3 style={{backgroundColor:"#b29fb5", color:"white", position:"absolute", bottom:"20%", float:"left", padding:"10px 20px 8px 20px", marginTop:"20px", width:"246.25px"}}>
+          <Link to="/newmessage">Create New <br /> Message <i class="fas fa-envelope"></i></Link>
           </h3>
         </div>
 
-        <Modal isOpen={modalIsOpen} className="messages-modal-content">
           <div>
-            <h4
-              style={{
-                backgroundColor: "#b29fb5",
-                color: "white",
-                padding: "10px",
-              }}
-            >
-              {messageThreadUsername}
-            </h4>
-            <br />
-            {/* <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5> */}
-            {/* <div
+              <img className="crop messageImg" style={{width:"600px", height:"400px"}} src={makeupArtist}></img>
+          </div>
+
+          <Modal isOpen={modalIsOpen} className="messages-modal-content">
+            <div>
+              <h4 style={{backgroundColor:"#b29fb5", color:"white", padding:"10px"}}>
+                {messageThreadUsername}
+              </h4>
+              <br />
+              {/* <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5> */}
+              {/* <div
                 className="container-fluid"
                 style={{ width: "fit-content", minWidth: "45vw" }}
               > */}
