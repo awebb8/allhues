@@ -81,6 +81,10 @@ a:hover {
 	transform: scale(0.75);
 }
 
+.messagesSidebar {
+	margin-left: 8%
+}
+
 .messages-modal-content {
 	position: fixed;
 	color: #46483b;
@@ -90,7 +94,7 @@ a:hover {
 	border: 2px solid #b29fb5;
 	/* box-shadow: 1px 1px 1px black; */
 	/* padding: 16px; */
-	left: 250px;
+	left: 32%;
 	right: 5%;
 	top: 92px;
 	box-sizing: border-box;
@@ -122,6 +126,9 @@ and (max-width : 1100px) {
 
 	.card {
 		width: 300px!important;
+	}
+	.messagesSidebar {
+		margin-left: 2%
 	}
 }
 

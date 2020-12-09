@@ -164,6 +164,7 @@ const YourMessages = () => {
     // console.log("me");
     return (
       <>
+      <div className="messagesSidebar">
           <h3 style={{backgroundColor:"#b29fb5", color:"white", float:"left", padding:"10px 20px 8px 20px", marginTop:"20px"}}>
             View Messages:
           </h3>
@@ -198,6 +199,8 @@ const YourMessages = () => {
           <h3 style={{backgroundColor:"#b29fb5", color:"white", float:"left", padding:"10px 20px 8px 20px", marginTop:"20px", width:"246.25px"}}>
           <Link to="/newmessage">Create New <br /> Message <i class="fas fa-envelope"></i></Link>
           </h3>
+
+          </div>
 
           <Modal isOpen={modalIsOpen} className="messages-modal-content">
             <div>
