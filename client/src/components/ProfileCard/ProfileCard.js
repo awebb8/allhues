@@ -409,8 +409,10 @@ const ProfileCard = (props) => {
               </label>
               <h3 className="h3">
                 {determineRoleToShowConsumer()}: {usersName}
+                {/* <a style={{ display: "inline" }}> edit account information</a> */}
               </h3>
             </div>
+
             <div className="profile-cover__action bg--img" data-overlay="0.3">
               {props.userProfileInfo.role === "Consumer" ? (
                 <>

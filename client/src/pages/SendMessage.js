@@ -1,6 +1,6 @@
 import Axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import UserContext from "../utils/UserContext";
 import Select from "react-select";
 // import { Link } from "react-router-dom";
@@ -310,7 +310,11 @@ const SendMessage = (props) => {
 
           <div
             className="container"
-            style={{ textAlign: "center", justifyContent: "center" }}
+            style={{
+              textAlign: "center",
+              justifyContent: "center",
+              position: "relative",
+            }}
           >
             {messageText.receiverId !== "" && (
               <form>
@@ -369,6 +373,9 @@ const SendMessage = (props) => {
                 )}
               </form>
             )}
+            <Link style={{}} to="/messages">
+              Back to Messages
+            </Link>
           </div>
         </div>
       </div>
