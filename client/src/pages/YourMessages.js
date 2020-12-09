@@ -1,4 +1,3 @@
-// import Axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 // import API from "../utils/API";
 // import useDidMountEffect from "../utils/useDidMountEffect";
@@ -164,8 +163,16 @@ const YourMessages = () => {
     // console.log("me");
     return (
       <>
-      <div className="messagesSidebar">
-          <h3 style={{backgroundColor:"#b29fb5", color:"white", float:"left", padding:"10px 20px 8px 20px", marginTop:"20px"}}>
+        <div className="messagesSidebar">
+          <h3
+            style={{
+              backgroundColor: "#b29fb5",
+              color: "white",
+              float: "left",
+              padding: "10px 20px 8px 20px",
+              marginTop: "20px",
+            }}
+          >
             View Messages:
           </h3>
           <br />
@@ -173,22 +180,24 @@ const YourMessages = () => {
           <br />
           <br />
 
-          <div style={{float:"left", margin:"0 0 0 20px", textAlign:"left"}}>
-          {/* Map over users who have messaged with this person */}
-          {uniqueUsernames &&
-            uniqueUsernames.map((i) => (
-              // i.senderUsername
+          <div
+            style={{ float: "left", margin: "0 0 0 20px", textAlign: "left" }}
+          >
+            {/* Map over users who have messaged with this person */}
+            {uniqueUsernames &&
+              uniqueUsernames.map((i) => (
+                // i.senderUsername
                 <p>
-                <a
-                  style={{ cursor: "pointer" }}
-                  className={i}
-                  onClick={(e) => handleShowMessages(e)}
-                >
-                  {i}
-                </a>
-              </p>
-            ))}
-          {/* ------------------------------------------------- */}
+                  <a
+                    style={{ cursor: "pointer" }}
+                    className={i}
+                    onClick={(e) => handleShowMessages(e)}
+                  >
+                    {i}
+                  </a>
+                </p>
+              ))}
+            {/* ------------------------------------------------- */}
           </div>
           <br />
           <br />
@@ -196,24 +205,40 @@ const YourMessages = () => {
           <br />
           <br />
           <br />
-          <h3 style={{backgroundColor:"#b29fb5", color:"white", float:"left", padding:"10px 20px 8px 20px", marginTop:"20px", width:"246.25px"}}>
-          <Link to="/newmessage">Create New <br /> Message <i class="fas fa-envelope"></i></Link>
+          <h3
+            style={{
+              backgroundColor: "#b29fb5",
+              color: "white",
+              float: "left",
+              padding: "10px 20px 8px 20px",
+              marginTop: "20px",
+              width: "246.25px",
+            }}
+          >
+            <Link to="/newmessage">
+              Create New <br /> Message <i className="fas fa-envelope"></i>
+            </Link>
           </h3>
+        </div>
 
-          </div>
-
-          <Modal isOpen={modalIsOpen} className="messages-modal-content">
-            <div>
-              <h4 style={{backgroundColor:"#b29fb5", color:"white", padding:"10px"}}>
-                {messageThreadUsername}
-              </h4>
-              <br />
-              {/* <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5> */}
-              {/* <div
+        <Modal isOpen={modalIsOpen} className="messages-modal-content">
+          <div>
+            <h4
+              style={{
+                backgroundColor: "#b29fb5",
+                color: "white",
+                padding: "10px",
+              }}
+            >
+              {messageThreadUsername}
+            </h4>
+            <br />
+            {/* <h5 style={{ fontWeight: "bold" }}>Sent Messages</h5> */}
+            {/* <div
                 className="container-fluid"
                 style={{ width: "fit-content", minWidth: "45vw" }}
               > */}
-                {/* {filteredReceived &&
+            {/* {filteredReceived &&
               filteredReceived.map((i) => (
                 <Message
                   key={i._id}
@@ -231,36 +256,36 @@ const YourMessages = () => {
                   handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
                 />
               ))} */}
-                {allFilteredMessages &&
-                  allFilteredMessages.map((i) => (
-                    <ul style={{ listStyle: "none", padding:"5px"}}>
-                      <li>
-                        <Message
-                          key={i._id}
-                          info={i}
-                          url={i._id}
-                          handleReceivedDeleteClick={handleReceivedDeleteClick}
-                          handleSentDeleteClick={handleSentDeleteClick}
-                        />
-                      </li>
-                    </ul>
-                  ))}
-              {/* </div> */}
-              <button
-                className="buttons shadow-none py-0 px-2 text-muted"
-                onClick={handleCloseBtnClick}
-                style={{
-                  position: "absolute",
-                  right: 0,
-                  top: 0,
-                  color: "black",
-                  border: "none",
-                }}
-              >
-                <h3>&times;</h3>
-              </button>
-            </div>
-          </Modal>
+            {allFilteredMessages &&
+              allFilteredMessages.map((i) => (
+                <ul style={{ listStyle: "none", padding: "5px" }}>
+                  <li>
+                    <Message
+                      key={i._id}
+                      info={i}
+                      url={i._id}
+                      handleReceivedDeleteClick={handleReceivedDeleteClick}
+                      handleSentDeleteClick={handleSentDeleteClick}
+                    />
+                  </li>
+                </ul>
+              ))}
+            {/* </div> */}
+            <button
+              className="buttons shadow-none py-0 px-2 text-muted"
+              onClick={handleCloseBtnClick}
+              style={{
+                position: "absolute",
+                right: 0,
+                top: 0,
+                color: "black",
+                border: "none",
+              }}
+            >
+              <h3>&times;</h3>
+            </button>
+          </div>
+        </Modal>
       </>
     );
   } else if (
@@ -270,7 +295,15 @@ const YourMessages = () => {
     return (
       <>
         <div>
-          <h3 style={{backgroundColor:"#b29fb5", color:"white", float:"left", padding:"10px 20px 8px 20px", marginTop:"20px"}}>
+          <h3
+            style={{
+              backgroundColor: "#b29fb5",
+              color: "white",
+              float: "left",
+              padding: "10px 20px 8px 20px",
+              marginTop: "20px",
+            }}
+          >
             View Messages:
           </h3>
           <br />
@@ -278,21 +311,23 @@ const YourMessages = () => {
           <br />
           <br />
           {/* Map over users who have messaged with this person */}
-          <div style={{float:"left", margin:"0 0 0 20px", textAlign:"left"}}>
-          {uniqueUsernames &&
-            uniqueUsernames.map((i) => (
-              // i.senderUsername
-              <p>
-                <a
-                  style={{ cursor: "pointer" }}
-                  className={i}
-                  onClick={(e) => handleShowMessages(e)}
-                >
-                  {i}
-                </a>
-              </p>
-            ))}
-          {/* ------------------------------------------------- */}
+          <div
+            style={{ float: "left", margin: "0 0 0 20px", textAlign: "left" }}
+          >
+            {uniqueUsernames &&
+              uniqueUsernames.map((i) => (
+                // i.senderUsername
+                <p>
+                  <a
+                    style={{ cursor: "pointer" }}
+                    className={i}
+                    onClick={(e) => handleShowMessages(e)}
+                  >
+                    {i}
+                  </a>
+                </p>
+              ))}
+            {/* ------------------------------------------------- */}
           </div>
           <br />
           <br />
@@ -300,13 +335,30 @@ const YourMessages = () => {
           <br />
           <br />
           <br />
-          <h3 style={{backgroundColor:"#b29fb5", color:"white", float:"left", padding:"10px 20px 8px 20px", marginTop:"20px", width:"246.25px"}}>
-          <Link to="/newmessage">Create New <br /> Message <i class="fas fa-envelope"></i></Link>
+          <h3
+            style={{
+              backgroundColor: "#b29fb5",
+              color: "white",
+              float: "left",
+              padding: "10px 20px 8px 20px",
+              marginTop: "20px",
+              width: "246.25px",
+            }}
+          >
+            <Link to="/newmessage">
+              Create New <br /> Message <i className="fas fa-envelope"></i>
+            </Link>
           </h3>
 
           <Modal isOpen={modalIsOpen} className="messages-modal-content">
             <div>
-              <h4 style={{backgroundColor:"#b29fb5", color:"white", padding:"10px"}}>
+              <h4
+                style={{
+                  backgroundColor: "#b29fb5",
+                  color: "white",
+                  padding: "10px",
+                }}
+              >
                 {messageThreadUsername}
               </h4>
               <br />
@@ -315,7 +367,7 @@ const YourMessages = () => {
                 className="container-fluid"
                 style={{ width: "fit-content", minWidth: "45vw" }}
               > */}
-                {/* {filteredReceived &&
+              {/* {filteredReceived &&
               filteredReceived.map((i) => (
                 <Message
                   key={i._id}
@@ -333,10 +385,10 @@ const YourMessages = () => {
                   handleDeleteClick={(e) => handleReceivedDeleteClick(e)}
                 />
               ))} */}
-              <div style={{padding:"0 8px 0 8px"}}>
+              <div style={{ padding: "0 8px 0 8px" }}>
                 {allFilteredMessages &&
                   allFilteredMessages.map((i) => (
-                    <ul style={{ listStyle: "none", padding:"5px"}}>
+                    <ul style={{ listStyle: "none", padding: "5px" }}>
                       <li>
                         <Message
                           key={i._id}
