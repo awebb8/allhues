@@ -81,6 +81,25 @@ a:hover {
 	transform: scale(0.75);
 }
 
+.messages-modal-content {
+	position: fixed;
+	color: #46483b;
+	background-color: #fff;
+	width: 60%;
+	height: 80%;
+	border: 2px solid #b29fb5;
+	/* box-shadow: 1px 1px 1px black; */
+	/* padding: 16px; */
+	left: 250px;
+	right: 5%;
+	top: 92px;
+	box-sizing: border-box;
+	overflow: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	transition: all 0.3s ease-out;
+}
+
 /* iPad & iPad Pro (portrait) */
 @media only screen and (min-width : 768px) 
 and (max-width : 1100px) {
@@ -167,6 +186,23 @@ and (max-device-width: 480px) {
 	}
 	.homeCard {
 		margin: 10px!important;
+	}
+	.messages-modal-content {
+		position: fixed;
+		color: #46483b;
+		background-color: #fff;
+		width: 96%;
+		height: 80%;
+		border: 2px solid #b29fb5;
+		/* box-shadow: 1px 1px 1px black; */
+		padding: 0;
+		left: 2%;
+		top: 10%;
+		box-sizing: border-box;
+		overflow: hidden;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+		transition: all 0.3s ease-out;
 	}
 }
 
