@@ -56,7 +56,7 @@ const UpdateKit = (props) => {
       axios
         .put(`/api/users/videouploads/${props.info.creatorId}`, putUrl)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           axios
             .put(`/api/vidtokit/${props.info._id}`, uploadedVidUrl)
             .then((res) => history.push(`/portal/${id}`))

@@ -19,6 +19,8 @@ const YourMessages = () => {
   // const [filteredReceived, setFilteredReceived] = useState([]);
   const [allFilteredMessages, setAllFilteredMessages] = useState([]);
   const [uniqueUsernames, setUniqueUsernames] = useState([]);
+  // ---- Modal ----
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const { id } = useContext(UserContext);
 
@@ -34,7 +36,7 @@ const YourMessages = () => {
   const handleSentDeleteClick = (e) => {
     e.stopPropagation();
     // console.log(e.target.getAttribute("data"));
-    var idToDelete = e.target.getAttribute("data");
+    const idToDelete = e.target.getAttribute("data");
 
     Axios.delete(`/api/sentmessages/${idToDelete}`)
       .then((res) => {
@@ -51,7 +53,7 @@ const YourMessages = () => {
 
   const handleReceivedDeleteClick = (e) => {
     e.stopPropagation();
-    var idToDelete = e.target.getAttribute("data");
+    const idToDelete = e.target.getAttribute("data");
 
     Axios.delete(`/api/receivedmessages/${idToDelete}`)
       .then((res) => {
@@ -66,9 +68,6 @@ const YourMessages = () => {
       .catch((err) => console.log(err));
   };
 
-  // ---- Modal ----
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
   const handleCloseBtnClick = () => {
     setModalIsOpen(false);
   };
@@ -81,19 +80,38 @@ const YourMessages = () => {
   };
 
   useDidMountEffect(() => {
-    if (uniqueUsernames.length === 0) {
+    if (
+      (uniqueUsernames.length === 0 && sentMsgs !== undefined) ||
+      (uniqueUsernames.length === 0 && yourMsgs !== undefined)
+    ) {
       const r = [];
-      for (let i = 0; i < sentMsgs.length; i++) {
-        console.log(sentMsgs[i]);
-        if (!r.includes(sentMsgs[i].receiverUsername)) {
-          r.push(sentMsgs[i].receiverUsername);
+      if (sentMsgs != undefined && yourMsgs != undefined) {
+        for (let i = 0; i < sentMsgs.length; i++) {
+          // console.log(sentMsgs[i]);
+          if (!r.includes(sentMsgs[i].receiverUsername)) {
+            r.push(sentMsgs[i].receiverUsername);
+          }
+        }
+        for (let j = 0; j < yourMsgs.length; j++) {
+          if (!r.includes(yourMsgs[j].senderUsername)) {
+            r.push(yourMsgs[j].senderUsername);
+          }
+        }
+      } else if (sentMsgs != undefined && yourMsgs == undefined) {
+        for (let i = 0; i < sentMsgs.length; i++) {
+          // console.log(sentMsgs[i]);
+          if (!r.includes(sentMsgs[i].receiverUsername)) {
+            r.push(sentMsgs[i].receiverUsername);
+          }
+        }
+      } else if (yourMsgs != undefined && sentMsgs == undefined) {
+        for (let j = 0; j < yourMsgs.length; j++) {
+          if (!r.includes(yourMsgs[j].senderUsername)) {
+            r.push(yourMsgs[j].senderUsername);
+          }
         }
       }
-      for (let j = 0; j < yourMsgs.length; j++) {
-        if (!r.includes(yourMsgs[j].senderUsername)) {
-          r.push(yourMsgs[j].senderUsername);
-        }
-      }
+
       // console.log(r);
       setUniqueUsernames(r);
     }
@@ -113,7 +131,7 @@ const YourMessages = () => {
   // }, [yourMsgs]);
 
   useDidMountEffect(() => {
-    console.log(messageThreadUsername);
+    // console.log(messageThreadUsername);
     const showSent = yourMsgs.filter(
       (name) => name.senderUsername === messageThreadUsername
     );
@@ -126,12 +144,12 @@ const YourMessages = () => {
     // setFilteredReceived(showReceived);
 
     const allFilteredMessagesArray = showSent.concat(showReceived);
-    const x = allFilteredMessagesArray.sort((a, b) => {
+    const sortedFilter = allFilteredMessagesArray.sort((a, b) => {
       return (
         new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime()
       );
     });
-    setAllFilteredMessages(x);
+    setAllFilteredMessages(sortedFilter);
     // console.log(x);
   }, [messageThreadUsername]);
 

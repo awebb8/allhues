@@ -178,7 +178,7 @@ const SendMessage = (props) => {
   };
 
   const handleSelectValueChange = (e) => {
-    console.log(e.label);
+    // console.log(e.label);
     setCurrentSelectorVal({ label: e.label, value: e.value });
     if (e.label === "Someone else") {
       setDisplayForInput("inline");
