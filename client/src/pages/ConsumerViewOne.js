@@ -439,7 +439,10 @@ const ConsumerViewOne = () => {
               <div style={{ position: "absolute", top: 45, right: -28 }}>
                 <a
                   target="_blank"
-                  href={`https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2F${window.location.href}%2F&amp;src=sdkpreparse`}
+                  href={`https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2F${window.location.href.substr(
+                    7,
+                    window.location.href.length + 1
+                  )}%2F&amp;src=sdkpreparse`}
                 >
                   <svg
                     style={{ cursor: "pointer" }}
