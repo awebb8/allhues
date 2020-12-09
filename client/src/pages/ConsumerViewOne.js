@@ -125,7 +125,7 @@ const ConsumerViewOne = () => {
     if (video.type === "video/mp4") {
       Axios.put(`/api/users/videouploads/${kit.creatorId}`, putUrl)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           Axios.put(`/api/vidtokit/${kit._id}`, uploadedVidUrl)
             .then((res) => {})
             .catch((err) => console.log(err));
@@ -157,7 +157,7 @@ const ConsumerViewOne = () => {
   const onCarouselChange = (value) => {
     const imageAndVideoURLs = kit.imageUrl.concat(Object.values(kit.videoUrl));
 
-    console.log(imageAndVideoURLs);
+    // console.log(imageAndVideoURLs);
 
     if (typeof imageAndVideoURLs[value] === "object") {
       setCurrentImgToShow(imageAndVideoURLs[value].url);
@@ -184,7 +184,7 @@ const ConsumerViewOne = () => {
     API.getKit(id).then((res) => {
       setKit(res.data);
 
-      console.log(res.data);
+      // console.log(res.data);
       if (typeof res.data.imageUrl[0] === "object") {
         setCurrentImgToShow(res.data.imageUrl[0].url);
       } else {
@@ -248,7 +248,7 @@ const ConsumerViewOne = () => {
   const handleAffiliateClick = (e) => {
     const idVal = e.target.getAttribute("id");
     API.updateAffiliateLinkNumbers(idVal)
-      .then((res) => console.log(res.data))
+      .then((res) => {})
       .catch((err) => console.log(err));
   };
 
@@ -439,7 +439,10 @@ const ConsumerViewOne = () => {
               <div style={{ position: "absolute", top: 45, right: -28 }}>
                 <a
                   target="_blank"
-                  href={`https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2F${window.location.href}%2F&amp;src=sdkpreparse`}
+                  href={`https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2F${window.location.href.substr(
+                    7,
+                    window.location.href.length + 1
+                  )}%2F&amp;src=sdkpreparse`}
                 >
                   <svg
                     style={{ cursor: "pointer" }}
