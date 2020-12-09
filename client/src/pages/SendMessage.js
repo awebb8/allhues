@@ -319,7 +319,8 @@ const SendMessage = (props) => {
             style={{
               textAlign: "center",
               justifyContent: "center",
-              position: "relative",
+              position: "absolute",
+              bottom: "0"
             }}
           >
             {messageText.receiverId !== "" && (
